@@ -1,0 +1,28 @@
+{
+  "//": [
+    "Mirrors the game's tsconfig.base.json strictness on purpose, the same as the other",
+    "first-party mods. There is no plugin.ts here - this mod is content-only - so the",
+    "only thing this typechecks is the test file, but it should still typecheck under",
+    "the rules the engine's own code does.",
+    "No composite/declaration: nothing consumes this as a library."
+  ],
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["*.ts"]
+}

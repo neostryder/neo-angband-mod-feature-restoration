@@ -1,0 +1,27 @@
+# Typecheck, then test this mod's data against the REAL, published core pack.
+#
+# This mod ships no plugin.ts - it is content only, a set of field-level patches onto
+# core's own class.json - so there is nothing to bundle or to check for a stale
+# plugin.js. What matters is that every ref this mod names still resolves, and to the
+# book this mod thinks it does, in the engine a player actually runs.
+
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run verify

@@ -1,0 +1,44 @@
+{
+  "name": "neo-angband-mod-feature-restoration",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Brings back beloved Angband features that later versions dropped, as opt-in content, for Neo Angband",
+  "license": "GPL-2.0-only",
+  "author": "neostryder (RPGM Tools)",
+  "homepage": "https://github.com/neostryder/neo-angband-mod-feature-restoration",
+  "type": "module",
+  "//private": [
+    "Not published to npm, and not intended to be. A mod is distributed as a FOLDER the",
+    "game fetches - manifest.json plus its content files, at a tag, verified against a",
+    "digest that ships inside the game. npm is not in that path."
+  ],
+  "//shape": [
+    "Content-only: manifest.json + class.json, no plugin.ts. There is no behaviour to",
+    "gate at runtime here - restoring a spell to a class's book is a data patch, applied",
+    "or not by whether the 'teleport-other' section is on. See docs/modding/MOD_LIFECYCLE.md",
+    "(sections) and packages/mod-sdk/src/patch.ts (fieldPatches) in the game's repository."
+  ],
+  "//dependencies": [
+    "core and content are devDependencies, never dependencies: they are here for TYPES",
+    "and for the tests, which check this mod's patches against the REAL, PUBLISHED",
+    "content pack rather than a hand-written mirror of it - the version a player runs.",
+    "The mod SDK is here only for recordKey(), which the tests use to derive each ref",
+    "from the pack's own data instead of copying it out of class.json by hand."
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "verify": "npm run typecheck && npm run test"
+  },
+  "devDependencies": {
+    "@rpgm-tools/neo-angband-content": "^0.20.0",
+    "@rpgm-tools/neo-angband-core": "^0.20.0",
+    "@rpgm-tools/neo-angband-mod-sdk": "^0.20.0",
+    "@types/node": "^22.20.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
