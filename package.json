@@ -1,6 +1,6 @@
 {
   "name": "neo-angband-mod-feature-restoration",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Brings back beloved Angband features that later versions dropped, as opt-in content, for Neo Angband",
   "license": "GPL-2.0-only",
@@ -13,10 +13,14 @@
     "digest that ships inside the game. npm is not in that path."
   ],
   "//shape": [
-    "Content-only: manifest.json + class.json, no plugin.ts. There is no behaviour to",
-    "gate at runtime here - restoring a spell to a class's book is a data patch, applied",
-    "or not by whether the 'teleport-other' section is on. See docs/modding/MOD_LIFECYCLE.md",
-    "(sections) and packages/mod-sdk/src/patch.ts (fieldPatches) in the game's repository."
+    "Mostly content, plus one plugin. Restoring a spell to a class's book (class.json)",
+    "is a data patch - applied or not by whether the 'teleport-other' section is on, no",
+    "code needed. See docs/modding/MOD_LIFECYCLE.md (sections) and",
+    "packages/mod-sdk/src/patch.ts (fieldPatches) in the game's repository.",
+    "Store discounts are the one restoration with no data to patch onto: 4.2.6's core",
+    "dropped the discount FIELD along with the mechanic, so plugin.ts installs a",
+    "registry:store discount roll instead, gated on the 'feature-restoration.discounts'",
+    "rule flag. See plugin.ts's own header."
   ],
   "//dependencies": [
     "core and content are devDependencies, never dependencies: they are here for TYPES",
@@ -26,19 +30,32 @@
     "from the pack's own data instead of copying it out of class.json by hand."
   ],
   "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "verify": "npm run typecheck && npm run test"
+    "verify": "npm run typecheck && npm run test && npm run check"
   },
   "devDependencies": {
     "@rpgm-tools/neo-angband-content": "^0.20.0",
     "@rpgm-tools/neo-angband-core": "^0.20.0",
     "@rpgm-tools/neo-angband-mod-sdk": "^0.20.0",
     "@types/node": "^22.20.1",
+    "esbuild": "^0.28.2",
     "typescript": "^5.9.3",
     "vitest": "^4.1.10"
   },
   "engines": {
     "node": ">=22"
+  },
+  "//allowScripts": [
+    "npm 12 blocks a dependency postinstall unless it is named here; npm 10, which this",
+    "repo CI still runs on Node 22, just runs it. Denied rather than approved because it",
+    "was MEASURED to be unnecessary: esbuild resolves its binary through the platform",
+    "optionalDependency (@esbuild/<plat>), and `require(\"esbuild\").version` answers with the",
+    "postinstall skipped. Written down so the two npm versions do not quietly disagree."
+  ],
+  "allowScripts": {
+    "esbuild": false
   }
 }

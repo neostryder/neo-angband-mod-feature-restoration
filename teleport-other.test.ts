@@ -79,7 +79,7 @@ const PATCHES = CONTRIB.sections["teleport-other"]!.fieldPatches;
 const ROWS = [
   { className: "Priest", bookIndex: 2, bookName: "[Healing and Sanctuary]", level: 20, mana: 10, fail: 30, exp: 15 },
   { className: "Paladin", bookIndex: 1, bookName: "[Healing and Sanctuary]", level: 22, mana: 10, fail: 30, exp: 15 },
-  { className: "Ranger", bookIndex: 1, bookName: "[Nature Craft]", level: 28, mana: 10, fail: 30, exp: 20 },
+  { className: "Ranger", bookIndex: 1, bookName: "[Nature Craft]", level: 23, mana: 10, fail: 30, exp: 20 },
 ] as const;
 
 /** The Mage's own Teleport Other, so this mod's copies can be checked against it. */

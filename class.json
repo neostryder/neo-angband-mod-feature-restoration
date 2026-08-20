@@ -64,7 +64,7 @@
             "path": "book.1.spell.5",
             "value": {
               "name": "Teleport Other",
-              "level": 28,
+              "level": 23,
               "mana": 10,
               "fail": 30,
               "exp": 20,
