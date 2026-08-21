@@ -94,7 +94,7 @@ update moves the target out from under
 them.
 
 **Where this idea came from:** a
-[r/angband comment thread](https://github.com/neostryder/neo-angband) on the game's
+[r/angband comment thread](https://www.reddit.com/r/angband/comments/1vsb2sp/angband_but_moddable/) on the game's
 alpha announcement, where a player pointed out that "nearly everyone" had lost Teleport
 Other in 4.2 - a mechanic every earlier version gave every caster.
 
