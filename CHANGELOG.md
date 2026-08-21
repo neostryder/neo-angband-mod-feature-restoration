@@ -1,7 +1,34 @@
 # Changelog
 
 All notable changes to this mod are recorded here. Versions follow the mod's own
-`manifest.json`, which is what the game reads.
+`manifest.json`, which is what the game reads, and each released version has a
+matching git tag that an install pins itself to.
+
+An entry has to matter to somebody running the mod. Documentation wording,
+internal refactoring and test-only additions are not recorded here. Bug fixes
+are, however small.
+
+Every restoration in this mod defaults to **off**. Enabling the mod restores
+nothing on its own; each switch is a separate decision, taken in
+Mods -> Feature Restoration -> Fixes & tweaks.
+
+## 0.3.2
+
+### Fixed
+
+- The build section said the game's content pack and plugin builder come from a
+  checkout of the game rather than from npm. They are published packages, so
+  `npm ci` is the whole setup, and the builder's own documentation had the same
+  order backwards. A sibling checkout is an override for developing against an
+  engine change that has not reached the registry yet.
+- One menu path used an arrow glyph where the rest of the documentation writes
+  `->`.
+
+### Changed
+
+- Tested against engine and content 0.24.0 rather than 0.20.0. A mod tested
+  against an older engine than the one it installs onto has been tested against
+  the wrong thing.
 
 ## 0.3.1
 
@@ -58,9 +85,25 @@ All notable changes to this mod are recorded here. Versions follow the mod's own
 - `manifest.json`'s section description no longer states that every value comes from
   Angband 4.1.2.
 
-## 0.2.0
+## 0.2.0 - 2026-08-19
+
+### Added
 
 - Restored Teleport Other to the Priest, the Paladin and the Ranger as an opt-in
   section, defaulting off.
-- Restored pre-4.2.6 store discounts as an opt-in rule flag, defaulting off, through a
-  `registry:store` discount roll in `plugin.ts`.
+- **Restored pre-4.2.6 store discounts** as an opt-in rule flag, defaulting off.
+  Angband 4.2.6 dropped the discount field entirely, so this needed code and a
+  small seam in the game's own store registry rather than a content patch. The
+  odds and tiers are transcribed from upstream's v3.0.0 source and cited in the
+  README.
+
+### Changed
+
+- The Ranger's restored level moved from 28 to 23, re-derived from Haste Self,
+  the one spell that survived the class's rewrite from the arcane realm to the
+  nature one, rather than from an unanchored guess.
+
+## 0.1.0
+
+Never released. The first commit carried this version and no tag was cut from
+it; 0.2.0 is the first version a player could install.

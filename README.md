@@ -175,7 +175,7 @@ same as every other disabled mod hook.
 `manifest.json`, `class.json`, and `plugin.js` (built from `plugin.ts` - see below). Any
 of:
 
-- **In the game** - Mods → **Install a mod...**, which fetches this repository at a
+- **In the game** - Mods -> **Install a mod...**, which fetches this repository at a
   release tag, never a branch. The install records a SHA-256 of every byte that
   arrived, so the manager can answer later whether the copy on your machine has
   changed; it cannot tell you whether what arrived is what was published here.
