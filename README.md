@@ -176,7 +176,9 @@ same as every other disabled mod hook.
 of:
 
 - **In the game** - Mods → **Install a mod...**, which fetches this repository at a
-  release tag and checks every file against a SHA-256 that ships inside the game.
+  release tag, never a branch. The install records a SHA-256 of every byte that
+  arrived, so the manager can answer later whether the copy on your machine has
+  changed; it cannot tell you whether what arrived is what was published here.
 - **A folder** - clone this repository into your mods directory, or point the browser
   build at it with **Load mod folder**.
 

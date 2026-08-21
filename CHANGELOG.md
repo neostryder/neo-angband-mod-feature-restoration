@@ -3,6 +3,17 @@
 All notable changes to this mod are recorded here. Versions follow the mod's own
 `manifest.json`, which is what the game reads.
 
+## 0.3.1
+
+### Fixed
+
+- The install section claimed the game checks every file against a SHA-256 that
+  ships inside it. It does not. The install records a digest of the bytes that
+  arrived, which answers whether the copy on your machine has changed since it was
+  installed, and cannot answer whether what arrived is what was published here.
+  What the install does give is a pinned tag rather than a branch, so what arrived
+  cannot change under you afterwards.
+
 ## 0.3.0
 
 ### Changed
