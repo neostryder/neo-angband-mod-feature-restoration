@@ -1,7 +1,7 @@
 {
   "id": "feature-restoration",
   "name": "Feature Restoration",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "shape": "content",
   "facets": [
     "content",
@@ -22,7 +22,7 @@
     {
       "id": "teleport-other",
       "title": "Restore Teleport Other (Priest, Paladin, Ranger)",
-      "description": "Older Angband gave every spellcasting class a way to teleport a monster away. Angband 4.2.6 kept it for the Mage and the Rogue and quietly dropped it for everyone else. This adds the same spell - a bolt that teleports the first monster it hits away, farther at higher level - to the Priest, Paladin and Ranger spell lists, each at a level, mana cost and fail rate consistent with their existing books. Nothing about the Mage's or Rogue's own copies is touched.",
+      "description": "Older Angband gave every spellcasting class a way to teleport a monster away. Angband 4.2.6 kept it for the Mage and the Rogue and quietly dropped it for everyone else. This adds the same spell - a bolt that teleports the first monster it hits away, farther at higher level - to the Priest, Paladin and Ranger spell lists. Angband 4.1.2's own record for each class sets the shape, and the Mage's and Rogue's surviving copies set the price, so a restored spell costs what the spell costs in the game as it is now. The README shows the measurement behind every value. Nothing about the Mage's or Rogue's own copies is touched.",
       "default": false
     }
   ],

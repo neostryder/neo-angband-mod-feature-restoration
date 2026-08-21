@@ -27,71 +27,95 @@ you still choose which restorations you actually want.
 
 Angband 4.2.6 ships `Teleport Other` - a bolt spell that teleports the first monster it
 hits away, farther at higher character level - for the Mage (`[Magical Defences]`,
-level 15) and the Rogue (`[Arcane Control]`, level 30). Earlier Angband gave it to the
-Priest, the Paladin and the Ranger too; checked against `reference/lib/gamedata/old_class.txt`
-in the game's own repository (an earlier version's class data, kept for exactly this kind
-of comparison), all three had it and lost it somewhere between then and 4.2.6.
+level 15) and the Rogue (`[Arcane Control]`, level 30). Angband 4.1.2 gave it to the
+Priest, the Paladin and the Ranger as well, and all three lost it between that version
+and 4.2.6.
 
 This section adds it back to those three, appended to a book each already has rather than
 replacing anything:
 
 | Class | Book | Level | Mana | Fail | XP |
 |---|---|---|---|---|---|
-| Priest | `[Healing and Sanctuary]` | 20 | 10 | 30% | 15 |
-| Paladin | `[Healing and Sanctuary]` | 22 | 10 | 30% | 15 |
-| Ranger | `[Nature Craft]` | 23 | 10 | 30% | 20 |
-
-The mana cost and fail rate are the Mage's and the Rogue's own numbers for this spell -
-both already agree on 10 mana / 30% fail despite being fifteen character levels apart, so
-that appears to be what this spell costs in this engine regardless of who casts it. Priest's
-own `Portal` (its short-range self-teleport, the closest thing 4.2.6 gives any caster to
-what `old_class.txt` calls `Teleport Self`) shares that same 30% fail too, so the number
-looks like a fixed property of the teleport spell family, not something that should vary by
-class or realm.
-
-**Level and XP are not upstream numbers copied forward - the spell curriculum was rebuilt
-wholesale between `old_class.txt`'s era and 4.2.6, not just relevelled**, so a flat "old
-level minus N" shift does not hold across a class, let alone across classes. What each
-class actually got instead was worked out from whichever OTHER spell survived that rebuild
-under the same name, as the least speculative anchor available:
-
-- **Priest**: `old_class.txt` has `Teleport Self` at level 20 mana 20 in the same book as
-  its `Teleport Other` (level 20). 4.2.6's Priest keeps that spell's slot - `Portal`, level
-  20 mana 4 - at the exact same level. Zero shift. Placed at level 20 for that reason, not
-  interpolated among book neighbours.
-- **Paladin**: no self-teleport analogue exists for Paladin in either version, so the
-  closest anchor is `Protection from Evil`, which both versions keep: level 19 in
-  `old_class.txt`, level 15 in 4.2.6 (a -4 shift). Applied to `old_class.txt`'s Paladin
-  `Teleport Other` (level 25) that gives level 21; placed at 22, one level later, to land
-  one after 4.2.6's own `Remove Curse` (level 20) rather than colliding with it. A second
-  anchor, `Remove Curse` itself (level 13 -> 20, a +7 shift), points the other way entirely
-  (toward the low 30s) - the two anchors disagree, so this number is a defensible pick
-  inside a real range, not a tight derivation the way Priest's is.
-- **Ranger**: this is the one that moved. Old Ranger was an **arcane** caster with attack
-  spells (Magic Missile, Fire Ball, and its own `Teleport Other` at level 31); 4.2.6's
-  Ranger is a **nature**-realm survivalist with almost none of that curriculum survived the
-  realm change intact except one spell: `Haste Self`, level 33 in `old_class.txt`, level 25
-  in 4.2.6 (Nature Craft). Old Ranger's `Teleport Other` sat 2 levels *before* its own
-  `Haste Self` (31 vs 33); applied to the new `Haste Self`, that lands at level 23 - between
-  4.2.6's own `Create Arrows` (22) and `Haste Self` (25). Originally shipped at level 28,
-  picked before this comparison existed; moved to 23 once the anchor was found. This is the
-  best-anchored of the three restorations after Priest's, since `Haste Self` is the *only*
-  spell that survived Ranger's total realm rewrite.
-
-Mana, fail and XP stayed at Mage/Rogue's own values (see above) rather than being
-independently derived, since no clean old-to-new anchor for THOSE numbers specifically
-presented itself for any of the three classes, and the two existing implementations already
-agree with each other on them.
+| Priest | `[Healing and Sanctuary]` | 18 | 10 | 30% | 20 |
+| Paladin | `[Healing and Sanctuary]` | 24 | 10 | 30% | 50 |
+| Ranger | `[Nature Craft]` | 30 | 10 | 30% | 50 |
 
 The spell's effect and its description text are copied byte-for-byte from the Mage's copy,
 so it is exactly the same spell in every caster's hands.
 
-These numbers are the best-evidenced starting point this analysis could produce, not a
-balance ruling - Paladin's in particular sits inside a range rather than at a single derived
-point. If a level or a fail rate feels wrong once it's actually been played, they are a few
-lines in `class.json` to change, and the tests (below) will tell you immediately if a core
-update moves the target out from under
-them.
+#### Where these numbers come from
+
+The historical record sets the shape of the restoration. It does not set the price. A
+spell priced by 4.1.2 and dropped into 4.2.6 would charge a Priest 20 mana at 80 percent
+failure for a spell the Mage buys at 10 mana and 30 percent, which is a penalty rather
+than a restoration. So the 4.1.2 record is the starting point and the two surviving
+copies of the spell are the guide.
+
+Angband 4.1.2 gave the three classes these records, where a spell reads
+`name:level:mana:fail:exp`:
+
+```
+Teleport Other:20:20:80:16    (Priest)
+Teleport Other:25:25:80:12    (Paladin)
+Teleport Other:31:25:70:3     (Ranger)
+```
+
+Those records survive inside the game's own repository as
+`reference/lib/gamedata/old_class.txt`, which upstream keeps alongside the current
+`class.txt` for exactly this kind of comparison, so every number below can be checked
+without leaving the checkout. The two classes that kept the spell moved like this:
+
+```
+Mage   23:12:60:8   ->  15:10:30:12     level -8, mana -2, fail -30, exp +4
+Rogue  31:25:70:3   ->  30:10:30:50     level -1, mana -15, fail -40, exp +47
+```
+
+**Mana 10 and fail 30, all three classes. Measured.** Both surviving copies land on
+exactly 10 and 30 from different starting points, so there is nothing left to choose
+between. That is not an accident of two rows: Angband 4.2 repriced spells to cost the
+same in every class that has them, and the shift is countable across the whole spell
+list. Among spells shared by two or more classes, agreement on mana went from 4 of 88 in
+4.1.2 to 15 of 29 now, agreement on fail from 23 of 88 to 25 of 29, and agreement on
+both from 1 of 88 to 14 of 29. Level is the axis 4.2 deliberately kept class-specific.
+
+**Level follows the model for the class, softened for the full caster.** The Priest is a
+full caster and takes the Mage as its model; the Paladin and the Ranger are half casters
+and take the Rogue. The Rogue's level fell by 1, so the Paladin goes 25 to 24 and the
+Ranger 31 to 30. The Mage's fell by 8, and the Priest takes a much smaller cut, 20 to 18.
+The size of that softening is a **judgment call**, not a measurement: the Mage is the
+earliest caster in the game and the deepest cut belongs to it. The Paladin's single level
+is cosmetic, there for consistency with its model rather than for balance.
+
+**Exp follows the caster class.** The Priest takes the Mage's delta, 16 up to 20, which
+keeps it in the full-caster band next to the Mage's 12. Both half casters go to 50,
+matching the Rogue's actual value rather than adding its absolute delta, since adding +47
+to the Paladin's 12 would give 59 and nothing suggests 4.2 would price one spell
+differently for two half casters. The current file shows the Rogue drawing roughly four
+times the Mage's exp for the same spell, on Teleport Other and on Teleport Level alike,
+so a half-caster band near 50 and a full-caster band near 12 to 20 is the pattern being
+matched. Which band each class sits in is measured; the exact 50 for the Paladin is a
+**judgment call**.
+
+**The check on the whole set.** The Ranger's result, `30:10:30:50`, is identical to the
+Rogue's current row. The two classes also had identical 4.1.2 rows, `31:25:70:3`, so them
+matching again after the transition is the expected outcome rather than a coincidence.
+The test suite asserts that equality against the published content pack, so a future core
+release that reprices the Rogue's copy fails here instead of leaving this mod stale.
+
+The resulting ladder across all five classes reads Mage 15, Priest 18, Paladin 24,
+Rogue 30, Ranger 30. Full casters get it early and half casters late, and the three
+restored classes keep the same relative order they had in 4.1.2.
+
+The mechanics behind the price were checked as well, since a changed formula would
+invalidate the whole exercise. Mana accrual per class did not change: the `magic:` line
+that carries a class's first spell level and its spell weight is identical in both files
+for all five classes (Mage 1:300, Priest 1:350, Rogue 5:350, Ranger 3:400,
+Paladin 1:400), and the failure rate still falls by 3 points per character level above
+the spell's own level. So a price expressed in mana and fail means the same thing in both
+versions, and only the price itself needed moving.
+
+If a core release reorders a class's books or adds a spell to one of them, the tests below
+fail rather than this mod quietly patching the wrong slot.
 
 **Where this idea came from:** a
 [r/angband comment thread](https://www.reddit.com/r/angband/comments/1vsb2sp/angband_but_moddable/) on the game's

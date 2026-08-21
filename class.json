@@ -8,10 +8,10 @@
             "path": "book.2.spell.6",
             "value": {
               "name": "Teleport Other",
-              "level": 20,
+              "level": 18,
               "mana": 10,
               "fail": 30,
-              "exp": 15,
+              "exp": 20,
               "effect": [
                 {
                   "eff": "BOLT_STATUS",
@@ -36,10 +36,10 @@
             "path": "book.1.spell.5",
             "value": {
               "name": "Teleport Other",
-              "level": 22,
+              "level": 24,
               "mana": 10,
               "fail": 30,
-              "exp": 15,
+              "exp": 50,
               "effect": [
                 {
                   "eff": "BOLT_STATUS",
@@ -64,10 +64,10 @@
             "path": "book.1.spell.5",
             "value": {
               "name": "Teleport Other",
-              "level": 23,
+              "level": 30,
               "mana": 10,
               "fail": 30,
-              "exp": 20,
+              "exp": 50,
               "effect": [
                 {
                   "eff": "BOLT_STATUS",

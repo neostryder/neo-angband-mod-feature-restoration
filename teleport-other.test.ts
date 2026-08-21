@@ -3,8 +3,10 @@
  *
  * Angband used to give every spellcasting class a way to teleport a monster away.
  * Angband 4.2.6 kept it for the Mage and the Rogue and dropped it for the Priest,
- * the Paladin and the Ranger. This section adds it back to those three, at a level,
- * mana cost and fail rate consistent with the copies core already ships.
+ * the Paladin and the Ranger. This section adds it back to those three, priced for the
+ * game as it is now rather than as it was: the historical 4.1.2 record sets the shape,
+ * and the two surviving copies of the spell set the price. See the README section
+ * "Where these numbers come from" for the measurement behind each axis.
  *
  * WHAT THIS FILE TESTS, and what it deliberately does not. That a `fieldPatches`
  * entry keyed by a record ref reaches the composed game is the SDK's behaviour and
@@ -75,11 +77,17 @@ const PATCHES = CONTRIB.sections["teleport-other"]!.fieldPatches;
  * targets by INDEX, and the level/mana/fail/exp it gives that class). The book index
  * is asserted against the book's own NAME below, so a core release that reorders a
  * class's books fails here instead of silently patching the wrong one.
+ *
+ * Mana 10 and fail 30 are the current game's price for this spell: both surviving
+ * copies sit there, so there is nothing to choose between. Level and exp are derived
+ * from the model each class follows, the Mage for a full caster and the Rogue for a
+ * half caster, starting from the 4.1.2 record. The Ranger's row landing on the Rogue's
+ * exact current row is the check on the whole set: the two were identical in 4.1.2 too.
  */
 const ROWS = [
-  { className: "Priest", bookIndex: 2, bookName: "[Healing and Sanctuary]", level: 20, mana: 10, fail: 30, exp: 15 },
-  { className: "Paladin", bookIndex: 1, bookName: "[Healing and Sanctuary]", level: 22, mana: 10, fail: 30, exp: 15 },
-  { className: "Ranger", bookIndex: 1, bookName: "[Nature Craft]", level: 23, mana: 10, fail: 30, exp: 20 },
+  { className: "Priest", bookIndex: 2, bookName: "[Healing and Sanctuary]", level: 18, mana: 10, fail: 30, exp: 20 },
+  { className: "Paladin", bookIndex: 1, bookName: "[Healing and Sanctuary]", level: 24, mana: 10, fail: 30, exp: 50 },
+  { className: "Ranger", bookIndex: 1, bookName: "[Nature Craft]", level: 30, mana: 10, fail: 30, exp: 50 },
 ] as const;
 
 /** The Mage's own Teleport Other, so this mod's copies can be checked against it. */
@@ -107,6 +115,36 @@ describe("teleport-other", () => {
     for (const className of ["Mage", "Rogue"]) {
       expect(() => existingTeleportOther(className)).not.toThrow();
     }
+  });
+
+  /* The price this mod charges is not a choice it made. Both surviving copies of the
+   * spell agree on mana and fail, so these two tests pin every restored row to the
+   * published pack rather than to a number typed into ROWS. If a core release reprices
+   * either surviving copy, this mod's rows stop being the game's price and say so. */
+  it("mana and fail match what both surviving copies of the spell cost in core", () => {
+    const mage = existingTeleportOther("Mage");
+    const rogue = existingTeleportOther("Rogue");
+    expect(
+      [mage.mana, mage.fail],
+      `core ${CONTENT_VERSION} no longer prices the Mage's and the Rogue's Teleport ` +
+        `Other identically, so this mod's mana and fail are no longer the game's price.`,
+    ).toEqual([rogue.mana, rogue.fail]);
+    for (const row of ROWS) {
+      expect([row.mana, row.fail], `${row.className}'s price`).toEqual([mage.mana, mage.fail]);
+    }
+  });
+
+  it("the Ranger's restored row is identical to the Rogue's own row in core", () => {
+    /* Both classes carried the identical 4.1.2 record 31:25:70:3, and the Rogue's is the
+     * copy that survived. The two matching again is the check on the whole set. */
+    const rogue = existingTeleportOther("Rogue");
+    const ranger = ROWS.find((r) => r.className === "Ranger")!;
+    expect([ranger.level, ranger.mana, ranger.fail, ranger.exp]).toEqual([
+      rogue.level,
+      rogue.mana,
+      rogue.fail,
+      rogue.exp,
+    ]);
   });
 
   for (const row of ROWS) {
