@@ -20,16 +20,17 @@ you still choose which restorations you actually want.
 
 | Section | Default | What it does |
 |---|---|---|
-| **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Older Angband gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
-| **Restore store discounts** (`discounts`) | off | Stores occasionally sell an item at a random discount, the way a pre-4.2.6 Angband did. 4.2.6 dropped the mechanic entirely. |
+| **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
+| **Restore store discounts** (`discounts`) | off | Stores occasionally sell an item at a random discount, the way Angband 3.0.6, the last official release to carry the mechanic, did. 4.2.6 dropped the mechanic entirely. |
 
 ### Restore Teleport Other
 
 Angband 4.2.6 ships `Teleport Other` - a bolt spell that teleports the first monster it
 hits away, farther at higher character level - for the Mage (`[Magical Defences]`,
-level 15) and the Rogue (`[Arcane Control]`, level 30). Angband 4.1.2 gave it to the
-Priest, the Paladin and the Ranger as well, and all three lost it between that version
-and 4.2.6.
+level 15) and the Rogue (`[Arcane Control]`, level 30). Angband 4.1.3, released 22 July
+2018 and the last official release before the 4.2.0 spellbook rewrite, gave it to the
+Priest, the Paladin and the Ranger as well. All three lost it at 4.2.0, the release that
+cut pure casters from nine spellbooks to five and hybrid casters to two or three.
 
 This section adds it back to those three, appended to a book each already has rather than
 replacing anything:
@@ -46,13 +47,13 @@ so it is exactly the same spell in every caster's hands.
 #### Where these numbers come from
 
 The historical record sets the shape of the restoration. It does not set the price. A
-spell priced by 4.1.2 and dropped into 4.2.6 would charge a Priest 20 mana at 80 percent
+spell priced by 4.1.3 and dropped into 4.2.6 would charge a Priest 20 mana at 80 percent
 failure for a spell the Mage buys at 10 mana and 30 percent, which is a penalty rather
-than a restoration. So the 4.1.2 record is the starting point and the two surviving
+than a restoration. So the 4.1.3 record is the starting point and the two surviving
 copies of the spell are the guide.
 
-Angband 4.1.2 gave the three classes these records, where a spell reads
-`name:level:mana:fail:exp`:
+Angband 4.1.3, the last official release to carry them, gave the three classes these
+records, where a spell reads `name:level:mana:fail:exp`:
 
 ```
 Teleport Other:20:20:80:16    (Priest)
@@ -60,10 +61,13 @@ Teleport Other:25:25:80:12    (Paladin)
 Teleport Other:31:25:70:3     (Ranger)
 ```
 
-Those records survive inside the game's own repository as
-`reference/lib/gamedata/old_class.txt`, which upstream keeps alongside the current
-`class.txt` for exactly this kind of comparison, so every number below can be checked
-without leaving the checkout. The two classes that kept the spell moved like this:
+The rows are unchanged across the whole 4.1.x series (4.1.0 through 4.1.3), so citing
+4.1.3 rather than an earlier point release changes nothing about the numbers, only which
+tagged release is the last one they can be checked against. Those records also survive
+inside the game's own repository as `reference/lib/gamedata/old_class.txt`, which
+upstream keeps alongside the current `class.txt` for exactly this kind of comparison, so
+every number below can be checked without leaving the checkout. The two classes that kept
+the spell moved like this:
 
 ```
 Mage   23:12:60:8   ->  15:10:30:12     level -8, mana -2, fail -30, exp +4
@@ -75,7 +79,7 @@ exactly 10 and 30 from different starting points, so there is nothing left to ch
 between. That is not an accident of two rows: Angband 4.2 repriced spells to cost the
 same in every class that has them, and the shift is countable across the whole spell
 list. Among spells shared by two or more classes, agreement on mana went from 4 of 88 in
-4.1.2 to 15 of 29 now, agreement on fail from 23 of 88 to 25 of 29, and agreement on
+4.1.3 to 15 of 29 now, agreement on fail from 23 of 88 to 25 of 29, and agreement on
 both from 1 of 88 to 14 of 29. Level is the axis 4.2 deliberately kept class-specific.
 
 **Level follows the model for the class, softened for the full caster.** The Priest is a
@@ -97,14 +101,14 @@ matched. Which band each class sits in is measured; the exact 50 for the Paladin
 **judgment call**.
 
 **The check on the whole set.** The Ranger's result, `30:10:30:50`, is identical to the
-Rogue's current row. The two classes also had identical 4.1.2 rows, `31:25:70:3`, so them
+Rogue's current row. The two classes also had identical 4.1.3 rows, `31:25:70:3`, so them
 matching again after the transition is the expected outcome rather than a coincidence.
 The test suite asserts that equality against the published content pack, so a future core
 release that reprices the Rogue's copy fails here instead of leaving this mod stale.
 
 The resulting ladder across all five classes reads Mage 15, Priest 18, Paladin 24,
 Rogue 30, Ranger 30. Full casters get it early and half casters late, and the three
-restored classes keep the same relative order they had in 4.1.2.
+restored classes keep the same relative order they had in 4.1.3.
 
 The mechanics behind the price were checked as well, since a changed formula would
 invalidate the whole exercise. Mana accrual per class did not change: the `magic:` line
@@ -126,13 +130,20 @@ Other in 4.2 - a mechanic every earlier version gave every caster.
 
 A version of Angband before 4.2.6 gave `mass_produce` (the routine that decides how
 much of an item a store stocks when it restocks) a second job: after sizing the stack,
-roll a discount. Fetched directly from the real upstream history
-(`gh api repos/angband/angband/contents/src/store.c?ref=v3.0.0`, since 4.2.6's own
-`reference/` tree in the game's repository does not carry this code - it was removed
-before the tag this port targets), the roll reads:
+roll a discount. The code is unchanged from Angband 3.0.0 through **Angband 3.0.6
+(18 June 2005), the last official release to carry it.** Three beta snapshots that
+followed it - 3.0.7s1, 3.0.7s2 and 3.0.7s3, released by a maintainer-to-be before she
+was made maintainer - still carried the same code, but none of the three was an official
+release; Angband never shipped an official 3.0.7. Angband 3.0.8 (8 July 2007), the next
+official release after 3.0.6, removed the roll as part of what its own changelog calls a
+"semi-rewrite of the store code," and no official release since has brought it back.
+Fetched directly from the real upstream history
+(`gh api repos/angband/angband/contents/src/store.c?ref=v3.0.6`, since 4.2.6's own
+`reference/` tree in the game's repository does not carry this code - it was removed by
+3.0.8, decades before the tag this port targets), the roll reads:
 
 ```c
-/* Pick a discount (store.c, mass_produce, Angband v3.0.0) */
+/* Pick a discount (store.c, mass_produce, Angband 3.0.6) */
 if (cost < 5)            discount = 0;
 else if (rand_int(25) == 0)  discount = 10;
 else if (rand_int(50) == 0)  discount = 25;

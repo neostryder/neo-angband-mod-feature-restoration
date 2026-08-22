@@ -39,7 +39,7 @@ describe("register - flag gating", () => {
   });
 });
 
-describe("discountRoll - mass_produce's discount arm (Angband v3.0.0)", () => {
+describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
   it("never discounts an item under 5 gold, and draws no RNG at all", () => {
     const oneIn = vi.fn(() => true);
     expect(discountRoll({ rng: { oneIn }, cost: 4 })).toBe(0);

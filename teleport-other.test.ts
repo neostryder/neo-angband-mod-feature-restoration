@@ -4,8 +4,9 @@
  * Angband used to give every spellcasting class a way to teleport a monster away.
  * Angband 4.2.6 kept it for the Mage and the Rogue and dropped it for the Priest,
  * the Paladin and the Ranger. This section adds it back to those three, priced for the
- * game as it is now rather than as it was: the historical 4.1.2 record sets the shape,
- * and the two surviving copies of the spell set the price. See the README section
+ * game as it is now rather than as it was: the historical 4.1.3 record (Angband's last
+ * official release before the 4.2.0 spellbook rewrite) sets the shape, and the two
+ * surviving copies of the spell set the price. See the README section
  * "Where these numbers come from" for the measurement behind each axis.
  *
  * WHAT THIS FILE TESTS, and what it deliberately does not. That a `fieldPatches`
@@ -81,8 +82,8 @@ const PATCHES = CONTRIB.sections["teleport-other"]!.fieldPatches;
  * Mana 10 and fail 30 are the current game's price for this spell: both surviving
  * copies sit there, so there is nothing to choose between. Level and exp are derived
  * from the model each class follows, the Mage for a full caster and the Rogue for a
- * half caster, starting from the 4.1.2 record. The Ranger's row landing on the Rogue's
- * exact current row is the check on the whole set: the two were identical in 4.1.2 too.
+ * half caster, starting from the 4.1.3 record. The Ranger's row landing on the Rogue's
+ * exact current row is the check on the whole set: the two were identical in 4.1.3 too.
  */
 const ROWS = [
   { className: "Priest", bookIndex: 2, bookName: "[Healing and Sanctuary]", level: 18, mana: 10, fail: 30, exp: 20 },
@@ -135,7 +136,7 @@ describe("teleport-other", () => {
   });
 
   it("the Ranger's restored row is identical to the Rogue's own row in core", () => {
-    /* Both classes carried the identical 4.1.2 record 31:25:70:3, and the Rogue's is the
+    /* Both classes carried the identical 4.1.3 record 31:25:70:3, and the Rogue's is the
      * copy that survived. The two matching again is the check on the whole set. */
     const rogue = existingTeleportOther("Rogue");
     const ranger = ROWS.find((r) => r.className === "Ranger")!;

@@ -1,7 +1,7 @@
 {
   "id": "feature-restoration",
   "name": "Feature Restoration",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "shape": "content",
   "facets": [
     "content",
@@ -22,7 +22,7 @@
     {
       "id": "teleport-other",
       "title": "Restore Teleport Other (Priest, Paladin, Ranger)",
-      "description": "Older Angband gave every spellcasting class a way to teleport a monster away. Angband 4.2.6 kept it for the Mage and the Rogue and quietly dropped it for everyone else. This adds the same spell - a bolt that teleports the first monster it hits away, farther at higher level - to the Priest, Paladin and Ranger spell lists. Angband 4.1.2's own record for each class sets the shape, and the Mage's and Rogue's surviving copies set the price, so a restored spell costs what the spell costs in the game as it is now. The README shows the measurement behind every value. Nothing about the Mage's or Rogue's own copies is touched.",
+      "description": "Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave every spellcasting class a way to teleport a monster away. Angband 4.2.6 kept it for the Mage and the Rogue and quietly dropped it for everyone else. This adds the same spell - a bolt that teleports the first monster it hits away, farther at higher level - to the Priest, Paladin and Ranger spell lists. Angband 4.1.3's own record for each class sets the shape, and the Mage's and Rogue's surviving copies set the price, so a restored spell costs what the spell costs in the game as it is now. The README shows the measurement behind every value. Nothing about the Mage's or Rogue's own copies is touched.",
       "default": false
     }
   ],
@@ -30,7 +30,7 @@
     {
       "flag": "feature-restoration.discounts",
       "title": "Restore store discounts",
-      "description": "A version of Angband before 4.2.6 occasionally discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked, at the same odds that version rolled (10% about 1 time in 25, down to 90% about 1 time in 500 - see the README for the exact source). 4.2.6 dropped the mechanic entirely along with the field that stored it. This restores the roll faithfully; it does not invent new odds or a new discount shape.",
+      "description": "Angband 3.0.6, the last official release to carry it, occasionally discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked, at the same odds that version rolled (10% about 1 time in 25, down to 90% about 1 time in 500 - see the README for the exact source). Angband 3.0.8 removed the mechanic and 4.2.6 has never had it back. This restores the roll faithfully; it does not invent new odds or a new discount shape.",
       "default": false
     }
   ],

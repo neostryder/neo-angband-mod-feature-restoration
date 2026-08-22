@@ -10,9 +10,10 @@
  * anywhere in the port's `object.h` equivalent). There is therefore no
  * `reference/` citation for this feature the way there is for a restored
  * spell; the mechanism below is transcribed from the real upstream Angband
- * v3.0.0 `store.c` (`mass_produce`), fetched from the authoritative
- * angband/angband history, and documented with the exact numbers in this
- * mod's README rather than invented.
+ * 3.0.6 `store.c` (`mass_produce`) - the last official release to carry it,
+ * fetched from the authoritative angband/angband history, and documented
+ * with the exact numbers and the release history in this mod's README
+ * rather than invented.
  *
  * ------------------------------------------------------------------
  * ENTRY POINT CONTRACT - one shape, for every mod and every front end
@@ -66,7 +67,7 @@ interface HookCtx {
 }
 
 /**
- * mass_produce's discount arm (Angband v3.0.0, store.c), transcribed exactly:
+ * mass_produce's discount arm (Angband 3.0.6, store.c), transcribed exactly:
  * successive independent rolls, each only reached if the previous one missed,
  * cheapest tier first. Items under 5 gold never discount. See this mod's
  * README for the fetched source and the citation. Exported (rather than kept
