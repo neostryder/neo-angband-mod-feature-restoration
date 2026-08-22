@@ -13,6 +13,12 @@ This is not a rebalance and not a house-rule collection. Everything here is some
 Angband itself used to do, in an earlier version, for a class or a mechanic that later
 lost it. If it never existed in any Angband, it does not belong in this mod.
 
+It is also not a fix for the identify-sell-restock town loop feeling gone in 4.2.6.
+That loop is not gone: `birth_no_selling` ("Increase gold drops but disable selling")
+is a birth option in the base game, on by default, and it is the default that makes
+selling feel removed. Turn it off when you start a character and stores buy again,
+with no mod installed at all.
+
 ## What it adds
 
 Every toggle below defaults **off**. Enabling this mod changes nothing on its own -
