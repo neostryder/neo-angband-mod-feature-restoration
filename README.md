@@ -7,6 +7,8 @@ content for [Neo Angband](https://github.com/neostryder/neo-angband).
 named switch you can turn off on its own, and disabling the mod leaves the game exactly
 as Angband 4.2.6 plays it.
 
+![The mod manager's detail panel for Feature Restoration](docs/img/feature-restoration-detail.jpg)
+
 ## What it is not
 
 This is not a rebalance and not a house-rule collection. Everything here is something
