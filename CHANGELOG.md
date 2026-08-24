@@ -12,6 +12,12 @@ Every restoration in this mod defaults to **off**. Enabling the mod restores
 nothing on its own; each switch is a separate decision, taken in
 Mods -> Feature Restoration -> Fixes & tweaks.
 
+## 0.3.4
+
+Added a Terms of Use, a shared Code of Conduct, and `AI_USAGE_POLICY.md`
+alongside the existing LICENSE policy, and a README screenshot of the mod's
+description panel.
+
 ## 0.3.3
 
 ### Fixed

@@ -1,6 +1,6 @@
 {
   "name": "neo-angband-mod-feature-restoration",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "private": true,
   "description": "Brings back beloved Angband features that later versions dropped, as opt-in content, for Neo Angband",
   "license": "GPL-2.0-only",
