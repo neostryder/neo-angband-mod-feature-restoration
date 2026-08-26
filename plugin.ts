@@ -1,5 +1,5 @@
 /**
- * The `feature-restoration` mod's behaviour, as the mod's OWN code.
+ * Feature Restoration (feature-restoration)'s behaviour, as the mod's OWN code.
  *
  * Every other restored feature in this mod is content-only (see class.json):
  * restoring a spell that already exists elsewhere in the game is a data patch,

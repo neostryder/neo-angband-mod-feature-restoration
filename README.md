@@ -1,4 +1,4 @@
-# feature-restoration
+# Feature Restoration
 
 Beloved Angband features that later versions quietly dropped, brought back as opt-in
 content for [Neo Angband](https://github.com/neostryder/neo-angband).
