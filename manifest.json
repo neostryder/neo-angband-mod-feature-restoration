@@ -1,14 +1,14 @@
 {
   "id": "feature-restoration",
   "name": "Feature Restoration",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "shape": "content",
   "facets": [
     "content",
     "plugin"
   ],
   "modApi": 1,
-  "engine": ">=0.20.0",
+  "engine": ">=1.0.0",
   "capabilities": [
     "registry:store",
     "registry:command"

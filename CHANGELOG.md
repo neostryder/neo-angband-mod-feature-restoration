@@ -14,6 +14,8 @@ Mods -> Feature Restoration -> Fixes & tweaks.
 
 ## Unreleased
 
+## 1.0.0 - 2026-08-26
+
 ### Added
 
 - **Door spiking (neo-angband#28), off by default.** Iron spikes still
