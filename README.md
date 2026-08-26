@@ -30,6 +30,7 @@ you still choose which restorations you actually want.
 |---|---|---|
 | **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
 | **Restore store discounts** (`discounts`) | off | Stores occasionally sell an item at a random discount, the way Angband 3.0.6, the last official release to carry the mechanic, did. 4.2.6 dropped the mechanic entirely. |
+| **Restore door spiking** (`spike-doors`) | off | Adds Iron Spikes as a findable item and a `spike` command that spends one to jam a closed door, making it harder to pick open. Angband 3.4.1, the last official release before the 4.0 command rewrite dropped both, is the source; 4.2.6 has neither. |
 
 ### Restore Teleport Other
 
@@ -171,6 +172,79 @@ resulting percentages.
 left in core to patch data onto, which is why this one restoration needs `plugin.ts`
 instead of a `class.json`-style content patch. See the section below.
 
+### Restore door spiking
+
+Angband let a player jam a closed door shut with an iron spike, making it harder to open
+- useful for buying time against something chasing you, or for sealing a room you have
+already cleared. The item (`TV_SPIKE`) and the command (`do_cmd_spike`) are unchanged
+from Angband 3.0.0 through **Angband 3.4.1 (18 October 2012), the last official release
+to carry either.** Angband 4.0.0, the next official release, rewrote command dispatch
+from switch-driven functions to a registered-command table and dropped both the item
+kind and the command in the process; no official release since has brought either back.
+Neither exists anywhere in 4.2.6 - not the item kind, not the command, and the
+`DOOR_JAMMED` terrain flag this port still carries as a generated constant is dead
+vocabulary too: nothing anywhere sets it. Fetched directly from the real upstream history
+(`gh api repos/angband/angband/contents/src/cmd2.c?ref=v3.4.1` for the command,
+`.../lib/edit/object.txt?ref=v3.4.1` for the item), the mechanism reads:
+
+```c
+/* Jam a closed door with a spike (cmd2.c, do_cmd_spike, Angband 3.4.1) */
+/* Convert "locked" to "stuck" */
+if (cave->feat[y][x] < FEAT_DOOR_HEAD + 0x08)
+    cave->feat[y][x] += 0x08;
+/* Add one spike to the door */
+if (cave->feat[y][x] < FEAT_DOOR_TAIL)
+    cave->feat[y][x] += 0x01;
+```
+
+A door's feature byte packed two separate 0-7 numbers: an unspiked door's own lock
+strength (0-7, checked by the normal pick-the-lock roll), and - once spiked at all - a
+*jammed* level (also 0-7) that a locked-door pick roll never even attempts against; a
+jammed door refuses picking outright and can only be forced by bashing it down. The
+item's own description (`lib/edit/object.txt`) states the cap in plain language: "Each of
+the first 7 spikes will increase the door's resistance to bashing. Placing more than 7
+spikes in one door will not have any further effect."
+
+**What this port keeps, and the one thing it does not.** This port never carried a
+separate jammed/stuck door state to begin with - a closed door here has one continuous
+lock-power number (the "door lock" trap, `game/trap.ts`), fed into the exact
+`skill - 4 * power` formula upstream's own locked-door pick chance already used. Spiking
+raises that number directly, one point per spike, capped at 7 - the same ceiling upstream
+capped its separate jam level at, applied to the number this port actually has. What does
+not carry over is upstream's *hard* wall: a fully jammed door upstream refuses picking
+entirely, leaving bashing the door down as the only way through. This port has no "bash a
+door down" player command at all (upstream's own `do_cmd_bash`, restoring which is its
+own, separate feature this mod does not attempt), so reproducing a pick-proof door here
+would mean a door with no way back through it rather than merely a harder one. A door at
+this mod's cap keeps upstream's own floor instead - `skill - 28`, minimum 2% - hard to
+pick, never literally impossible.
+
+One more edge case is scoped down for the same reason: upstream's `do_cmd_spike` attacks
+a monster standing on the target door instead of jamming it (`py_attack`), still spending
+the turn. Reproducing that would mean re-deriving core's melee math inside this mod's own
+code; this restoration declines the attack instead, spends the turn, and leaves the spike
+unused. `plugin.test.ts` covers this exactly as written, not as upstream's fuller version.
+
+**The item.** Angband dropped `TV_SPIKE` itself before this port's 4.2.6 baseline, so
+there is no existing tval this mod can add an Iron Spike under the way it exists
+upstream - and adding a wholly new item CLASS is a bigger seam than this restoration
+needs (see "Content, plus one plugin" below). `object.json`'s Iron Spike borrows the
+`flask` tval instead - core's own Flask of Oil is the closest real precedent: a small,
+stackable, single-purpose consumable with no weapon or armour semantics to collide with.
+Weight (0.2 lb), cost (1 gold) and where it is found (dungeon levels 1-40, uncommon) are
+transcribed from the item's own Angband 3.4.1 record.
+
+**Reaching the command in play.** `plugin.ts` installs `feature-restoration:spike` via
+`registry:command` and names it with `commands.setVerb` - both real, both tested
+(`plugin.test.ts` drives the installed action directly). What this mod cannot supply on
+its own is a way for a player to actually trigger it: the web front end's key and
+context-menu handling for cave commands (`packages/web/src/main.ts`) is a fixed set of
+cases the game itself owns, and none of them yet dispatches a mod-registered command
+code. Until the game adds one - a key binding, a context-menu entry, or some other
+generic entry point - this restoration's command exists, is correctly wired, and is
+reachable by anything that can push a `PlayerCommand` at it (including the game's own
+future UI, and any other mod's), but nothing in the shipped game currently does.
+
 ## Content, plus one plugin
 
 Restoring a spell to a class's book is data, not behaviour: the spell already exists (the
@@ -189,9 +263,19 @@ it, gated on the `feature-restoration.discounts` rule flag and nothing else. No 
 system in the game is touched, and with the toggle off the seam is never called at all,
 same as every other disabled mod hook.
 
+Door spiking needs both halves at once: Iron Spikes is a genuinely new `object.json`
+record (`spike-doors` section, borrowing the `flask` tval - see above), and the command
+that consumes it is behaviour with nowhere in core to attach to, so it rides
+`registry:command` the same way discounts rides `registry:store`. Both are gated on one
+flag, `feature-restoration.spike-doors` - the section's own `flag` field, so a player sees
+one toggle rather than a content switch and a behaviour switch that could drift apart.
+`register()` only calls `commands.register` while that flag is on, so a disabled section
+leaves the game with neither the item nor a command referring to it.
+
 ## Installing
 
-`manifest.json`, `class.json`, and `plugin.js` (built from `plugin.ts` - see below). Any
+`manifest.json`, `class.json`, `object.json`, and `plugin.js` (built from `plugin.ts` -
+see below). Any
 of:
 
 - **In the game** - Mods -> **Install a mod...**, which fetches this repository at a
@@ -229,17 +313,25 @@ Every new restoration:
    4.2.6 - `reference/lib/gamedata/` in the game's repository is the primary source when
    the feature is content; a real upstream tag's source (fetched via `gh api`, as with the
    discount roll above) when it is not. Memory of "the way it used to be" is not evidence.
-2. Decides content vs plugin the same way the two features above did: if 4.2.6 still has
+2. Decides content vs plugin the same way the three features above did. If 4.2.6 still has
    the field or record to patch, it is a manifest `section` with `fieldPatches`, nested the
-   same way `teleport-other` is in `class.json`. If 4.2.6 dropped the underlying mechanism
-   entirely, it needs a `registry:*` seam in the game's engine (a real code change there,
-   not just here) and a `rules[]` toggle here, the way `discounts` does.
-3. Gets its own row in this README's table and its own toggle, defaulting **off**.
+   same way `teleport-other` is in `class.json`. If the item or record itself is gone
+   (`spike-doors`'s Iron Spike), it is a `section` with `records` instead - a wholly new
+   entry under an EXISTING tval; a genuinely new item CLASS is a bigger seam this mod has
+   not needed yet. If 4.2.6 dropped the underlying MECHANISM entirely, it needs a
+   `registry:*` capability - already there (`registry:command`, used by `spike-doors`) or a
+   real addition to the game's own engine first (`registry:store`, added for `discounts`) -
+   and a `rules[]` or section `flag` toggle here.
+3. Gets its own row in this README's table and its own toggle, defaulting **off**. A
+   restoration needing both a record and behaviour uses ONE section for both, so the player
+   sees one toggle rather than two that could drift apart (`spike-doors` does this: the
+   item's `records` and the command's `registry:command` gate share `flag`).
 4. Gets tests in the shape of `teleport-other.test.ts` (a content section: assert the ref
    resolves, assert core does not already have the feature, assert the target is named by
    name not index, assert no collision) or `plugin.test.ts` (a plugin: assert the flag
    gates it, assert the mechanism's exact odds/behaviour against a fake host and a
-   recording Rng, not just its outputs).
+   recording Rng, not just its outputs) - or both, the way `object-spike.test.ts` and
+   `plugin.test.ts` split `spike-doors` between them.
 
 ## Releasing
 

@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "spike-doors": {
+      "records": [
+        {
+          "name": "& Iron Spike~",
+          "type": "flask",
+          "graphics": {
+            "glyph": "~",
+            "color": "W"
+          },
+          "level": 1,
+          "weight": 2,
+          "cost": 1,
+          "alloc": {
+            "common": 20,
+            "minmax": "1 to 40"
+          },
+          "attack": {
+            "hd": "1d1",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ],
+          "desc": [
+            "These can be placed in a closed door to make it harder to open.",
+            "  A door already carrying as many spikes as matter will not take another."
+          ]
+        }
+      ]
+    }
+  }
+}
