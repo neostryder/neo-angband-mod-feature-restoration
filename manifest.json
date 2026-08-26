@@ -1,7 +1,7 @@
 {
   "id": "feature-restoration",
   "name": "Feature Restoration",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "shape": "content",
   "facets": [
     "content",
@@ -30,7 +30,7 @@
       "id": "spike-doors",
       "flag": "feature-restoration.spike-doors",
       "title": "Restore door spiking",
-      "description": "Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let a player jam a closed door with an iron spike, making it harder to open - a dedicated command consuming a stackable item that has had no use, and no way into a player's pack, since. This restores both: Iron Spikes as a findable item and a 'spike' command that spends one to raise the target door's lock strength. See the README for exactly what carried over and what did not.",
+      "description": "Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let a player jam a closed door with an iron spike, making it harder to open - a dedicated command consuming a stackable item that has had no use, and no way into a player's pack, since. This restores both: Iron Spikes as a findable item and a 'spike' command that spends one to raise the target door's lock strength. The command itself is correctly wired but not yet reachable in play: the game has no key or menu entry that dispatches it yet. See the README for exactly what carried over and what did not.",
       "default": false
     }
   ],

@@ -2,7 +2,7 @@
 
 Effective date: 2026-08-23.
 
-Feature Restoration is an optional Neo Angband mod folder, not a separate hosted service. It restores selected mechanics from earlier Angband releases as individually optional settings. Its current settings include Teleport Other for additional classes and historical store discounts. The mod and every restoration setting are off by default. The base game remains unchanged when the mod or a setting is off.
+Feature Restoration is an optional Neo Angband mod folder, not a separate hosted service. It restores selected mechanics from earlier Angband releases as individually optional settings. Its current settings include Teleport Other for additional classes, historical store discounts, and door spiking. The mod and every restoration setting are off by default. The base game remains unchanged when the mod or a setting is off.
 
 Restored behavior is not a claim that a feature is balanced, current, bug-free, suitable for a particular character, or identical to every earlier Angband version. A player selects it at that player's own discretion. Gameplay-affecting mod use can place a character outside the unmodified score comparison.
 
