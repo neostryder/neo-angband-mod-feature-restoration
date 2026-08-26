@@ -12,6 +12,18 @@ Every restoration in this mod defaults to **off**. Enabling the mod restores
 nothing on its own; each switch is a separate decision, taken in
 Mods -> Feature Restoration -> Fixes & tweaks.
 
+## Unreleased
+
+### Added
+
+- **Door spiking (neo-angband#28), off by default.** Iron spikes still
+  existed as an object kind and doors still carried a jammed state, but
+  nothing opened onto it. A new `feature-restoration:spike` command and an
+  Iron Spikes object record restore it, gated behind the `spike-doors`
+  section. Not yet reachable by a player: the web front end has no general
+  mechanism to dispatch a mod-registered `registry:command` to a keypress,
+  so the command exists and is tested but has no key bound to it yet.
+
 ## 0.3.4
 
 Added a Terms of Use, a shared Code of Conduct, and `AI_USAGE_POLICY.md`
