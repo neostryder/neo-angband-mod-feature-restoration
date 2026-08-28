@@ -12,7 +12,7 @@
  * repository and reaches npm at the next release - so until then there is no way to
  * run this mod against it.
  *
- *   NEO_ANGBAND_LOCAL_CORE=1 npm test
+ *   NEO_ANGBAND_LOCAL_CORE=1 pnpm test
  *
  * A SECOND VARIABLE, not just the presence of a sibling checkout, and it selects the
  * ENGINE UNDER TEST rather than falling back quietly - the same reasoning the other

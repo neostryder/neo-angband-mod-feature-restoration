@@ -288,11 +288,11 @@ of:
 ## Working on it
 
 ```bash
-npm install
-npm run verify
+pnpm install --frozen-lockfile
+pnpm verify
 ```
 
-That typechecks, runs the tests, and (via `npm run check`, folded into `verify`) confirms
+That typechecks, runs the tests, and (via `pnpm check`, folded into `verify`) confirms
 the committed `plugin.js` is exactly what `plugin.ts` builds today - so a source edit that
 was not rebuilt fails loudly instead of shipping stale behaviour. The content tests check
 every ref and every book index this mod's patches name against
@@ -302,7 +302,7 @@ mod appends, or ships Teleport Other to a class this mod also restores it to, th
 name exactly what moved rather than silently composing onto the wrong slot.
 
 ```bash
-npm run build   # plugin.ts -> plugin.js, after editing plugin.ts
+pnpm build   # plugin.ts -> plugin.js, after editing plugin.ts
 ```
 
 ### Adding another restored feature
