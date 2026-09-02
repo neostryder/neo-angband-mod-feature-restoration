@@ -12,6 +12,16 @@ Every restoration in this mod defaults to **off**. Enabling the mod restores
 nothing on its own; each switch is a separate decision, taken in
 Mods -> Feature Restoration -> Fixes & tweaks.
 
+Starting with this entry, an entry opens with one or more bracketed tags.
+`[Visible]` marks a change a player would notice in the game or mod itself;
+`[Internal]` marks one that touches only code, tooling, or a maintainer's own
+workflow, with nothing for a player to see. A further tag (`[Security]`,
+`[Balance]`, `[UI]`, `[Modding-API]`, `[Localization]`, `[Save-Compat]`,
+`[Docs]`, `[Content]`, `[Compatibility]`, and others as they come up) names
+what kind of change it is. Lists appear in this order and each is omitted
+when empty for a release: Added, Changed, Removed, Fixed. Earlier entries
+were not retagged.
+
 ## Unreleased
 
 ## 1.0.0 - 2026-08-26
@@ -41,7 +51,7 @@ description panel.
   Teleport Other's README, `manifest.json` and code comments cited Angband 4.1.2. The
   Priest, Paladin and Ranger rows in `class.txt` are byte-identical across the entire
   4.1.x series, and Angband 4.1.3 (released 22 July 2018) is the last official release
-  before 4.2.0's spellbook rewrite - the release that cut pure casters from nine
+  before 4.2.0's spellbook rewrite, which cut pure casters from nine
   spellbooks to five and hybrid casters to two or three, and dropped the spell from all
   three classes. Store discounts cited Angband v3.0.0. The discount roll in
   `mass_produce` is unchanged from 3.0.0 through 3.0.6, and Angband 3.0.6 (released 18
