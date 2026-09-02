@@ -34,9 +34,9 @@ The justification is not that AI is infallible, that AI-generated code is automa
 
 ## What Establishes Correctness
 
-This mod is not the engine. Neo Angband's own unmodded target - the observable gameplay behavior of Angband 4.2.6 - and the statistical parity harness that measures it are established in the main [neo-angband](https://github.com/neostryder/neo-angband) repository's `docs/PARITY.md`, not here. This mod builds on that faithful core; it does not itself re-establish it.
+This mod is not the engine. Neo Angband's own unmodded target, the observable gameplay behavior of Angband 4.2.6, and the statistical parity harness that measures it are established in the main [neo-angband](https://github.com/neostryder/neo-angband) repository's `docs/PARITY.md`, not here. This mod builds on that faithful core; it does not itself re-establish it.
 
-What this mod claims about its own behavior is narrower and is stated in its own `README.md` and `CHANGELOG.md`: what each toggle does, what it changes relative to the faithful core, and, where the change traces back to a specific upstream fact - an Angband GitHub issue, a version where a feature was dropped, a public bug report - that citation.
+What this mod claims about its own behavior is narrower and is stated in its own `README.md` and `CHANGELOG.md`: what each toggle does, what it changes relative to the faithful core, and, where the change traces back to a specific upstream fact such as an Angband GitHub issue, a version where a feature was dropped, or a public bug report, that citation.
 
 Tests for this mod's behavior derive their expectations from that stated source, not from an AI model's description of what the code ought to do.
 
@@ -48,7 +48,7 @@ This distinction matters:
 
 AI may draft tests, but an AI-written test is not automatically evidence of correctness.
 
-Expected results must be grounded in whatever this mod's own documentation says the behavior traces to - an upstream Angband source, a cited issue, or the main engine's own documented behavior - not invented to match whatever the implementation currently does.
+Expected results must be grounded in whatever this mod's own documentation says the behavior traces to: an upstream Angband source, a cited issue, or the main engine's own documented behavior. They must not be invented to match whatever the implementation currently does.
 
 New regression tests are expected to demonstrate that they actually detect the behavior they claim to protect. Where practical, the change is reverted or disabled to confirm that the new test fails, and then restored to confirm that it passes.
 
@@ -112,7 +112,7 @@ It states something narrower: this repository uses AI, the use is disclosed, hum
 
 ## Why This Mod Uses It
 
-Building and maintaining a mod - keeping it working against a moving engine, tracing every claimed behavior to a real source, keeping tests, documentation, and a changelog current - is real, ongoing work even at a mod's smaller scale.
+Building and maintaining a mod means keeping it working against a moving engine, tracing every claimed behavior to a real source, and keeping tests, documentation, and a changelog current. That is real, ongoing work even at a mod's smaller scale.
 
 AI assistance makes more of that work practical for a solo spare-time project.
 
