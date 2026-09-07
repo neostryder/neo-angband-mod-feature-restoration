@@ -39,7 +39,8 @@
       "flag": "feature-restoration.discounts",
       "title": "Restore store discounts",
       "description": "Angband 3.0.6, the last official release to carry it, occasionally discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked, at the same odds that version rolled (10% about 1 time in 25, down to 90% about 1 time in 500 - see the README for the exact source). Angband 3.0.8 removed the mechanic and 4.2.6 has never had it back. This restores the roll faithfully; it does not invent new odds or a new discount shape.",
-      "default": false
+      "default": false,
+      "requiresReload": true
     }
   ],
   "repository": "https://github.com/neostryder/neo-angband-mod-feature-restoration"
