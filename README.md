@@ -26,6 +26,8 @@ with no mod installed at all.
 Every toggle below defaults **off**. Enabling this mod changes nothing on its own.
 You still choose which restorations you actually want.
 
+See the [settings reference](SETTINGS.md) for every flag, its default, and when a change takes effect.
+
 | Section | Default | What it does |
 |---|---|---|
 | **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
