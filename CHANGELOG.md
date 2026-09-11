@@ -22,7 +22,11 @@ what kind of change it is. Lists appear in this order and each is omitted
 when empty for a release: Added, Changed, Removed, Fixed. Earlier entries
 were not retagged.
 
-## Unreleased
+## [Unreleased]
+
+### Fixed
+
+- [Visible] [Modding-API] **Toggling "Restore store discounts" mid-run now correctly prompts a reload instead of silently doing nothing** (neostryder/neo-angband#186).
 
 ## 1.0.0 - 2026-08-26
 
