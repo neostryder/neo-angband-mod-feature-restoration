@@ -24,6 +24,8 @@ were not retagged.
 
 ## [Unreleased]
 
+## 1.1.0 - 2026-09-11
+
 ### Fixed
 
 - [Visible] [Modding-API] **Toggling "Restore store discounts" mid-run now correctly prompts a reload instead of silently doing nothing** (neostryder/neo-angband#186).
