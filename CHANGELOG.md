@@ -24,6 +24,10 @@ were not retagged.
 
 ## [Unreleased]
 
+### Fixed
+
+- [Visible] [UI] [Content] **Iron Spike now uses its recovered historical art in every bundled tile pack, including a confirmed Shockbolt substitute for Nomad** (#218).
+
 ## 1.1.0 - 2026-09-11
 
 ### Fixed

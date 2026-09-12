@@ -56,6 +56,25 @@ const RECORDS = CONTRIB.sections["spike-doors"]!.records;
 const SPIKE = RECORDS.find((r) => r.name === IRON_SPIKE_NAME)!;
 
 describe("spike-doors object record", () => {
+  it("declares confirmed historical art by stable kind id for every bundled pack", () => {
+    const art = (manifest as unknown as { restoredItemArt: Array<{
+      kind: string;
+      packs: Record<string, unknown>;
+    }> }).restoredItemArt;
+    expect(art).toEqual([
+      {
+        kind: "feature-restoration:flask:iron-spike",
+        packs: {
+          old: { row: 11, col: 4 },
+          "adam-bolt": { row: 14, col: 9 },
+          gervais: { row: 7, col: 24 },
+          nomad: { asset: "assets/iron-spike-shockbolt-native-64x64.png" },
+          shockbolt: { row: 7, col: 24 },
+        },
+      },
+    ]);
+  });
+
   it("declares the section this mod's plugin.ts gates the command on", () => {
     const ids = (manifest.sections ?? []).map((s: { id: string }) => s.id);
     expect(ids).toContain("spike-doors");
