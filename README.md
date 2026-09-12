@@ -236,13 +236,7 @@ stackable, single-purpose consumable with no weapon or armour semantics to colli
 Weight (0.2 lb), cost (1 gold) and where it is found (dungeon levels 1-40, uncommon) are
 transcribed from the item's own Angband 3.4.1 record.
 
-**Restored item art.** A restored item uses its own pack's confirmed historical art when
-that art still exists. If an active pack has no confirmed historical art, it uses the
-highest-resolution confirmed substitute from another bundled pack, scaled to fit. Only
-when no confirmed historical art exists anywhere does it keep its ASCII glyph. This is
-the standing procedure for restored content in this mod family. Genuinely new mod-added
-content follows the tile pack's normal donor policy instead; its opt-out is documented by
-Linoleum.
+**Restored item art.** A restored item uses its own pack's confirmed historical art when that art still exists. If an active pack has no confirmed historical art, it uses the highest-resolution confirmed-real substitute from another bundled pack whose resolution is at or below the target pack's own resolution. It never uses a higher-resolution substitute. Only when no confirmed historical art exists anywhere does it keep its ASCII glyph. This is the standing procedure for restored content in this mod family. Genuinely new mod-added content follows the tile pack's normal donor policy instead; its opt-out is documented by Linoleum.
 
 **Reaching the command in play.** `plugin.ts` installs `feature-restoration:spike` via
 `registry:command` and names it with `commands.setVerb`. Both are real and tested

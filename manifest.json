@@ -23,7 +23,7 @@
         "old": { "row": 11, "col": 4 },
         "adam-bolt": { "row": 14, "col": 9 },
         "gervais": { "row": 7, "col": 24 },
-        "nomad": { "asset": "assets/iron-spike-shockbolt-native-64x64.png" },
+        "nomad": { "asset": "assets/iron-spike-old-native-8x8.png" },
         "shockbolt": { "row": 7, "col": 24 }
       }
     }

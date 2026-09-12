@@ -26,6 +26,7 @@ were not retagged.
 
 ### Fixed
 
+- [Visible] [UI] [Content] **Iron Spike's Nomad tile substitute now uses the lower-resolution Old tile instead of a higher-resolution donor** (#218).
 - [Visible] [UI] [Content] **Iron Spike now uses its recovered historical art in every bundled tile pack, including a confirmed Shockbolt substitute for Nomad** (#218).
 
 ## 1.1.0 - 2026-09-11

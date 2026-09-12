@@ -56,7 +56,7 @@ const RECORDS = CONTRIB.sections["spike-doors"]!.records;
 const SPIKE = RECORDS.find((r) => r.name === IRON_SPIKE_NAME)!;
 
 describe("spike-doors object record", () => {
-  it("declares confirmed historical art by stable kind id for every bundled pack", () => {
+  it("declares confirmed historical art or a resolution-correct substitute by stable kind id for every bundled pack", () => {
     const art = (manifest as unknown as { restoredItemArt: Array<{
       kind: string;
       packs: Record<string, unknown>;
@@ -68,7 +68,7 @@ describe("spike-doors object record", () => {
           old: { row: 11, col: 4 },
           "adam-bolt": { row: 14, col: 9 },
           gervais: { row: 7, col: 24 },
-          nomad: { asset: "assets/iron-spike-shockbolt-native-64x64.png" },
+          nomad: { asset: "assets/iron-spike-old-native-8x8.png" },
           shockbolt: { row: 7, col: 24 },
         },
       },
