@@ -24,6 +24,8 @@ were not retagged.
 
 ## [Unreleased]
 
+## 1.1.1 - 2026-09-12
+
 ### Fixed
 
 - [Visible] [UI] [Content] **Iron Spike's Nomad tile substitute now uses the lower-resolution Old tile instead of a higher-resolution donor** (#218).
