@@ -24,6 +24,8 @@ were not retagged.
 
 ## [Unreleased]
 
+## 1.2.0 - 2026-09-12
+
 ### Added
 
 - [Visible] [UI] [Modding-API] **Door spiking now claims the original j key by default when it is free.** (#229)
