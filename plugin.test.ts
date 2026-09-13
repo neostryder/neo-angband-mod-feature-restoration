@@ -6,6 +6,7 @@
  * nothing otherwise" - so fakes stand in for the real host, state and core.
  */
 import { describe, expect, it, vi } from "vitest";
+import { Rng } from "@rpgm-tools/neo-angband-core";
 import plugin, {
   discountRoll,
   IRON_SPIKE_NAME,
@@ -134,6 +135,37 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
     const oneIn = vi.fn((_n: number) => false);
     expect(discountRoll({ rng: { oneIn }, cost: 100 })).toBe(0);
     expect(oneIn.mock.calls.map((c) => c[0])).toEqual([25, 50, 150, 300, 500]);
+  });
+
+  it("has the historical hit rate on the production RNG across realistic value bands", () => {
+    const trials = 100_000;
+    const expectedRate = 1 - (24 / 25) * (49 / 50) * (149 / 150) * (299 / 300) * (499 / 500);
+
+    /* The floor must not consume the production stream at all. */
+    const ineligible = new Rng(20_260_912);
+    const before = ineligible.getState();
+    let ineligibleHits = 0;
+    for (let i = 0; i < trials; i++) {
+      if (discountRoll({ rng: ineligible, cost: 4 }) > 0) ineligibleHits++;
+    }
+    expect(ineligibleHits).toBe(0);
+    expect(ineligible.getState()).toEqual(before);
+
+    /* Five independent tier checks yield about 7.045 percent in total, not
+     * the first tier's four percent alone. The intentionally broad 6.5-7.5
+     * percent band is more than six standard deviations at this volume, while
+     * still catching a broken Rng.oneIn path or a changed tier sequence. */
+    for (const cost of [5, 60, 1_000]) {
+      const rng = new Rng(20_260_912 + cost);
+      let hits = 0;
+      for (let i = 0; i < trials; i++) {
+        if (discountRoll({ rng, cost }) > 0) hits++;
+      }
+      const rate = hits / trials;
+      expect(rate, `cost ${String(cost)} observed ${String(rate)}`).toBeGreaterThan(0.065);
+      expect(rate, `cost ${String(cost)} observed ${String(rate)}`).toBeLessThan(0.075);
+      expect(Math.abs(rate - expectedRate)).toBeLessThan(0.005);
+    }
   });
 });
 

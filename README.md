@@ -166,6 +166,9 @@ else if (rand_int(500) == 0) discount = 90;
 Each check only runs if the one before it missed, cheapest tier first, and an item under
 5 gold never qualifies. That is the entire mechanism this section restores: the same
 tiers, the same odds, checked in the same order, nothing added and nothing rebalanced.
+Across all five sequential checks, an eligible item has a combined 7.045 percent chance
+of receiving a discount. The 5-gold floor excludes cheap items, but most ordinary
+low-level store generation is above it.
 `plugin.ts`'s `discountRoll` is a direct transcription; `plugin.test.ts` asserts the exact
 `oneIn` calls (25, then 50, then 150, then 300, then 500) in that order, not just the
 resulting percentages.
