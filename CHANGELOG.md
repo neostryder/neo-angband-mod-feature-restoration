@@ -24,6 +24,8 @@ were not retagged.
 
 ## [Unreleased]
 
+## 1.1.2 - 2026-09-12
+
 ### Fixed
 
 - [Visible] [UI] [Content] **Iron Spike uses native Old, Adam Bolt, and Gervais art under Linoleum instead of synthetic slots that can resolve to unrelated tiles** (#218).
