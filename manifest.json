@@ -20,9 +20,9 @@
     {
       "kind": "feature-restoration:flask:iron-spike",
       "packs": {
-        "old": { "row": 11, "col": 4 },
-        "adam-bolt": { "row": 14, "col": 9 },
-        "gervais": { "row": 7, "col": 24 },
+        "old": { "asset": "assets/iron-spike-old-native-8x8.png" },
+        "adam-bolt": { "asset": "assets/iron-spike-adambolt-native-16x16.png" },
+        "gervais": { "asset": "assets/iron-spike-gervais-native-32x32.png" },
         "nomad": { "asset": "assets/iron-spike-old-native-8x8.png" },
         "shockbolt": { "asset": "assets/iron-spike-shockbolt-native-64x64.png" }
       }

@@ -26,6 +26,7 @@ were not retagged.
 
 ### Fixed
 
+- [Visible] [UI] [Content] **Iron Spike uses native Old, Adam Bolt, and Gervais art under Linoleum instead of synthetic slots that can resolve to unrelated tiles** (#218).
 - [Visible] [UI] [Content] **Iron Spike uses its native Shockbolt art under Linoleum instead of a synthetic slot that can resolve to a dragon** (#218).
 
 ## 1.1.1 - 2026-09-12

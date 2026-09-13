@@ -67,14 +67,44 @@ describe("spike-doors object record", () => {
       {
         kind: "feature-restoration:flask:iron-spike",
         packs: {
-          old: { row: 11, col: 4 },
-          "adam-bolt": { row: 14, col: 9 },
-          gervais: { row: 7, col: 24 },
+          old: { asset: "assets/iron-spike-old-native-8x8.png" },
+          "adam-bolt": { asset: "assets/iron-spike-adambolt-native-16x16.png" },
+          gervais: { asset: "assets/iron-spike-gervais-native-32x32.png" },
           nomad: { asset: "assets/iron-spike-old-native-8x8.png" },
           shockbolt: { asset: "assets/iron-spike-shockbolt-native-64x64.png" },
         },
       },
     ]);
+  });
+
+  it("ships the exact native 8x8 Old Iron Spike crop for both tile engines", () => {
+    const asset = readFileSync(new URL("./assets/iron-spike-old-native-8x8.png", import.meta.url));
+    expect(asset.subarray(0, 24)).toEqual(
+      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 8, 0, 0, 0, 8]),
+    );
+    expect(createHash("sha256").update(asset).digest("hex")).toBe(
+      "1eff3abfb8acff5dc219e77772477d1487731103e091ab7725aabb1231513075",
+    );
+  });
+
+  it("ships the exact native 16x16 Adam Bolt Iron Spike crop for both tile engines", () => {
+    const asset = readFileSync(new URL("./assets/iron-spike-adambolt-native-16x16.png", import.meta.url));
+    expect(asset.subarray(0, 24)).toEqual(
+      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 16, 0, 0, 0, 16]),
+    );
+    expect(createHash("sha256").update(asset).digest("hex")).toBe(
+      "cfa371cdca7bfb55d790c5b1a6eebfe68b7fddb2b3564b34e6df96a481cd406e",
+    );
+  });
+
+  it("ships the exact native 32x32 Gervais Iron Spike crop for both tile engines", () => {
+    const asset = readFileSync(new URL("./assets/iron-spike-gervais-native-32x32.png", import.meta.url));
+    expect(asset.subarray(0, 24)).toEqual(
+      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 32, 0, 0, 0, 32]),
+    );
+    expect(createHash("sha256").update(asset).digest("hex")).toBe(
+      "8314dc870a4e15a87f626159d5696a8911767a313fbdb66c175ad6780a9faef8",
+    );
   });
 
   it("ships the exact native 64x64 Shockbolt Iron Spike crop for both tile engines", () => {
