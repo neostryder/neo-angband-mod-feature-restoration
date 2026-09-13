@@ -15,6 +15,8 @@
  * quietly drifted from the historical record this mod cites.
  */
 
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
@@ -69,10 +71,20 @@ describe("spike-doors object record", () => {
           "adam-bolt": { row: 14, col: 9 },
           gervais: { row: 7, col: 24 },
           nomad: { asset: "assets/iron-spike-old-native-8x8.png" },
-          shockbolt: { row: 7, col: 24 },
+          shockbolt: { asset: "assets/iron-spike-shockbolt-native-64x64.png" },
         },
       },
     ]);
+  });
+
+  it("ships the exact native 64x64 Shockbolt Iron Spike crop for both tile engines", () => {
+    const asset = readFileSync(new URL("./assets/iron-spike-shockbolt-native-64x64.png", import.meta.url));
+    expect(asset.subarray(0, 24)).toEqual(
+      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 64, 0, 0, 0, 64]),
+    );
+    expect(createHash("sha256").update(asset).digest("hex")).toBe(
+      "220a7b3d7ce3ee593445ca3f923f567ae0cd9077e4d1b14472c8c40bca2e0548",
+    );
   });
 
   it("declares the section this mod's plugin.ts gates the command on", () => {

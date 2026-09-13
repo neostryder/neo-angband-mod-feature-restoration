@@ -24,6 +24,10 @@ were not retagged.
 
 ## [Unreleased]
 
+### Fixed
+
+- [Visible] [UI] [Content] **Iron Spike uses its native Shockbolt art under Linoleum instead of a synthetic slot that can resolve to a dragon** (#218).
+
 ## 1.1.1 - 2026-09-12
 
 ### Fixed
