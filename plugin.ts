@@ -160,10 +160,18 @@ interface HostLike {
   };
 }
 
+/** The narrow `keymap:write` facade this plugin needs. */
+interface KeymapsLike {
+  isBindableTriggerKey(trigger: string): boolean;
+  bind(trigger: string, action: string): boolean;
+}
+
 interface HookCtx {
   readonly flags: Readonly<Record<string, boolean>>;
   /** The live core namespace; present on register()'s ctx, not on hooks()'s. */
   readonly core?: CoreLike;
+  /** Present only when the mod declared `keymap:write` and the player consented. */
+  readonly keymaps?: KeymapsLike;
   /** Emit a diagnostic line; the host decides where it goes. */
   readonly log?: (msg: string) => void;
 }
@@ -196,6 +204,11 @@ export function discountRoll(ctx: DiscountRollContext): number {
  * id - there is no third place to derive the string from.
  */
 export const IRON_SPIKE_NAME = "& Iron Spike~";
+
+/** Angband 3.4.1's original-command trigger for jamming a door. */
+export const SPIKE_TRIGGER = "j";
+
+export const SPIKE_COMMAND = "feature-restoration:spike";
 
 /**
  * A door already at this lock power - however it got there - takes no further
@@ -328,9 +341,19 @@ export default {
      * other flag could register "spike" over an item nothing composed. */
     if (ctx.flags["feature-restoration.spike-doors"] === true && ctx.core) {
       const core = ctx.core;
-      host.commands.register("feature-restoration:spike", (state, cmd) => spikeDoor(core, state, cmd));
-      host.commands.setVerb("feature-restoration:spike", "spike");
+      host.commands.register(SPIKE_COMMAND, (state, cmd) => spikeDoor(core, state, cmd));
+      host.commands.setVerb(SPIKE_COMMAND, "spike");
       ctx.log?.("feature-restoration: spike-a-door command installed");
+      if (ctx.keymaps) {
+        const bound = ctx.keymaps.isBindableTriggerKey(SPIKE_TRIGGER) && ctx.keymaps.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
+        ctx.log?.(
+          bound
+            ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound`
+            : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`,
+        );
+      } else {
+        ctx.log?.(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
+      }
     }
   },
 };

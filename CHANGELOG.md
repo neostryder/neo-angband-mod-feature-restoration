@@ -24,6 +24,14 @@ were not retagged.
 
 ## [Unreleased]
 
+### Added
+
+- [Visible] [UI] [Modding-API] **Door spiking now claims the original j key by default when it is free.** (#229)
+
+### Fixed
+
+- [Visible] [Content] **Iron Spikes no longer appear as lamp fuel when used.** (#229)
+
 ## 1.1.2 - 2026-09-12
 
 ### Fixed

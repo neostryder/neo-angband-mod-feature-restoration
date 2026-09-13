@@ -19,6 +19,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
+import { objectNew, objCanRefill, OF, TV } from "@rpgm-tools/neo-angband-core";
 import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
 
 import objectContrib from "./object.json";
@@ -169,10 +170,26 @@ describe("spike-doors object record", () => {
     ).toBeGreaterThan(0);
   });
 
-  it("carries no combat modifiers and no magic - a plain consumable, exactly as Angband 3.4.1 shipped it", () => {
-    expect(SPIKE.flags).toEqual(["EASY_KNOW"]);
+  it("carries no combat modifiers or magic, and cannot become lamp fuel through its borrowed flask tval", () => {
+    expect(SPIKE.flags).toEqual(["EASY_KNOW", "NO_FUEL"]);
     expect(SPIKE["attack"]).toEqual({ hd: "1d1", "to-h": "0", "to-d": "0" });
     expect(SPIKE["armor"]).toEqual({ ac: 0, "to-a": "0" });
+
+    const spike = objectNew({ name: SPIKE.name } as never);
+    spike.tval = TV.FLASK;
+    for (const flag of SPIKE.flags) spike.flags.on(OF[flag as keyof typeof OF]);
+
+    const lantern = objectNew({ name: "& Lantern~" } as never);
+    lantern.tval = TV.LIGHT;
+    lantern.flags.on(OF.TAKES_FUEL);
+    const state = {
+      actor: { player: { body: { slots: [{ type: "LIGHT" }] } } },
+      runeEnv: { slotObject: () => lantern },
+    } as unknown as Parameters<typeof objCanRefill>[0];
+
+    expect(objCanRefill(state, spike)).toBe(false);
+    spike.flags.off(OF.NO_FUEL);
+    expect(objCanRefill(state, spike)).toBe(true);
   });
 
   /* Angband 3.4.1's lib/edit/object.txt: N:1:& Iron Spike~ / W:1:0:2:1 (depth:

@@ -32,7 +32,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 |---|---|---|
 | **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
 | **Restore store discounts** (`discounts`) | off | Stores occasionally sell an item at a random discount, the way Angband 3.0.6, the last official release to carry the mechanic, did. 4.2.6 dropped the mechanic entirely. |
-| **Restore door spiking** (`spike-doors`) | off | Adds Iron Spikes as a findable item and a `spike` command that spends one to jam a closed door, making it harder to pick open. Angband 3.4.1, the last official release before the 4.0 command rewrite dropped both, is the source; 4.2.6 has neither. **Not yet reachable in play.** The command is wired and tested, but the game has no key or menu entry that dispatches it yet; see below. |
+| **Restore door spiking** (`spike-doors`) | off | Adds Iron Spikes as a findable item and a `spike` command that spends one to jam a closed door, making it harder to pick open. Angband 3.4.1, the last official release before the 4.0 command rewrite dropped both, is the source; 4.2.6 has neither. The command claims the original `j` key by default when it is free; see below. |
 
 ### Restore Teleport Other
 
@@ -227,27 +227,11 @@ the turn. Reproducing that would mean re-deriving core's melee math inside this 
 code; this restoration declines the attack instead, spends the turn, and leaves the spike
 unused. `plugin.test.ts` covers this exactly as written, not as upstream's fuller version.
 
-**The item.** Angband dropped `TV_SPIKE` itself before this port's 4.2.6 baseline, so
-there is no existing tval this mod can add an Iron Spike under the way it exists
-upstream, and adding a wholly new item CLASS is a bigger seam than this restoration
-needs (see "Content, plus one plugin" below). `object.json`'s Iron Spike borrows the
-`flask` tval instead. Core's own Flask of Oil is the closest real precedent: a small,
-stackable, single-purpose consumable with no weapon or armour semantics to collide with.
-Weight (0.2 lb), cost (1 gold) and where it is found (dungeon levels 1-40, uncommon) are
-transcribed from the item's own Angband 3.4.1 record.
+**The item.** Angband dropped `TV_SPIKE` itself before this port's 4.2.6 baseline, so there is no existing tval this mod can add an Iron Spike under the way it exists upstream, and adding a wholly new item CLASS is a bigger seam than this restoration needs (see "Content, plus one plugin" below). `object.json`'s Iron Spike borrows the `flask` tval instead. Core's own Flask of Oil is the closest real precedent: a small, stackable, single-purpose consumable with no weapon or armour semantics to collide with. Iron Spike carries `NO_FUEL`, so borrowing the tval does not make it eligible to refuel a lamp or inherit Flask of Oil's behavior. Weight (0.2 lb), cost (1 gold) and where it is found (dungeon levels 1-40, uncommon) are transcribed from the item's own Angband 3.4.1 record.
 
 **Restored item art.** A restored item uses its own pack's confirmed historical art when that art still exists. If an active pack has no confirmed historical art, it uses the highest-resolution confirmed-real substitute from another bundled pack whose resolution is at or below the target pack's own resolution. It never uses a higher-resolution substitute. Only when no confirmed historical art exists anywhere does it keep its ASCII glyph. A pack address is declared as a standalone asset whenever that pack has its own Linoleum conversion. A raw sheet coordinate is used only for a pack with no Linoleum conversion at all. This is the standing procedure for restored content in this mod family. Genuinely new mod-added content follows the tile pack's normal donor policy instead; its opt-out is documented by Linoleum.
 
-**Reaching the command in play.** `plugin.ts` installs `feature-restoration:spike` via
-`registry:command` and names it with `commands.setVerb`. Both are real and tested
-(`plugin.test.ts` drives the installed action directly). What this mod cannot supply on
-its own is a way for a player to actually trigger it: the web front end's key and
-context-menu handling for cave commands (`packages/web/src/main.ts`) is a fixed set of
-cases the game itself owns, and none of them yet dispatches a mod-registered command
-code. Until the game adds one, such as a key binding, a context-menu entry, or some other
-generic entry point, this restoration's command exists, is correctly wired, and is
-reachable by anything that can push a `PlayerCommand` at it (including the game's own
-future UI, and any other mod's), but nothing in the shipped game currently does.
+**Reaching the command in play.** `plugin.ts` installs `feature-restoration:spike` via `registry:command`, names it with `commands.setVerb`, and claims the `j` key by default through the `keymap:write` capability. `j` is Angband 3.4.1's original-command trigger for jamming a door. The claim succeeds only when the current keyset leaves `j` free, so it never replaces a player or another mod's binding. When `j` is already occupied or keymap access was not granted, the command remains available for a player to bind manually in the keymap editor.
 
 ## Content, plus one plugin
 

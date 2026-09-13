@@ -10,6 +10,8 @@ import plugin, {
   discountRoll,
   IRON_SPIKE_NAME,
   MAX_SPIKE_POWER,
+  SPIKE_COMMAND,
+  SPIKE_TRIGGER,
   spikeDoor,
 } from "./plugin.js";
 
@@ -33,11 +35,13 @@ function fakeHost(): FakeHost & {
   installedDiscount: DiscountHandler | null;
   installedSpike: SpikeAction | null;
   installedVerb: { code: string; verb: string } | null;
+  actions: Map<string, SpikeAction>;
 } {
   const host = {
     installedDiscount: null as DiscountHandler | null,
     installedSpike: null as SpikeAction | null,
     installedVerb: null as { code: string; verb: string } | null,
+    actions: new Map<string, SpikeAction>(),
     stores: {
       setDiscountRoll(h: DiscountHandler) {
         host.installedDiscount = h;
@@ -45,6 +49,7 @@ function fakeHost(): FakeHost & {
     },
     commands: {
       register(code: string, action: SpikeAction) {
+        host.actions.set(code, action);
         host.installedSpike = action;
       },
       setVerb(code: string, verb: string) {
@@ -53,6 +58,26 @@ function fakeHost(): FakeHost & {
     },
   };
   return host;
+}
+
+/** Minimal ModKeymaps double: bind only claims an otherwise free one-key trigger. */
+class FakeKeymaps {
+  readonly bindings = new Map<string, string>();
+
+  isBindableTriggerKey(trigger: string): boolean {
+    return trigger.length === 1 && !this.bindings.has(trigger);
+  }
+
+  bind(trigger: string, action: string): boolean {
+    if (!this.isBindableTriggerKey(trigger) || action.length === 0) return false;
+    this.bindings.set(trigger, action);
+    return true;
+  }
+
+  dispatch(trigger: string, state: Parameters<SpikeAction>[0], cmd: Parameters<SpikeAction>[1], actions: ReadonlyMap<string, SpikeAction>): number | null {
+    const action = this.bindings.get(trigger);
+    return action ? (actions.get(action)?.(state, cmd) ?? null) : null;
+  }
 }
 
 describe("hooks", () => {
@@ -133,6 +158,32 @@ describe("register - spike-doors flag gating", () => {
     plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core });
     expect(host.installedSpike).toBeTypeOf("function");
     expect(host.installedVerb).toEqual({ code: "feature-restoration:spike", verb: "spike" });
+  });
+
+  it("claims Angband 3.4.1's j trigger when free and dispatches it to the spike command", () => {
+    const host = fakeHost();
+    const core = fakeCore();
+    const keymaps = new FakeKeymaps();
+    const log = vi.fn();
+    plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core, keymaps, log });
+
+    expect(keymaps.bindings).toEqual(new Map([[SPIKE_TRIGGER, SPIKE_COMMAND]]));
+    expect(log).toHaveBeenCalledWith(`feature-restoration: spike default key ${SPIKE_TRIGGER} bound`);
+
+    const { state, doors } = fakeState({ spikes: 1 });
+    expect(keymaps.dispatch(SPIKE_TRIGGER, state, { dir: 6 }, host.actions)).toBe(10);
+    expect(doors["6,5"]!.power).toBe(1);
+  });
+
+  it("leaves an occupied default trigger unchanged", () => {
+    const host = fakeHost();
+    const keymaps = new FakeKeymaps();
+    keymaps.bind(SPIKE_TRIGGER, "player-command");
+    const log = vi.fn();
+    plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core, keymaps, log });
+
+    expect(keymaps.bindings).toEqual(new Map([[SPIKE_TRIGGER, "player-command"]]));
+    expect(log).toHaveBeenCalledWith(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`);
   });
 });
 

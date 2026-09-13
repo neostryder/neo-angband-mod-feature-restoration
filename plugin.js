@@ -13,6 +13,8 @@ function discountRoll(ctx) {
   return 0;
 }
 var IRON_SPIKE_NAME = "& Iron Spike~";
+var SPIKE_TRIGGER = "j";
+var SPIKE_COMMAND = "feature-restoration:spike";
 var MAX_SPIKE_POWER = 7;
 function findSpike(state) {
   for (const handle of state.gear.pack) {
@@ -86,15 +88,25 @@ var plugin_default = {
     }
     if (ctx.flags["feature-restoration.spike-doors"] === true && ctx.core) {
       const core = ctx.core;
-      host.commands.register("feature-restoration:spike", (state, cmd) => spikeDoor(core, state, cmd));
-      host.commands.setVerb("feature-restoration:spike", "spike");
+      host.commands.register(SPIKE_COMMAND, (state, cmd) => spikeDoor(core, state, cmd));
+      host.commands.setVerb(SPIKE_COMMAND, "spike");
       ctx.log?.("feature-restoration: spike-a-door command installed");
+      if (ctx.keymaps) {
+        const bound = ctx.keymaps.isBindableTriggerKey(SPIKE_TRIGGER) && ctx.keymaps.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
+        ctx.log?.(
+          bound ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound` : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`
+        );
+      } else {
+        ctx.log?.(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
+      }
     }
   }
 };
 export {
   IRON_SPIKE_NAME,
   MAX_SPIKE_POWER,
+  SPIKE_COMMAND,
+  SPIKE_TRIGGER,
   plugin_default as default,
   discountRoll,
   spikeDoor
