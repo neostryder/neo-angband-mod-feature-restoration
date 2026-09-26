@@ -24,6 +24,8 @@ were not retagged.
 
 ## [Unreleased]
 
+## 1.2.2 - 2026-09-26
+
 ### Changed
 
 - [Visible] [UI] **Renamed to Cutting Room Floor.** The mod now also takes content upstream wrote and never switched on, alongside features later releases removed. Its id, settings and saved items are unchanged, so existing characters and choices carry over.

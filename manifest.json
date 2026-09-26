@@ -1,7 +1,7 @@
 {
   "id": "feature-restoration",
   "name": "Cutting Room Floor",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "shape": "content",
   "facets": [
     "content",
