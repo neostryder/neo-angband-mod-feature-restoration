@@ -29,6 +29,7 @@ were not retagged.
 - [Visible] [Docs] **Store-discount documentation now gives the combined 7.045 percent chance for an eligible item.** The exact historical tiers are unchanged (#219).
 
 - [Visible] [UI] **Setting descriptions read more plainly.** The restored-feature descriptions in the mod manager are rewritten for clarity; the features themselves are unchanged.
+- [Visible] [Docs] **The README explains in plainer words why restored spells use 4.2.6 prices rather than the 4.1.3 records.** The terms and AI usage policy are reworded too.
 
 ## 1.2.0 - 2026-09-12
 
