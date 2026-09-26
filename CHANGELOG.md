@@ -28,6 +28,8 @@ were not retagged.
 
 - [Visible] [Docs] **Store-discount documentation now gives the combined 7.045 percent chance for an eligible item.** The exact historical tiers are unchanged (#219).
 
+- [Visible] [UI] **Setting descriptions read more plainly.** The restored-feature descriptions in the mod manager are rewritten for clarity; the features themselves are unchanged.
+
 ## 1.2.0 - 2026-09-12
 
 ### Added

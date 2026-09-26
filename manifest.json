@@ -31,19 +31,19 @@
   ],
   "author": "neostryder",
   "license": "GPL-2.0-only",
-  "description": "Brings back beloved Angband features that later versions quietly dropped, as opt-in content. Angband 4.2.6 stays faithful in core - nothing here changes unless you switch a toggle on, and every toggle defaults OFF.\n\nEach restored feature is its own toggle, so you can take exactly the ones you miss.",
+  "description": "Brings back Angband features that later versions dropped, as opt-in content. The base game stays faithful to Angband 4.2.6: nothing changes unless you switch a toggle on, and every toggle defaults to off.\n\nEach restored feature has its own toggle, so you can pick just the ones you miss.",
   "sections": [
     {
       "id": "teleport-other",
       "title": "Restore Teleport Other (Priest, Paladin, Ranger)",
-      "description": "Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave every spellcasting class a way to teleport a monster away. Angband 4.2.6 kept it for the Mage and the Rogue and quietly dropped it for everyone else. This adds the same spell - a bolt that teleports the first monster it hits away, farther at higher level - to the Priest, Paladin and Ranger spell lists. Angband 4.1.3's own record for each class sets the shape, and the Mage's and Rogue's surviving copies set the price, so a restored spell costs what the spell costs in the game as it is now. The README shows the measurement behind every value. Nothing about the Mage's or Rogue's own copies is touched.",
+      "description": "Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave every spellcasting class a way to teleport a monster away. Angband 4.2.6 kept it for the Mage and the Rogue and dropped it for everyone else. This adds the same spell, a bolt that teleports the first monster it hits away (farther at higher level), to the Priest, Paladin and Ranger spell lists. Each class's 4.1.3 entry sets the spell's shape, and the Mage's and Rogue's current copies set its price, so a restored spell costs what the spell costs in the game today. The README explains where every value comes from. The Mage's and Rogue's own copies are unchanged.",
       "default": false
     },
     {
       "id": "spike-doors",
       "flag": "feature-restoration.spike-doors",
       "title": "Restore door spiking",
-      "description": "Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let a player jam a closed door with an iron spike, making it harder to open - a dedicated command consuming a stackable item that has had no use, and no way into a player's pack, since. This restores both: Iron Spikes as a findable item and a 'spike' command that spends one to raise the target door's lock strength. The command claims the original j key by default when it is free, without replacing an existing player or mod binding. See the README for exactly what carried over and what did not.",
+      "description": "Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let you jam a closed door with an iron spike to make it harder to open. Since then the command has been gone, and the stackable iron spike has had no use and no way into your pack. This restores both: Iron Spikes as an item you can find, and a 'spike' command that uses one to raise the target door's lock strength. The command takes the original j key by default if it is free, and never replaces an existing player or mod binding. The README lists exactly what carried over and what did not.",
       "default": false
     }
   ],
@@ -51,7 +51,7 @@
     {
       "flag": "feature-restoration.discounts",
       "title": "Restore store discounts",
-      "description": "Angband 3.0.6, the last official release to carry it, occasionally discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked, at the same odds that version rolled (10% about 1 time in 25, down to 90% about 1 time in 500 - see the README for the exact source). Angband 3.0.8 removed the mechanic and 4.2.6 has never had it back. This restores the roll faithfully; it does not invent new odds or a new discount shape.",
+      "description": "Angband 3.0.6, the last official release to carry it, sometimes discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked (10% about 1 time in 25, down to 90% about 1 time in 500; the README cites the exact source). Angband 3.0.8 removed the mechanic and 4.2.6 has never had it back. This restores that roll with the same odds and the same discount sizes.",
       "default": false,
       "requiresReload": true
     }

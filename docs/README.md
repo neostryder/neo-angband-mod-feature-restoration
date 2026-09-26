@@ -16,9 +16,9 @@ switch has no flag of its own, the game knows it by its section id instead.
 
 | Setting | Identifier | Default | What it does |
 | --- | --- | --- | --- |
-| Restore store discounts | `feature-restoration.discounts` | off | Angband 3.0.6, the last official release to carry it, occasionally discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked, at the same odds that version rolled (10% about 1 time in 25, down to 90% about 1 time in 500 - see the README for the exact source). |
+| Restore store discounts | `feature-restoration.discounts` | off | Angband 3.0.6, the last official release to carry it, sometimes discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked (10% about 1 time in 25, down to 90% about 1 time in 500; the README cites the exact source). |
 | Restore Teleport Other (Priest, Paladin, Ranger) | `teleport-other` | off | Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave every spellcasting class a way to teleport a monster away. |
-| Restore door spiking | `feature-restoration.spike-doors` | off | Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let a player jam a closed door with an iron spike, making it harder to open - a dedicated command consuming a stackable item that has had no use, and no way into a player's pack, since. |
+| Restore door spiking | `feature-restoration.spike-doors` | off | Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let you jam a closed door with an iron spike to make it harder to open. |
 
 ## What it needs
 
