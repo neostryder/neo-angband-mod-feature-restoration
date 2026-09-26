@@ -24,6 +24,8 @@ were not retagged.
 
 ## [Unreleased]
 
+## 1.2.1 - 2026-09-26
+
 ### Changed
 
 - [Visible] [Docs] **Store-discount documentation now gives the combined 7.045 percent chance for an eligible item.** The exact historical tiers are unchanged (#219).
