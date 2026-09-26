@@ -29,7 +29,7 @@ jobs:
           tag="${{ github.ref_name }}"
           version="${tag#v}"
           if [[ "$version" == 0.* ]]; then
-            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --title "Neo Angband: Feature Restoration $version" --notes-file release-notes.md --prerelease --verify-tag
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --title "Neo Angband: Cutting Room Floor $version" --notes-file release-notes.md --prerelease --verify-tag
           else
-            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --title "Neo Angband: Feature Restoration $version" --notes-file release-notes.md --verify-tag
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --title "Neo Angband: Cutting Room Floor $version" --notes-file release-notes.md --verify-tag
           fi

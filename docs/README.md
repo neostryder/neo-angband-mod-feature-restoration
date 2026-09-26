@@ -1,8 +1,6 @@
-# Feature Restoration: quick reference
+# Cutting Room Floor: quick reference
 
-Brings back beloved Angband features that later versions quietly dropped, as
-opt-in content. Angband 4.2.6 stays faithful in core - nothing here changes
-unless you switch a toggle on, and every toggle defaults OFF.
+Brings back Angband features that later versions dropped, and content upstream wrote but never switched on, as opt-in content. Core stays as Angband 4.2.6 plays: nothing here changes unless you switch a toggle on, and every toggle defaults to off.
 
 This page is the short version: every setting, what the mod asks the game for,
 and where the longer material is. The account of why each of these exists is in

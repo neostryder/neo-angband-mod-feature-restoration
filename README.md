@@ -1,19 +1,18 @@
-# Feature Restoration
+# Cutting Room Floor
 
-Beloved Angband features that later versions quietly dropped, brought back as opt-in
-content for [Neo Angband](https://github.com/neostryder/neo-angband).
+Angband features that later versions dropped, and content upstream wrote but never switched on, brought back as opt-in content for [Neo Angband](https://github.com/neostryder/neo-angband). The name comes from the Skyrim mod that does the same for that game's cut content.
 
-**This is a mod.** It is off until you enable it, every restored feature inside it is a
-named switch you can turn off on its own, and disabling the mod leaves the game exactly
-as Angband 4.2.6 plays it.
+**This is a mod.** It is off until you enable it, every restoration inside it is a named switch you can turn off on its own, and disabling the mod leaves the game as Angband 4.2.6 plays it.
 
-![The mod manager's detail panel for Feature Restoration](docs/img/feature-restoration-detail.jpg)
+![The mod manager's detail panel for this mod](docs/img/feature-restoration-detail.jpg)
 
-## What it is not
+## What belongs here
 
-Everything here is something Angband itself used to do, in an earlier version, for a class or a mechanic that later lost it. Rebalances and house rules do not belong in this mod, and neither does anything that never existed in any Angband.
+Two kinds of content belong here: features Angband shipped and a later release removed, and content upstream wrote and never switched on, found in the game's repository or its git history, such as an artifact record left commented out. Each section names the release it last shipped in, or the commit that added it unused.
 
-It also does not bring back the identify-sell-restock town loop, because 4.2.6 still has it. `birth_no_selling` ("Increase gold drops but disable selling") is a birth option in the base game, on by default, and that default is what makes selling feel removed. Turn it off when you start a character and stores buy again, with no mod installed at all.
+Rebalances, house rules and anything with no upstream source stay out.
+
+The identify-sell-restock town loop stays out too, because 4.2.6 still has it. `birth_no_selling` ("Increase gold drops but disable selling") is a birth option in the base game, on by default, and that default is what makes selling feel removed. Turn it off when you start a character and stores buy again, with no mod installed at all.
 
 ## What it adds
 

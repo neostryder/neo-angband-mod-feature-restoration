@@ -10,7 +10,7 @@ are, however small.
 
 Every restoration in this mod defaults to **off**. Enabling the mod restores
 nothing on its own; each switch is a separate decision, taken in
-Mods -> Feature Restoration -> Fixes & tweaks.
+Mods -> Cutting Room Floor -> Fixes & tweaks.
 
 Starting with this entry, an entry opens with one or more bracketed tags.
 `[Visible]` marks a change a player would notice in the game or mod itself;
@@ -23,6 +23,10 @@ when empty for a release: Added, Changed, Removed, Fixed. Earlier entries
 were not retagged.
 
 ## [Unreleased]
+
+### Changed
+
+- [Visible] [UI] **Renamed to Cutting Room Floor.** The mod now also takes content upstream wrote and never switched on, alongside features later releases removed. Its id, settings and saved items are unchanged, so existing characters and choices carry over.
 
 ## 1.2.1 - 2026-09-26
 
