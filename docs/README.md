@@ -26,6 +26,7 @@ switch has no flag of its own, the game knows it by its section id instead.
 | Restore the novices, swordsmen and angels | `monsters-3x` | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 | Add the Amulet of Amandil (never released) | `amandil` | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | Restore the bronze dragons | `feature-restoration.bronze-dragons` | off | Bronze dragons breathed confusion. |
+| Restore seven ring and amulet flavors | `flavors` | off | In 2013 upstream gave seven ring and amulet looks to artifacts. |
 
 ## What it needs
 

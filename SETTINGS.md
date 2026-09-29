@@ -16,3 +16,4 @@ Sections always require a reload because the content is recomposed. The store di
 | `monsters-3x` | off | Adds sixteen 3.x monsters: the novices, two warriors and the angels. | Yes, section. |
 | `amandil` | off | Adds the Amulet of Amandil, an artifact upstream wrote and never enabled. | Yes, section. |
 | `feature-restoration.bronze-dragons` | off | Adds the bronze dragons, their confusion breath and Bronze Dragon Scale Mail. | Yes, section and register side. |
+| `flavors` | off | Adds seven ring and amulet looks back, including five the artifacts took. | Yes, section. |

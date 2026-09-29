@@ -35,6 +35,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the novices, swordsmen and angels** (`monsters-3x`) | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
+| **Restore seven ring and amulet flavors** (`flavors`) | off | In 2013 upstream gave seven ring and amulet looks to artifacts. |
 
 ### Restore Teleport Other
 
@@ -183,6 +184,10 @@ In 3.2.0 the baby bronze dragon and the giant bronze dragon fly were exact copie
 
 Confusion breath follows 3.2.0's rules, with one change. A monster is confused for (10 + 1d15 + r) / (r + 1) turns, takes half damage if it cannot be confused, and a confusion breather takes dam x 2 / (1d6 + 6). The player is confused for 1d20 + 10 turns. In 3.2.0, resisting confusion also cut the damage. 4.2 made that resistance the protection from confusion, and a 4.2 protection stops a status without reducing damage, so protection here stops the confusion and the damage lands in full. The breath's divisor (hit points / 6) and damage cap (400) are 3.x's own.
 
+### Restore seven ring and amulet flavors
+
+Upstream commit `e08ed1dcb` ("Add some fixed artifact flavors", 4 October 2013) commented out seven random flavors so their index slots could become fixed flavors for artifacts: Ruby (28) became Narya, Sapphire (29) Vilya, Mithril (40) Nenya, Bronze (52) Carlammas and Golden (55) the Necklace of the Dwarves, while the Amber (44) and Coral (46) slots went to the Elfstone (drawn green) and the Evenstar (drawn white). The section appends the seven to core's ring and amulet flavor lists with the colours they had before that commit. They take new indices, 303 to 309, so the artifacts keep theirs. Five of the seven share a name with an artifact's fixed flavor, which brings back the pre-2013 guessing game: an unknown Ruby ring might be Narya.
+
 ## Content, plus one plugin
 
 Restoring a spell to a class's book only takes data. The spell already exists (the Mage and the Rogue cast it today), so nothing new has to run; the class's book just needs one more entry. A [field-level patch](https://github.com/neostryder/neo-angband/blob/master/packages/mod-sdk/src/patch.ts) onto core's own `class.json` does exactly that, and a manifest [section](https://github.com/neostryder/neo-angband/blob/master/docs/modding/MOD_LIFECYCLE.md) turns it on and off. That is all `teleport-other` needs.
@@ -205,7 +210,7 @@ The game packages this repository tests against are pinned at 1.18.0 until neost
 
 ## Installing
 
-The mod is `manifest.json`, its gamedata files (`artifact.json`, `class.json`, `ego_item.json`, `message_type.json`, `monster.json`, `monster_spell.json`, `object.json`, `projection.json`) and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
+The mod is `manifest.json`, its gamedata files (`artifact.json`, `class.json`, `ego_item.json`, `flavor.json`, `message_type.json`, `monster.json`, `monster_spell.json`, `object.json`, `projection.json`) and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
 - **In the game:** Mods -> **Install a mod...**, which fetches this repository at a
   release tag, never a branch. The install records a SHA-256 of every byte that
   arrived, so the manager can answer later whether the copy on your machine has

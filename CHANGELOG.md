@@ -35,6 +35,7 @@ were not retagged.
 - [Visible] [Content] **The novices, the Swordsman, the Hardened warrior and the angels.** Sixteen 3.x monsters, including the angel uniques Uriel, Azriel and Gabriel.
 - [Visible] [Content] **The Amulet of Amandil, which no Angband release ever enabled.** Upstream wrote it in 2011 and commented it out; its own switch turns the record on unchanged apart from its base.
 - [Visible] [Content] **Bronze dragons and confusion breath.** Five bronze dragons, the Great Wyrm of Perplexity and Bronze Dragon Scale Mail come back, with confusion restored as an element for them to breathe.
+- [Visible] [Content] **Ruby, Sapphire, Mithril, Amber, Coral, Bronze and Golden return as ring and amulet looks.** A Ruby ring may once again be Narya, or may not.
 
 ### Changed
 

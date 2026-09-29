@@ -111,6 +111,12 @@
       "description": "Bronze dragons breathed confusion. Angband 3.3 switched them off in 2010 and 4.0 removed confusion as an element, so no release since 3.2.0 has generated one. This brings back the giant bronze dragon fly, the baby, young, mature and ancient bronze dragons, the Great Wyrm of Perplexity, and Bronze Dragon Scale Mail, which breathes confusion when you activate it. Each dragon takes the numbers of the 4.2 gold dragon of its size, scaled by how bronze compared with gold in 3.2.0. Their breath hurts and leaves you confused unless you have protection from confusion.",
       "default": false,
       "flag": "feature-restoration.bronze-dragons"
+    },
+    {
+      "id": "flavors",
+      "title": "Restore seven ring and amulet flavors",
+      "description": "In 2013 upstream gave seven ring and amulet looks to artifacts. Ruby, Sapphire and Mithril became the fixed looks of Narya, Vilya and Nenya, Bronze and Golden those of Carlammas and the Necklace of the Dwarves, and Amber and Coral went to the Elfstone and the Evenstar. This adds all seven back as looks an ordinary ring or amulet can have, in their old colours. An unidentified Ruby ring could then be Narya or something ordinary, as it could before 2013.",
+      "default": false
     }
   ],
   "rules": [

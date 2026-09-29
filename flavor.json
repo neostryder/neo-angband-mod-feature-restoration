@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "flavors": {
+      "fieldPatches": {
+        "core:ring": [
+          {
+            "op": "append",
+            "path": "entries",
+            "values": [
+              {
+                "kind": "flavor",
+                "index": 303,
+                "attr": "Red",
+                "desc": "Ruby"
+              },
+              {
+                "kind": "flavor",
+                "index": 304,
+                "attr": "Blue",
+                "desc": "Sapphire"
+              },
+              {
+                "kind": "flavor",
+                "index": 305,
+                "attr": "Light Blue",
+                "desc": "Mithril"
+              }
+            ]
+          }
+        ],
+        "core:amulet": [
+          {
+            "op": "append",
+            "path": "entries",
+            "values": [
+              {
+                "kind": "flavor",
+                "index": 306,
+                "attr": "Yellow",
+                "desc": "Amber"
+              },
+              {
+                "kind": "flavor",
+                "index": 307,
+                "attr": "White",
+                "desc": "Coral"
+              },
+              {
+                "kind": "flavor",
+                "index": 308,
+                "attr": "Light Umber",
+                "desc": "Bronze"
+              },
+              {
+                "kind": "flavor",
+                "index": 309,
+                "attr": "Yellow",
+                "desc": "Golden"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
