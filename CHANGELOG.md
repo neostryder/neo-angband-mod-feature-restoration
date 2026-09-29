@@ -31,6 +31,8 @@ were not retagged.
 - [Visible] [Content] **Stat-draining potions, Apple Juice and Water.** Five potions each drain one stat until your next level; the other two just feed you a little.
 - [Visible] [Content] **The Sabre, the Small Sword, two chain mails and three diggers.** Their armour and digging are converted to 4.2's scales, so a Double Chain Mail sits beside 4.2's Augmented Chain Mail rather than far below it.
 - [Visible] [Content] **Death, Ruination and Detonations.** Rare, deep, and ruinous to drink unidentified.
+- [Visible] [Content] **54 monsters that 4.2.0 replaced, back beside their replacements.** The dark elves, Medusa, the Titans, the ninja, the drider and the rest of the 4.1.3 cast return with their own numbers; where an old monster and its replacement are exact equals, each appears half as often.
+- [Visible] [Content] **The novices, the Swordsman, the Hardened warrior and the angels.** Sixteen 3.x monsters, including the angel uniques Uriel, Azriel and Gabriel.
 
 ### Changed
 

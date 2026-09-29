@@ -31,6 +31,8 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore cut potions** (`classic-potions`) | off | Brings back seven potions that Angband 3.0.9 had and 3.1.0 removed. |
 | **Restore cut weapons, armour and diggers** (`classic-equipment`) | off | Brings back seven items that Angband 3.0.9 had and 3.1.0 removed: the Sabre, the Small Sword, Rusty Chain Mail, Double Chain Mail, the Gnomish Shovel, the Dwarven Shovel and the Dwarven Pick. |
 | **Restore the deadly potions** (`classic-dangers`) | off | Brings back three potions that Angband 3.0.9 had and 3.1.0 removed, each one a disaster to drink before you know what it is. |
+| **Restore the monsters cut in 4.2.0** (`monsters-4-1`) | off | Angband 4.2.0 replaced 55 monsters in a pass that made the game's cast fit Tolkien's world: the dark elves, Greek myth such as Medusa, Atlas and the Lernaean Hydra, the ninja and the dagashi, the drider, the black pudding and others. |
+| **Restore the novices, swordsmen and angels** (`monsters-3x`) | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 
 ### Restore Teleport Other
 
@@ -156,6 +158,14 @@ Where a record needed a change to fit 4.2, the reason is written beside it in `t
 - **How often.** 3.0.9 gave a depth and a rarity; the conversion keeps the depth and scales rarity against 4.2's usual commonness of 20. The five stat-draining potions are set to 10, 4.2's commonness for Salt Water. Apple Juice and Water were never generated at random in 3.0.9, so they take Slime Mold Juice's allocation and a share of its nourishment in proportion to their 3.0.9 values.
 
 `tools/convert-records.mjs` rebuilds these records from a local clone of upstream Angband's git history and compiles each one with 4.2.6's own gamedata rules.
+
+### Restore the monsters cut in 4.2.0, and the 3.x novices and angels
+
+Of the 55 monsters Angband 4.2.0 cut, 51 handed their tile to a Tolkien-world replacement, and 25 of those replacements kept the old monster's depth, speed and hit points exactly: the jackal became the wild dog, the dark elven priest the ironfist priest, the Cat Lord Tevildo. `monsters-4-1` adds the old records back beside the new ones. For each of those 25 exact pairs, both monsters appear half as often while the section is on, so a depth that drew one wild dog now draws a wild dog or a jackal. The other monsters are simply added. The 4.1.3 casters dropped named spellbooks that 4.2 does not have; they now drop a magic book or a prayer book of no fixed title, the way 4.2's own casters do, so they drop 4.2's books normally and the classic books when those are on.
+
+`monsters-3x` does the same for sixteen 3.x monsters: the six novices (the lone versions, since 3.2.0 also shipped grouped novices under the same names), the Swordsman and Hardened warrior from 3.4.1, and the angels from 3.3.2 on 4.2's Ainu base.
+
+Two monsters stay out. 4.2's Azog, Enemy of the Dwarves is the same character as 4.1.3's Azog, King of the Uruk-Hai, and a game with two Azogs makes no sense. 4.2's craban is 3.4.1's Crebain with its singular name.
 
 ## Content, plus one plugin
 

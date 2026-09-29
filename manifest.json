@@ -85,6 +85,18 @@
       "title": "Restore the deadly potions",
       "description": "Brings back three potions that Angband 3.0.9 had and 3.1.0 removed, each one a disaster to drink before you know what it is. Death deals 5000 damage, which kills almost any character. Ruination deals 10d10 damage and drains five stats. Detonations deals 50d20 damage, stuns you badly and leaves a deep cut. They are rare, and appear only from depth 40 (Ruination), 55 (Death) and 60 (Detonations).",
       "default": false
+    },
+    {
+      "id": "monsters-4-1",
+      "title": "Restore the monsters cut in 4.2.0",
+      "description": "Angband 4.2.0 replaced 55 monsters in a pass that made the game's cast fit Tolkien's world: the dark elves, Greek myth such as Medusa, Atlas and the Lernaean Hydra, the ninja and the dagashi, the drider, the black pudding and others. This brings 54 of them back from Angband 4.1.3 with their original numbers, alongside the 4.2 monsters that took their places. Where a 4.2 monster took an old one's depth, speed and hit points exactly, both of the pair appear half as often, so those depths keep their usual mix. Azog, King of the Uruk-Hai stays out, because 4.2 already has Azog under another title.",
+      "default": false
+    },
+    {
+      "id": "monsters-3x",
+      "title": "Restore the novices, swordsmen and angels",
+      "description": "Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. The six novice adventurers gave way to soldiers, cutpurses, acolytes, apprentices, scouts and gallants in 3.3. The Swordsman and the Hardened warrior last appeared in 3.4.1. The angels (Angel, Archangel, Cherub, Seraph and Archon, and the uniques Uriel, Azriel and Gabriel) were replaced by the Maiar in 3.4. All of them keep their 3.x numbers. Crebain is not included, because 4.2's craban is the same bird.",
+      "default": false
     }
   ],
   "rules": [

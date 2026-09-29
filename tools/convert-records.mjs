@@ -38,6 +38,7 @@ import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { compileGamedata, gamedataSpecs } from "@rpgm-tools/neo-angband-content";
+import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
 
 const require = createRequire(import.meta.url);
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -70,7 +71,7 @@ const isV3 = (tag) => tag.startsWith("v3") || tag.startsWith("3.");
 const sourcePath = (tag, file) => (isV3(tag) ? `lib/edit/${file}.txt` : `lib/gamedata/${file}.txt`);
 
 /** One record's lines from an upstream file, by name, comments dropped. */
-function recordLines(tag, file, name, type) {
+function recordLines(tag, file, name, type, occurrence) {
   const lines = show(tag, sourcePath(tag, file)).split(/\r?\n/);
   const start = isV3(tag) ? /^N:\d+:(.*)$/ : /^name:(?:\d+:)?(.*)$/;
   const blocks = [];
@@ -86,7 +87,10 @@ function recordLines(tag, file, name, type) {
   }
   /* Several tvals can share a name (a Trap Location rod and staff), so an entry
    * may name its type; 3.x records carry it as a number on the I: line. */
-  const matches = type === undefined ? blocks : blocks.filter((b) => blockType(b, tag) === type);
+  let matches = type === undefined ? blocks : blocks.filter((b) => blockType(b, tag) === type);
+  /* 3.x sometimes shipped a lone and a grouped monster under one name; an entry
+   * picks one by its position in the file. */
+  if (occurrence !== undefined) matches = matches.slice(occurrence - 1, occurrence);
   if (matches.length !== 1) throw new Error(`${tag} ${file}: ${matches.length} records named "${name}"${type ? ` of type ${type}` : ""}`);
   return matches[0];
 }
@@ -118,6 +122,12 @@ function from4x(lines, file) {
     } else if (file === "object" && key === "combat") {
       const [ac, dice, toh, tod, toa] = rest;
       out.push(`attack:${dice}:${toh}:${tod}`, `armor:${ac}:${toa}`);
+    } else if (file === "monster" && key === "flags") {
+      /* 4.2 moved a monster's own light from a flag to a field. */
+      const flags = rest.join(":").split("|").map((f) => f.trim()).filter(Boolean);
+      if (flags.includes("HAS_LIGHT")) out.push("light:1");
+      const kept = flags.filter((f) => f !== "HAS_LIGHT" && !DROP_MONSTER_FLAGS.has(f)).map((f) => MONSTER_FLAG_RENAMES[f] ?? f);
+      if (kept.length) out.push(`flags:${kept.join(" | ")}`);
     } else {
       out.push(line);
     }
@@ -228,6 +238,9 @@ function objectFrom3x(lines) {
 /** 3.x glyphs to the 4.2 monster base that draws them. */
 const BASE_BY_GLYPH = { p: "person", h: "humanoid", A: "ainu", d: "dragon", D: "ancient dragon", F: "dragon fly" };
 
+/** 3.x monster templates 4.2 renamed: the angels became the Ainur. */
+const BASE_RENAMES = { angel: "ainu" };
+
 /** 3.x monster flags 4.2 dropped or moved elsewhere. */
 const DROP_MONSTER_FLAGS = new Set(["FORCE_MAXHP", "FORCE_SLEEP", "FRIENDS", "ESCORT", "ESCORTS", "CHAR_MULTI", "RES_TELE"]);
 const MONSTER_FLAG_RENAMES = { RES_PLAS: "IM_PLASMA", RES_CONFU: "NO_CONF" };
@@ -250,7 +263,7 @@ function monsterFrom3x(lines) {
         out.push(`name:${f.slice(1).join(":")}`);
         break;
       case "T":
-        base = f[0];
+        base = BASE_RENAMES[f[0]] ?? f[0];
         break;
       case "G":
         glyph = f[0];
@@ -276,7 +289,7 @@ function monsterFrom3x(lines) {
       case "F":
         for (const flag of f.join(":").split("|").map((s) => s.trim()).filter(Boolean)) {
           if (DROP_MONSTER_FLAGS.has(flag)) continue;
-          if (flag === "HAS_LIGHT") out.push("light:1");
+          if (flag === "HAS_LIGHT" || flag === "HAS_LITE") out.push("light:1");
           else flags.push(MONSTER_FLAG_RENAMES[flag] ?? flag);
         }
         break;
@@ -320,7 +333,7 @@ function convert(file, entry) {
     record = structuredClone(found[0]);
     record.name = entry.name;
   } else {
-    const lines = recordLines(entry.tag, file, entry.name, entry.type);
+    const lines = recordLines(entry.tag, file, entry.name, entry.type, entry.occurrence);
     let text;
     if (!isV3(entry.tag)) text = from4x(lines, file);
     else if (file === "object") text = objectFrom3x(lines);
@@ -336,8 +349,12 @@ function convert(file, entry) {
     if (compiled.length !== 1) throw new Error(`${entry.name}: compiled to ${compiled.length} records`);
     record = compiled[0];
     /* A spell list may now name one spell twice (CAUSE_2 and CAUSE_3 both became WOUND). */
-    if (Array.isArray(record.spells)) record.spells = [...new Set(record.spells.flatMap((s) => s.split(" | ")))];
+    if (Array.isArray(record.spells)) {
+      const tokens = record.spells.flatMap((s) => s.split(" | "));
+      if (new Set(tokens).size < tokens.length) record.spells = [...new Set(tokens)];
+    }
   }
+  if (file === "monster") bookDropsByRealm(record);
   if (entry.rename !== undefined) record.name = entry.rename;
   for (const key of entry.remove ?? []) delete record[key];
   Object.assign(record, entry.patch ?? {});
@@ -347,9 +364,41 @@ function convert(file, entry) {
   return record;
 }
 
+/**
+ * A 4.1 caster dropped named books ("[Magic for Beginners]") that 4.2 does not
+ * have. 4.2's own casters drop a book of their realm by type alone (a `drop-base`
+ * line), which picks from whatever books the game currently has, so a named book
+ * drop becomes one of those: 4.2's books normally, and the classic books when the
+ * spellbook sections are on. Other drops keep their place in the drop order.
+ */
+function bookDropsByRealm(record) {
+  const drops = record.drop ?? [];
+  if (!drops.some((d) => d.tval.endsWith(" book"))) return;
+  const order = record["drop-order"] ?? drops.map((_, i) => `drop:${i}`);
+  const kept = [];
+  const base = [...(record["drop-base"] ?? [])];
+  const nextOrder = order.map((token) => {
+    const [kind, index] = token.split(":");
+    if (kind !== "drop") return token;
+    const d = drops[Number(index)];
+    if (d.tval.endsWith(" book")) {
+      const { sval: _named, ...byRealm } = d;
+      base.push(byRealm);
+      return `drop-base:${base.length - 1}`;
+    }
+    kept.push(d);
+    return `drop:${kept.length - 1}`;
+  });
+  if (kept.length) record.drop = kept;
+  else delete record.drop;
+  record["drop-base"] = base;
+  record["drop-order"] = nextOrder;
+}
+
 /* ---------------------------------------------------------------- main */
 
 const outputs = new Map(); // file -> Map(section -> records[])
+const corePatches = new Map(); // file -> Map(section -> { ref: ops })
 for (const f of readdirSync(LISTS).filter((f) => f.endsWith(".json")).sort()) {
   const list = JSON.parse(readFileSync(join(LISTS, f), "utf8"));
   if (!outputs.has(list.file)) outputs.set(list.file, new Map());
@@ -363,6 +412,17 @@ for (const f of readdirSync(LISTS).filter((f) => f.endsWith(".json")).sort()) {
     }
   }
   bySection.set(list.section, records);
+  /* `patchCore` edits core records while the section is on, such as halving how
+   * often a 4.2 monster appears once its older twin shares its slot. */
+  for (const { name, ops } of list.patchCore ?? []) {
+    const found = corePack(list.file).filter((r) => r.name === name);
+    if (found.length !== 1) throw new Error(`${f}: core ${list.file} has ${found.length} records named "${name}"`);
+    const patches = (corePatches.get(list.file) ?? new Map()).set(list.section, {
+      ...(corePatches.get(list.file)?.get(list.section) ?? {}),
+      [`core:${recordKey(list.file, found[0])}`]: ops,
+    });
+    corePatches.set(list.file, patches);
+  }
 }
 
 let stale = 0;
@@ -372,7 +432,9 @@ for (const [file, bySection] of outputs) {
   const next = structuredClone(current);
   next.sections ??= {};
   for (const [section, records] of bySection) {
+    const fieldPatches = corePatches.get(file)?.get(section);
     next.sections[section] = { ...(next.sections[section] ?? {}), records };
+    if (fieldPatches) next.sections[section].fieldPatches = fieldPatches;
   }
   const text = `${JSON.stringify(next, null, 2)}\n`;
   const old = existsSync(path) ? readFileSync(path, "utf8") : "";

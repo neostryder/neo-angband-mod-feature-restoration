@@ -1,0 +1,76 @@
+{
+  "section": "monsters-3x",
+  "file": "monster",
+  "records": [
+    {
+      "name": "Novice warrior",
+      "tag": "v3.2.0",
+      "occurrence": 1
+    },
+    {
+      "name": "Novice rogue",
+      "tag": "v3.2.0",
+      "occurrence": 1
+    },
+    {
+      "name": "Novice priest",
+      "tag": "v3.2.0",
+      "occurrence": 1
+    },
+    {
+      "name": "Novice mage",
+      "tag": "v3.2.0",
+      "occurrence": 1
+    },
+    {
+      "name": "Novice ranger",
+      "tag": "v3.2.0",
+      "occurrence": 1
+    },
+    {
+      "name": "Novice paladin",
+      "tag": "v3.2.0",
+      "occurrence": 1
+    },
+    {
+      "name": "Swordsman",
+      "tag": "v3.4.1"
+    },
+    {
+      "name": "Hardened warrior",
+      "tag": "v3.4.1"
+    },
+    {
+      "name": "Angel",
+      "tag": "v3.3.2"
+    },
+    {
+      "name": "Archangel",
+      "tag": "v3.3.2"
+    },
+    {
+      "name": "Cherub",
+      "tag": "v3.3.2"
+    },
+    {
+      "name": "Seraph",
+      "tag": "v3.3.2"
+    },
+    {
+      "name": "Archon",
+      "tag": "v3.3.2"
+    },
+    {
+      "name": "Uriel, Angel of Fire",
+      "tag": "v3.3.2"
+    },
+    {
+      "name": "Azriel, Angel of Death",
+      "tag": "v3.3.2"
+    },
+    {
+      "name": "Gabriel, the Messenger",
+      "tag": "v3.3.2"
+    }
+  ]
+}

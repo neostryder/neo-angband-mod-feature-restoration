@@ -1,0 +1,574 @@
+{
+  "section": "monsters-4-1",
+  "file": "monster",
+  "records": [
+    {
+      "name": "large brown snake",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "jackal",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "wild dog"
+    },
+    {
+      "name": "large yellow snake",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "manes",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "dark elf",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 4
+      },
+      "twin": "eastern dwarf"
+    },
+    {
+      "name": "brown yeek",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "terrified yeek"
+    },
+    {
+      "name": "hill orc",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "bandit",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 4
+      },
+      "twin": "ruffian"
+    },
+    {
+      "name": "dark elven mage",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "blacklock mage"
+    },
+    {
+      "name": "dark elven warrior",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "stonefoot warrior"
+    },
+    {
+      "name": "gnome mage",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "dark elven priest",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "ironfist priest"
+    },
+    {
+      "name": "drider",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "black orc",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "orc archer"
+    },
+    {
+      "name": "dark elven lord",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 4
+      },
+      "twin": "dark dwarven lord"
+    },
+    {
+      "name": "master rogue",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 4
+      },
+      "twin": "brigand"
+    },
+    {
+      "name": "dark elven druid",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "algroth",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "troll scavenger"
+    },
+    {
+      "name": "ice troll",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "snow troll"
+    },
+    {
+      "name": "ninja",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 4
+      },
+      "twin": "southron assassin"
+    },
+    {
+      "name": "half-troll",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "skeleton ettin",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "skeleton etten"
+    },
+    {
+      "name": "water troll",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "hill troll"
+    },
+    {
+      "name": "giant grey scorpion",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "dagashi",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "acidic cytoplasm",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "black pudding",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "erinyes",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "eldrak",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 6
+      },
+      "twin": "mountain troll"
+    },
+    {
+      "name": "ettin",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 6
+      },
+      "twin": "etten"
+    },
+    {
+      "name": "knight Templar",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Medusa, the Gorgon",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "dark elven sorcerer",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 4
+      },
+      "twin": "stiffbeard sorcerer"
+    },
+    {
+      "name": "11-headed hydra",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 4
+      },
+      "twin": "8-headed hydra"
+    },
+    {
+      "name": "ethereal hound",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "The Lernaean Hydra",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "The Cat Lord",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 6
+      },
+      "twin": "Tevildo, Prince of Cats"
+    },
+    {
+      "name": "giant brown tick",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "raven",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Polyphemus, the Blind Cyclops",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Atlas, the Titan",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 6
+      },
+      "twin": "Makar, the Warrior"
+    },
+    {
+      "name": "Kronos, Lord of the Titans",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 6
+      },
+      "twin": "Meássë, the Bloody"
+    },
+    {
+      "name": "nighthawk",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "aranea",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "elder aranea",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 10
+      },
+      "twin": "ancient spider"
+    },
+    {
+      "name": "greater mummy",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "lesser Maia",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "greater Maia",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Blue Wizard",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Istar",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Arien, Maia of the Sun",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Radagast the Brown",
+      "tag": "4.1.3"
+    },
+    {
+      "name": "Easterling warrior",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "warrior"
+    },
+    {
+      "name": "healer",
+      "tag": "4.1.3",
+      "patch": {
+        "rarity": 2
+      },
+      "twin": "tamer"
+    }
+  ],
+  "patchCore": [
+    {
+      "name": "wild dog",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "eastern dwarf",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "terrified yeek",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "ruffian",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "blacklock mage",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "stonefoot warrior",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "ironfist priest",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "orc archer",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "dark dwarven lord",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "brigand",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "troll scavenger",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "snow troll",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "southron assassin",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "skeleton etten",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "hill troll",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "mountain troll",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "etten",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "stiffbeard sorcerer",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "8-headed hydra",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "Tevildo, Prince of Cats",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "Makar, the Warrior",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "Meássë, the Bloody",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "ancient spider",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "warrior",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "tamer",
+      "ops": [
+        {
+          "op": "mul",
+          "path": "rarity",
+          "value": 2
+        }
+      ]
+    }
+  ]
+}
