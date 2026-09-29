@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "amandil": {
+      "records": [
+        {
+          "name": "of Amandil",
+          "base-object": {
+            "tval": "amulet",
+            "sval": "Necklace"
+          },
+          "graphics": {
+            "glyph": "\"",
+            "color": "y"
+          },
+          "level": 65,
+          "weight": 3,
+          "cost": 90000,
+          "alloc": {
+            "common": 3,
+            "minmax": "60 to 127"
+          },
+          "flags": [
+            "PROT_FEAR | PROT_BLIND | PROT_STUN | PROT_CONF"
+          ],
+          "values": [
+            "SEARCH[4] | SPEED[2] | RES_ELEC[1] | RES_COLD[1]"
+          ],
+          "desc": [
+            "The pendant of Amandil, the last Lord of Andúnië, and mighty",
+            " ship-captain of Númenor.  First among Núménóreans to see",
+            " Sauron for what he was."
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -97,6 +97,12 @@
       "title": "Restore the novices, swordsmen and angels",
       "description": "Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. The six novice adventurers gave way to soldiers, cutpurses, acolytes, apprentices, scouts and gallants in 3.3. The Swordsman and the Hardened warrior last appeared in 3.4.1. The angels (Angel, Archangel, Cherub, Seraph and Archon, and the uniques Uriel, Azriel and Gabriel) were replaced by the Maiar in 3.4. All of them keep their 3.x numbers. Crebain is not included, because 4.2's craban is the same bird.",
       "default": false
+    },
+    {
+      "id": "amandil",
+      "title": "Add the Amulet of Amandil (never released)",
+      "description": "Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. It is a golden amulet found from depth 60 that gives two points of speed, four of searching, resistance to lightning and cold, and protection from fear, blindness, stunning and confusion. This switches the record on with its own numbers. Unlike the rest of this mod, it adds something no released version of Angband had.",
+      "default": false
     }
   ],
   "rules": [

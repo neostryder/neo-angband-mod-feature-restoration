@@ -24,6 +24,7 @@ switch has no flag of its own, the game knows it by its section id instead.
 | Restore the deadly potions | `classic-dangers` | off | Brings back three potions that Angband 3.0.9 had and 3.1.0 removed, each one a disaster to drink before you know what it is. |
 | Restore the monsters cut in 4.2.0 | `monsters-4-1` | off | Angband 4.2.0 replaced 55 monsters in a pass that made the game's cast fit Tolkien's world: the dark elves, Greek myth such as Medusa, Atlas and the Lernaean Hydra, the ninja and the dagashi, the drider, the black pudding and others. |
 | Restore the novices, swordsmen and angels | `monsters-3x` | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
+| Add the Amulet of Amandil (never released) | `amandil` | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 
 ## What it needs
 

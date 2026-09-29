@@ -33,6 +33,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the deadly potions** (`classic-dangers`) | off | Brings back three potions that Angband 3.0.9 had and 3.1.0 removed, each one a disaster to drink before you know what it is. |
 | **Restore the monsters cut in 4.2.0** (`monsters-4-1`) | off | Angband 4.2.0 replaced 55 monsters in a pass that made the game's cast fit Tolkien's world: the dark elves, Greek myth such as Medusa, Atlas and the Lernaean Hydra, the ninja and the dagashi, the drider, the black pudding and others. |
 | **Restore the novices, swordsmen and angels** (`monsters-3x`) | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
+| **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 
 ### Restore Teleport Other
 
@@ -167,6 +168,12 @@ Of the 55 monsters Angband 4.2.0 cut, 51 handed their tile to a Tolkien-world re
 
 Two monsters stay out. 4.2's Azog, Enemy of the Dwarves is the same character as 4.1.3's Azog, King of the Uruk-Hai, and a game with two Azogs makes no sense. 4.2's craban is 3.4.1's Crebain with its singular name.
 
+### Add the Amulet of Amandil
+
+This one was never in a release. Upstream commit `2744ef5a1` ("Merge jens's artifact changes", 19 June 2011) added it already commented out, and 4.2.6's `artifact.txt` still has it that way. The record's only problem was its base line, `amulet:55`, a numeric reference from before 2016. Index 55 is the Golden amulet flavor, which 4.2 fixed to the artifact base called Necklace, so the restored record uses that base and draws as the golden amulet it was written as. Its level, weight, cost, allocation, flags, values and description are the commented record's own, and `artifact-amandil.test.ts` compares them line by line.
+
+An artifact a mod adds is not redesigned in a random-artifact game, so Amandil keeps these numbers even with `birth_randarts` on.
+
 ## Content, plus one plugin
 
 Restoring a spell to a class's book only takes data. The spell already exists (the Mage and the Rogue cast it today), so nothing new has to run; the class's book just needs one more entry. A [field-level patch](https://github.com/neostryder/neo-angband/blob/master/packages/mod-sdk/src/patch.ts) onto core's own `class.json` does exactly that, and a manifest [section](https://github.com/neostryder/neo-angband/blob/master/docs/modding/MOD_LIFECYCLE.md) turns it on and off. That is all `teleport-other` needs.
@@ -176,7 +183,7 @@ Store discounts are different. 4.2.6's core has no discount field and no discoun
 Door spiking needs both halves. Iron Spikes are a new `object.json` record (in the `spike-doors` section, borrowing the `flask` tval; see above), and the command that uses them is new behaviour with nothing in core to attach to, so it goes through `registry:command` the same way discounts go through `registry:store`. Both halves are gated on one flag, `feature-restoration.spike-doors`, which is the section's own `flag` field, so you see one toggle rather than a content switch and a behaviour switch that could get out of step. `register()` only calls `commands.register` while that flag is on, so with the section disabled the game has neither the item nor a command referring to it.
 ## Installing
 
-The mod is `manifest.json`, `class.json`, `ego_item.json`, `object.json` and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
+The mod is `manifest.json`, `artifact.json`, `class.json`, `ego_item.json`, `monster.json`, `object.json` and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
 - **In the game:** Mods -> **Install a mod...**, which fetches this repository at a
   release tag, never a branch. The install records a SHA-256 of every byte that
   arrived, so the manager can answer later whether the copy on your machine has

@@ -14,3 +14,4 @@ Sections always require a reload because the content is recomposed. The store di
 | `classic-dangers` | off | Adds the potions of Death, Ruination and Detonations. | Yes, section. |
 | `monsters-4-1` | off | Adds 54 monsters that 4.2.0 replaced, beside their replacements. | Yes, section. |
 | `monsters-3x` | off | Adds sixteen 3.x monsters: the novices, two warriors and the angels. | Yes, section. |
+| `amandil` | off | Adds the Amulet of Amandil, an artifact upstream wrote and never enabled. | Yes, section. |
