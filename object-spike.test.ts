@@ -121,7 +121,7 @@ describe("spike-doors object record", () => {
   it("declares the section this mod's plugin.ts gates the command on", () => {
     const ids = (manifest.sections ?? []).map((s: { id: string }) => s.id);
     expect(ids).toContain("spike-doors");
-    expect(Object.keys(CONTRIB.sections)).toEqual(["spike-doors"]);
+    expect(Object.keys(CONTRIB.sections)).toContain("spike-doors");
 
     const section = manifest.sections!.find((s) => s.id === "spike-doors")!;
     expect(section.flag).toBe("feature-restoration.spike-doors");

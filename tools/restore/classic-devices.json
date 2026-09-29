@@ -1,0 +1,17 @@
+{
+  "section": "classic-devices",
+  "file": "object",
+  "records": [
+    { "name": "Door/Stair Location", "tag": "4.0.5", "type": "rod",
+      "replace": [["dice:22d40", "effect-yx:22:40"]] },
+    { "name": "Trap Location", "tag": "4.0.5", "type": "rod",
+      "replace": [["dice:22d40", "effect-yx:22:40"]] },
+    { "name": "Door Destruction", "tag": "4.1.3", "type": "wand" },
+    { "name": "Trap Location", "tag": "v3.0.9", "type": "staff",
+      "patch": { "power": 6, "effect": [{ "eff": "DETECT_TRAPS", "effect-yx": { "y": 22, "x": 40 } }] } },
+    { "name": "Door/Stair Location", "tag": "v3.0.9", "type": "staff",
+      "patch": { "power": 6, "effect": [{ "eff": "DETECT_DOORS", "effect-yx": { "y": 22, "x": 40 } }, { "eff": "DETECT_STAIRS", "effect-yx": { "y": 22, "x": 40 } }] } },
+    { "name": "Object Location", "tag": "v3.0.9", "type": "staff",
+      "patch": { "power": 6, "effect": [{ "eff": "SENSE_OBJECTS", "effect-yx": { "y": 22, "x": 40 } }] } }
+  ]
+}

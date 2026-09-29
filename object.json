@@ -35,6 +35,693 @@
           ]
         }
       ]
+    },
+    "classic-devices": {
+      "records": [
+        {
+          "name": "Door/Stair Location",
+          "type": "rod",
+          "graphics": {
+            "glyph": "-",
+            "color": "d"
+          },
+          "level": 15,
+          "weight": 15,
+          "cost": 1000,
+          "alloc": {
+            "common": 30,
+            "minmax": "8 to 75"
+          },
+          "attack": {
+            "hd": "1d1",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "power": 6,
+          "effect": [
+            {
+              "eff": "DETECT_DOORS",
+              "effect-yx": {
+                "y": 22,
+                "x": 40
+              }
+            },
+            {
+              "eff": "DETECT_STAIRS",
+              "effect-yx": {
+                "y": 22,
+                "x": 40
+              }
+            }
+          ],
+          "time": "70"
+        },
+        {
+          "name": "Trap Location",
+          "type": "rod",
+          "graphics": {
+            "glyph": "-",
+            "color": "d"
+          },
+          "level": 5,
+          "weight": 15,
+          "cost": 1000,
+          "alloc": {
+            "common": 30,
+            "minmax": "8 to 75"
+          },
+          "attack": {
+            "hd": "1d1",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "power": 6,
+          "effect": [
+            {
+              "eff": "DETECT_TRAPS",
+              "effect-yx": {
+                "y": 22,
+                "x": 40
+              }
+            }
+          ],
+          "time": "50"
+        },
+        {
+          "name": "Door Destruction",
+          "type": "wand",
+          "graphics": {
+            "glyph": "-",
+            "color": "d"
+          },
+          "level": 10,
+          "weight": 10,
+          "cost": 100,
+          "alloc": {
+            "common": 20,
+            "minmax": "10 to 60"
+          },
+          "attack": {
+            "hd": "1d1",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "charges": "6+d8",
+          "power": 5,
+          "effect": [
+            {
+              "eff": "ALTER",
+              "type": "KILL_DOOR"
+            }
+          ]
+        },
+        {
+          "name": "Trap Location",
+          "type": "staff",
+          "graphics": {
+            "glyph": "_",
+            "color": "d"
+          },
+          "level": 10,
+          "weight": 50,
+          "cost": 350,
+          "alloc": {
+            "common": 20,
+            "minmax": "10 to 100"
+          },
+          "attack": {
+            "hd": "1d2",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "charges": "6+d5",
+          "power": 6,
+          "effect": [
+            {
+              "eff": "DETECT_TRAPS",
+              "effect-yx": {
+                "y": 22,
+                "x": 40
+              }
+            }
+          ]
+        },
+        {
+          "name": "Door/Stair Location",
+          "type": "staff",
+          "graphics": {
+            "glyph": "_",
+            "color": "d"
+          },
+          "level": 10,
+          "weight": 50,
+          "cost": 350,
+          "alloc": {
+            "common": 20,
+            "minmax": "10 to 100"
+          },
+          "attack": {
+            "hd": "1d2",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "charges": "6+d8",
+          "power": 6,
+          "effect": [
+            {
+              "eff": "DETECT_DOORS",
+              "effect-yx": {
+                "y": 22,
+                "x": 40
+              }
+            },
+            {
+              "eff": "DETECT_STAIRS",
+              "effect-yx": {
+                "y": 22,
+                "x": 40
+              }
+            }
+          ]
+        },
+        {
+          "name": "Object Location",
+          "type": "staff",
+          "graphics": {
+            "glyph": "_",
+            "color": "d"
+          },
+          "level": 5,
+          "weight": 50,
+          "cost": 200,
+          "alloc": {
+            "common": 20,
+            "minmax": "5 to 100"
+          },
+          "attack": {
+            "hd": "1d2",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "charges": "6+d15",
+          "power": 6,
+          "effect": [
+            {
+              "eff": "SENSE_OBJECTS",
+              "effect-yx": {
+                "y": 22,
+                "x": 40
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "classic-potions": {
+      "records": [
+        {
+          "name": "Weakness",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 3,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 10,
+            "minmax": "3 to 100"
+          },
+          "power": 0,
+          "effect": [
+            {
+              "eff": "DRAIN_STAT",
+              "type": "STR"
+            }
+          ]
+        },
+        {
+          "name": "Stupidity",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 20,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 10,
+            "minmax": "20 to 100"
+          },
+          "power": 0,
+          "effect": [
+            {
+              "eff": "DRAIN_STAT",
+              "type": "INT"
+            }
+          ]
+        },
+        {
+          "name": "Naivety",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 20,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 10,
+            "minmax": "20 to 100"
+          },
+          "power": 0,
+          "effect": [
+            {
+              "eff": "DRAIN_STAT",
+              "type": "WIS"
+            }
+          ]
+        },
+        {
+          "name": "Clumsiness",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 5,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 10,
+            "minmax": "5 to 100"
+          },
+          "power": 0,
+          "effect": [
+            {
+              "eff": "DRAIN_STAT",
+              "type": "DEX"
+            }
+          ]
+        },
+        {
+          "name": "Sickliness",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 10,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 10,
+            "minmax": "10 to 100"
+          },
+          "power": 0,
+          "effect": [
+            {
+              "eff": "DRAIN_STAT",
+              "type": "CON"
+            }
+          ]
+        },
+        {
+          "name": "Apple Juice",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 0,
+          "weight": 4,
+          "cost": 1,
+          "power": 0,
+          "effect": [
+            {
+              "eff": "NOURISH",
+              "type": "INC_BY",
+              "dice": "6"
+            }
+          ],
+          "pile": [
+            {
+              "prob": 70,
+              "stack": "2d3"
+            }
+          ],
+          "alloc": {
+            "common": 10,
+            "minmax": "1 to 10"
+          }
+        },
+        {
+          "name": "Water",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 0,
+          "weight": 4,
+          "cost": 1,
+          "power": 0,
+          "effect": [
+            {
+              "eff": "NOURISH",
+              "type": "INC_BY",
+              "dice": "5"
+            }
+          ],
+          "pile": [
+            {
+              "prob": 70,
+              "stack": "2d3"
+            }
+          ],
+          "alloc": {
+            "common": 10,
+            "minmax": "1 to 10"
+          }
+        }
+      ]
+    },
+    "classic-equipment": {
+      "records": [
+        {
+          "name": "& Sabre~",
+          "type": "sword",
+          "graphics": {
+            "glyph": "|",
+            "color": "W"
+          },
+          "level": 5,
+          "weight": 50,
+          "cost": 50,
+          "alloc": {
+            "common": 20,
+            "minmax": "5 to 100"
+          },
+          "attack": {
+            "hd": "1d7",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          }
+        },
+        {
+          "name": "& Small Sword~",
+          "type": "sword",
+          "graphics": {
+            "glyph": "|",
+            "color": "W"
+          },
+          "level": 5,
+          "weight": 75,
+          "cost": 48,
+          "alloc": {
+            "common": 20,
+            "minmax": "5 to 100"
+          },
+          "attack": {
+            "hd": "1d6",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          }
+        },
+        {
+          "name": "Rusty Chain Mail~",
+          "type": "hard armor",
+          "graphics": {
+            "glyph": "[",
+            "color": "r"
+          },
+          "level": 25,
+          "weight": 200,
+          "cost": 550,
+          "alloc": {
+            "common": 20,
+            "minmax": "25 to 100"
+          },
+          "attack": {
+            "hd": "1d4",
+            "to-h": "-5",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 32,
+            "to-a": "-18"
+          }
+        },
+        {
+          "name": "Double Chain Mail~",
+          "type": "hard armor",
+          "graphics": {
+            "glyph": "[",
+            "color": "s"
+          },
+          "level": 30,
+          "weight": 250,
+          "cost": 850,
+          "alloc": {
+            "common": 20,
+            "minmax": "30 to 100"
+          },
+          "attack": {
+            "hd": "1d4",
+            "to-h": "-2",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 42,
+            "to-a": "0"
+          }
+        },
+        {
+          "name": "& Gnomish Shovel~",
+          "type": "digger",
+          "graphics": {
+            "glyph": "\\",
+            "color": "G"
+          },
+          "level": 20,
+          "weight": 60,
+          "cost": 100,
+          "alloc": {
+            "common": 7,
+            "minmax": "20 to 100"
+          },
+          "attack": {
+            "hd": "1d2",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "flags": [
+            "DIG_2"
+          ]
+        },
+        {
+          "name": "& Dwarven Shovel~",
+          "type": "digger",
+          "graphics": {
+            "glyph": "\\",
+            "color": "B"
+          },
+          "level": 40,
+          "weight": 120,
+          "cost": 200,
+          "alloc": {
+            "common": 5,
+            "minmax": "40 to 100"
+          },
+          "attack": {
+            "hd": "1d3",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "flags": [
+            "DIG_3"
+          ]
+        },
+        {
+          "name": "& Dwarven Pick~",
+          "type": "digger",
+          "graphics": {
+            "glyph": "\\",
+            "color": "b"
+          },
+          "level": 50,
+          "weight": 200,
+          "cost": 600,
+          "alloc": {
+            "common": 5,
+            "minmax": "50 to 100"
+          },
+          "attack": {
+            "hd": "1d4",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "flags": [
+            "DIG_3"
+          ]
+        }
+      ]
+    },
+    "classic-dangers": {
+      "records": [
+        {
+          "name": "Death",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 55,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 5,
+            "minmax": "55 to 100"
+          },
+          "power": 0,
+          "msg": [
+            "A feeling of Death flows through your body."
+          ],
+          "effect": [
+            {
+              "eff": "DAMAGE",
+              "dice": "5000"
+            }
+          ]
+        },
+        {
+          "name": "Ruination",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 40,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 3,
+            "minmax": "40 to 100"
+          },
+          "power": 0,
+          "msg": [
+            "Your nerves and muscles feel weak and lifeless!"
+          ],
+          "effect": [
+            {
+              "eff": "DAMAGE",
+              "dice": "10d10"
+            },
+            {
+              "eff": "DRAIN_STAT",
+              "type": "DEX"
+            },
+            {
+              "eff": "DRAIN_STAT",
+              "type": "WIS"
+            },
+            {
+              "eff": "DRAIN_STAT",
+              "type": "CON"
+            },
+            {
+              "eff": "DRAIN_STAT",
+              "type": "STR"
+            },
+            {
+              "eff": "DRAIN_STAT",
+              "type": "INT"
+            }
+          ]
+        },
+        {
+          "name": "Detonations",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 60,
+          "weight": 4,
+          "cost": 10000,
+          "alloc": {
+            "common": 3,
+            "minmax": "60 to 100"
+          },
+          "power": 0,
+          "msg": [
+            "Massive explosions rupture your body!"
+          ],
+          "effect": [
+            {
+              "eff": "DAMAGE",
+              "dice": "50d20"
+            },
+            {
+              "eff": "TIMED_INC",
+              "type": "STUN",
+              "dice": "75"
+            },
+            {
+              "eff": "TIMED_INC",
+              "type": "CUT",
+              "dice": "5000"
+            }
+          ]
+        }
+      ]
     }
   }
 }

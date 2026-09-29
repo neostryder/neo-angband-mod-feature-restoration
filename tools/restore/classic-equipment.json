@@ -1,0 +1,82 @@
+{
+  "section": "classic-equipment",
+  "file": "object",
+  "records": [
+    {
+      "name": "& Sabre~",
+      "tag": "v3.0.9",
+      "type": "sword"
+    },
+    {
+      "name": "& Small Sword~",
+      "tag": "v3.0.9",
+      "type": "sword"
+    },
+    {
+      "name": "Rusty Chain Mail~",
+      "tag": "v3.0.9",
+      "type": "hard armor",
+      "patch": {
+        "armor": {
+          "ac": 32,
+          "to-a": "-18"
+        }
+      },
+      "why": "3.0.9 AC 14 and -8, the same base AC as 3.0.9 Chain Mail; 4.2 Chain Mail is 32, so both scale by 32/14"
+    },
+    {
+      "name": "Double Chain Mail~",
+      "tag": "v3.0.9",
+      "type": "hard armor",
+      "patch": {
+        "armor": {
+          "ac": 42,
+          "to-a": "0"
+        }
+      },
+      "why": "3.0.9 AC 16, the same as 3.0.9 Augmented Chain Mail, which is 42 in 4.2"
+    },
+    {
+      "name": "& Gnomish Shovel~",
+      "tag": "v3.0.9",
+      "type": "digger",
+      "remove": [
+        "values"
+      ],
+      "patch": {
+        "flags": [
+          "DIG_2"
+        ]
+      },
+      "why": "3.0.9 digging 2; 4.2 writes digging as DIG_1 to DIG_3, and its Shovel (3.0.9 digging 1) is DIG_1"
+    },
+    {
+      "name": "& Dwarven Shovel~",
+      "tag": "v3.0.9",
+      "type": "digger",
+      "remove": [
+        "values"
+      ],
+      "patch": {
+        "flags": [
+          "DIG_3"
+        ]
+      },
+      "why": "3.0.9 digging 3, as the 3.0.9 Mattock, which is DIG_3 in 4.2"
+    },
+    {
+      "name": "& Dwarven Pick~",
+      "tag": "v3.0.9",
+      "type": "digger",
+      "remove": [
+        "values"
+      ],
+      "patch": {
+        "flags": [
+          "DIG_3"
+        ]
+      },
+      "why": "3.0.9 digging 3, as the 3.0.9 Mattock, which is DIG_3 in 4.2"
+    }
+  ]
+}

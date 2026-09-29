@@ -1,0 +1,131 @@
+{
+  "section": "classic-potions",
+  "file": "object",
+  "records": [
+    {
+      "name": "Weakness",
+      "tag": "v3.0.9",
+      "type": "potion",
+      "patch": {
+        "power": 0,
+        "effect": [
+          {
+            "eff": "DRAIN_STAT",
+            "type": "STR"
+          }
+        ]
+      },
+      "alloc_common": 10
+    },
+    {
+      "name": "Stupidity",
+      "tag": "v3.0.9",
+      "type": "potion",
+      "patch": {
+        "power": 0,
+        "effect": [
+          {
+            "eff": "DRAIN_STAT",
+            "type": "INT"
+          }
+        ]
+      },
+      "alloc_common": 10
+    },
+    {
+      "name": "Naivety",
+      "tag": "v3.0.9",
+      "type": "potion",
+      "patch": {
+        "power": 0,
+        "effect": [
+          {
+            "eff": "DRAIN_STAT",
+            "type": "WIS"
+          }
+        ]
+      },
+      "alloc_common": 10
+    },
+    {
+      "name": "Clumsiness",
+      "tag": "v3.0.9",
+      "type": "potion",
+      "patch": {
+        "power": 0,
+        "effect": [
+          {
+            "eff": "DRAIN_STAT",
+            "type": "DEX"
+          }
+        ]
+      },
+      "alloc_common": 10
+    },
+    {
+      "name": "Sickliness",
+      "tag": "v3.0.9",
+      "type": "potion",
+      "patch": {
+        "power": 0,
+        "effect": [
+          {
+            "eff": "DRAIN_STAT",
+            "type": "CON"
+          }
+        ]
+      },
+      "alloc_common": 10
+    },
+    {
+      "name": "Apple Juice",
+      "tag": "v3.0.9",
+      "type": "potion",
+      "patch": {
+        "power": 0,
+        "effect": [
+          {
+            "eff": "NOURISH",
+            "type": "INC_BY",
+            "dice": "6"
+          }
+        ],
+        "pile": [
+          {
+            "prob": 70,
+            "stack": "2d3"
+          }
+        ],
+        "alloc": {
+          "common": 10,
+          "minmax": "1 to 10"
+        }
+      }
+    },
+    {
+      "name": "Water",
+      "tag": "v3.0.9",
+      "type": "potion",
+      "patch": {
+        "power": 0,
+        "effect": [
+          {
+            "eff": "NOURISH",
+            "type": "INC_BY",
+            "dice": "5"
+          }
+        ],
+        "pile": [
+          {
+            "prob": 70,
+            "stack": "2d3"
+          }
+        ],
+        "alloc": {
+          "common": 10,
+          "minmax": "1 to 10"
+        }
+      }
+    }
+  ]
+}

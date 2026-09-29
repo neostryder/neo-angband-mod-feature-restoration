@@ -24,6 +24,18 @@ were not retagged.
 
 ## [Unreleased]
 
+### Added
+
+- [Visible] [Content] **"Of Fury" can appear on weapons again.** Upstream commented out the ego's three weapon types in 2011; the new `fury` switch puts them back, and the ego keeps 4.2.6's own numbers.
+- [Visible] [Content] **Six magic devices cut between 3.0.9 and 4.1.3.** Rods of Door/Stair Location and Trap Location, the wand of Door Destruction, and staffs that locate traps, doors and stairs, or objects.
+- [Visible] [Content] **Stat-draining potions, Apple Juice and Water.** Five potions each drain one stat until your next level; the other two just feed you a little.
+- [Visible] [Content] **The Sabre, the Small Sword, two chain mails and three diggers.** Their armour and digging are converted to 4.2's scales, so a Double Chain Mail sits beside 4.2's Augmented Chain Mail rather than far below it.
+- [Visible] [Content] **Death, Ruination and Detonations.** Rare, deep, and ruinous to drink unidentified.
+
+### Changed
+
+- [Internal] **The tests compose and bind the mod with the game.** Each section now goes through the same composition and binding a player's game runs, so an unknown flag or a renamed record fails a test. The game packages are pinned at 1.18.0 until a release fixes neostryder/neo-angband#318.
+
 ### Removed
 
 - [Internal] **Removed this repo's own Discord release announcer.** Its workflow, script and test are gone. The releases site at releases.rpgm.tools now posts each new release to the Neo Angband announcements forum.

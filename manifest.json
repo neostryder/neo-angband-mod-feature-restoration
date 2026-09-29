@@ -21,11 +21,21 @@
     {
       "kind": "feature-restoration:flask:iron-spike",
       "packs": {
-        "old": { "asset": "assets/iron-spike-old-native-8x8.png" },
-        "adam-bolt": { "asset": "assets/iron-spike-adambolt-native-16x16.png" },
-        "gervais": { "asset": "assets/iron-spike-gervais-native-32x32.png" },
-        "nomad": { "asset": "assets/iron-spike-old-native-8x8.png" },
-        "shockbolt": { "asset": "assets/iron-spike-shockbolt-native-64x64.png" }
+        "old": {
+          "asset": "assets/iron-spike-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/iron-spike-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/iron-spike-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/iron-spike-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/iron-spike-shockbolt-native-64x64.png"
+        }
       }
     }
   ],
@@ -44,6 +54,36 @@
       "flag": "feature-restoration.spike-doors",
       "title": "Restore door spiking",
       "description": "Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let you jam a closed door with an iron spike to make it harder to open. Since then the command has been gone, and the stackable iron spike has had no use and no way into your pack. This restores both: Iron Spikes as an item you can find, and a 'spike' command that uses one to raise the target door's lock strength. The command takes the original j key by default if it is free, and never replaces an existing player or mod binding. The README lists exactly what carried over and what did not.",
+      "default": false
+    },
+    {
+      "id": "fury",
+      "title": "Restore the \"of Fury\" weapon ego",
+      "description": "Angband 3.0.6 through 3.2.0 could make a sword, polearm or hafted weapon \"of Fury\": up to +10 to hit and to damage, two to five points of strength, one or two extra blows and immunity to fear, paid for by aggravating the monsters around you. Upstream switched it off in 2011 by commenting out those three weapon types and left the rest of the record in place, and 4.2.6 still ships it that way. This puts the three types back and changes nothing else, so the ego keeps 4.2.6's own numbers: it appears from depth 50 and is the rarest weapon ego in the game.",
+      "default": false
+    },
+    {
+      "id": "classic-devices",
+      "title": "Restore cut rods, wands and staffs",
+      "description": "Brings back six magic devices that later versions removed: the rods of Door/Stair Location and Trap Location (last in 4.0.5), the wand of Door Destruction (last in 4.1.3), and the staffs of Trap Location, Door/Stair Location and Object Location (last in 3.0.9). Each one uses an effect the game still has. The rods and the wand keep their original numbers. Angband 3.0.9 wrote the staffs' effects in code rather than data, so they detect over the same area as 4.2's own detection items.",
+      "default": false
+    },
+    {
+      "id": "classic-potions",
+      "title": "Restore cut potions",
+      "description": "Brings back seven potions that Angband 3.0.9 had and 3.1.0 removed. Weakness, Stupidity, Naivety, Clumsiness and Sickliness each drain one stat, the same way the base game's other stat drains work, so gaining a level restores it. Apple Juice and Water are harmless and feed you a little. The five bad potions appear half as often as they did in 3.0.9, at the same rate as 4.2's Salt Water.",
+      "default": false
+    },
+    {
+      "id": "classic-equipment",
+      "title": "Restore cut weapons, armour and diggers",
+      "description": "Brings back seven items that Angband 3.0.9 had and 3.1.0 removed: the Sabre, the Small Sword, Rusty Chain Mail, Double Chain Mail, the Gnomish Shovel, the Dwarven Shovel and the Dwarven Pick. Angband 4.2 raised body armour values and moved digging to three grades, so the two chain mails take the armour class their 3.0.9 equals have in 4.2, and the diggers take the grade of a 4.2 digger that dug as well. Items that 3.1.0 only renamed, such as the Shadow Cloak (now the Elven Cloak), are already in the game and are not added twice.",
+      "default": false
+    },
+    {
+      "id": "classic-dangers",
+      "title": "Restore the deadly potions",
+      "description": "Brings back three potions that Angband 3.0.9 had and 3.1.0 removed, each one a disaster to drink before you know what it is. Death deals 5000 damage, which kills almost any character. Ruination deals 10d10 damage and drains five stats. Detonations deals 50d20 damage, stuns you badly and leaves a deep cut. They are rare, and appear only from depth 40 (Ruination), 55 (Death) and 60 (Detonations).",
       "default": false
     }
   ],

@@ -26,6 +26,11 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
 | **Restore store discounts** (`discounts`) | off | Stores occasionally sell an item at a random discount, the way Angband 3.0.6, the last official release to carry the mechanic, did. 4.2.6 dropped the mechanic entirely. |
 | **Restore door spiking** (`spike-doors`) | off | Adds Iron Spikes as a findable item and a `spike` command that spends one to jam a closed door, making it harder to pick open. Angband 3.4.1, the last official release before the 4.0 command rewrite dropped both, is the source; 4.2.6 has neither. The command claims the original `j` key by default when it is free; see below. |
+| **Restore the "of Fury" weapon ego** (`fury`) | off | Angband 3.0.6 through 3.2.0 could make a sword, polearm or hafted weapon "of Fury": up to +10 to hit and to damage, two to five points of strength, one or two extra blows and immunity to fear, paid for by aggravating the monsters around you. |
+| **Restore cut rods, wands and staffs** (`classic-devices`) | off | Brings back six magic devices that later versions removed: the rods of Door/Stair Location and Trap Location (last in 4.0.5), the wand of Door Destruction (last in 4.1.3), and the staffs of Trap Location, Door/Stair Location and Object Location (last in 3.0.9). |
+| **Restore cut potions** (`classic-potions`) | off | Brings back seven potions that Angband 3.0.9 had and 3.1.0 removed. |
+| **Restore cut weapons, armour and diggers** (`classic-equipment`) | off | Brings back seven items that Angband 3.0.9 had and 3.1.0 removed: the Sabre, the Small Sword, Rusty Chain Mail, Double Chain Mail, the Gnomish Shovel, the Dwarven Shovel and the Dwarven Pick. |
+| **Restore the deadly potions** (`classic-dangers`) | off | Brings back three potions that Angband 3.0.9 had and 3.1.0 removed, each one a disaster to drink before you know what it is. |
 
 ### Restore Teleport Other
 
@@ -125,6 +130,33 @@ One more edge case is simplified. In upstream, spiking a door that has a monster
 **Restored item art.** A restored item uses its own pack's confirmed historical art when that art still exists. If the active pack has none, the item uses the highest-resolution confirmed real substitute from another bundled pack whose resolution is at or below the active pack's own, and never a higher-resolution substitute. Only when no confirmed historical art exists anywhere does the item keep its ASCII glyph. When a pack has its own Linoleum conversion, the item's tile is declared as a standalone asset of that pack; a raw sheet coordinate is used only for a pack with no Linoleum conversion at all. Every restored item in this mod family follows these rules. New content that a mod adds follows the tile pack's normal donor policy instead, and Linoleum documents how to opt out of it.
 
 **Reaching the command in play.** `plugin.ts` installs `feature-restoration:spike` through `registry:command`, names it with `commands.setVerb`, and claims the `j` key by default through the `keymap:write` capability. In Angband 3.4.1's original keyset, `j` was the key for jamming a door. The claim only succeeds when the current keyset leaves `j` free, so it never replaces a binding made by you or by another mod. If `j` is already taken or keymap access was not granted, you can still bind the command yourself in the keymap editor.
+### Restore the "of Fury" weapon ego
+
+"Of Fury" was a live weapon ego from Angband 3.0.6 through 3.2.0. In June 2011 upstream commit `d65dfe355` ("Merge Timo's item changes") commented out its three `type:` lines (sword, polearm, hafted) and kept everything else, and the record is still in 4.2.6's `ego_item.txt` in 4.2 syntax. With no weapon type, no weapon can carry it. This section sets the three types back and touches nothing else, so the numbers are 4.2.6's own: commonness 2 from depth 50, +d10 to hit and to damage, strength, one or two extra blows, protection from fear, and aggravation.
+
+In the game's own item-power rating (`object_power`), a level-60 Long Sword averages 139 with Fury, below (Defender) at 149 and above of Extra Attacks at 80. `ego-fury.test.ts` measures this over 400 fixed seeds and fails if Fury ever rates above (Defender).
+
+### Restore cut rods, wands, staffs, potions and equipment
+
+These four sections bring back records that later releases removed and 4.2.6 does not have under any name:
+
+| Section | Records | Last release |
+|---|---|---|
+| `classic-devices` | rods of Door/Stair Location and Trap Location; wand of Door Destruction; staffs of Trap Location, Door/Stair Location and Object Location | 4.0.5, 4.1.3 and 3.0.9 |
+| `classic-potions` | Weakness, Stupidity, Naivety, Clumsiness, Sickliness, Apple Juice, Water | 3.0.9 |
+| `classic-equipment` | Sabre, Small Sword, Rusty Chain Mail, Double Chain Mail, Gnomish Shovel, Dwarven Shovel, Dwarven Pick | 3.0.9 |
+| `classic-dangers` | Death, Ruination, Detonations | 3.0.9 |
+
+Many items that look cut were only renamed, and those are left out because the game already has them. The Sleep Monster wand and rod are Hold Monster, the Disarming wand and rod are Disable Traps, the Shadow Cloak is the Elven Cloak, the Shield of Deflection is the Mithril Shield, and the Orcish Pick is the Pick. Each keeps its old level, weight and cost, and `restored-records.test.ts` fails if a restored record matches a 4.2.6 record on type, level, weight, cost, dice, armour and effects.
+
+Where a record needed a change to fit 4.2, the reason is written beside it in `tools/restore/`:
+
+- **Armour and digging.** 4.2 raised body armour values and replaced numeric digging with three grades. Rusty and Double Chain Mail take the armour class their 3.0.9 equals have in 4.2 (Chain Mail at 32, Augmented Chain Mail at 42), and Rusty Chain Mail's -8 penalty scales the same way to -18. The Gnomish Shovel digs at grade 2 and the Dwarven Shovel and Dwarven Pick at grade 3, the grade 4.2's Mattock has for the same 3.0.9 digging value.
+- **Effects.** 3.0.9 wrote effects in code keyed to each item, so each restored 3.0.9 record uses the 4.2 effect that does the same thing. The stat potions use `DRAIN_STAT`, the staffs detect over 4.2's standard 22 by 40 area, and the deadly potions use `DAMAGE`, `DRAIN_STAT` and `TIMED_INC` with 3.0.9's own damage, stun and cut values. Ruination drained Charisma too, which 4.2 does not have.
+- **How often.** 3.0.9 gave a depth and a rarity; the conversion keeps the depth and scales rarity against 4.2's usual commonness of 20. The five stat-draining potions are set to 10, 4.2's commonness for Salt Water. Apple Juice and Water were never generated at random in 3.0.9, so they take Slime Mold Juice's allocation and a share of its nourishment in proportion to their 3.0.9 values.
+
+`tools/convert-records.mjs` rebuilds these records from a local clone of upstream Angband's git history and compiles each one with 4.2.6's own gamedata rules.
+
 ## Content, plus one plugin
 
 Restoring a spell to a class's book only takes data. The spell already exists (the Mage and the Rogue cast it today), so nothing new has to run; the class's book just needs one more entry. A [field-level patch](https://github.com/neostryder/neo-angband/blob/master/packages/mod-sdk/src/patch.ts) onto core's own `class.json` does exactly that, and a manifest [section](https://github.com/neostryder/neo-angband/blob/master/docs/modding/MOD_LIFECYCLE.md) turns it on and off. That is all `teleport-other` needs.
@@ -134,7 +166,7 @@ Store discounts are different. 4.2.6's core has no discount field and no discoun
 Door spiking needs both halves. Iron Spikes are a new `object.json` record (in the `spike-doors` section, borrowing the `flask` tval; see above), and the command that uses them is new behaviour with nothing in core to attach to, so it goes through `registry:command` the same way discounts go through `registry:store`. Both halves are gated on one flag, `feature-restoration.spike-doors`, which is the section's own `flag` field, so you see one toggle rather than a content switch and a behaviour switch that could get out of step. `register()` only calls `commands.register` while that flag is on, so with the section disabled the game has neither the item nor a command referring to it.
 ## Installing
 
-The mod is `manifest.json`, `class.json`, `object.json` and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
+The mod is `manifest.json`, `class.json`, `ego_item.json`, `object.json` and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
 - **In the game:** Mods -> **Install a mod...**, which fetches this repository at a
   release tag, never a branch. The install records a SHA-256 of every byte that
   arrived, so the manager can answer later whether the copy on your machine has
@@ -164,7 +196,7 @@ For each new restoration:
 4. Add tests shaped like `teleport-other.test.ts` for a content section (assert the ref resolves, that core does not already have the feature, that the target is named by name and not by index, and that nothing collides) or like `plugin.test.ts` for a plugin (assert the flag gates it, and assert the mechanism's exact odds and behaviour against a fake host and a recording Rng, not just its outputs), or both, the way `object-spike.test.ts` and `plugin.test.ts` split `spike-doors` between them.
 ## Releasing
 
-Pushing a tag matching `vX.Y.Z` makes the release; there is no separate publish step. A minor or major bump automatically posts an announcement to the RPGM Tools Discord's Neo Angband announcements forum, built from the matching [CHANGELOG.md](CHANGELOG.md) heading. A patch-only bump does not post an announcement.
+Pushing a tag matching `vX.Y.Z` makes the release; there is no separate publish step. The releases site at releases.rpgm.tools picks up each new release and posts it to the Neo Angband announcements forum on Discord.
 
 ## Questions, or something wrong
 

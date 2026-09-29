@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "fury": {
+      "fieldPatches": {
+        "core:of-fury": [
+          { "op": "set", "path": "type", "value": ["sword", "polearm", "hafted"] }
+        ]
+      }
+    }
+  }
+}
