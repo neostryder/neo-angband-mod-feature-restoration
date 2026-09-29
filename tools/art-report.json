@@ -1,0 +1,411 @@
+{
+ "sabre": {
+  "name": "& Sabre~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     9,
+     4
+    ],
+    "status": "changed",
+    "claimed_by": "Tulwar"
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     7
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/sabre-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/sabre-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/sabre-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/sabre-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/sabre-gervais-native-32x32.png"
+   }
+  }
+ },
+ "small-sword": {
+  "name": "& Small Sword~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     9,
+     4
+    ],
+    "status": "changed",
+    "claimed_by": "Tulwar"
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     18
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     6
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/small-sword-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/small-sword-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/small-sword-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/small-sword-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/small-sword-gervais-native-32x32.png"
+   }
+  }
+ },
+ "rusty-chain-mail": {
+  "name": "Rusty Chain Mail~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     8,
+     26
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     9,
+     19
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     0,
+     44
+    ],
+    "status": "changed",
+    "claimed_by": "Leather Scale Mail"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/rusty-chain-mail-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/rusty-chain-mail-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/rusty-chain-mail-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/rusty-chain-mail-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/rusty-chain-mail-gervais-native-32x32.png"
+   }
+  }
+ },
+ "double-chain-mail": {
+  "name": "Double Chain Mail~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     8,
+     25
+    ],
+    "status": "changed",
+    "claimed_by": "Balance Dragon Scale Mail"
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     9,
+     21
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     0,
+     46
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/double-chain-mail-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/double-chain-mail-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/double-chain-mail-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/double-chain-mail-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/double-chain-mail-gervais-native-32x32.png"
+   }
+  }
+ },
+ "gnomish-shovel": {
+  "name": "& Gnomish Shovel~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     11,
+     15
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     14,
+     16
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     7,
+     31
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/gnomish-shovel-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/gnomish-shovel-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/gnomish-shovel-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/gnomish-shovel-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/gnomish-shovel-gervais-native-32x32.png"
+   }
+  }
+ },
+ "dwarven-shovel": {
+  "name": "& Dwarven Shovel~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     11,
+     16
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     14,
+     17
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     7,
+     32
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dwarven-shovel-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dwarven-shovel-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dwarven-shovel-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dwarven-shovel-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dwarven-shovel-gervais-native-32x32.png"
+   }
+  }
+ },
+ "dwarven-pick": {
+  "name": "& Dwarven Pick~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     11,
+     14
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     14,
+     17
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     7,
+     29
+    ],
+    "status": "changed",
+    "claimed_by": "Mattock"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dwarven-pick-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dwarven-pick-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dwarven-pick-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dwarven-pick-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dwarven-pick-gervais-native-32x32.png"
+   }
+  }
+ },
+ "bronze-dragon-scale-mail": {
+  "name": "Bronze Dragon Scale Mail~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "3.5.1",
+    "cell": [
+     8,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "Soft Leather Armour"
+   },
+   "adam-bolt": {
+    "tag": "3.5.1",
+    "cell": [
+     10,
+     5
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "3.5.1",
+    "cell": [
+     0,
+     64
+    ],
+    "status": "same",
+    "claimed_by": "Shining Dragon Scale Mail"
+   },
+   "shockbolt": {
+    "tag": "3.5.1",
+    "cell": [
+     0,
+     62
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/bronze-dragon-scale-mail-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/bronze-dragon-scale-mail-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/bronze-dragon-scale-mail-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/bronze-dragon-scale-mail-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/bronze-dragon-scale-mail-shockbolt-native-64x64.png"
+   }
+  }
+ }
+}

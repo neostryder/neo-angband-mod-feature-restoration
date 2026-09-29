@@ -188,6 +188,12 @@ Confusion breath follows 3.2.0's rules, with one change. A monster is confused f
 
 Upstream commit `e08ed1dcb` ("Add some fixed artifact flavors", 4 October 2013) commented out seven random flavors so their index slots could become fixed flavors for artifacts: Ruby (28) became Narya, Sapphire (29) Vilya, Mithril (40) Nenya, Bronze (52) Carlammas and Golden (55) the Necklace of the Dwarves, while the Amber (44) and Coral (46) slots went to the Elfstone (drawn green) and the Evenstar (drawn white). The section appends the seven to core's ring and amulet flavor lists with the colours they had before that commit. They take new indices, 303 to 309, so the artifacts keep theirs. Five of the seven share a name with an artifact's fixed flavor, which brings back the pre-2013 guessing game: an unknown Ruby ring might be Narya.
 
+### Where the tiles come from
+
+`tools/extract-art.py` takes each restored item's tile from upstream's own tile sheets. For every bundled pack it walks back from the item's last release to the newest one whose pref file still maps it, crops that cell from the sheet at the same release, and records in `tools/art-report.json` whether 4.2.6's sheet still holds the same pixels there and what 4.2.6 draws in that cell now. A pack with no tile of its own takes the best real tile from a pack at the same or a lower resolution. The 3.0.9 items predate Nomad and Shockbolt, so those two take the Old and Gervais tiles. Bronze Dragon Scale Mail's Nomad cell is empty, so Nomad takes the Old tile there too. The tool also drew Iron Spike's committed tiles again and matched them pixel for pixel, apart from the Nomad cell that the Iron Spike work had already rejected.
+
+Restored monsters and flavors need two things the game does not have yet: art keyed by monster and by flavor, as `restoredItemArt` is keyed by object kind. Until the game can take that art, this mod declares no tiles for them, and their tiles are listed under "Needs a core release" below.
+
 ## Content, plus one plugin
 
 Restoring a spell to a class's book only takes data. The spell already exists (the Mage and the Rogue cast it today), so nothing new has to run; the class's book just needs one more entry. A [field-level patch](https://github.com/neostryder/neo-angband/blob/master/packages/mod-sdk/src/patch.ts) onto core's own `class.json` does exactly that, and a manifest [section](https://github.com/neostryder/neo-angband/blob/master/docs/modding/MOD_LIFECYCLE.md) turns it on and off. That is all `teleport-other` needs.
@@ -205,6 +211,7 @@ Some sections rely on game fixes that are not in a published release yet. The te
 | Section | Needs |
 |---|---|
 | `bronze-dragons` | neostryder/neo-angband#319: the web loader has to declare a mod's monster spells before binding, or the first bronze dragon stops the game from starting. |
+| `monsters-4-1`, `monsters-3x`, `bronze-dragons`, `flavors` | Tiles: art keyed by monster race and by flavor, so restored monsters and flavors can have their own. |
 
 The game packages this repository tests against are pinned at 1.18.0 until neostryder/neo-angband#318 is fixed, because 1.19.0 and 1.19.1 cannot be installed.
 

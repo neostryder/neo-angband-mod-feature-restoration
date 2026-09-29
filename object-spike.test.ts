@@ -64,7 +64,7 @@ describe("spike-doors object record", () => {
       kind: string;
       packs: Record<string, unknown>;
     }> }).restoredItemArt;
-    expect(art).toEqual([
+    expect(art.filter((a) => a.kind === "feature-restoration:flask:iron-spike")).toEqual([
       {
         kind: "feature-restoration:flask:iron-spike",
         packs: {

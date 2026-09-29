@@ -38,6 +38,166 @@
           "asset": "assets/iron-spike-shockbolt-native-64x64.png"
         }
       }
+    },
+    {
+      "kind": "feature-restoration:sword:sabre",
+      "packs": {
+        "old": {
+          "asset": "assets/sabre-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/sabre-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/sabre-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/sabre-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/sabre-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:sword:small-sword",
+      "packs": {
+        "old": {
+          "asset": "assets/small-sword-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/small-sword-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/small-sword-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/small-sword-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/small-sword-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:hard-armor:rusty-chain-mail",
+      "packs": {
+        "old": {
+          "asset": "assets/rusty-chain-mail-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/rusty-chain-mail-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/rusty-chain-mail-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/rusty-chain-mail-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/rusty-chain-mail-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:hard-armor:double-chain-mail",
+      "packs": {
+        "old": {
+          "asset": "assets/double-chain-mail-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/double-chain-mail-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/double-chain-mail-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/double-chain-mail-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/double-chain-mail-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:digger:gnomish-shovel",
+      "packs": {
+        "old": {
+          "asset": "assets/gnomish-shovel-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/gnomish-shovel-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/gnomish-shovel-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/gnomish-shovel-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/gnomish-shovel-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:digger:dwarven-shovel",
+      "packs": {
+        "old": {
+          "asset": "assets/dwarven-shovel-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dwarven-shovel-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dwarven-shovel-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/dwarven-shovel-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dwarven-shovel-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:digger:dwarven-pick",
+      "packs": {
+        "old": {
+          "asset": "assets/dwarven-pick-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dwarven-pick-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dwarven-pick-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/dwarven-pick-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dwarven-pick-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:dragon-armor:bronze-dragon-scale-mail",
+      "packs": {
+        "old": {
+          "asset": "assets/bronze-dragon-scale-mail-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/bronze-dragon-scale-mail-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/bronze-dragon-scale-mail-gervais-native-32x32.png"
+        },
+        "nomad": {
+          "asset": "assets/bronze-dragon-scale-mail-old-native-8x8.png"
+        },
+        "shockbolt": {
+          "asset": "assets/bronze-dragon-scale-mail-shockbolt-native-64x64.png"
+        }
+      }
     }
   ],
   "author": "neostryder",

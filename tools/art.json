@@ -1,0 +1,50 @@
+[
+ {
+  "kind": "object",
+  "name": "& Sabre~",
+  "last_tag": "v3.0.9",
+  "slug": "sabre"
+ },
+ {
+  "kind": "object",
+  "name": "& Small Sword~",
+  "last_tag": "v3.0.9",
+  "slug": "small-sword"
+ },
+ {
+  "kind": "object",
+  "name": "Rusty Chain Mail~",
+  "last_tag": "v3.0.9",
+  "slug": "rusty-chain-mail"
+ },
+ {
+  "kind": "object",
+  "name": "Double Chain Mail~",
+  "last_tag": "v3.0.9",
+  "slug": "double-chain-mail"
+ },
+ {
+  "kind": "object",
+  "name": "& Gnomish Shovel~",
+  "last_tag": "v3.0.9",
+  "slug": "gnomish-shovel"
+ },
+ {
+  "kind": "object",
+  "name": "& Dwarven Shovel~",
+  "last_tag": "v3.0.9",
+  "slug": "dwarven-shovel"
+ },
+ {
+  "kind": "object",
+  "name": "& Dwarven Pick~",
+  "last_tag": "v3.0.9",
+  "slug": "dwarven-pick"
+ },
+ {
+  "kind": "object",
+  "name": "Bronze Dragon Scale Mail~",
+  "last_tag": "3.5.1",
+  "slug": "bronze-dragon-scale-mail"
+ }
+]
