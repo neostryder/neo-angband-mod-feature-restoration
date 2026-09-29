@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "bronze-dragons": {
+      "records": [
+        {
+          "name": "BR_CONF",
+          "type": "RST_BREATH | RST_INNATE",
+          "msgt": "BR_CONF",
+          "hit": 100,
+          "effect": [
+            {
+              "eff": "BREATH",
+              "type": "CONFUSION",
+              "radius": 0,
+              "other": 30
+            }
+          ],
+          "lore": [
+            "confusion"
+          ],
+          "lore-color-base": "Orange",
+          "lore-color-resist": "Yellow",
+          "lore-color-immune": "Light Green",
+          "message-vis": [
+            "{name} breathes confusion."
+          ],
+          "message-invis": [
+            "You hear a roar."
+          ]
+        }
+      ]
+    }
+  }
+}

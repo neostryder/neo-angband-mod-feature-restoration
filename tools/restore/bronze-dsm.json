@@ -1,0 +1,43 @@
+{
+  "section": "bronze-dragons",
+  "file": "object",
+  "records": [
+    {
+      "name": "Bronze Dragon Scale Mail~",
+      "from": "Gold Dragon Scale Mail~",
+      "remove": [
+        "values",
+        "desc"
+      ],
+      "patch": {
+        "graphics": {
+          "glyph": "[",
+          "color": "U"
+        },
+        "weight": 130,
+        "armor": {
+          "ac": 18,
+          "to-a": "10"
+        },
+        "alloc": {
+          "common": 8,
+          "minmax": "55 to 100"
+        },
+        "flags": [
+          "PROT_CONF",
+          "IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD"
+        ],
+        "effect": [
+          {
+            "eff": "BREATH",
+            "type": "CONFUSION",
+            "radius": 0,
+            "other": 20,
+            "dice": "150"
+          }
+        ]
+      },
+      "why": "4.2's Gold Dragon Scale Mail, which 3.2.0 matched on level, cost and breath damage, with 3.2.0 Bronze's weight (130), armour (18, +10) and lower minimum depth (55 against Gold's 70), and PROT_CONF in place of sound resistance"
+    }
+  ]
+}

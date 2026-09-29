@@ -4,8 +4,9 @@
  * Most restored features in this mod are content-only (see class.json,
  * object.json): restoring a spell that already exists elsewhere in the game, or
  * an item with no behaviour of its own, is a data patch, nothing more. Store
- * discounts and door spiking are the two restorations that need behaviour
- * instead.
+ * discounts, door spiking and the bronze dragons' confusion breath are the
+ * restorations that need behaviour instead; the confusion handlers live in
+ * src/confusion.ts.
  *
  * Store discounts: Angband 4.2.6's core has no discount concept left to patch
  * data onto - `obj->discount` and the roll that set it were both dropped from
@@ -55,6 +56,16 @@
  * bundled copy of core would give this plugin its own registries while the
  * game ran on another set, a failure with no error message anywhere.
  */
+
+import {
+  BRONZE_BREATHERS,
+  CONFUSION,
+  confuseMonster,
+  confusePlayer,
+  type ConfusionCore,
+  type MonProjectCtxLike,
+  type PlayerSideCtxLike,
+} from "./src/confusion.js";
 
 /**
  * The RNG the host hands a discount roll, structurally - same reason as
@@ -149,6 +160,11 @@ interface CoreLike {
 
 /** The one registry facade this plugin reaches, structurally. */
 interface HostLike {
+  /** `registry:projection`: what a projection does to the player and to monsters. */
+  readonly projections?: {
+    readonly player: { set(code: string, handler: (ctx: PlayerSideCtxLike) => void): void };
+    readonly mon: { set(code: string, handler: (ctx: MonProjectCtxLike) => void): void };
+  };
   readonly stores: {
     setDiscountRoll(handler: (ctx: DiscountRollContext) => number): void;
   };
@@ -334,6 +350,18 @@ export default {
     if (ctx.flags["feature-restoration.discounts"] === true) {
       host.stores.setDiscountRoll(discountRoll);
       ctx.log?.("feature-restoration: store discount roll installed");
+    }
+
+    /* The CONFUSION projection only exists while the bronze-dragons section
+     * is on (its projection.json record), so its handlers go in under the same
+     * flag and no other. */
+    if (ctx.flags["feature-restoration.bronze-dragons"] === true && ctx.core && host.projections) {
+      /* The live core namespace carries TMD, MON_TMD, RF and MON_MSG; CoreLike
+       * names only what the spike command uses. */
+      const core = ctx.core as unknown as ConfusionCore;
+      host.projections.player.set(CONFUSION, confusePlayer(core));
+      host.projections.mon.set(CONFUSION, confuseMonster(core, BRONZE_BREATHERS));
+      ctx.log?.("feature-restoration: confusion projection handlers installed");
     }
 
     /* Iron Spikes only EXIST while this same flag's content section is on

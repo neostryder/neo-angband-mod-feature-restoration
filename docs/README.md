@@ -25,13 +25,14 @@ switch has no flag of its own, the game knows it by its section id instead.
 | Restore the monsters cut in 4.2.0 | `monsters-4-1` | off | Angband 4.2.0 replaced 55 monsters in a pass that made the game's cast fit Tolkien's world: the dark elves, Greek myth such as Medusa, Atlas and the Lernaean Hydra, the ninja and the dagashi, the drider, the black pudding and others. |
 | Restore the novices, swordsmen and angels | `monsters-3x` | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 | Add the Amulet of Amandil (never released) | `amandil` | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
+| Restore the bronze dragons | `feature-restoration.bronze-dragons` | off | Bronze dragons breathed confusion. |
 
 ## What it needs
 
 - **Engine:** `>=1.0.0`
 - **Shape:** `content`
 - **Facets:** `content`, `plugin`
-- **Capabilities:** `registry:store`, `registry:command`
+- **Capabilities:** `registry:store`, `registry:command`, `keymap:write`, `registry:projection`
 
 What a capability string permits, and what a mod that asks for one cannot do
 without it, is in [the mod lifecycle

@@ -1,6 +1,35 @@
 // feature-restoration - generated from plugin.ts by neo-angband-mod-build
 // (@rpgm-tools/neo-angband-mod-sdk). Edit the TypeScript source, not this file.
 
+// src/confusion.ts
+var CONFUSION = "CONFUSION";
+var BRONZE_BREATHERS = /* @__PURE__ */ new Set([
+  "giant bronze dragon fly",
+  "baby bronze dragon",
+  "young bronze dragon",
+  "mature bronze dragon",
+  "ancient bronze dragon",
+  "great wyrm of perplexity"
+]);
+function confusePlayer(core) {
+  return (ctx) => {
+    ctx.incTimed(core.TMD.CONFUSED, ctx.rng.randint1(20) + 10, true);
+  };
+}
+function confuseMonster(core, breathers) {
+  return (ctx) => {
+    if (ctx.seen) ctx.obvious = true;
+    ctx.monTimed[core.MON_TMD.CONF] = Math.trunc((10 + ctx.rng.randint1(15) + ctx.r) / (ctx.r + 1));
+    if (breathers.has(ctx.mon.race.name)) {
+      ctx.hurtMsg = core.MON_MSG.RESIST;
+      ctx.dam = Math.trunc(ctx.dam * 2 / (ctx.rng.randint1(6) + 6));
+    } else if (ctx.mon.race.flags.has(core.RF.NO_CONF)) {
+      ctx.hurtMsg = core.MON_MSG.RESIST_SOMEWHAT;
+      ctx.dam = Math.trunc(ctx.dam / 2);
+    }
+  };
+}
+
 // plugin.ts
 function discountRoll(ctx) {
   const { rng, cost } = ctx;
@@ -85,6 +114,12 @@ var plugin_default = {
     if (ctx.flags["feature-restoration.discounts"] === true) {
       host.stores.setDiscountRoll(discountRoll);
       ctx.log?.("feature-restoration: store discount roll installed");
+    }
+    if (ctx.flags["feature-restoration.bronze-dragons"] === true && ctx.core && host.projections) {
+      const core = ctx.core;
+      host.projections.player.set(CONFUSION, confusePlayer(core));
+      host.projections.mon.set(CONFUSION, confuseMonster(core, BRONZE_BREATHERS));
+      ctx.log?.("feature-restoration: confusion projection handlers installed");
     }
     if (ctx.flags["feature-restoration.spike-doors"] === true && ctx.core) {
       const core = ctx.core;

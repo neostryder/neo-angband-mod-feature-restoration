@@ -3646,6 +3646,283 @@
           ]
         }
       ]
+    },
+    "bronze-dragons": {
+      "records": [
+        {
+          "name": "giant bronze dragon fly",
+          "plural": "giant bronze dragon flies",
+          "base": "dragon fly",
+          "color": "U",
+          "speed": 120,
+          "hit-points": 14,
+          "hearing": 12,
+          "armor-class": 30,
+          "sleepiness": 1,
+          "depth": 10,
+          "rarity": 2,
+          "experience": 19,
+          "blow": [
+            {
+              "method": "BITE",
+              "effect": "HURT",
+              "damage": "1d3"
+            }
+          ],
+          "flags": [
+            "RAND_25",
+            "NO_STUN",
+            "NO_CONF"
+          ],
+          "desc": [
+            "This vast gleaming bronze fly has wings which beat mesmerically fast."
+          ],
+          "innate-freq": 10,
+          "spells": [
+            "BR_CONF"
+          ]
+        },
+        {
+          "name": "baby bronze dragon",
+          "base": "dragon",
+          "color": "U",
+          "speed": 110,
+          "hit-points": 88,
+          "hearing": 20,
+          "armor-class": 36,
+          "sleepiness": 70,
+          "depth": 9,
+          "rarity": 2,
+          "experience": 35,
+          "blow": [
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "1d3"
+            },
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "1d3"
+            },
+            {
+              "method": "BITE",
+              "effect": "HURT",
+              "damage": "1d5"
+            }
+          ],
+          "flags": [
+            "DROP_40 | DROP_1 | ONLY_GOLD",
+            "OPEN_DOOR | BASH_DOOR | NO_STUN",
+            "NO_CONF"
+          ],
+          "desc": [
+            "This hatchling dragon is still soft, its eyes unaccustomed to light and its",
+            " scales a dull bronze."
+          ],
+          "innate-freq": 12,
+          "spells": [
+            "BR_CONF"
+          ]
+        },
+        {
+          "name": "young bronze dragon",
+          "base": "dragon",
+          "color": "U",
+          "speed": 110,
+          "hit-points": 237,
+          "hearing": 20,
+          "armor-class": 60,
+          "sleepiness": 70,
+          "depth": 29,
+          "rarity": 1,
+          "experience": 500,
+          "blow": [
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "2d4"
+            },
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "2d4"
+            },
+            {
+              "method": "BITE",
+              "effect": "HURT",
+              "damage": "2d6"
+            }
+          ],
+          "flags": [
+            "DROP_3",
+            "OPEN_DOOR | BASH_DOOR | NO_STUN",
+            "NO_CONF"
+          ],
+          "desc": [
+            "It has a form that legends are made of.  Its still-tender scales are a rich",
+            " bronze hue, and its shape glitters with strange colours that confuse you."
+          ],
+          "innate-freq": 15,
+          "spell-freq": 20,
+          "spells": [
+            "SCARE",
+            "BR_CONF"
+          ]
+        },
+        {
+          "name": "mature bronze dragon",
+          "base": "dragon",
+          "color": "U",
+          "speed": 115,
+          "hit-points": 592,
+          "hearing": 20,
+          "armor-class": 84,
+          "sleepiness": 70,
+          "depth": 39,
+          "rarity": 1,
+          "experience": 1280,
+          "blow": [
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "3d8"
+            },
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "3d8"
+            },
+            {
+              "method": "BITE",
+              "effect": "HURT",
+              "damage": "4d8"
+            }
+          ],
+          "flags": [
+            "DROP_4",
+            "BASH_DOOR",
+            "NO_CONF | NO_SLEEP | NO_STUN",
+            "NO_CONF"
+          ],
+          "desc": [
+            "A large dragon with scales of rich bronze."
+          ],
+          "innate-freq": 12,
+          "spell-freq": 20,
+          "spells": [
+            "CONF | SCARE",
+            "BR_CONF"
+          ],
+          "friends": [
+            {
+              "chance": 50,
+              "number": "1d4",
+              "name": "Baby gold dragon"
+            },
+            {
+              "chance": 50,
+              "number": "1d2",
+              "name": "Young gold dragon"
+            }
+          ]
+        },
+        {
+          "name": "ancient bronze dragon",
+          "base": "ancient dragon",
+          "color": "U",
+          "speed": 120,
+          "hit-points": 1122,
+          "hearing": 20,
+          "armor-class": 108,
+          "sleepiness": 80,
+          "depth": 50,
+          "rarity": 1,
+          "experience": 2240,
+          "blow": [
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "6d8"
+            },
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "6d8"
+            },
+            {
+              "method": "BITE",
+              "effect": "HURT",
+              "damage": "7d8"
+            }
+          ],
+          "flags": [
+            "BASH_DOOR | NO_STUN",
+            "NO_CONF"
+          ],
+          "desc": [
+            "A huge draconic form enveloped in a cascade of colour."
+          ],
+          "innate-freq": 12,
+          "spell-freq": 8,
+          "spells": [
+            "BLIND | CONF | SCARE",
+            "BR_CONF"
+          ]
+        },
+        {
+          "name": "great wyrm of perplexity",
+          "base": "ancient dragon",
+          "color": "U",
+          "speed": 120,
+          "hit-points": 4200,
+          "hearing": 30,
+          "armor-class": 225,
+          "sleepiness": 30,
+          "depth": 70,
+          "rarity": 2,
+          "experience": 25000,
+          "blow": [
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "6d12"
+            },
+            {
+              "method": "CLAW",
+              "effect": "HURT",
+              "damage": "6d12"
+            },
+            {
+              "method": "BITE",
+              "effect": "CONFUSE",
+              "damage": "6d14"
+            },
+            {
+              "method": "BITE",
+              "effect": "CONFUSE",
+              "damage": "6d14"
+            }
+          ],
+          "flags": [
+            "ATTR_FLICKER",
+            "ONLY_ITEM",
+            "BASH_DOOR",
+            "NO_CONF"
+          ],
+          "desc": [
+            "A dragon of great size and power.  Its polished bronze scales reflect the",
+            " light in strange and confusing patterns, and you find it hard to keep your",
+            " mind on the job of fighting for your life."
+          ],
+          "innate-freq": 8,
+          "spell-freq": 5,
+          "spells": [
+            "BLIND | CONF | SCARE",
+            "BR_CONF"
+          ]
+        }
+      ]
     }
   }
 }

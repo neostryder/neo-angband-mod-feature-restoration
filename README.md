@@ -34,6 +34,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the monsters cut in 4.2.0** (`monsters-4-1`) | off | Angband 4.2.0 replaced 55 monsters in a pass that made the game's cast fit Tolkien's world: the dark elves, Greek myth such as Medusa, Atlas and the Lernaean Hydra, the ninja and the dagashi, the drider, the black pudding and others. |
 | **Restore the novices, swordsmen and angels** (`monsters-3x`) | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
+| **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
 
 ### Restore Teleport Other
 
@@ -174,6 +175,14 @@ This one was never in a release. Upstream commit `2744ef5a1` ("Merge jens's arti
 
 An artifact a mod adds is not redesigned in a random-artifact game, so Amandil keeps these numbers even with `birth_randarts` on.
 
+### Restore the bronze dragons
+
+Upstream commit `0ce785897` ("Remove "bronze" monsters and DSM. Remove BR_CONF from other monsters.", December 2010) set every bronze dragon's rarity to 0, so 3.3.0 through 3.5.1 carried the records without ever generating them. 4.0.0 then deleted them and removed confusion as an element (`bc0a46a01`). Angband 3.2.0 is the last release that put them in play, and it is the source here.
+
+In 3.2.0 the baby bronze dragon and the giant bronze dragon fly were exact copies of their gold siblings, and each larger bronze dragon was a weaker gold dragon. 4.2 rebalanced the gold dragons, so each bronze dragon starts from its 4.2 gold sibling and scales hit points, armour, experience and blow dice by the 3.2.0 bronze-to-gold ratio, with depth moved by the 3.2.0 difference. The mature bronze dragon, for example, had 80% of the mature gold dragon's hit points in 3.2.0, so it has 592 against 4.2's 740. The Great Wyrm of Perplexity had exactly the Great Storm Wyrm's numbers in 3.2.0 and takes 4.2's great storm wyrm with confusion in place of lightning. Bronze Dragon Scale Mail matched Gold on level, cost and breath damage, and takes 4.2's Gold Dragon Scale Mail with 3.2.0 Bronze's weight, armour and depth.
+
+Confusion breath follows 3.2.0's rules, with one change. A monster is confused for (10 + 1d15 + r) / (r + 1) turns, takes half damage if it cannot be confused, and a confusion breather takes dam x 2 / (1d6 + 6). The player is confused for 1d20 + 10 turns. In 3.2.0, resisting confusion also cut the damage. 4.2 made that resistance the protection from confusion, and a 4.2 protection stops a status without reducing damage, so protection here stops the confusion and the damage lands in full. The breath's divisor (hit points / 6) and damage cap (400) are 3.x's own.
+
 ## Content, plus one plugin
 
 Restoring a spell to a class's book only takes data. The spell already exists (the Mage and the Rogue cast it today), so nothing new has to run; the class's book just needs one more entry. A [field-level patch](https://github.com/neostryder/neo-angband/blob/master/packages/mod-sdk/src/patch.ts) onto core's own `class.json` does exactly that, and a manifest [section](https://github.com/neostryder/neo-angband/blob/master/docs/modding/MOD_LIFECYCLE.md) turns it on and off. That is all `teleport-other` needs.
@@ -181,9 +190,22 @@ Restoring a spell to a class's book only takes data. The spell already exists (t
 Store discounts are different. 4.2.6's core has no discount field and no discount roll left to patch, so there is no data to attach to. Restoring them needed one small addition to the game's own engine: a `registry:store` discount-roll hook alongside the stack-size hook that was already there. This mod's `plugin.ts` installs a handler into it, gated on the `feature-restoration.discounts` rule flag and nothing else. No other system in the game is touched, and with the toggle off the hook is never called at all, like every other disabled mod hook.
 
 Door spiking needs both halves. Iron Spikes are a new `object.json` record (in the `spike-doors` section, borrowing the `flask` tval; see above), and the command that uses them is new behaviour with nothing in core to attach to, so it goes through `registry:command` the same way discounts go through `registry:store`. Both halves are gated on one flag, `feature-restoration.spike-doors`, which is the section's own `flag` field, so you see one toggle rather than a content switch and a behaviour switch that could get out of step. `register()` only calls `commands.register` while that flag is on, so with the section disabled the game has neither the item nor a command referring to it.
+
+The bronze dragons need behaviour of a third kind: confusion as an element. `projection.json` adds the CONFUSION projection as data, and `plugin.ts` installs what it does to the player and to monsters through `registry:projection`, from `src/confusion.ts`. Both are gated on `feature-restoration.bronze-dragons`, the section's own flag, so the handlers never run for a projection that does not exist.
+
+## Needs a core release
+
+Some sections rely on game fixes that are not in a published release yet. The tests run against a loader that already has each fix, and a section listed here must not ship until the game release carrying its fix is out and `manifest.json`'s `engine` floor names it.
+
+| Section | Needs |
+|---|---|
+| `bronze-dragons` | neostryder/neo-angband#319: the web loader has to declare a mod's monster spells before binding, or the first bronze dragon stops the game from starting. |
+
+The game packages this repository tests against are pinned at 1.18.0 until neostryder/neo-angband#318 is fixed, because 1.19.0 and 1.19.1 cannot be installed.
+
 ## Installing
 
-The mod is `manifest.json`, `artifact.json`, `class.json`, `ego_item.json`, `monster.json`, `object.json` and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
+The mod is `manifest.json`, its gamedata files (`artifact.json`, `class.json`, `ego_item.json`, `message_type.json`, `monster.json`, `monster_spell.json`, `object.json`, `projection.json`) and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:
 - **In the game:** Mods -> **Install a mod...**, which fetches this repository at a
   release tag, never a branch. The install records a SHA-256 of every byte that
   arrived, so the manager can answer later whether the copy on your machine has

@@ -20,7 +20,7 @@ interface MonsterRecord {
   [key: string]: unknown;
 }
 
-const MONSTER_SECTIONS = ["monsters-4-1", "monsters-3x"];
+const MONSTER_SECTIONS = ["monsters-4-1", "monsters-3x", "bronze-dragons"];
 const MOD = JSON.parse(readFileSync(new URL("./monster.json", import.meta.url), "utf8")) as {
   sections: Record<string, { records?: MonsterRecord[] }>;
 };

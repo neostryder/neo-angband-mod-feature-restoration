@@ -31,7 +31,7 @@ interface ObjectRecord {
   [key: string]: unknown;
 }
 
-const OBJECT_SECTIONS = ["classic-devices", "classic-potions", "classic-equipment", "classic-dangers"];
+const OBJECT_SECTIONS = ["classic-devices", "classic-potions", "classic-equipment", "classic-dangers", "bronze-dragons"];
 const MOD = JSON.parse(readFileSync(new URL("./object.json", import.meta.url), "utf8")) as {
   sections: Record<string, { records?: ObjectRecord[] }>;
 };

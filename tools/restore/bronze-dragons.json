@@ -1,0 +1,251 @@
+{
+  "section": "bronze-dragons",
+  "file": "monster",
+  "records": [
+    {
+      "name": "giant bronze dragon fly",
+      "from": "giant gold dragon fly",
+      "patch": {
+        "color": "U",
+        "hit-points": 14,
+        "armor-class": 30,
+        "experience": 19,
+        "depth": 10,
+        "blow": [
+          {
+            "method": "BITE",
+            "effect": "HURT",
+            "damage": "1d3"
+          }
+        ],
+        "spells": [
+          "BR_CONF"
+        ],
+        "flags": [
+          "RAND_25",
+          "NO_STUN",
+          "NO_CONF"
+        ],
+        "desc": [
+          "This vast gleaming bronze fly has wings which beat mesmerically fast."
+        ],
+        "plural": "giant bronze dragon flies"
+      },
+      "why": "4.2's giant gold dragon fly with bronze's colour, confusion breath and 3.2.0 description; hit points, armour, experience and blow dice scaled by the 3.2.0 bronze-to-gold ratio, depth offset by the 3.2.0 difference (+4)"
+    },
+    {
+      "name": "baby bronze dragon",
+      "from": "baby gold dragon",
+      "patch": {
+        "color": "U",
+        "hit-points": 88,
+        "armor-class": 36,
+        "experience": 35,
+        "depth": 9,
+        "blow": [
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "1d3"
+          },
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "1d3"
+          },
+          {
+            "method": "BITE",
+            "effect": "HURT",
+            "damage": "1d5"
+          }
+        ],
+        "spells": [
+          "BR_CONF"
+        ],
+        "flags": [
+          "DROP_40 | DROP_1 | ONLY_GOLD",
+          "OPEN_DOOR | BASH_DOOR | NO_STUN",
+          "NO_CONF"
+        ],
+        "desc": [
+          "This hatchling dragon is still soft, its eyes unaccustomed to light and its",
+          " scales a dull bronze."
+        ]
+      },
+      "why": "4.2's baby gold dragon with bronze's colour, confusion breath and 3.2.0 description; hit points, armour, experience and blow dice scaled by the 3.2.0 bronze-to-gold ratio, depth offset by the 3.2.0 difference (+0)"
+    },
+    {
+      "name": "young bronze dragon",
+      "from": "young gold dragon",
+      "patch": {
+        "color": "U",
+        "hit-points": 237,
+        "armor-class": 60,
+        "experience": 500,
+        "depth": 29,
+        "blow": [
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "2d4"
+          },
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "2d4"
+          },
+          {
+            "method": "BITE",
+            "effect": "HURT",
+            "damage": "2d6"
+          }
+        ],
+        "spells": [
+          "SCARE",
+          "BR_CONF"
+        ],
+        "flags": [
+          "DROP_3",
+          "OPEN_DOOR | BASH_DOOR | NO_STUN",
+          "NO_CONF"
+        ],
+        "desc": [
+          "It has a form that legends are made of.  Its still-tender scales are a rich",
+          " bronze hue, and its shape glitters with strange colours that confuse you."
+        ]
+      },
+      "why": "4.2's young gold dragon with bronze's colour, confusion breath and 3.2.0 description; hit points, armour, experience and blow dice scaled by the 3.2.0 bronze-to-gold ratio, depth offset by the 3.2.0 difference (-2)"
+    },
+    {
+      "name": "mature bronze dragon",
+      "from": "mature gold dragon",
+      "patch": {
+        "color": "U",
+        "hit-points": 592,
+        "armor-class": 84,
+        "experience": 1280,
+        "depth": 39,
+        "blow": [
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "3d8"
+          },
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "3d8"
+          },
+          {
+            "method": "BITE",
+            "effect": "HURT",
+            "damage": "4d8"
+          }
+        ],
+        "spells": [
+          "CONF | SCARE",
+          "BR_CONF"
+        ],
+        "flags": [
+          "DROP_4",
+          "BASH_DOOR",
+          "NO_CONF | NO_SLEEP | NO_STUN",
+          "NO_CONF"
+        ],
+        "desc": [
+          "A large dragon with scales of rich bronze."
+        ]
+      },
+      "why": "4.2's mature gold dragon with bronze's colour, confusion breath and 3.2.0 description; hit points, armour, experience and blow dice scaled by the 3.2.0 bronze-to-gold ratio, depth offset by the 3.2.0 difference (-2)"
+    },
+    {
+      "name": "ancient bronze dragon",
+      "from": "ancient gold dragon",
+      "patch": {
+        "color": "U",
+        "hit-points": 1122,
+        "armor-class": 108,
+        "experience": 2240,
+        "depth": 50,
+        "blow": [
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "6d8"
+          },
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "6d8"
+          },
+          {
+            "method": "BITE",
+            "effect": "HURT",
+            "damage": "7d8"
+          }
+        ],
+        "spells": [
+          "BLIND | CONF | SCARE",
+          "BR_CONF"
+        ],
+        "flags": [
+          "BASH_DOOR | NO_STUN",
+          "NO_CONF"
+        ],
+        "desc": [
+          "A huge draconic form enveloped in a cascade of colour."
+        ]
+      },
+      "why": "4.2's ancient gold dragon with bronze's colour, confusion breath and 3.2.0 description; hit points, armour, experience and blow dice scaled by the 3.2.0 bronze-to-gold ratio, depth offset by the 3.2.0 difference (-1)"
+    },
+    {
+      "name": "great wyrm of perplexity",
+      "from": "great storm wyrm",
+      "remove": [
+        "light",
+        "color-cycle"
+      ],
+      "patch": {
+        "color": "U",
+        "blow": [
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "6d12"
+          },
+          {
+            "method": "CLAW",
+            "effect": "HURT",
+            "damage": "6d12"
+          },
+          {
+            "method": "BITE",
+            "effect": "CONFUSE",
+            "damage": "6d14"
+          },
+          {
+            "method": "BITE",
+            "effect": "CONFUSE",
+            "damage": "6d14"
+          }
+        ],
+        "spells": [
+          "BLIND | CONF | SCARE",
+          "BR_CONF"
+        ],
+        "flags": [
+          "ATTR_FLICKER",
+          "ONLY_ITEM",
+          "BASH_DOOR",
+          "NO_CONF"
+        ],
+        "desc": [
+          "A dragon of great size and power.  Its polished bronze scales reflect the",
+          " light in strange and confusing patterns, and you find it hard to keep your",
+          " mind on the job of fighting for your life."
+        ]
+      },
+      "why": "3.2.0's Great Wyrm of Perplexity had exactly the Great Storm Wyrm's numbers, so it takes 4.2's great storm wyrm with confusion in place of lightning"
+    }
+  ]
+}

@@ -722,6 +722,49 @@
           ]
         }
       ]
+    },
+    "bronze-dragons": {
+      "records": [
+        {
+          "name": "Bronze Dragon Scale Mail~",
+          "type": "dragon armor",
+          "graphics": {
+            "glyph": "[",
+            "color": "U"
+          },
+          "level": 30,
+          "weight": 130,
+          "cost": 40000,
+          "alloc": {
+            "common": 8,
+            "minmax": "55 to 100"
+          },
+          "attack": {
+            "hd": "2d4",
+            "to-h": "-2",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 18,
+            "to-a": "10"
+          },
+          "flags": [
+            "PROT_CONF",
+            "IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD"
+          ],
+          "power": 19,
+          "effect": [
+            {
+              "eff": "BREATH",
+              "type": "CONFUSION",
+              "radius": 0,
+              "other": 20,
+              "dice": "150"
+            }
+          ],
+          "time": "50"
+        }
+      ]
     }
   }
 }

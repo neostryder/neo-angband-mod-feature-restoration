@@ -46,7 +46,8 @@ function core(): Loaded {
 
 /** Every gamedata file this repository ships, by the names core's pack uses. */
 export function modFiles(): Record<string, Json> {
-  const names = new Set(Object.keys(core().files));
+  /* message_type is a file core itself does not ship but a pack may. */
+  const names = new Set([...Object.keys(core().files), "message_type"]);
   const files: Record<string, Json> = {};
   for (const f of readdirSync(ROOT)) {
     const stem = f.replace(/\.json$/, "");
@@ -104,6 +105,14 @@ export function bind(on: readonly string[]): { composed: ComposedContent; game: 
     projection: recs("projection"),
     trap: recs("trap"),
     messageTypes: composed.records["message_type"],
+    /* A pack's own monster spells have to be declared before bindCore binds a
+     * monster that casts one (core session/boot.ts, #281). Core's own spells
+     * are compiled in, so only records that carry a declaration `type` go here.
+     * The game's web loader does not pass this field yet; see this repository's
+     * README, "Needs a core release". */
+    monsterSpells: (composed.records["monster_spell"] ?? []).filter(
+      (r) => typeof (r as { type?: unknown }).type === "string",
+    ),
     names: recs("names"),
     store: recs("store"),
     quest: recs("quest"),

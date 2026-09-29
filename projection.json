@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "bronze-dragons": {
+      "records": [
+        {
+          "code": "CONFUSION",
+          "name": "confusion",
+          "type": "environs",
+          "desc": "confusion",
+          "player-desc": "confusion",
+          "blind-desc": "something",
+          "lash-desc": "confusion",
+          "numerator": 6,
+          "denominator": "6+1d6",
+          "divisor": 6,
+          "damage-cap": 400,
+          "msgt": "BR_CONF",
+          "obvious": 1,
+          "wake": 1,
+          "color": "Umber"
+        }
+      ]
+    }
+  }
+}

@@ -34,6 +34,7 @@ were not retagged.
 - [Visible] [Content] **54 monsters that 4.2.0 replaced, back beside their replacements.** The dark elves, Medusa, the Titans, the ninja, the drider and the rest of the 4.1.3 cast return with their own numbers; where an old monster and its replacement are exact equals, each appears half as often.
 - [Visible] [Content] **The novices, the Swordsman, the Hardened warrior and the angels.** Sixteen 3.x monsters, including the angel uniques Uriel, Azriel and Gabriel.
 - [Visible] [Content] **The Amulet of Amandil, which no Angband release ever enabled.** Upstream wrote it in 2011 and commented it out; its own switch turns the record on unchanged apart from its base.
+- [Visible] [Content] **Bronze dragons and confusion breath.** Five bronze dragons, the Great Wyrm of Perplexity and Bronze Dragon Scale Mail come back, with confusion restored as an element for them to breathe.
 
 ### Changed
 
