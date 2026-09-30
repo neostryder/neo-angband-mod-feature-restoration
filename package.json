@@ -35,6 +35,7 @@
     "check": "node tools/build.mjs --check",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "population": "esbuild tools/population.ts --bundle --platform=node --format=esm --packages=external --outfile=.neo-angband/population.mjs && node .neo-angband/population.mjs",
     "verify": "pnpm typecheck && pnpm test && pnpm check"
   },
   "devDependencies": {
