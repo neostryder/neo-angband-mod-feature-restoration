@@ -67,16 +67,10 @@ import {
   classicRemoveCurseHandler,
   enchantCurseBreakHandler,
 } from "./src/classic-uncurse.js";
-import type { DiscountRollContext, GameObject, GameState, Loc, ModHooks, ModRegistryHost, PlayerCommand } from "@rpgm-tools/neo-angband-core";
+import type { DiscountRollContext, GameObject, GameState, Loc, ModHooks, ModKeymaps, ModPluginContext, ModRegistryHost, PlayerCommand } from "@rpgm-tools/neo-angband-core";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
 import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler } from "./src/curse-scrolls.js";
 import { ignoreJunk } from "./src/junk-ignore.js";
-
-/** The narrow `keymap:write` facade this plugin needs. */
-interface KeymapsLike {
-  isBindableTriggerKey(trigger: string): boolean;
-  bind(trigger: string, action: string): boolean;
-}
 
 type HostLike = {
   readonly effectInfo?: { text: Pick<ModRegistryHost["effectInfo"]["text"], "set"> };
@@ -89,15 +83,11 @@ type HostLike = {
   readonly commands: Pick<ModRegistryHost["commands"], "register" | "setVerb">;
 };
 
-interface HookCtx {
-  readonly flags: Readonly<Record<string, boolean>>;
-  /** The live core namespace; the host passes it to both hooks() and register(). */
-  readonly core?: typeof import("@rpgm-tools/neo-angband-core");
-  /** Present only when the mod declared `keymap:write` and the player consented. */
-  readonly keymaps?: KeymapsLike;
-  /** Emit a diagnostic line; the host decides where it goes. */
-  readonly log?: (msg: string) => void;
-}
+type HookCtx = Pick<ModPluginContext, "flags"> &
+  Partial<Pick<ModPluginContext, "core" | "log">> & {
+    /** The spike command uses only the consented keymap writer. */
+    readonly keymaps?: Pick<ModKeymaps, "isBindableTriggerKey" | "bind">;
+  };
 
 /**
  * mass_produce's discount arm (Angband 3.0.6, store.c), transcribed exactly:
