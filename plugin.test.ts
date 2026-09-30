@@ -7,14 +7,10 @@
  */
 import { describe, expect, it, vi } from "vitest";
 import { Rng } from "@rpgm-tools/neo-angband-core";
-import plugin, {
-  discountRoll,
-  IRON_SPIKE_NAME,
-  MAX_SPIKE_POWER,
-  SPIKE_COMMAND,
-  SPIKE_TRIGGER,
-  spikeDoor,
-} from "./plugin.js";
+// @ts-expect-error The test imports the handwritten source module.
+import plugin, { discountRoll, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, SPIKE_TRIGGER, spikeDoor } from "./plugin.ts";
+import { LOSE_MEMORIES } from "./src/lose-memories.js";
+import type { EffectTextHandler } from "@rpgm-tools/neo-angband-core";
 
 type DiscountHandler = (ctx: { rng: { oneIn: (n: number) => boolean }; cost: number }) => number;
 /** The command action's real parameter types are plugin.ts's own, private types;
@@ -105,6 +101,31 @@ describe("register - discount flag gating", () => {
     const host = fakeHost();
     plugin.register(host, { flags: { "feature-restoration.discounts": true } });
     expect(host.installedDiscount).toBe(discountRoll);
+  });
+});
+
+describe("register - Lose Memories effect", () => {
+  it("installs the effect handler and recall text", () => {
+    const host = fakeHost();
+    let code = "";
+    let installed: { handler: unknown } | null = null;
+    let infoCode = "";
+    const captured: { info?: EffectTextHandler } = {};
+    const registryHost = {
+      ...host,
+      effects: { register: (key: string, def: { handler: unknown }) => { code = key; installed = def; } },
+      effectInfo: { text: { set: (key: string, entry: EffectTextHandler) => { infoCode = key; captured.info = entry; } } },
+    };
+    plugin.register(registryHost, {
+      flags: {},
+      core: {} as NonNullable<Parameters<typeof plugin.register>[1]["core"]>,
+    });
+
+    expect(code).toBe(LOSE_MEMORIES);
+    expect(installed).toBeDefined();
+    expect(infoCode).toBe(LOSE_MEMORIES);
+    expect(captured.info?.menuName?.({} as never)).toBe("drains experience");
+    expect(captured.info?.describe?.({} as never)).toBe("drains experience");
   });
 });
 

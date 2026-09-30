@@ -46,8 +46,8 @@ function core(): Loaded {
 
 /** Every gamedata file this repository ships, by the names core's pack uses. */
 export function modFiles(): Record<string, Json> {
-  /* message_type is a file core itself does not ship but a pack may. */
-  const names = new Set([...Object.keys(core().files), "message_type"]);
+  /* message_type and tval are files core itself does not ship but a pack may. */
+  const names = new Set([...Object.keys(core().files), "message_type", "tval"]);
   const files: Record<string, Json> = {};
   for (const f of readdirSync(ROOT)) {
     const stem = f.replace(/\.json$/, "");
@@ -105,6 +105,9 @@ export function bind(on: readonly string[]): { composed: ComposedContent; game: 
     projection: recs("projection"),
     trap: recs("trap"),
     messageTypes: composed.records["message_type"],
+    /* A pack's own item classes, numbered before the kinds that name them
+     * (core session/boot.ts). Core ships no tval.json, so a mod-only file. */
+    tvals: composed.records["tval"],
     /* A pack's own monster spells have to be declared before bindCore binds a
      * monster that casts one (core session/boot.ts, #281). Core's own spells
      * are compiled in, so only records that carry a declaration `type` go here.

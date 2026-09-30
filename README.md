@@ -28,7 +28,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore door spiking** (`spike-doors`) | off | Adds Iron Spikes as a findable item and a `spike` command that spends one to jam a closed door, making it harder to pick open. Angband 3.4.1, the last official release before the 4.0 command rewrite dropped both, is the source; 4.2.6 has neither. The command claims the original `j` key by default when it is free; see below. |
 | **Restore the "of Fury" weapon ego** (`fury`) | off | Angband 3.0.6 through 3.2.0 could make a sword, polearm or hafted weapon "of Fury": up to +10 to hit and to damage, two to five points of strength, one or two extra blows and immunity to fear, paid for by aggravating the monsters around you. |
 | **Restore cut rods, wands and staffs** (`classic-devices`) | off | Brings back six magic devices that later versions removed: the rods of Door/Stair Location and Trap Location (last in 4.0.5), the wand of Door Destruction (last in 4.1.3), and the staffs of Trap Location, Door/Stair Location and Object Location (last in 3.0.9). |
-| **Restore cut potions** (`classic-potions`) | off | Brings back seven potions that Angband 3.0.9 had and 3.1.0 removed. |
+| **Restore cut potions** (`classic-potions`) | off | Brings back seven potions that Angband 3.0.9 had and 3.1.0 removed, plus Lose Memories from 4.1.3. |
 | **Restore cut weapons, armour and diggers** (`classic-equipment`) | off | Brings back seven items that Angband 3.0.9 had and 3.1.0 removed: the Sabre, the Small Sword, Rusty Chain Mail, Double Chain Mail, the Gnomish Shovel, the Dwarven Shovel and the Dwarven Pick. |
 | **Restore the deadly potions** (`classic-dangers`) | off | Brings back three potions that Angband 3.0.9 had and 3.1.0 removed, each one a disaster to drink before you know what it is. |
 | **Restore the monsters cut in 4.2.0** (`monsters-4-1`) | off | Angband 4.2.0 replaced 55 monsters in a pass that made the game's cast fit Tolkien's world: the dark elves, Greek myth such as Medusa, Atlas and the Lernaean Hydra, the ninja and the dagashi, the drider, the black pudding and others. |
@@ -148,7 +148,7 @@ These four sections bring back records that later releases removed and 4.2.6 doe
 | Section | Records | Last release |
 |---|---|---|
 | `classic-devices` | rods of Door/Stair Location and Trap Location; wand of Door Destruction; staffs of Trap Location, Door/Stair Location and Object Location | 4.0.5, 4.1.3 and 3.0.9 |
-| `classic-potions` | Weakness, Stupidity, Naivety, Clumsiness, Sickliness, Apple Juice, Water | 3.0.9 |
+| `classic-potions` | Weakness, Stupidity, Naivety, Clumsiness, Sickliness, Apple Juice, Water, Lose Memories | 3.0.9 and 4.1.3 |
 | `classic-equipment` | Sabre, Small Sword, Rusty Chain Mail, Double Chain Mail, Gnomish Shovel, Dwarven Shovel, Dwarven Pick | 3.0.9 |
 | `classic-dangers` | Death, Ruination, Detonations | 3.0.9 |
 
@@ -190,9 +190,7 @@ Upstream commit `e08ed1dcb` ("Add some fixed artifact flavors", 4 October 2013) 
 
 ### Where the tiles come from
 
-`tools/extract-art.py` takes each restored item's tile from upstream's own tile sheets. For every bundled pack it walks back from the item's last release to the newest one whose pref file still maps it, crops that cell from the sheet at the same release, and records in `tools/art-report.json` whether 4.2.6's sheet still holds the same pixels there and what 4.2.6 draws in that cell now. A pack with no tile of its own takes the best real tile from a pack at the same or a lower resolution. The 3.0.9 items predate Nomad and Shockbolt, so those two take the Old and Gervais tiles. Bronze Dragon Scale Mail's Nomad cell is empty, so Nomad takes the Old tile there too. The tool also drew Iron Spike's committed tiles again and matched them pixel for pixel, apart from the Nomad cell that the Iron Spike work had already rejected.
-
-Restored monsters and flavors need two things the game does not have yet: art keyed by monster and by flavor, as `restoredItemArt` is keyed by object kind. Until the game can take that art, this mod declares no tiles for them, and their tiles are listed under "Needs a core release" below.
+`tools/extract-art.py` takes each restored item and monster's tile from upstream's own tile sheets. For every bundled pack it walks back from the record's last release to the newest one whose pref file still maps it, crops that cell from the sheet at the same release, and records in `tools/art-report.json` whether 4.2.6's sheet still holds the same pixels there and what 4.2.6 draws in that cell now. A pack with no tile of its own takes the best real tile from a pack at the same or a lower resolution. No tile from a larger pack is scaled down. The seven restored flavors alias their historical tiles and carry hue rotations where they share art with a fixed artifact flavor. Restored monster art carries hue rotations where its old tile is now used by a 4.2 monster.
 
 ## Content, plus one plugin
 
@@ -211,7 +209,6 @@ Some sections rely on game fixes that are not in a published release yet. The te
 | Section | Needs |
 |---|---|
 | `bronze-dragons` | neostryder/neo-angband#319: the web loader has to declare a mod's monster spells before binding, or the first bronze dragon stops the game from starting. |
-| `monsters-4-1`, `monsters-3x`, `bronze-dragons`, `flavors` | Tiles: art keyed by monster race and by flavor, so restored monsters and flavors can have their own. |
 
 The game packages this repository tests against are pinned at 1.18.0 until neostryder/neo-angband#318 is fixed, because 1.19.0 and 1.19.1 cannot be installed.
 

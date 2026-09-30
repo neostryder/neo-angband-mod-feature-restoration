@@ -264,6 +264,27 @@
     "classic-potions": {
       "records": [
         {
+          "name": "Lose Memories",
+          "type": "potion",
+          "graphics": {
+            "glyph": "!",
+            "color": "d"
+          },
+          "level": 10,
+          "weight": 4,
+          "cost": 0,
+          "alloc": {
+            "common": 10,
+            "minmax": "10 to 15"
+          },
+          "power": 0,
+          "effect": [
+            {
+              "eff": "feature-restoration:LOSE_EXP"
+            }
+          ]
+        },
+        {
           "name": "Weakness",
           "type": "potion",
           "graphics": {
@@ -763,6 +784,445 @@
             }
           ],
           "time": "50"
+        }
+      ]
+    },
+    "sticky-curses": {
+      "records": [
+        {
+          "name": "Woe",
+          "type": "ring",
+          "graphics": {
+            "glyph": "=",
+            "color": "d"
+          },
+          "level": 50,
+          "weight": 2,
+          "cost": 0,
+          "alloc": {
+            "common": 20,
+            "minmax": "50 to 100"
+          },
+          "curse": [
+            {
+              "name": "teleportation",
+              "power": 40
+            },
+            {
+              "name": "dullness",
+              "power": 40
+            }
+          ],
+          "desc": [
+            "A ring of blackest jet, it drags its wearer through space and clouds the mind."
+          ]
+        },
+        {
+          "name": "Weakness",
+          "type": "ring",
+          "graphics": {
+            "glyph": "=",
+            "color": "d"
+          },
+          "level": 5,
+          "weight": 2,
+          "cost": 0,
+          "alloc": {
+            "common": 20,
+            "minmax": "5 to 100"
+          },
+          "curse": [
+            {
+              "name": "weakness",
+              "power": 40
+            }
+          ],
+          "desc": [
+            "A dull leaden ring that saps the strength from the hand that wears it."
+          ]
+        },
+        {
+          "name": "Stupidity",
+          "type": "ring",
+          "graphics": {
+            "glyph": "=",
+            "color": "d"
+          },
+          "level": 5,
+          "weight": 2,
+          "cost": 0,
+          "alloc": {
+            "common": 20,
+            "minmax": "5 to 100"
+          },
+          "curse": [
+            {
+              "name": "dullness",
+              "power": 40
+            }
+          ],
+          "desc": [
+            "A ring of cloudy glass, it numbs the wits of whoever puts it on."
+          ]
+        },
+        {
+          "name": "Aggravate Monster",
+          "type": "ring",
+          "graphics": {
+            "glyph": "=",
+            "color": "d"
+          },
+          "level": 5,
+          "weight": 2,
+          "cost": 0,
+          "alloc": {
+            "common": 20,
+            "minmax": "5 to 100"
+          },
+          "curse": [
+            {
+              "name": "irritation",
+              "power": 40
+            }
+          ],
+          "desc": [
+            "A ring that shouts the wearer's position to everything that hunts in the dark."
+          ]
+        },
+        {
+          "name": "DOOM",
+          "type": "amulet",
+          "graphics": {
+            "glyph": "\"",
+            "color": "d"
+          },
+          "level": 50,
+          "weight": 3,
+          "cost": 0,
+          "alloc": {
+            "common": 20,
+            "minmax": "50 to 100"
+          },
+          "curse": [
+            {
+              "name": "sickliness",
+              "power": 100
+            },
+            {
+              "name": "dullness",
+              "power": 100
+            }
+          ],
+          "desc": [
+            "A cold iron amulet stamped with a skull. Its curse never lifts, and it drains body and mind alike."
+          ]
+        },
+        {
+          "name": "Slowness",
+          "type": "staff",
+          "graphics": {
+            "glyph": "_",
+            "color": "d"
+          },
+          "level": 40,
+          "weight": 50,
+          "cost": 0,
+          "alloc": {
+            "common": 20,
+            "minmax": "40 to 100"
+          },
+          "attack": {
+            "hd": "1d2",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          },
+          "charges": "8+d8",
+          "power": 0,
+          "effect": [
+            {
+              "eff": "TIMED_INC",
+              "type": "SLOW",
+              "dice": "15+1d25"
+            }
+          ]
+        }
+      ]
+    },
+    "junk": {
+      "records": [
+        {
+          "name": "& Empty Bottle~",
+          "type": "bottle",
+          "graphics": {
+            "glyph": "!",
+            "color": "w"
+          },
+          "level": 0,
+          "weight": 2,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Shard~ of Pottery",
+          "type": "junk",
+          "graphics": {
+            "glyph": "~",
+            "color": "r"
+          },
+          "level": 0,
+          "weight": 5,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Broken Stick~",
+          "type": "junk",
+          "graphics": {
+            "glyph": "~",
+            "color": "r"
+          },
+          "level": 0,
+          "weight": 3,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Broken Skull~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 0,
+          "weight": 2,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Broken Bone~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 0,
+          "weight": 2,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Canine Skeleton~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 1,
+          "weight": 10,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "1 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Rodent Skeleton~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 1,
+          "weight": 10,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "1 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Human Skeleton~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 5,
+          "weight": 60,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "5 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Dwarf Skeleton~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 5,
+          "weight": 50,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "5 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Elf Skeleton~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 5,
+          "weight": 40,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "5 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Gnome Skeleton~",
+          "type": "skeleton",
+          "graphics": {
+            "glyph": "~",
+            "color": "w"
+          },
+          "level": 5,
+          "weight": 30,
+          "cost": 0,
+          "alloc": {
+            "common": 1,
+            "minmax": "5 to 100"
+          },
+          "flags": [
+            "EASY_KNOW"
+          ]
+        },
+        {
+          "name": "& Filthy Rag~",
+          "type": "soft armor",
+          "graphics": {
+            "glyph": "(",
+            "color": "D"
+          },
+          "level": 0,
+          "weight": 20,
+          "cost": 1,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "attack": {
+            "hd": "1d1",
+            "to-h": "0",
+            "to-d": "0"
+          },
+          "armor": {
+            "ac": 1,
+            "to-a": "-1"
+          }
+        },
+        {
+          "name": "& Broken Dagger~",
+          "type": "sword",
+          "graphics": {
+            "glyph": "|",
+            "color": "D"
+          },
+          "level": 0,
+          "weight": 5,
+          "cost": 1,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "attack": {
+            "hd": "1d1",
+            "to-h": "-2",
+            "to-d": "-4"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          }
+        },
+        {
+          "name": "& Broken Sword~",
+          "type": "sword",
+          "graphics": {
+            "glyph": "|",
+            "color": "D"
+          },
+          "level": 0,
+          "weight": 30,
+          "cost": 2,
+          "alloc": {
+            "common": 1,
+            "minmax": "0 to 100"
+          },
+          "attack": {
+            "hd": "1d2",
+            "to-h": "-2",
+            "to-d": "-4"
+          },
+          "armor": {
+            "ac": 0,
+            "to-a": "0"
+          }
         }
       ]
     }

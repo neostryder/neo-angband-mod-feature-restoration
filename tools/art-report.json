@@ -407,5 +407,4957 @@
     "asset": "assets/bronze-dragon-scale-mail-shockbolt-native-64x64.png"
    }
   }
+ },
+ "large-brown-snake": {
+  "name": "large brown snake",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     19,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "serpent of the brownlands"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     40,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "serpent of the brownlands"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     34,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "serpent of the brownlands"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "serpent of the brownlands"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/large-brown-snake-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/large-brown-snake-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/large-brown-snake-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/large-brown-snake-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/large-brown-snake-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "jackal": {
+  "name": "jackal",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     30
+    ],
+    "status": "same",
+    "claimed_by": "wild dog"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     33,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "wild dog"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "wild dog"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     78
+    ],
+    "status": "same",
+    "claimed_by": "wild dog"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     78
+    ],
+    "status": "same",
+    "claimed_by": "wild dog"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/jackal-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/jackal-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/jackal-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/jackal-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/jackal-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "large-yellow-snake": {
+  "name": "large yellow snake",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     19,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Copperhead snake"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     40,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "serpent of chaos"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     34,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "serpent of chaos"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "serpent of chaos"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     20
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/large-yellow-snake-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/large-yellow-snake-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/large-yellow-snake-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/large-yellow-snake-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/large-yellow-snake-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "manes": {
+  "name": "manes",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     17,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "Nruling"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     50,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "Nruling"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Nruling"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     36
+    ],
+    "status": "same",
+    "claimed_by": "Nruling"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     36
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/manes-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/manes-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/manes-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/manes-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/manes-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dark-elf": {
+  "name": "dark elf",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     24,
+     30
+    ],
+    "status": "same",
+    "claimed_by": "eastern dwarf"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "eastern dwarf"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     21
+    ],
+    "status": "same",
+    "claimed_by": "eastern dwarf"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "eastern dwarf"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "eastern dwarf"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dark-elf-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dark-elf-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dark-elf-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dark-elf-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dark-elf-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "brown-yeek": {
+  "name": "brown yeek",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     30,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "terrified yeek"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     53,
+     6
+    ],
+    "status": "same",
+    "claimed_by": "terrified yeek"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     45,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "terrified yeek"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     57
+    ],
+    "status": "same",
+    "claimed_by": "terrified yeek"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     57
+    ],
+    "status": "same",
+    "claimed_by": "terrified yeek"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/brown-yeek-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/brown-yeek-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/brown-yeek-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/brown-yeek-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/brown-yeek-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "hill-orc": {
+  "name": "hill orc",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     26,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "orc tracker"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     44,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "orc tracker"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     41,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "orc tracker"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     24
+    ],
+    "status": "same",
+    "claimed_by": "orc tracker"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     24
+    ],
+    "status": "same",
+    "claimed_by": "orc tracker"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/hill-orc-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/hill-orc-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/hill-orc-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/hill-orc-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/hill-orc-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "bandit": {
+  "name": "bandit",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     28,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "ruffian"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     45,
+     6
+    ],
+    "status": "same",
+    "claimed_by": "ruffian"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     42,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "ruffian"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "ruffian"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "ruffian"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/bandit-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/bandit-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/bandit-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/bandit-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/bandit-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dark-elven-mage": {
+  "name": "dark elven mage",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     24,
+     31
+    ],
+    "status": "same",
+    "claimed_by": "blacklock mage"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "blacklock mage"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "Pseudo-dragon"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "blacklock mage"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "blacklock mage"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dark-elven-mage-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dark-elven-mage-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dark-elven-mage-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dark-elven-mage-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dark-elven-mage-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dark-elven-warrior": {
+  "name": "dark elven warrior",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     25,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "stonefoot warrior"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "stonefoot warrior"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "stonefoot warrior"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "stonefoot warrior"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "stonefoot warrior"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dark-elven-warrior-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dark-elven-warrior-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dark-elven-warrior-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dark-elven-warrior-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dark-elven-warrior-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "gnome-mage": {
+  "name": "gnome mage",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     25,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "drúadan mage"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     24
+    ],
+    "status": "same",
+    "claimed_by": "drúadan mage"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "drúadan mage"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "drúadan mage"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/gnome-mage-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/gnome-mage-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/gnome-mage-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/gnome-mage-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/gnome-mage-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dark-elven-priest": {
+  "name": "dark elven priest",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     25,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "ironfist priest"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "ironfist priest"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     25
+    ],
+    "status": "same",
+    "claimed_by": "ironfist priest"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "ironfist priest"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "ironfist priest"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dark-elven-priest-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dark-elven-priest-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dark-elven-priest-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dark-elven-priest-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dark-elven-priest-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "drider": {
+  "name": "drider",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     5
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     9
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     0
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     19,
+     26
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     5
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/drider-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/drider-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/drider-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/drider-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/drider-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "black-orc": {
+  "name": "black orc",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     26,
+     30
+    ],
+    "status": "same",
+    "claimed_by": "orc archer"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     44,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "orc archer"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     41,
+     21
+    ],
+    "status": "same",
+    "claimed_by": "orc archer"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "orc archer"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "orc archer"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/black-orc-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/black-orc-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/black-orc-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/black-orc-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/black-orc-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dark-elven-lord": {
+  "name": "dark elven lord",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     25,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "dark dwarven lord"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     28
+    ],
+    "status": "same",
+    "claimed_by": "dark dwarven lord"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "dark dwarven lord"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "dark dwarven lord"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dark-elven-lord-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dark-elven-lord-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dark-elven-lord-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dark-elven-lord-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dark-elven-lord-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "master-rogue": {
+  "name": "master rogue",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     28,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "rogue"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     45,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "rogue"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     43,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "rogue"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "rogue"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "rogue"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/master-rogue-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/master-rogue-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/master-rogue-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/master-rogue-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/master-rogue-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dark-elven-druid": {
+  "name": "dark elven druid",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     25,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "drúadan druid"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     25
+    ],
+    "status": "same",
+    "claimed_by": "drúadan druid"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     31
+    ],
+    "status": "same",
+    "claimed_by": "drúadan druid"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "drúadan druid"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "drúadan druid"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dark-elven-druid-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dark-elven-druid-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dark-elven-druid-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dark-elven-druid-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dark-elven-druid-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "algroth": {
+  "name": "algroth",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "troll scavenger"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     49,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "troll scavenger"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "troll scavenger"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     49
+    ],
+    "status": "same",
+    "claimed_by": "troll scavenger"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     25
+    ],
+    "status": "same",
+    "claimed_by": "troll scavenger"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/algroth-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/algroth-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/algroth-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/algroth-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/algroth-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "ice-troll": {
+  "name": "ice troll",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "snow troll"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     49,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "snow troll"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "snow troll"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     50
+    ],
+    "status": "same",
+    "claimed_by": "snow troll"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     34
+    ],
+    "status": "same",
+    "claimed_by": "snow troll"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/ice-troll-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/ice-troll-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/ice-troll-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/ice-troll-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/ice-troll-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "ninja": {
+  "name": "ninja",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     28,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "southron assassin"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     45,
+     25
+    ],
+    "status": "same",
+    "claimed_by": "southron assassin"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     43,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "southron assassin"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "southron assassin"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "southron assassin"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/ninja-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/ninja-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/ninja-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/ninja-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/ninja-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "half-troll": {
+  "name": "half-troll",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "troll blackguard"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     49,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "troll blackguard"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     15
+    ],
+    "status": "same",
+    "claimed_by": "troll blackguard"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     52
+    ],
+    "status": "same",
+    "claimed_by": "troll blackguard"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     104
+    ],
+    "status": "same",
+    "claimed_by": "troll blackguard"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/half-troll-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/half-troll-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/half-troll-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/half-troll-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/half-troll-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "skeleton-ettin": {
+  "name": "skeleton ettin",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "Skeleton etten"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "Skeleton etten"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     44,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "Skeleton etten"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     55
+    ],
+    "status": "same",
+    "claimed_by": "Skeleton etten"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     103
+    ],
+    "status": "same",
+    "claimed_by": "Skeleton etten"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/skeleton-ettin-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/skeleton-ettin-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/skeleton-ettin-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/skeleton-ettin-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/skeleton-ettin-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "water-troll": {
+  "name": "water troll",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     24
+    ],
+    "status": "same",
+    "claimed_by": "hill troll"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     49,
+     10
+    ],
+    "status": "same",
+    "claimed_by": "hill troll"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "hill troll"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     53
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     49
+    ],
+    "status": "same",
+    "claimed_by": "hill troll"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/water-troll-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/water-troll-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/water-troll-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/water-troll-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/water-troll-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "giant-grey-scorpion": {
+  "name": "giant grey scorpion",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "Giant black scorpion"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Giant black scorpion"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "Giant black scorpion"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     74
+    ],
+    "status": "same",
+    "claimed_by": "Giant black scorpion"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     74
+    ],
+    "status": "same",
+    "claimed_by": "Giant black scorpion"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/giant-grey-scorpion-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/giant-grey-scorpion-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/giant-grey-scorpion-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/giant-grey-scorpion-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/giant-grey-scorpion-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dagashi": {
+  "name": "dagashi",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     28,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "southron archer"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     45,
+     29
+    ],
+    "status": "same",
+    "claimed_by": "southron archer"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     43,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "southron archer"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "southron archer"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     91
+    ],
+    "status": "same",
+    "claimed_by": "southron archer"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dagashi-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dagashi-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dagashi-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dagashi-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dagashi-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "acidic-cytoplasm": {
+  "name": "acidic cytoplasm",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     26,
+     0
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     41,
+     14
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     40,
+     23
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     4
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     4
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/acidic-cytoplasm-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/acidic-cytoplasm-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/acidic-cytoplasm-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/acidic-cytoplasm-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/acidic-cytoplasm-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "black-pudding": {
+  "name": "black pudding",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     26,
+     1
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     41,
+     15
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     40,
+     24
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     3
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     3
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/black-pudding-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/black-pudding-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/black-pudding-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/black-pudding-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/black-pudding-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "erinyes": {
+  "name": "erinyes",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     30,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "Fury"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     50,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "Fury"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     45,
+     15
+    ],
+    "status": "same",
+    "claimed_by": "Fury"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     30
+    ],
+    "status": "same",
+    "claimed_by": "Fury"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     30
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/erinyes-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/erinyes-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/erinyes-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/erinyes-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/erinyes-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "eldrak": {
+  "name": "eldrak",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "mountain troll"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     49,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "mountain troll"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "mountain troll"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     55
+    ],
+    "status": "same",
+    "claimed_by": "mountain troll"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     95
+    ],
+    "status": "same",
+    "claimed_by": "mountain troll"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/eldrak-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/eldrak-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/eldrak-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/eldrak-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/eldrak-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "ettin": {
+  "name": "ettin",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     28
+    ],
+    "status": "same",
+    "claimed_by": "etten"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     49,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "etten"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     35,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "etten"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     56
+    ],
+    "status": "same",
+    "claimed_by": "etten"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     64
+    ],
+    "status": "same",
+    "claimed_by": "etten"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/ettin-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/ettin-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/ettin-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/ettin-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/ettin-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "knight-templar": {
+  "name": "knight Templar",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     49,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "patriarch"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     46,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "patriarch"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     43,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "patriarch"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     31
+    ],
+    "status": "same",
+    "claimed_by": "patriarch"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     80
+    ],
+    "status": "same",
+    "claimed_by": "patriarch"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/knight-templar-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/knight-templar-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/knight-templar-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/knight-templar-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/knight-templar-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "medusa-the-gorgon": {
+  "name": "Medusa, the Gorgon",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     26,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "gorgon"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     43,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "gorgon"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     41,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "gorgon"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     21,
+     40
+    ],
+    "status": "same",
+    "claimed_by": "gorgon"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     78
+    ],
+    "status": "same",
+    "claimed_by": "gorgon"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/medusa-the-gorgon-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/medusa-the-gorgon-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/medusa-the-gorgon-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/medusa-the-gorgon-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/medusa-the-gorgon-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dark-elven-sorcerer": {
+  "name": "dark elven sorcerer",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     25,
+     10
+    ],
+    "status": "same",
+    "claimed_by": "stiffbeard sorcerer"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     28
+    ],
+    "status": "same",
+    "claimed_by": "stiffbeard sorcerer"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     40,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "stiffbeard sorcerer"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "stiffbeard sorcerer"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "stiffbeard sorcerer"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dark-elven-sorcerer-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dark-elven-sorcerer-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dark-elven-sorcerer-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dark-elven-sorcerer-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dark-elven-sorcerer-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "11-headed-hydra": {
+  "name": "11-headed hydra",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     19,
+     31
+    ],
+    "status": "same",
+    "claimed_by": "8-headed hydra"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     42,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "8-headed hydra"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     34,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "8-headed hydra"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     41
+    ],
+    "status": "same",
+    "claimed_by": "8-headed hydra"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     89
+    ],
+    "status": "same",
+    "claimed_by": "8-headed hydra"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/11-headed-hydra-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/11-headed-hydra-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/11-headed-hydra-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/11-headed-hydra-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/11-headed-hydra-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "ethereal-hound": {
+  "name": "ethereal hound",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     22,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "hound of Tindalos"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     53,
+     28
+    ],
+    "status": "same",
+    "claimed_by": "hound of Tindalos"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     37,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "hound of Tindalos"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     72
+    ],
+    "status": "same",
+    "claimed_by": "hound of Tindalos"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     72
+    ],
+    "status": "same",
+    "claimed_by": "hound of Tindalos"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/ethereal-hound-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/ethereal-hound-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/ethereal-hound-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/ethereal-hound-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/ethereal-hound-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "the-lernaean-hydra": {
+  "name": "The Lernaean Hydra",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     20,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "9-headed hydra"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     42,
+     28
+    ],
+    "status": "same",
+    "claimed_by": "9-headed hydra"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     34,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "9-headed hydra"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     21,
+     59
+    ],
+    "status": "same",
+    "claimed_by": "9-headed hydra"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     103
+    ],
+    "status": "same",
+    "claimed_by": "9-headed hydra"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/the-lernaean-hydra-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/the-lernaean-hydra-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/the-lernaean-hydra-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/the-lernaean-hydra-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/the-lernaean-hydra-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "the-cat-lord": {
+  "name": "The Cat Lord",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     24,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Tevildo, Prince of Cats"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     37,
+     28
+    ],
+    "status": "same",
+    "claimed_by": "Tevildo, Prince of Cats"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     39,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "Tevildo, Prince of Cats"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     21,
+     67
+    ],
+    "status": "same",
+    "claimed_by": "Tevildo, Prince of Cats"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     88
+    ],
+    "status": "same",
+    "claimed_by": "Tevildo, Prince of Cats"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/the-cat-lord-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/the-cat-lord-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/the-cat-lord-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/the-cat-lord-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/the-cat-lord-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "giant-brown-tick": {
+  "name": "giant brown tick",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     69,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "Abyss spider"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     15
+    ],
+    "status": "same",
+    "claimed_by": "Abyss spider"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     27
+    ],
+    "status": "same",
+    "claimed_by": "Abyss spider"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     43
+    ],
+    "status": "same",
+    "claimed_by": "Giant flea"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     55
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/giant-brown-tick-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/giant-brown-tick-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/giant-brown-tick-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/giant-brown-tick-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/giant-brown-tick-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "raven": {
+  "name": "raven",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     61,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "crow of Durthang"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     33,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "crow of Durthang"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     55,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "crow of Durthang"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     19,
+     35
+    ],
+    "status": "same",
+    "claimed_by": "crow of Durthang"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     19,
+     35
+    ],
+    "status": "same",
+    "claimed_by": "crow of Durthang"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/raven-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/raven-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/raven-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/raven-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/raven-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "polyphemus-the-blind-cyclops": {
+  "name": "Polyphemus, the Blind Cyclops",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     70,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     44,
+     28
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     26,
+     14
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     13,
+     82
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     24
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/polyphemus-the-blind-cyclops-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/polyphemus-the-blind-cyclops-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/polyphemus-the-blind-cyclops-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/polyphemus-the-blind-cyclops-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/polyphemus-the-blind-cyclops-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "atlas-the-titan": {
+  "name": "Atlas, the Titan",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     70,
+     28
+    ],
+    "status": "same",
+    "claimed_by": "Makar, the Warrior"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     44,
+     29
+    ],
+    "status": "same",
+    "claimed_by": "Makar, the Warrior"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     18,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "Makar, the Warrior"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     38
+    ],
+    "status": "same",
+    "claimed_by": "Makar, the Warrior"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     109
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/atlas-the-titan-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/atlas-the-titan-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/atlas-the-titan-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/atlas-the-titan-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/atlas-the-titan-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "kronos-lord-of-the-titans": {
+  "name": "Kronos, Lord of the Titans",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     70,
+     29
+    ],
+    "status": "same",
+    "claimed_by": "Meássë, the Bloody"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     44,
+     30
+    ],
+    "status": "same",
+    "claimed_by": "Meássë, the Bloody"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     23,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "Meássë, the Bloody"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     40
+    ],
+    "status": "same",
+    "claimed_by": "Meássë, the Bloody"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     126
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/kronos-lord-of-the-titans-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/kronos-lord-of-the-titans-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/kronos-lord-of-the-titans-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/kronos-lord-of-the-titans-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/kronos-lord-of-the-titans-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "nighthawk": {
+  "name": "nighthawk",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     71,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "blood falcon"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     33,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "blood falcon"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "blood falcon"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     59
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     59
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/nighthawk-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/nighthawk-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/nighthawk-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/nighthawk-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/nighthawk-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "aranea": {
+  "name": "aranea",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "Ancient spider"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "Ancient spider"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     58,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "Ancient spider"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     25,
+     83
+    ],
+    "status": "same",
+    "claimed_by": "Ancient spider"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     16,
+     45
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/aranea-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/aranea-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/aranea-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/aranea-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/aranea-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "elder-aranea": {
+  "name": "elder aranea",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "Spider of Gorgoroth"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     48,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "Spider of Gorgoroth"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     51,
+     26
+    ],
+    "status": "same",
+    "claimed_by": "Spider of Gorgoroth"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     15,
+     55
+    ],
+    "status": "same",
+    "claimed_by": "Spider of Gorgoroth"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     84
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/elder-aranea-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/elder-aranea-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/elder-aranea-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/elder-aranea-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/elder-aranea-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "greater-mummy": {
+  "name": "greater mummy",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     65,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "mummified chieftain"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     54,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "mummified chieftain"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     58,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "mummified chieftain"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     17,
+     52
+    ],
+    "status": "same",
+    "claimed_by": "mummified chieftain"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     17,
+     52
+    ],
+    "status": "same",
+    "claimed_by": "mummified chieftain"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/greater-mummy-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/greater-mummy-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/greater-mummy-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/greater-mummy-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/greater-mummy-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "lesser-maia": {
+  "name": "lesser Maia",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     12
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     15
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     54
+    ],
+    "status": "same",
+    "claimed_by": "Maia"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     54
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/lesser-maia-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/lesser-maia-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/lesser-maia-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/lesser-maia-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/lesser-maia-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "greater-maia": {
+  "name": "greater Maia",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     56
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Oromë"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     82
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/greater-maia-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/greater-maia-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/greater-maia-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/greater-maia-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/greater-maia-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "blue-wizard": {
+  "name": "Blue Wizard",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     21
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     15
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     58
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Aulë"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     21
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/blue-wizard-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/blue-wizard-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/blue-wizard-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/blue-wizard-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/blue-wizard-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "istar": {
+  "name": "Istar",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     22
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     16
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     57
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Yavanna"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     79
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/istar-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/istar-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/istar-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/istar-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/istar-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "arien-maia-of-the-sun": {
+  "name": "Arien, Maia of the Sun",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     21,
+     62
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     78
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/arien-maia-of-the-sun-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/arien-maia-of-the-sun-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/arien-maia-of-the-sun-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/arien-maia-of-the-sun-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/arien-maia-of-the-sun-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "radagast-the-brown": {
+  "name": "Radagast the Brown",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     14,
+     25
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     32,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     29,
+     22
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     21,
+     65
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     31,
+     76
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/radagast-the-brown-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/radagast-the-brown-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/radagast-the-brown-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/radagast-the-brown-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/radagast-the-brown-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "easterling-warrior": {
+  "name": "Easterling warrior",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     28,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     45,
+     11
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     42,
+     31
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/easterling-warrior-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/easterling-warrior-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/easterling-warrior-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/easterling-warrior-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/easterling-warrior-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "healer": {
+  "name": "healer",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     28,
+     11
+    ],
+    "status": "same",
+    "claimed_by": "Druid"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     46,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "tamer"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     43,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "Druid"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "Druid"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     4,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "Druid"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/healer-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/healer-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/healer-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/healer-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/healer-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "novice-warrior": {
+  "name": "Novice warrior",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     27,
+     31
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     45,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "Soldier"
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     42,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "Soldier"
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     4,
+     8
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/novice-warrior-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/novice-warrior-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/novice-warrior-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/novice-warrior-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/novice-warrior-gervais-native-32x32.png"
+   }
+  }
+ },
+ "novice-rogue": {
+  "name": "Novice rogue",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     28,
+     0
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     45,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "Cutpurse"
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     42,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "Cutpurse"
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     4,
+     9
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/novice-rogue-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/novice-rogue-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/novice-rogue-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/novice-rogue-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/novice-rogue-gervais-native-32x32.png"
+   }
+  }
+ },
+ "novice-priest": {
+  "name": "Novice priest",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     27,
+     30
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     45,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "Acolyte"
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     42,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "Acolyte"
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     4,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/novice-priest-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/novice-priest-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/novice-priest-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/novice-priest-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/novice-priest-gervais-native-32x32.png"
+   }
+  }
+ },
+ "novice-mage": {
+  "name": "Novice mage",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     27,
+     29
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     45,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "Apprentice"
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     42,
+     15
+    ],
+    "status": "same",
+    "claimed_by": "Apprentice"
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     4,
+     6
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/novice-mage-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/novice-mage-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/novice-mage-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/novice-mage-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/novice-mage-gervais-native-32x32.png"
+   }
+  }
+ },
+ "novice-ranger": {
+  "name": "Novice ranger",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     28,
+     3
+    ],
+    "status": "changed",
+    "claimed_by": "Ranger"
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     45,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "Scout"
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     42,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Scout"
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     4,
+     11
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/novice-ranger-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/novice-ranger-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/novice-ranger-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/novice-ranger-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/novice-ranger-gervais-native-32x32.png"
+   }
+  }
+ },
+ "novice-paladin": {
+  "name": "Novice paladin",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     27,
+     28
+    ],
+    "status": "changed",
+    "claimed_by": "Gallant"
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     45,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "Gallant"
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     42,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "Gallant"
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     4,
+     12
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/novice-paladin-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/novice-paladin-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/novice-paladin-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/novice-paladin-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/novice-paladin-gervais-native-32x32.png"
+   }
+  }
+ },
+ "swordsman": {
+  "name": "Swordsman",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     28,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     45,
+     11
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     42,
+     31
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     4,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     4,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "warrior"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/swordsman-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/swordsman-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/swordsman-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/swordsman-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/swordsman-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "hardened-warrior": {
+  "name": "Hardened warrior",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     28,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "Easterling champion"
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     45,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Easterling champion"
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     43,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "Easterling champion"
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     4,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "Easterling champion"
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     4,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "Easterling champion"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/hardened-warrior-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/hardened-warrior-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/hardened-warrior-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/hardened-warrior-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/hardened-warrior-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "angel": {
+  "name": "Angel",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     12
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     15
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     54
+    ],
+    "status": "same",
+    "claimed_by": "Maia"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/angel-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/angel-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/angel-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/angel-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/angel-gervais-native-32x32.png"
+   }
+  }
+ },
+ "archangel": {
+  "name": "Archangel",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "Maia"
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "Maia"
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "Maia"
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     55
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Mandos"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/archangel-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/archangel-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/archangel-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/archangel-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/archangel-gervais-native-32x32.png"
+   }
+  }
+ },
+ "cherub": {
+  "name": "Cherub",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     56
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Oromë"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/cherub-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/cherub-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/cherub-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/cherub-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/cherub-gervais-native-32x32.png"
+   }
+  }
+ },
+ "seraph": {
+  "name": "Seraph",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     21
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     15
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     58
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Aulë"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/seraph-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/seraph-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/seraph-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/seraph-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/seraph-gervais-native-32x32.png"
+   }
+  }
+ },
+ "archon": {
+  "name": "Archon",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     22
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     16
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     57
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Yavanna"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/archon-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/archon-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/archon-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/archon-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/archon-gervais-native-32x32.png"
+   }
+  }
+ },
+ "uriel-angel-of-fire": {
+  "name": "Uriel, Angel of Fire",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     21,
+     62
+    ],
+    "status": "same",
+    "claimed_by": "Nan, the Giant"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/uriel-angel-of-fire-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/uriel-angel-of-fire-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/uriel-angel-of-fire-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/uriel-angel-of-fire-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/uriel-angel-of-fire-gervais-native-32x32.png"
+   }
+  }
+ },
+ "azriel-angel-of-death": {
+  "name": "Azriel, Angel of Death",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     24
+    ],
+    "status": "same",
+    "claimed_by": "Ossë, Herald of Ulmo"
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "Ossë, Herald of Ulmo"
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     21
+    ],
+    "status": "same",
+    "claimed_by": "Ossë, Herald of Ulmo"
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     21,
+     63
+    ],
+    "status": "same",
+    "claimed_by": "Ossë, Herald of Ulmo"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/azriel-angel-of-death-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/azriel-angel-of-death-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/azriel-angel-of-death-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/azriel-angel-of-death-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/azriel-angel-of-death-gervais-native-32x32.png"
+   }
+  }
+ },
+ "gabriel-the-messenger": {
+  "name": "Gabriel, the Messenger",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.3.2",
+    "cell": [
+     14,
+     25
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.3.2",
+    "cell": [
+     32,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.3.2",
+    "cell": [
+     29,
+     22
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.3.2",
+    "cell": [
+     21,
+     65
+    ],
+    "status": "same",
+    "claimed_by": "Maia of Varda"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/gabriel-the-messenger-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/gabriel-the-messenger-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/gabriel-the-messenger-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/gabriel-the-messenger-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/gabriel-the-messenger-gervais-native-32x32.png"
+   }
+  }
+ },
+ "giant-bronze-dragon-fly": {
+  "name": "giant bronze dragon fly",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     16,
+     28
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     37,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     31,
+     24
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     17,
+     60
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/giant-bronze-dragon-fly-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/giant-bronze-dragon-fly-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/giant-bronze-dragon-fly-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/giant-bronze-dragon-fly-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/giant-bronze-dragon-fly-gervais-native-32x32.png"
+   }
+  }
+ },
+ "baby-bronze-dragon": {
+  "name": "baby bronze dragon",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     48,
+     9
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     35,
+     12
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     12,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "Baby gold dragon"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/baby-bronze-dragon-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/baby-bronze-dragon-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/baby-bronze-dragon-nomad-native-8x16.png"
+   },
+   "gervais": {
+    "asset": "assets/baby-bronze-dragon-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/baby-bronze-dragon-gervais-native-32x32.png"
+   }
+  }
+ },
+ "young-bronze-dragon": {
+  "name": "young bronze dragon",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     23,
+     16
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     35,
+     21
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     38,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     12,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "Young gold dragon"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/young-bronze-dragon-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/young-bronze-dragon-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/young-bronze-dragon-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/young-bronze-dragon-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/young-bronze-dragon-gervais-native-32x32.png"
+   }
+  }
+ },
+ "mature-bronze-dragon": {
+  "name": "mature bronze dragon",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     23,
+     28
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     36,
+     3
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     38,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     12,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "Mature gold dragon"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/mature-bronze-dragon-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/mature-bronze-dragon-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/mature-bronze-dragon-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/mature-bronze-dragon-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/mature-bronze-dragon-gervais-native-32x32.png"
+   }
+  }
+ },
+ "ancient-bronze-dragon": {
+  "name": "ancient bronze dragon",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     15,
+     12
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     34,
+     12
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.2.0",
+    "cell": [
+     30,
+     9
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     12,
+     25
+    ],
+    "status": "same",
+    "claimed_by": "Ancient gold dragon"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/ancient-bronze-dragon-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/ancient-bronze-dragon-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/ancient-bronze-dragon-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/ancient-bronze-dragon-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/ancient-bronze-dragon-gervais-native-32x32.png"
+   }
+  }
+ },
+ "great-wyrm-of-perplexity": {
+  "name": "great wyrm of perplexity",
+  "kind": "monster",
+  "found": {
+   "old": {
+    "tag": "v3.2.0",
+    "cell": [
+     49,
+     12
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.2.0",
+    "cell": [
+     34,
+     30
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.2.0",
+    "cell": [
+     14,
+     31
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/great-wyrm-of-perplexity-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/great-wyrm-of-perplexity-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/great-wyrm-of-perplexity-nomad-native-8x16.png"
+   },
+   "gervais": {
+    "asset": "assets/great-wyrm-of-perplexity-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/great-wyrm-of-perplexity-gervais-native-32x32.png"
+   }
+  }
  }
 }

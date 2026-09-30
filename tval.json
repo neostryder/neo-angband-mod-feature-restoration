@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "junk": {
+      "records": [
+        {
+          "name": "junk"
+        },
+        {
+          "name": "skeleton"
+        },
+        {
+          "name": "bottle"
+        }
+      ]
+    }
+  }
+}

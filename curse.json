@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "sticky-curses": {
+      "fieldPatches": {
+        "core:vulnerability": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:teleportation": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:dullness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:sickliness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:enveloping": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:irritation": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:weakness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:clumsiness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:slowness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:annoyance": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ]
+      }
+    }
+  }
+}

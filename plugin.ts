@@ -4,9 +4,9 @@
  * Most restored features in this mod are content-only (see class.json,
  * object.json): restoring a spell that already exists elsewhere in the game, or
  * an item with no behaviour of its own, is a data patch, nothing more. Store
- * discounts, door spiking and the bronze dragons' confusion breath are the
- * restorations that need behaviour instead; the confusion handlers live in
- * src/confusion.ts.
+ * discounts, door spiking, Lose Memories and the bronze dragons' confusion
+ * breath are the restorations that need behaviour instead; the confusion
+ * handlers live in src/confusion.ts.
  *
  * Store discounts: Angband 4.2.6's core has no discount concept left to patch
  * data onto - `obj->discount` and the roll that set it were both dropped from
@@ -66,6 +66,13 @@ import {
   type MonProjectCtxLike,
   type PlayerSideCtxLike,
 } from "./src/confusion.js";
+import {
+  classicRemoveCurseHandler,
+  enchantCurseBreakHandler,
+  type ClassicCore,
+} from "./src/classic-uncurse.js";
+import type { EffectHandler, EffectTextHandler } from "@rpgm-tools/neo-angband-core";
+import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
 
 /**
  * The RNG the host hands a discount roll, structurally - same reason as
@@ -160,10 +167,16 @@ interface CoreLike {
 
 /** The one registry facade this plugin reaches, structurally. */
 interface HostLike {
+  /** `registry:effect-info`: the text an effect shows on the object recall screen. */
+  readonly effectInfo?: { text: { set(code: string, handler: EffectTextHandler): void } };
   /** `registry:projection`: what a projection does to the player and to monsters. */
   readonly projections?: {
     readonly player: { set(code: string, handler: (ctx: PlayerSideCtxLike) => void): void };
     readonly mon: { set(code: string, handler: (ctx: MonProjectCtxLike) => void): void };
+  };
+  /** `registry:effect`: replace the handler a numeric or named effect code runs. */
+  readonly effects?: {
+    register(code: number | string, def: { handler: EffectHandler }): void;
   };
   readonly stores: {
     setDiscountRoll(handler: (ctx: DiscountRollContext) => number): void;
@@ -341,12 +354,20 @@ export default {
   },
 
   /**
-   * `registry:store` and `registry:command`. Each installs only while its own
-   * toggle is on - a disabled rule or section is never called at all, so the
-   * game plays core's own faithful path rather than a branch this mod chose
-   * to skip.
+   * Registry handlers install when their host seams are available. Content
+   * toggles control whether the matching effect or command record exists.
    */
   register(host: HostLike, ctx: HookCtx): void {
+    if (ctx.core && host.effects && host.effectInfo) {
+      const core = ctx.core as unknown as Parameters<typeof loseMemoriesHandler>[0];
+      host.effects.register(LOSE_MEMORIES, { handler: loseMemoriesHandler(core) });
+      host.effectInfo.text.set(LOSE_MEMORIES, {
+        menuName: () => "drains experience",
+        describe: () => "drains experience",
+      });
+      ctx.log?.("feature-restoration: Lose Memories effect installed");
+    }
+
     if (ctx.flags["feature-restoration.discounts"] === true) {
       host.stores.setDiscountRoll(discountRoll);
       ctx.log?.("feature-restoration: store discount roll installed");
@@ -362,6 +383,18 @@ export default {
       host.projections.player.set(CONFUSION, confusePlayer(core));
       host.projections.mon.set(CONFUSION, confuseMonster(core, BRONZE_BREATHERS));
       ctx.log?.("feature-restoration: confusion projection handlers installed");
+    }
+
+    /* Classic uncursing replaces core's own REMOVE_CURSE and ENCHANT handlers,
+     * so both go in under the section's flag and no other. The live core
+     * namespace carries EF, ENCH_*, ODESC, PN and the obj helpers the handlers
+     * call through; ClassicCore names only those. */
+    if (ctx.flags["feature-restoration.classic-uncurse"] === true && ctx.core && host.effects) {
+      const core = ctx.core as unknown as ClassicCore;
+      const ef = (ctx.core as unknown as { EF: { REMOVE_CURSE: number; ENCHANT: number } }).EF;
+      host.effects.register(ef.REMOVE_CURSE, { handler: classicRemoveCurseHandler(core) });
+      host.effects.register(ef.ENCHANT, { handler: enchantCurseBreakHandler(core) });
+      ctx.log?.("feature-restoration: classic uncursing handlers installed");
     }
 
     /* Iron Spikes only EXIST while this same flag's content section is on

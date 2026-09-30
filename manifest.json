@@ -13,7 +13,9 @@
     "registry:store",
     "registry:command",
     "keymap:write",
-    "registry:projection"
+    "registry:projection",
+    "registry:effect",
+    "registry:effect-info"
   ],
   "dependencies": {
     "core": "*"
@@ -232,7 +234,7 @@
     {
       "id": "classic-potions",
       "title": "Restore cut potions",
-      "description": "Brings back seven potions that Angband 3.0.9 had and 3.1.0 removed. Weakness, Stupidity, Naivety, Clumsiness and Sickliness each drain one stat, the same way the base game's other stat drains work, so gaining a level restores it. Apple Juice and Water are harmless and feed you a little. The five bad potions appear half as often as they did in 3.0.9, at the same rate as 4.2's Salt Water.",
+      "description": "Brings back seven potions that Angband 3.0.9 had and 3.1.0 removed, plus Lose Memories from 4.1.3. Weakness, Stupidity, Naivety, Clumsiness and Sickliness each drain one stat, the same way the base game's other stat drains work, so gaining a level restores it. Lose Memories costs a quarter of current experience unless you have Hold Life; Restore Life Levels restores it. Apple Juice and Water are harmless and feed you a little. The five stat-draining potions appear half as often as they did in 3.0.9, at the same rate as 4.2's Salt Water.",
       "default": false
     },
     {
@@ -273,6 +275,27 @@
       "flag": "feature-restoration.bronze-dragons"
     },
     {
+      "id": "sticky-curses",
+      "flag": "feature-restoration.sticky-curses",
+      "title": "Restore sticky curses",
+      "description": "Angband 4.0 made a cursed item impossible to take off, and nothing else could be wielded into its slot, until the curse itself was lifted. Angband 4.2 turned curses into runes that come and go freely. This pins the 4.2 curses that answer to 4.0's cursed egos (weakness, clumsiness, dullness, sickliness, vulnerability, teleportation, irritation, annoyance, enveloping and slowness) back onto their items, and brings back the cursed Rings of Woe, Weakness, Stupidity and Aggravate Monster, the Amulet of DOOM and the Staff of Slowness. Curses 4.2 invents beyond those stay free, because 4.2 generates far more curses than 4.0 did.",
+      "default": false
+    },
+    {
+      "id": "classic-uncurse",
+      "flag": "feature-restoration.classic-uncurse",
+      "title": "Restore classic uncursing",
+      "description": "Angband 4.0's Remove Curse took every light curse off every worn item at once and never damaged the item; its stronger form, *Remove Curse*, also lifted heavy curses, and a permanent curse never came off. Angband 4.2's Remove Curse lifts one curse from one chosen item, and a failed attempt can leave the item fragile. This restores the 4.0 behaviour, and the 4.0 chance for an enchant scroll to break a curse: one in four, halved for artifacts.",
+      "default": false
+    },
+    {
+      "id": "junk",
+      "flag": "feature-restoration.junk",
+      "title": "Restore junk items",
+      "description": "Angband 3.4.1 still had the junk that fills a dungeon: empty bottles, shards of pottery, broken sticks, bones and the skeletons of the creatures that died there, plus the Filthy Rag and the Broken Dagger and Sword. 4.2 dropped them all. This brings back their own item classes (junk, skeleton and bottle) and the records, at the low frequency junk deserves. No tiles ship with them yet.",
+      "default": false
+    },
+    {
       "id": "flavors",
       "title": "Restore seven ring and amulet flavors",
       "description": "In 2013 upstream gave seven ring and amulet looks to artifacts. Ruby, Sapphire and Mithril became the fixed looks of Narya, Vilya and Nenya, Bronze and Golden those of Carlammas and the Necklace of the Dwarves, and Amber and Coral went to the Elfstone and the Evenstar. This adds all seven back as looks an ordinary ring or amulet can have, in their old colours. An unidentified Ruby ring could then be Narya or something ordinary, as it could before 2013.",
@@ -288,5 +311,1637 @@
       "requiresReload": true
     }
   ],
-  "repository": "https://github.com/neostryder/neo-angband-mod-feature-restoration"
+  "repository": "https://github.com/neostryder/neo-angband-mod-feature-restoration",
+  "optionalDependencies": {
+    "linoleum": "*"
+  },
+  "restoredMonsterArt": [
+    {
+      "race": "feature-restoration:large-brown-snake",
+      "packs": {
+        "old": {
+          "asset": "assets/large-brown-snake-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/large-brown-snake-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/large-brown-snake-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/large-brown-snake-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/large-brown-snake-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:jackal",
+      "packs": {
+        "old": {
+          "asset": "assets/jackal-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/jackal-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/jackal-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/jackal-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/jackal-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:large-yellow-snake",
+      "packs": {
+        "old": {
+          "asset": "assets/large-yellow-snake-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/large-yellow-snake-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/large-yellow-snake-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/large-yellow-snake-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/large-yellow-snake-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:manes",
+      "packs": {
+        "old": {
+          "asset": "assets/manes-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/manes-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/manes-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/manes-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/manes-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dark-elf",
+      "packs": {
+        "old": {
+          "asset": "assets/dark-elf-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dark-elf-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dark-elf-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dark-elf-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dark-elf-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:brown-yeek",
+      "packs": {
+        "old": {
+          "asset": "assets/brown-yeek-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/brown-yeek-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/brown-yeek-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/brown-yeek-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/brown-yeek-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:hill-orc",
+      "packs": {
+        "old": {
+          "asset": "assets/hill-orc-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/hill-orc-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/hill-orc-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/hill-orc-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/hill-orc-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:bandit",
+      "packs": {
+        "old": {
+          "asset": "assets/bandit-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/bandit-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/bandit-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/bandit-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/bandit-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dark-elven-mage",
+      "packs": {
+        "old": {
+          "asset": "assets/dark-elven-mage-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dark-elven-mage-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dark-elven-mage-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dark-elven-mage-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dark-elven-mage-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dark-elven-warrior",
+      "packs": {
+        "old": {
+          "asset": "assets/dark-elven-warrior-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dark-elven-warrior-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dark-elven-warrior-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dark-elven-warrior-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dark-elven-warrior-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:gnome-mage",
+      "packs": {
+        "old": {
+          "asset": "assets/gnome-mage-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/gnome-mage-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/gnome-mage-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/gnome-mage-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/gnome-mage-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dark-elven-priest",
+      "packs": {
+        "old": {
+          "asset": "assets/dark-elven-priest-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dark-elven-priest-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dark-elven-priest-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dark-elven-priest-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dark-elven-priest-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:drider",
+      "packs": {
+        "old": {
+          "asset": "assets/drider-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/drider-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/drider-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/drider-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/drider-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "race": "feature-restoration:black-orc",
+      "packs": {
+        "old": {
+          "asset": "assets/black-orc-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/black-orc-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/black-orc-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/black-orc-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/black-orc-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dark-elven-lord",
+      "packs": {
+        "old": {
+          "asset": "assets/dark-elven-lord-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dark-elven-lord-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dark-elven-lord-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dark-elven-lord-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dark-elven-lord-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:master-rogue",
+      "packs": {
+        "old": {
+          "asset": "assets/master-rogue-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/master-rogue-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/master-rogue-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/master-rogue-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/master-rogue-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dark-elven-druid",
+      "packs": {
+        "old": {
+          "asset": "assets/dark-elven-druid-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dark-elven-druid-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dark-elven-druid-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dark-elven-druid-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dark-elven-druid-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:algroth",
+      "packs": {
+        "old": {
+          "asset": "assets/algroth-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/algroth-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/algroth-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/algroth-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/algroth-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:ice-troll",
+      "packs": {
+        "old": {
+          "asset": "assets/ice-troll-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/ice-troll-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/ice-troll-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/ice-troll-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/ice-troll-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:ninja",
+      "packs": {
+        "old": {
+          "asset": "assets/ninja-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/ninja-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/ninja-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/ninja-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/ninja-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:half-troll",
+      "packs": {
+        "old": {
+          "asset": "assets/half-troll-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/half-troll-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/half-troll-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/half-troll-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/half-troll-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:skeleton-ettin",
+      "packs": {
+        "old": {
+          "asset": "assets/skeleton-ettin-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/skeleton-ettin-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/skeleton-ettin-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/skeleton-ettin-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/skeleton-ettin-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:water-troll",
+      "packs": {
+        "old": {
+          "asset": "assets/water-troll-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/water-troll-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/water-troll-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/water-troll-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/water-troll-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:giant-grey-scorpion",
+      "packs": {
+        "old": {
+          "asset": "assets/giant-grey-scorpion-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/giant-grey-scorpion-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/giant-grey-scorpion-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/giant-grey-scorpion-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/giant-grey-scorpion-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dagashi",
+      "packs": {
+        "old": {
+          "asset": "assets/dagashi-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dagashi-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dagashi-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dagashi-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dagashi-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:acidic-cytoplasm",
+      "packs": {
+        "old": {
+          "asset": "assets/acidic-cytoplasm-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/acidic-cytoplasm-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/acidic-cytoplasm-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/acidic-cytoplasm-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/acidic-cytoplasm-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "race": "feature-restoration:black-pudding",
+      "packs": {
+        "old": {
+          "asset": "assets/black-pudding-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/black-pudding-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/black-pudding-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/black-pudding-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/black-pudding-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "race": "feature-restoration:erinyes",
+      "packs": {
+        "old": {
+          "asset": "assets/erinyes-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/erinyes-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/erinyes-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/erinyes-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/erinyes-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:eldrak",
+      "packs": {
+        "old": {
+          "asset": "assets/eldrak-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/eldrak-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/eldrak-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/eldrak-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/eldrak-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:ettin",
+      "packs": {
+        "old": {
+          "asset": "assets/ettin-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/ettin-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/ettin-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/ettin-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/ettin-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:knight-templar",
+      "packs": {
+        "old": {
+          "asset": "assets/knight-templar-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/knight-templar-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/knight-templar-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/knight-templar-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/knight-templar-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:medusa-the-gorgon",
+      "packs": {
+        "old": {
+          "asset": "assets/medusa-the-gorgon-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/medusa-the-gorgon-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/medusa-the-gorgon-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/medusa-the-gorgon-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/medusa-the-gorgon-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:dark-elven-sorcerer",
+      "packs": {
+        "old": {
+          "asset": "assets/dark-elven-sorcerer-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dark-elven-sorcerer-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dark-elven-sorcerer-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dark-elven-sorcerer-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dark-elven-sorcerer-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:11-headed-hydra",
+      "packs": {
+        "old": {
+          "asset": "assets/11-headed-hydra-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/11-headed-hydra-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/11-headed-hydra-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/11-headed-hydra-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/11-headed-hydra-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:ethereal-hound",
+      "packs": {
+        "old": {
+          "asset": "assets/ethereal-hound-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/ethereal-hound-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/ethereal-hound-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/ethereal-hound-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/ethereal-hound-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:the-lernaean-hydra",
+      "packs": {
+        "old": {
+          "asset": "assets/the-lernaean-hydra-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/the-lernaean-hydra-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/the-lernaean-hydra-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/the-lernaean-hydra-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/the-lernaean-hydra-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:the-cat-lord",
+      "packs": {
+        "old": {
+          "asset": "assets/the-cat-lord-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/the-cat-lord-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/the-cat-lord-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/the-cat-lord-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/the-cat-lord-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:giant-brown-tick",
+      "packs": {
+        "old": {
+          "asset": "assets/giant-brown-tick-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/giant-brown-tick-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/giant-brown-tick-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/giant-brown-tick-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/giant-brown-tick-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:raven",
+      "packs": {
+        "old": {
+          "asset": "assets/raven-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/raven-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/raven-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/raven-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/raven-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:polyphemus-the-blind-cyclops",
+      "packs": {
+        "old": {
+          "asset": "assets/polyphemus-the-blind-cyclops-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/polyphemus-the-blind-cyclops-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/polyphemus-the-blind-cyclops-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/polyphemus-the-blind-cyclops-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/polyphemus-the-blind-cyclops-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "race": "feature-restoration:atlas-the-titan",
+      "packs": {
+        "old": {
+          "asset": "assets/atlas-the-titan-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/atlas-the-titan-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/atlas-the-titan-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/atlas-the-titan-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/atlas-the-titan-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:kronos-lord-of-the-titans",
+      "packs": {
+        "old": {
+          "asset": "assets/kronos-lord-of-the-titans-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/kronos-lord-of-the-titans-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/kronos-lord-of-the-titans-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/kronos-lord-of-the-titans-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/kronos-lord-of-the-titans-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:nighthawk",
+      "packs": {
+        "old": {
+          "asset": "assets/nighthawk-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/nighthawk-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/nighthawk-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/nighthawk-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/nighthawk-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:aranea",
+      "packs": {
+        "old": {
+          "asset": "assets/aranea-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/aranea-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/aranea-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/aranea-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/aranea-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:elder-aranea",
+      "packs": {
+        "old": {
+          "asset": "assets/elder-aranea-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/elder-aranea-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/elder-aranea-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/elder-aranea-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/elder-aranea-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:greater-mummy",
+      "packs": {
+        "old": {
+          "asset": "assets/greater-mummy-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/greater-mummy-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/greater-mummy-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/greater-mummy-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/greater-mummy-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:lesser-maia",
+      "packs": {
+        "old": {
+          "asset": "assets/lesser-maia-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/lesser-maia-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/lesser-maia-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/lesser-maia-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/lesser-maia-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:greater-maia",
+      "packs": {
+        "old": {
+          "asset": "assets/greater-maia-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/greater-maia-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/greater-maia-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/greater-maia-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/greater-maia-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:blue-wizard",
+      "packs": {
+        "old": {
+          "asset": "assets/blue-wizard-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/blue-wizard-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/blue-wizard-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/blue-wizard-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/blue-wizard-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:istar",
+      "packs": {
+        "old": {
+          "asset": "assets/istar-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/istar-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/istar-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/istar-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/istar-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:arien-maia-of-the-sun",
+      "packs": {
+        "old": {
+          "asset": "assets/arien-maia-of-the-sun-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/arien-maia-of-the-sun-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/arien-maia-of-the-sun-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/arien-maia-of-the-sun-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/arien-maia-of-the-sun-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:radagast-the-brown",
+      "packs": {
+        "old": {
+          "asset": "assets/radagast-the-brown-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/radagast-the-brown-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/radagast-the-brown-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/radagast-the-brown-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/radagast-the-brown-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:easterling-warrior",
+      "packs": {
+        "old": {
+          "asset": "assets/easterling-warrior-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/easterling-warrior-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/easterling-warrior-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/easterling-warrior-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/easterling-warrior-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:healer",
+      "packs": {
+        "old": {
+          "asset": "assets/healer-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/healer-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/healer-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/healer-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/healer-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:novice-warrior",
+      "packs": {
+        "old": {
+          "asset": "assets/novice-warrior-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/novice-warrior-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/novice-warrior-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/novice-warrior-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/novice-warrior-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:novice-rogue",
+      "packs": {
+        "old": {
+          "asset": "assets/novice-rogue-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/novice-rogue-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/novice-rogue-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/novice-rogue-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/novice-rogue-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:novice-priest",
+      "packs": {
+        "old": {
+          "asset": "assets/novice-priest-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/novice-priest-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/novice-priest-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/novice-priest-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/novice-priest-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:novice-mage",
+      "packs": {
+        "old": {
+          "asset": "assets/novice-mage-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/novice-mage-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/novice-mage-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/novice-mage-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/novice-mage-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:novice-ranger",
+      "packs": {
+        "old": {
+          "asset": "assets/novice-ranger-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/novice-ranger-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/novice-ranger-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/novice-ranger-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/novice-ranger-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:novice-paladin",
+      "packs": {
+        "old": {
+          "asset": "assets/novice-paladin-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/novice-paladin-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/novice-paladin-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/novice-paladin-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/novice-paladin-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:swordsman",
+      "packs": {
+        "old": {
+          "asset": "assets/swordsman-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/swordsman-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/swordsman-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/swordsman-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/swordsman-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:hardened-warrior",
+      "packs": {
+        "old": {
+          "asset": "assets/hardened-warrior-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/hardened-warrior-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/hardened-warrior-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/hardened-warrior-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/hardened-warrior-shockbolt-native-64x64.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:angel",
+      "packs": {
+        "old": {
+          "asset": "assets/angel-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/angel-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/angel-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/angel-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/angel-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:archangel",
+      "packs": {
+        "old": {
+          "asset": "assets/archangel-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/archangel-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/archangel-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/archangel-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/archangel-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:cherub",
+      "packs": {
+        "old": {
+          "asset": "assets/cherub-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/cherub-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/cherub-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/cherub-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/cherub-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:seraph",
+      "packs": {
+        "old": {
+          "asset": "assets/seraph-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/seraph-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/seraph-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/seraph-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/seraph-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:archon",
+      "packs": {
+        "old": {
+          "asset": "assets/archon-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/archon-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/archon-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/archon-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/archon-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:uriel-angel-of-fire",
+      "packs": {
+        "old": {
+          "asset": "assets/uriel-angel-of-fire-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/uriel-angel-of-fire-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/uriel-angel-of-fire-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/uriel-angel-of-fire-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/uriel-angel-of-fire-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:azriel-angel-of-death",
+      "packs": {
+        "old": {
+          "asset": "assets/azriel-angel-of-death-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/azriel-angel-of-death-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/azriel-angel-of-death-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/azriel-angel-of-death-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/azriel-angel-of-death-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:gabriel-the-messenger",
+      "packs": {
+        "old": {
+          "asset": "assets/gabriel-the-messenger-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/gabriel-the-messenger-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/gabriel-the-messenger-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/gabriel-the-messenger-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/gabriel-the-messenger-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:giant-bronze-dragon-fly",
+      "packs": {
+        "old": {
+          "asset": "assets/giant-bronze-dragon-fly-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/giant-bronze-dragon-fly-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/giant-bronze-dragon-fly-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/giant-bronze-dragon-fly-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/giant-bronze-dragon-fly-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "race": "feature-restoration:baby-bronze-dragon",
+      "packs": {
+        "old": {
+          "asset": "assets/baby-bronze-dragon-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/baby-bronze-dragon-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/baby-bronze-dragon-nomad-native-8x16.png"
+        },
+        "gervais": {
+          "asset": "assets/baby-bronze-dragon-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/baby-bronze-dragon-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:young-bronze-dragon",
+      "packs": {
+        "old": {
+          "asset": "assets/young-bronze-dragon-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/young-bronze-dragon-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/young-bronze-dragon-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/young-bronze-dragon-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/young-bronze-dragon-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:mature-bronze-dragon",
+      "packs": {
+        "old": {
+          "asset": "assets/mature-bronze-dragon-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/mature-bronze-dragon-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/mature-bronze-dragon-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/mature-bronze-dragon-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/mature-bronze-dragon-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:ancient-bronze-dragon",
+      "packs": {
+        "old": {
+          "asset": "assets/ancient-bronze-dragon-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/ancient-bronze-dragon-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/ancient-bronze-dragon-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/ancient-bronze-dragon-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/ancient-bronze-dragon-gervais-native-32x32.png"
+        }
+      },
+      "hue": 45
+    },
+    {
+      "race": "feature-restoration:great-wyrm-of-perplexity",
+      "packs": {
+        "old": {
+          "asset": "assets/great-wyrm-of-perplexity-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/great-wyrm-of-perplexity-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/great-wyrm-of-perplexity-nomad-native-8x16.png"
+        },
+        "gervais": {
+          "asset": "assets/great-wyrm-of-perplexity-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/great-wyrm-of-perplexity-gervais-native-32x32.png"
+        }
+      }
+    }
+  ],
+  "restoredFlavorArt": [
+    {
+      "flavor": 303,
+      "drawAs": 28,
+      "hue": 30
+    },
+    {
+      "flavor": 304,
+      "drawAs": 29,
+      "hue": 60
+    },
+    {
+      "flavor": 305,
+      "drawAs": 40,
+      "hue": 90
+    },
+    {
+      "flavor": 306,
+      "drawAs": 44,
+      "hue": 120
+    },
+    {
+      "flavor": 307,
+      "drawAs": 46,
+      "hue": 150
+    },
+    {
+      "flavor": 308,
+      "drawAs": 52,
+      "hue": 180
+    },
+    {
+      "flavor": 309,
+      "drawAs": 55,
+      "hue": 210
+    }
+  ]
 }

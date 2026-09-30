@@ -46,5 +46,461 @@
   "name": "Bronze Dragon Scale Mail~",
   "last_tag": "3.5.1",
   "slug": "bronze-dragon-scale-mail"
+ },
+ {
+  "kind": "monster",
+  "name": "large brown snake",
+  "last_tag": "4.1.3",
+  "slug": "large-brown-snake"
+ },
+ {
+  "kind": "monster",
+  "name": "jackal",
+  "last_tag": "4.1.3",
+  "slug": "jackal"
+ },
+ {
+  "kind": "monster",
+  "name": "large yellow snake",
+  "last_tag": "4.1.3",
+  "slug": "large-yellow-snake"
+ },
+ {
+  "kind": "monster",
+  "name": "manes",
+  "last_tag": "4.1.3",
+  "slug": "manes"
+ },
+ {
+  "kind": "monster",
+  "name": "dark elf",
+  "last_tag": "4.1.3",
+  "slug": "dark-elf"
+ },
+ {
+  "kind": "monster",
+  "name": "brown yeek",
+  "last_tag": "4.1.3",
+  "slug": "brown-yeek"
+ },
+ {
+  "kind": "monster",
+  "name": "hill orc",
+  "last_tag": "4.1.3",
+  "slug": "hill-orc"
+ },
+ {
+  "kind": "monster",
+  "name": "bandit",
+  "last_tag": "4.1.3",
+  "slug": "bandit"
+ },
+ {
+  "kind": "monster",
+  "name": "dark elven mage",
+  "last_tag": "4.1.3",
+  "slug": "dark-elven-mage"
+ },
+ {
+  "kind": "monster",
+  "name": "dark elven warrior",
+  "last_tag": "4.1.3",
+  "slug": "dark-elven-warrior"
+ },
+ {
+  "kind": "monster",
+  "name": "gnome mage",
+  "last_tag": "4.1.3",
+  "slug": "gnome-mage"
+ },
+ {
+  "kind": "monster",
+  "name": "dark elven priest",
+  "last_tag": "4.1.3",
+  "slug": "dark-elven-priest"
+ },
+ {
+  "kind": "monster",
+  "name": "drider",
+  "last_tag": "4.1.3",
+  "slug": "drider"
+ },
+ {
+  "kind": "monster",
+  "name": "black orc",
+  "last_tag": "4.1.3",
+  "slug": "black-orc"
+ },
+ {
+  "kind": "monster",
+  "name": "dark elven lord",
+  "last_tag": "4.1.3",
+  "slug": "dark-elven-lord"
+ },
+ {
+  "kind": "monster",
+  "name": "master rogue",
+  "last_tag": "4.1.3",
+  "slug": "master-rogue"
+ },
+ {
+  "kind": "monster",
+  "name": "dark elven druid",
+  "last_tag": "4.1.3",
+  "slug": "dark-elven-druid"
+ },
+ {
+  "kind": "monster",
+  "name": "algroth",
+  "last_tag": "4.1.3",
+  "slug": "algroth"
+ },
+ {
+  "kind": "monster",
+  "name": "ice troll",
+  "last_tag": "4.1.3",
+  "slug": "ice-troll"
+ },
+ {
+  "kind": "monster",
+  "name": "ninja",
+  "last_tag": "4.1.3",
+  "slug": "ninja"
+ },
+ {
+  "kind": "monster",
+  "name": "half-troll",
+  "last_tag": "4.1.3",
+  "slug": "half-troll"
+ },
+ {
+  "kind": "monster",
+  "name": "skeleton ettin",
+  "last_tag": "4.1.3",
+  "slug": "skeleton-ettin"
+ },
+ {
+  "kind": "monster",
+  "name": "water troll",
+  "last_tag": "4.1.3",
+  "slug": "water-troll"
+ },
+ {
+  "kind": "monster",
+  "name": "giant grey scorpion",
+  "last_tag": "4.1.3",
+  "slug": "giant-grey-scorpion"
+ },
+ {
+  "kind": "monster",
+  "name": "dagashi",
+  "last_tag": "4.1.3",
+  "slug": "dagashi"
+ },
+ {
+  "kind": "monster",
+  "name": "acidic cytoplasm",
+  "last_tag": "4.1.3",
+  "slug": "acidic-cytoplasm"
+ },
+ {
+  "kind": "monster",
+  "name": "black pudding",
+  "last_tag": "4.1.3",
+  "slug": "black-pudding"
+ },
+ {
+  "kind": "monster",
+  "name": "erinyes",
+  "last_tag": "4.1.3",
+  "slug": "erinyes"
+ },
+ {
+  "kind": "monster",
+  "name": "eldrak",
+  "last_tag": "4.1.3",
+  "slug": "eldrak"
+ },
+ {
+  "kind": "monster",
+  "name": "ettin",
+  "last_tag": "4.1.3",
+  "slug": "ettin"
+ },
+ {
+  "kind": "monster",
+  "name": "knight Templar",
+  "last_tag": "4.1.3",
+  "slug": "knight-templar"
+ },
+ {
+  "kind": "monster",
+  "name": "Medusa, the Gorgon",
+  "last_tag": "4.1.3",
+  "slug": "medusa-the-gorgon"
+ },
+ {
+  "kind": "monster",
+  "name": "dark elven sorcerer",
+  "last_tag": "4.1.3",
+  "slug": "dark-elven-sorcerer"
+ },
+ {
+  "kind": "monster",
+  "name": "11-headed hydra",
+  "last_tag": "4.1.3",
+  "slug": "11-headed-hydra"
+ },
+ {
+  "kind": "monster",
+  "name": "ethereal hound",
+  "last_tag": "4.1.3",
+  "slug": "ethereal-hound"
+ },
+ {
+  "kind": "monster",
+  "name": "The Lernaean Hydra",
+  "last_tag": "4.1.3",
+  "slug": "the-lernaean-hydra"
+ },
+ {
+  "kind": "monster",
+  "name": "The Cat Lord",
+  "last_tag": "4.1.3",
+  "slug": "the-cat-lord"
+ },
+ {
+  "kind": "monster",
+  "name": "giant brown tick",
+  "last_tag": "4.1.3",
+  "slug": "giant-brown-tick"
+ },
+ {
+  "kind": "monster",
+  "name": "raven",
+  "last_tag": "4.1.3",
+  "slug": "raven"
+ },
+ {
+  "kind": "monster",
+  "name": "Polyphemus, the Blind Cyclops",
+  "last_tag": "4.1.3",
+  "slug": "polyphemus-the-blind-cyclops"
+ },
+ {
+  "kind": "monster",
+  "name": "Atlas, the Titan",
+  "last_tag": "4.1.3",
+  "slug": "atlas-the-titan"
+ },
+ {
+  "kind": "monster",
+  "name": "Kronos, Lord of the Titans",
+  "last_tag": "4.1.3",
+  "slug": "kronos-lord-of-the-titans"
+ },
+ {
+  "kind": "monster",
+  "name": "nighthawk",
+  "last_tag": "4.1.3",
+  "slug": "nighthawk"
+ },
+ {
+  "kind": "monster",
+  "name": "aranea",
+  "last_tag": "4.1.3",
+  "slug": "aranea"
+ },
+ {
+  "kind": "monster",
+  "name": "elder aranea",
+  "last_tag": "4.1.3",
+  "slug": "elder-aranea"
+ },
+ {
+  "kind": "monster",
+  "name": "greater mummy",
+  "last_tag": "4.1.3",
+  "slug": "greater-mummy"
+ },
+ {
+  "kind": "monster",
+  "name": "lesser Maia",
+  "last_tag": "4.1.3",
+  "slug": "lesser-maia"
+ },
+ {
+  "kind": "monster",
+  "name": "greater Maia",
+  "last_tag": "4.1.3",
+  "slug": "greater-maia"
+ },
+ {
+  "kind": "monster",
+  "name": "Blue Wizard",
+  "last_tag": "4.1.3",
+  "slug": "blue-wizard"
+ },
+ {
+  "kind": "monster",
+  "name": "Istar",
+  "last_tag": "4.1.3",
+  "slug": "istar"
+ },
+ {
+  "kind": "monster",
+  "name": "Arien, Maia of the Sun",
+  "last_tag": "4.1.3",
+  "slug": "arien-maia-of-the-sun"
+ },
+ {
+  "kind": "monster",
+  "name": "Radagast the Brown",
+  "last_tag": "4.1.3",
+  "slug": "radagast-the-brown"
+ },
+ {
+  "kind": "monster",
+  "name": "Easterling warrior",
+  "last_tag": "4.1.3",
+  "slug": "easterling-warrior"
+ },
+ {
+  "kind": "monster",
+  "name": "healer",
+  "last_tag": "4.1.3",
+  "slug": "healer"
+ },
+ {
+  "kind": "monster",
+  "name": "Novice warrior",
+  "last_tag": "3.5.1",
+  "slug": "novice-warrior"
+ },
+ {
+  "kind": "monster",
+  "name": "Novice rogue",
+  "last_tag": "3.5.1",
+  "slug": "novice-rogue"
+ },
+ {
+  "kind": "monster",
+  "name": "Novice priest",
+  "last_tag": "3.5.1",
+  "slug": "novice-priest"
+ },
+ {
+  "kind": "monster",
+  "name": "Novice mage",
+  "last_tag": "3.5.1",
+  "slug": "novice-mage"
+ },
+ {
+  "kind": "monster",
+  "name": "Novice ranger",
+  "last_tag": "3.5.1",
+  "slug": "novice-ranger"
+ },
+ {
+  "kind": "monster",
+  "name": "Novice paladin",
+  "last_tag": "3.5.1",
+  "slug": "novice-paladin"
+ },
+ {
+  "kind": "monster",
+  "name": "Swordsman",
+  "last_tag": "3.5.1",
+  "slug": "swordsman"
+ },
+ {
+  "kind": "monster",
+  "name": "Hardened warrior",
+  "last_tag": "3.5.1",
+  "slug": "hardened-warrior"
+ },
+ {
+  "kind": "monster",
+  "name": "Angel",
+  "last_tag": "3.5.1",
+  "slug": "angel"
+ },
+ {
+  "kind": "monster",
+  "name": "Archangel",
+  "last_tag": "3.5.1",
+  "slug": "archangel"
+ },
+ {
+  "kind": "monster",
+  "name": "Cherub",
+  "last_tag": "3.5.1",
+  "slug": "cherub"
+ },
+ {
+  "kind": "monster",
+  "name": "Seraph",
+  "last_tag": "3.5.1",
+  "slug": "seraph"
+ },
+ {
+  "kind": "monster",
+  "name": "Archon",
+  "last_tag": "3.5.1",
+  "slug": "archon"
+ },
+ {
+  "kind": "monster",
+  "name": "Uriel, Angel of Fire",
+  "last_tag": "3.5.1",
+  "slug": "uriel-angel-of-fire"
+ },
+ {
+  "kind": "monster",
+  "name": "Azriel, Angel of Death",
+  "last_tag": "3.5.1",
+  "slug": "azriel-angel-of-death"
+ },
+ {
+  "kind": "monster",
+  "name": "Gabriel, the Messenger",
+  "last_tag": "3.5.1",
+  "slug": "gabriel-the-messenger"
+ },
+ {
+  "kind": "monster",
+  "name": "giant bronze dragon fly",
+  "last_tag": "v3.2.0",
+  "slug": "giant-bronze-dragon-fly"
+ },
+ {
+  "kind": "monster",
+  "name": "baby bronze dragon",
+  "last_tag": "v3.2.0",
+  "slug": "baby-bronze-dragon"
+ },
+ {
+  "kind": "monster",
+  "name": "young bronze dragon",
+  "last_tag": "v3.2.0",
+  "slug": "young-bronze-dragon"
+ },
+ {
+  "kind": "monster",
+  "name": "mature bronze dragon",
+  "last_tag": "v3.2.0",
+  "slug": "mature-bronze-dragon"
+ },
+ {
+  "kind": "monster",
+  "name": "ancient bronze dragon",
+  "last_tag": "v3.2.0",
+  "slug": "ancient-bronze-dragon"
+ },
+ {
+  "kind": "monster",
+  "name": "great wyrm of perplexity",
+  "last_tag": "v3.2.0",
+  "slug": "great-wyrm-of-perplexity"
  }
 ]
