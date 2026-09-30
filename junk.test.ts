@@ -14,8 +14,10 @@
 
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
-import { tvalFindIdx, tvalInClass } from "@rpgm-tools/neo-angband-core";
+import { tvalFindIdx, tvalInClass, IgnoreSettings } from "@rpgm-tools/neo-angband-core";
 import { bind } from "./test/game.js";
+// @ts-expect-error The test imports the handwritten source module.
+import plugin from "./plugin.ts";
 
 const require = createRequire(import.meta.url);
 
@@ -47,6 +49,34 @@ function kindNamed(game: Game, name: string): Game["objects"]["kinds"][number] |
 }
 
 describe("junk", () => {
+  it("ignores all 14 kinds when a new character starts with junk enabled", () => {
+    const { game } = bind(["junk"]);
+    const ignore = new IgnoreSettings();
+    const hook = plugin.hooks({
+      flags: { "feature-restoration.junk": true },
+      core: { tvalFindIdx } as NonNullable<Parameters<typeof plugin.hooks>[0]["core"]>,
+    }).newCharacter;
+    expect(hook).toBeTypeOf("function");
+    hook!({ ignore }, game);
+    for (const r of JUNK) {
+      const kind = game.objects.kinds.find((k) => k?.name === r.name && k.tval === tvalFindIdx(r.type))!;
+      expect(ignore.kindIsIgnoredAware(kind.kidx), r.name).toBe(true);
+      expect(ignore.kindIsIgnoredUnaware(kind.kidx), r.name).toBe(true);
+    }
+    expect(JUNK).toHaveLength(14);
+    expect(game.objects.kinds.filter((k) => k && !JUNK.some((r) => r.name === k.name && tvalFindIdx(r.type) === k.tval))
+      .some((k) => k && ignore.kindIsIgnoredAware(k.kidx))).toBe(false);
+  });
+
+  it("leaves new characters' ignore settings empty when junk is off", () => {
+    const { game } = bind([]);
+    const ignore = new IgnoreSettings();
+    const hook = plugin.hooks({ flags: { "feature-restoration.junk": false } }).newCharacter;
+    expect(hook).toBeUndefined();
+    hook?.({ ignore }, game);
+    expect(game.objects.kinds.some((k) => k && ignore.kindIsIgnoredAware(k.kidx))).toBe(false);
+    expect(game.objects.kinds.some((k) => k && ignore.kindIsIgnoredUnaware(k.kidx))).toBe(false);
+  });
   it("binds at once, with every record reaching the game", () => {
     const { game } = bind(["junk"]);
     for (const r of JUNK) {

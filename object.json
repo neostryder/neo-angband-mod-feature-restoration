@@ -788,6 +788,16 @@
       ]
     },
     "sticky-curses": {
+      "fieldPatches": {
+        "core:scroll--curse-weapon": [
+          { "op": "set", "path": "alloc", "value": { "common": 1, "minmax": "50 to 100" } },
+          { "op": "set", "path": "effect", "value": [{ "eff": "feature-restoration:CURSE_WEAPON" }] }
+        ],
+        "core:scroll--curse-armour": [
+          { "op": "set", "path": "alloc", "value": { "common": 1, "minmax": "50 to 100" } },
+          { "op": "set", "path": "effect", "value": [{ "eff": "feature-restoration:CURSE_ARMOR" }] }
+        ]
+      },
       "records": [
         {
           "name": "Woe",

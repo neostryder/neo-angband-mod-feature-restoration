@@ -38,6 +38,9 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the novices, swordsmen and angels** (`monsters-3x`) | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
+| **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
+| **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
+| **Restore junk items** (`junk`) | off | Adds 14 old junk kinds, ignored by default for new characters. |
 | **Restore seven ring and amulet flavors** (`flavors`) | off | In 2013 upstream gave seven ring and amulet looks to artifacts. |
 
 ### Restore Teleport Other
@@ -449,6 +452,18 @@ Upstream commit `0ce785897` ("Remove "bronze" monsters and DSM. Remove BR_CONF f
 In 3.2.0 the baby bronze dragon and the giant bronze dragon fly were exact copies of their gold siblings, and each larger bronze dragon was a weaker gold dragon. 4.2 rebalanced the gold dragons, so each bronze dragon starts from its 4.2 gold sibling and scales hit points, armour, experience and blow dice by the 3.2.0 bronze-to-gold ratio, with depth moved by the 3.2.0 difference. The mature bronze dragon, for example, had 80% of the mature gold dragon's hit points in 3.2.0, so it has 592 against 4.2's 740. The Great Wyrm of Perplexity had exactly the Great Storm Wyrm's numbers in 3.2.0 and takes 4.2's great storm wyrm with confusion in place of lightning. Bronze Dragon Scale Mail matched Gold on level, cost and breath damage, and takes 4.2's Gold Dragon Scale Mail with 3.2.0 Bronze's weight, armour and depth.
 
 Confusion breath follows 3.2.0's rules, with one change. A monster is confused for (10 + 1d15 + r) / (r + 1) turns, takes half damage if it cannot be confused, and a confusion breather takes dam x 2 / (1d6 + 6). The player is confused for 1d20 + 10 turns. In 3.2.0, resisting confusion also cut the damage. 4.2 made that resistance the protection from confusion, and a 4.2 protection stops a status without reducing damage, so protection here stops the confusion and the damage lands in full. The breath's divisor (hit points / 6) and damage cap (400) are 3.x's own.
+
+### Restore sticky curses
+
+Angband 4.0 made cursed equipment stay on until its curse was removed. This switch restores that rule for the curses that match 4.0's cursed items; other curses come off as usual, so remove the curse before trying to replace a sticky item. It also brings back the Rings of Woe, Weakness, Stupidity and Aggravate Monster, the Amulet of DOOM, the Staff of Slowness, and 3.0.9's Curse Weapon and Curse Armour scrolls. Curse Weapon turns the wielded weapon into a (Shattered) one and Curse Armour turns worn body armour into (Blasted) armour, each with a curse and ruined combat values, though an artifact resists half the time. Those two egos never turn up on their own: reading one of the scrolls is the only way to meet them.
+
+### Restore classic uncursing
+
+Angband 4.0's Remove Curse lifted every light curse on worn equipment at once; *Remove Curse* also lifted heavy curses, but neither lifted permanent ones. This switch restores those effects and the chance for enchanting to break a curse. It does not change how curses are generated.
+
+### Restore junk items
+
+Angband 3.4.1 still generated empty bottles, shards, sticks, bones, skeletons, a filthy rag and broken weapons. This switch brings back all 14 kinds. New characters start with each kind ignored, both before and after identifying it; use the ignore settings to un-ignore a kind you want to collect. Enabling the switch on an existing character does not change that character's ignore choices.
 
 ### Restore seven ring and amulet flavors
 

@@ -1,0 +1,39 @@
+const JUNK_KINDS: Readonly<Record<string, readonly string[]>> = {
+  bottle: ["& Empty Bottle~"],
+  junk: ["& Shard~ of Pottery", "& Broken Stick~"],
+  skeleton: [
+    "& Broken Skull~", "& Broken Bone~", "& Canine Skeleton~",
+    "& Rodent Skeleton~", "& Human Skeleton~", "& Dwarf Skeleton~",
+    "& Elf Skeleton~", "& Gnome Skeleton~",
+  ],
+  "soft armor": ["& Filthy Rag~"],
+  sword: ["& Broken Dagger~", "& Broken Sword~"],
+};
+
+export interface JunkState {
+  ignore: {
+    kindIgnoreWhenAware(kidx: number): void;
+    kindIgnoreWhenUnaware(kidx: number): void;
+  };
+}
+
+export interface JunkRegistries {
+  objects: { kinds: readonly ({ name: string; tval: number; kidx: number } | null)[] };
+}
+
+export function ignoreJunk(
+  state: JunkState,
+  registries: JunkRegistries,
+  tvalFindIdx: (name: string) => number,
+): void {
+  for (const [type, names] of Object.entries(JUNK_KINDS)) {
+    const tval = tvalFindIdx(type);
+    if (tval < 0) throw new Error(`Missing junk item class: ${type}`);
+    for (const name of names) {
+      const kind = registries.objects.kinds.find((k) => k?.name === name && k.tval === tval);
+      if (!kind) throw new Error(`Missing junk kind: ${type} ${name}`);
+      state.ignore.kindIgnoreWhenAware(kind.kidx);
+      state.ignore.kindIgnoreWhenUnaware(kind.kidx);
+    }
+  }
+}

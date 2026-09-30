@@ -73,6 +73,8 @@ import {
 } from "./src/classic-uncurse.js";
 import type { EffectHandler, EffectTextHandler } from "@rpgm-tools/neo-angband-core";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
+import { ignoreJunk, type JunkState, type JunkRegistries } from "./src/junk-ignore.js";
+import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler, type CurseScrollCore } from "./src/curse-scrolls.js";
 
 /**
  * The RNG the host hands a discount roll, structurally - same reason as
@@ -142,6 +144,7 @@ interface GameStateLike {
  * either.
  */
 interface CoreLike {
+  tvalFindIdx?(name: string): number;
   /** ddgrid: keypad direction (1-9, 5 is "no direction") -> grid offset. */
   readonly DDGRID: readonly Loc[];
   /**
@@ -347,10 +350,11 @@ export function spikeDoor(core: CoreLike, state: GameStateLike, cmd: PlayerComma
 export default {
   api: 1,
 
-  hooks(_ctx: HookCtx): Record<string, never> {
-    /* No ModHooks entry needed - the discount roll is a registry.js seam
-     * (register, below), not a per-turn hook. */
-    return {};
+  hooks(ctx: HookCtx): { newCharacter?: (state: JunkState, registries: JunkRegistries) => void } {
+    if (ctx.flags["feature-restoration.junk"] !== true) return {};
+    if (!ctx.core?.tvalFindIdx) throw new Error("Junk ignore requires the live core item classes");
+    const { tvalFindIdx } = ctx.core;
+    return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
   },
 
   /**
@@ -395,6 +399,20 @@ export default {
       host.effects.register(ef.REMOVE_CURSE, { handler: classicRemoveCurseHandler(core) });
       host.effects.register(ef.ENCHANT, { handler: enchantCurseBreakHandler(core) });
       ctx.log?.("feature-restoration: classic uncursing handlers installed");
+    }
+
+    if (ctx.flags["feature-restoration.sticky-curses"] === true && ctx.core && host.effects && host.effectInfo) {
+      const core = ctx.core as unknown as CurseScrollCore;
+      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(core, "WEAPON") });
+      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(core, "BODY_ARMOR") });
+      host.effectInfo.text.set(CURSE_WEAPON, {
+        menuName: () => "curses a wielded weapon",
+        describe: () => "curses a wielded weapon",
+      });
+      host.effectInfo.text.set(CURSE_ARMOUR, {
+        menuName: () => "curses worn body armour",
+        describe: () => "curses worn body armour",
+      });
     }
 
     /* Iron Spikes only EXIST while this same flag's content section is on

@@ -78,9 +78,10 @@ class FakeKeymaps {
 }
 
 describe("hooks", () => {
-  it("always returns an empty ModHooks - the seam is register(), not a per-turn hook", () => {
+  it("returns no hook when junk is off", () => {
     expect(plugin.hooks({ flags: {} })).toEqual({});
     expect(plugin.hooks({ flags: { "feature-restoration.discounts": true } })).toEqual({});
+    expect(plugin.hooks({ flags: { "feature-restoration.junk": false } })).toEqual({});
   });
 });
 

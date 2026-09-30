@@ -174,6 +174,78 @@ function loseMemoriesHandler(core) {
   };
 }
 
+// src/junk-ignore.ts
+var JUNK_KINDS = {
+  bottle: ["& Empty Bottle~"],
+  junk: ["& Shard~ of Pottery", "& Broken Stick~"],
+  skeleton: [
+    "& Broken Skull~",
+    "& Broken Bone~",
+    "& Canine Skeleton~",
+    "& Rodent Skeleton~",
+    "& Human Skeleton~",
+    "& Dwarf Skeleton~",
+    "& Elf Skeleton~",
+    "& Gnome Skeleton~"
+  ],
+  "soft armor": ["& Filthy Rag~"],
+  sword: ["& Broken Dagger~", "& Broken Sword~"]
+};
+function ignoreJunk(state, registries, tvalFindIdx) {
+  for (const [type, names] of Object.entries(JUNK_KINDS)) {
+    const tval = tvalFindIdx(type);
+    if (tval < 0) throw new Error(`Missing junk item class: ${type}`);
+    for (const name of names) {
+      const kind = registries.objects.kinds.find((k) => k?.name === name && k.tval === tval);
+      if (!kind) throw new Error(`Missing junk kind: ${type} ${name}`);
+      state.ignore.kindIgnoreWhenAware(kind.kidx);
+      state.ignore.kindIgnoreWhenUnaware(kind.kidx);
+    }
+  }
+}
+
+// src/curse-scrolls.ts
+var CURSE_WEAPON = "feature-restoration:CURSE_WEAPON";
+var CURSE_ARMOUR = "feature-restoration:CURSE_ARMOR";
+function curseScrollHandler(core, slotType) {
+  return (ctx) => {
+    const env = ctx.env.game;
+    if (!env) return true;
+    const { state } = env;
+    const player = state.actor.player;
+    const slot = player.body.slots.findIndex((s) => s.type === slotType);
+    const handle = player.equipment[slot];
+    const obj = handle ? state.gear.store.get(handle) : void 0;
+    if (!obj) return false;
+    const reg = env.item?.reg;
+    if (!reg) throw new Error("Curse scroll requires the bound object registry");
+    const name = slotType === "WEAPON" ? "(Shattered)" : "(Blasted)";
+    const ego = reg.egos.find((e) => e.name === name && e.possItems.has(obj.kind.kidx));
+    if (!ego) throw new Error(`Missing curse scroll ego: ${name}`);
+    const description = core.describeObject(state, obj, core.ODESC.BASE);
+    const noun = slotType === "WEAPON" ? "weapon" : "armour";
+    if (obj.artifact && state.rng.randint0(100) < 50) {
+      ctx.env.messages?.msg(`A terrible black aura tries to surround your ${noun}, but your ${description} resists the effects!`);
+    } else {
+      ctx.env.messages?.msg(`A terrible black aura blasts your ${description}!`);
+      obj.artifact = null;
+      obj.curses = null;
+      obj.ego = ego;
+      core.egoApplyMagic(state.rng, reg, obj, 0);
+      obj.toH = slotType === "WEAPON" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
+      obj.toD = slotType === "WEAPON" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
+      obj.toA = slotType === "BODY_ARMOR" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
+      obj.ac = 0;
+      obj.dd = 0;
+      obj.ds = 0;
+      player.upkeep.notice |= core.PN.COMBINE;
+      state.updateBonuses?.();
+    }
+    ctx.ident = true;
+    return true;
+  };
+}
+
 // plugin.ts
 function discountRoll(ctx) {
   const { rng, cost } = ctx;
@@ -245,8 +317,11 @@ function spikeDoor(core, state, cmd) {
 }
 var plugin_default = {
   api: 1,
-  hooks(_ctx) {
-    return {};
+  hooks(ctx) {
+    if (ctx.flags["feature-restoration.junk"] !== true) return {};
+    if (!ctx.core?.tvalFindIdx) throw new Error("Junk ignore requires the live core item classes");
+    const { tvalFindIdx } = ctx.core;
+    return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
   },
   /**
    * Registry handlers install when their host seams are available. Content
@@ -278,6 +353,19 @@ var plugin_default = {
       host.effects.register(ef.REMOVE_CURSE, { handler: classicRemoveCurseHandler(core) });
       host.effects.register(ef.ENCHANT, { handler: enchantCurseBreakHandler(core) });
       ctx.log?.("feature-restoration: classic uncursing handlers installed");
+    }
+    if (ctx.flags["feature-restoration.sticky-curses"] === true && ctx.core && host.effects && host.effectInfo) {
+      const core = ctx.core;
+      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(core, "WEAPON") });
+      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(core, "BODY_ARMOR") });
+      host.effectInfo.text.set(CURSE_WEAPON, {
+        menuName: () => "curses a wielded weapon",
+        describe: () => "curses a wielded weapon"
+      });
+      host.effectInfo.text.set(CURSE_ARMOUR, {
+        menuName: () => "curses worn body armour",
+        describe: () => "curses worn body armour"
+      });
     }
     if (ctx.flags["feature-restoration.spike-doors"] === true && ctx.core) {
       const core = ctx.core;
