@@ -489,7 +489,7 @@ Angband 3.4.1 still had empty bottles, shards of pottery, broken sticks, skulls 
 
 Neither release generated eleven of them at random: the bottle, shard, stick, skull, bone and all six skeletons had no allocation, so their allocation here is new. In 3.0.9 the rag had rarity 1 from level 0 and the two broken weapons had rarity 2 from level 0 and again from level 5, which the rarity rule would turn into commonness 20 and 10. All 14 have commonness 1 instead, so that junk stays rare and does not crowd out better finds.
 
-No junk is ignored by default. The game's ignore menu can only ignore a whole kind from its own item classes, so a player could not undo a default ignore on these. The ignore command on a single piece of junk still works.
+A new character starts with the bottles, shards, sticks, skulls, bones and skeletons ignored, as 3.x hid them. Their three classes appear as Junk, Skeletons and Bottles at the end of the item ignoring setup, so you can bring back any kind you want to collect. The Filthy Rag and the broken dagger and sword are not ignored, because they belong to the game's own armour and sword classes, and the ignore menus never offer a whole kind of those.
 
 ### Restore seven ring and amulet flavors
 

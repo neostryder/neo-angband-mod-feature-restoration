@@ -14,7 +14,7 @@
 
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
-import { tvalFindIdx, tvalInClass } from "@rpgm-tools/neo-angband-core";
+import { tvalFindIdx, tvalInClass, tvals, IgnoreSettings } from "@rpgm-tools/neo-angband-core";
 import { bind } from "./test/game.js";
 // @ts-expect-error The test imports the handwritten source module.
 import plugin from "./plugin.ts";
@@ -49,13 +49,44 @@ function kindNamed(game: Game, name: string): Game["objects"]["kinds"][number] |
 }
 
 describe("junk", () => {
-  it("leaves a new character's ignore settings alone, junk on or off", () => {
-    /* The game's ignore menus cannot un-ignore a mod item class's kinds, so a
-     * default ignore could never be undone by the player. */
-    for (const junk of [true, false]) {
-      expect(plugin.hooks({ flags: { "feature-restoration.junk": junk } })).toEqual({});
+  it("ignores the junk, skeleton and bottle kinds for a new character with junk on", () => {
+    const { game } = bind(["junk"]);
+    const ignore = new IgnoreSettings();
+    const hook = plugin.hooks({
+      flags: { "feature-restoration.junk": true },
+      core: { tvalFindIdx } as NonNullable<Parameters<typeof plugin.hooks>[0]["core"]>,
+    }).newCharacter;
+    expect(hook).toBeTypeOf("function");
+    hook!({ ignore }, game);
+    const modClass = new Set(Object.keys(CLASSES).map((c) => tvalFindIdx(c)));
+    const ignored = game.objects.kinds.filter((k) => k && ignore.kindIsIgnoredAware(k.kidx));
+    expect(ignored.map((k) => k!.name).sort()).toEqual(Object.values(CLASSES).flat().sort());
+    for (const k of ignored) {
+      expect(modClass.has(k!.tval), k!.name).toBe(true);
+      expect(ignore.kindIsIgnoredUnaware(k!.kidx), k!.name).toBe(true);
+    }
+    /* The rag and broken weapons sit in Angband's own armour and sword
+     * classes, whose kinds the ignore menus never offer. */
+    for (const name of ["& Filthy Rag~", "& Broken Dagger~", "& Broken Sword~"]) {
+      expect(ignore.kindIsIgnoredAware(kindNamed(game, name)!.kidx), name).toBe(false);
     }
   });
+
+  it("lists the three classes in the ignore menus so a player can undo the ignore", () => {
+    bind(["junk"]);
+    const listed = tvals.ignoreCategories();
+    expect(listed.map((c) => c.desc)).toEqual(["Junk", "Skeletons", "Bottles"]);
+    expect(listed.map((c) => c.tval)).toEqual(["junk", "skeleton", "bottle"].map((c) => tvalFindIdx(c)));
+  });
+
+  it("leaves new characters' ignore settings empty when junk is off", () => {
+    const { game } = bind([]);
+    const ignore = new IgnoreSettings();
+    const hook = plugin.hooks({ flags: { "feature-restoration.junk": false } }).newCharacter;
+    expect(hook).toBeUndefined();
+    expect(game.objects.kinds.some((k) => k && ignore.kindIsIgnoredAware(k.kidx))).toBe(false);
+  });
+
   it("binds at once, with every record reaching the game", () => {
     const { game } = bind(["junk"]);
     for (const r of JUNK) {

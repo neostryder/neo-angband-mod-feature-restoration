@@ -298,6 +298,34 @@ function curseScrollHandler(core, slotType) {
   };
 }
 
+// src/junk-ignore.ts
+var JUNK_KINDS = {
+  bottle: ["& Empty Bottle~"],
+  junk: ["& Shard~ of Pottery", "& Broken Stick~"],
+  skeleton: [
+    "& Broken Skull~",
+    "& Broken Bone~",
+    "& Canine Skeleton~",
+    "& Rodent Skeleton~",
+    "& Human Skeleton~",
+    "& Dwarf Skeleton~",
+    "& Elf Skeleton~",
+    "& Gnome Skeleton~"
+  ]
+};
+function ignoreJunk(state, registries, tvalFindIdx) {
+  for (const [type, names] of Object.entries(JUNK_KINDS)) {
+    const tval = tvalFindIdx(type);
+    if (tval < 0) throw new Error(`Missing junk item class: ${type}`);
+    for (const name of names) {
+      const kind = registries.objects.kinds.find((k) => k?.name === name && k.tval === tval);
+      if (!kind) throw new Error(`Missing junk kind: ${type} ${name}`);
+      state.ignore.kindIgnoreWhenAware(kind.kidx);
+      state.ignore.kindIgnoreWhenUnaware(kind.kidx);
+    }
+  }
+}
+
 // plugin.ts
 function discountRoll(ctx) {
   const { rng, cost } = ctx;
@@ -369,10 +397,11 @@ function spikeDoor(core, state, cmd) {
 }
 var plugin_default = {
   api: 1,
-  /* Junk is not ignored for new characters: the game's ignore menus offer a
-   * whole kind only for its own item classes, so a player could never undo it. */
-  hooks(_ctx) {
-    return {};
+  hooks(ctx) {
+    if (ctx.flags["feature-restoration.junk"] !== true) return {};
+    if (!ctx.core?.tvalFindIdx) throw new Error("Junk ignore requires the live core item classes");
+    const { tvalFindIdx } = ctx.core;
+    return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
   },
   /**
    * Registry handlers install when their host seams are available. Content

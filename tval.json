@@ -3,13 +3,16 @@
     "junk": {
       "records": [
         {
-          "name": "junk"
+          "name": "junk",
+          "ignoreMenu": "Junk"
         },
         {
-          "name": "skeleton"
+          "name": "skeleton",
+          "ignoreMenu": "Skeletons"
         },
         {
-          "name": "bottle"
+          "name": "bottle",
+          "ignoreMenu": "Bottles"
         }
       ]
     }

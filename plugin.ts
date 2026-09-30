@@ -74,6 +74,7 @@ import {
 import type { EffectHandler, EffectTextHandler } from "@rpgm-tools/neo-angband-core";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
 import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler, type CurseScrollCore } from "./src/curse-scrolls.js";
+import { ignoreJunk, type JunkState, type JunkRegistries } from "./src/junk-ignore.js";
 
 /**
  * The RNG the host hands a discount roll, structurally - same reason as
@@ -143,6 +144,7 @@ interface GameStateLike {
  * either.
  */
 interface CoreLike {
+  tvalFindIdx?(name: string): number;
   /** ddgrid: keypad direction (1-9, 5 is "no direction") -> grid offset. */
   readonly DDGRID: readonly Loc[];
   /**
@@ -348,10 +350,11 @@ export function spikeDoor(core: CoreLike, state: GameStateLike, cmd: PlayerComma
 export default {
   api: 1,
 
-  /* Junk is not ignored for new characters: the game's ignore menus offer a
-   * whole kind only for its own item classes, so a player could never undo it. */
-  hooks(_ctx: HookCtx): Record<string, never> {
-    return {};
+  hooks(ctx: HookCtx): { newCharacter?: (state: JunkState, registries: JunkRegistries) => void } {
+    if (ctx.flags["feature-restoration.junk"] !== true) return {};
+    if (!ctx.core?.tvalFindIdx) throw new Error("Junk ignore requires the live core item classes");
+    const { tvalFindIdx } = ctx.core;
+    return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
   },
 
   /**
