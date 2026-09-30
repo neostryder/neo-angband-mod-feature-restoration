@@ -42,6 +42,7 @@ were not retagged.
 - [Visible] [Content] **Junk.** Empty bottles, shards of pottery, broken sticks, skulls and bones, six kinds of skeleton, the Filthy Rag and the broken dagger and sword are back on the dungeon floor, rarely, under three item classes of their own.
 - [Visible] [UI] **Restored monsters and ring and amulet looks have tiles.** All 76 restored monsters draw their own historical tile in every bundled tile pack, taken from the upstream sheet of the last release that had them. A pack with no tile of its own borrows one from a pack at the same or a lower resolution, never a larger one scaled down. The seven restored ring and amulet looks reuse the tile they used to share.
 - [Visible] [Compatibility] **Twins can be told apart under Linoleum.** When a restored monster or ring and amulet look shares its old tile with a 4.2 monster or an artifact's look, Linoleum tints it so the two differ. The mod lists Linoleum as an optional dependency; without Linoleum, the twins draw the same tile.
+- [Visible] [Content] **The "(Shattered)" and "(Blasted)" egos, and tiles for the junk.** The two cursed egos 3.5.1 still carried come back in the `sticky-curses` section: "(Shattered)" for melee weapons with air swing and lower to-hit and to-dam, "(Blasted)" for body armour with vulnerability and lower armour class. As in 3.5.1, neither is ever rolled on a dropped item. All 14 junk items draw their own historical tile in every bundled pack.
 
 ### Changed
 

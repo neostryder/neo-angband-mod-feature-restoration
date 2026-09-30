@@ -54,6 +54,37 @@ describe("restored item art", () => {
   });
 });
 
+describe("junk art", () => {
+  const LABEL: Record<string, string> = { old: "old", nomad: "nomad", "adam-bolt": "adambolt", gervais: "gervais", shockbolt: "shockbolt" };
+  /* Cut after 3.0.9, before Nomad and Shockbolt existed: those two packs borrow a lower pack's tile. */
+  const CUT_IN_3_0 = ["gnome-skeleton", "filthy-rag", "broken-dagger", "broken-sword"];
+
+  it("gives all 14 junk records an entry that follows the art policy", () => {
+    const records = JSON.parse(readFileSync(new URL("./object.json", import.meta.url), "utf8")) as {
+      sections: Record<string, { records: Array<{ name: string; type: string }> }>;
+    };
+    const junk = records.sections["junk"]!.records;
+    expect(junk).toHaveLength(14);
+    for (const r of junk) {
+      const [type, slug] = recordKey("object", r)!.split("--");
+      const entry = ART.find((a) => a.kind === `feature-restoration:${type}:${slug}`);
+      expect(entry, r.name).toBeDefined();
+      const own = (pack: string) => `assets/${slug}-${LABEL[pack]}-native-`;
+      const packs = entry!.packs;
+      const fallback = CUT_IN_3_0.includes(slug!) ? ["nomad", "shockbolt"] : [];
+      for (const pack of Object.keys(CELL)) {
+        const asset = packs[pack]!.asset!;
+        if (fallback.includes(pack)) {
+          expect(asset.startsWith(own(pack)), `${slug} ${pack} borrows`).toBe(false);
+          expect(asset.startsWith(`assets/${slug}-`), `${slug} ${pack} borrows its own item`).toBe(true);
+        } else {
+          expect(asset.startsWith(own(pack)), `${slug} ${pack}`).toBe(true);
+        }
+      }
+    }
+  });
+});
+
 describe("restored monster art", () => {
   it("names each restored race, with assets that exist and fit each pack", () => {
     const { game } = bind(sectionIds());

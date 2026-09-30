@@ -5359,5 +5359,885 @@
     "asset": "assets/great-wyrm-of-perplexity-gervais-native-32x32.png"
    }
   }
+ },
+ "empty-bottle": {
+  "name": "& Empty Bottle~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     25
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     16
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     22
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     22
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/empty-bottle-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/empty-bottle-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/empty-bottle-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/empty-bottle-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/empty-bottle-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "shard-of-pottery": {
+  "name": "& Shard~ of Pottery",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     8
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     17
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     34
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     34
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/shard-of-pottery-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/shard-of-pottery-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/shard-of-pottery-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/shard-of-pottery-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/shard-of-pottery-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "broken-stick": {
+  "name": "& Broken Stick~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     9
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     18
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     42
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     42
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/broken-stick-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/broken-stick-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/broken-stick-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/broken-stick-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/broken-stick-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "broken-skull": {
+  "name": "& Broken Skull~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     10
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     20
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     43
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     43
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/broken-skull-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/broken-skull-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/broken-skull-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/broken-skull-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/broken-skull-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "broken-bone": {
+  "name": "& Broken Bone~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     11
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     21
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     44
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     44
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/broken-bone-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/broken-bone-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/broken-bone-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/broken-bone-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/broken-bone-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "canine-skeleton": {
+  "name": "& Canine Skeleton~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     26
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     49
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     49
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/canine-skeleton-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/canine-skeleton-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/canine-skeleton-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/canine-skeleton-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/canine-skeleton-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "rodent-skeleton": {
+  "name": "& Rodent Skeleton~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     27
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     50
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     50
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/rodent-skeleton-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/rodent-skeleton-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/rodent-skeleton-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/rodent-skeleton-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/rodent-skeleton-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "human-skeleton": {
+  "name": "& Human Skeleton~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     22
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     45
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     45
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/human-skeleton-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/human-skeleton-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/human-skeleton-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/human-skeleton-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/human-skeleton-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "dwarf-skeleton": {
+  "name": "& Dwarf Skeleton~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     24
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     47
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     47
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/dwarf-skeleton-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/dwarf-skeleton-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/dwarf-skeleton-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/dwarf-skeleton-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/dwarf-skeleton-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "elf-skeleton": {
+  "name": "& Elf Skeleton~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.4.1",
+    "cell": [
+     11,
+     7
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "nomad": {
+    "tag": "v3.4.1",
+    "cell": [
+     10,
+     19
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     14,
+     23
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     46
+    ],
+    "status": "same",
+    "claimed_by": null
+   },
+   "shockbolt": {
+    "tag": "v3.4.1",
+    "cell": [
+     7,
+     46
+    ],
+    "status": "same",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/elf-skeleton-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/elf-skeleton-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/elf-skeleton-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/elf-skeleton-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/elf-skeleton-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "gnome-skeleton": {
+  "name": "& Gnome Skeleton~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     11,
+     7
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     14,
+     25
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     7,
+     48
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/gnome-skeleton-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/gnome-skeleton-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/gnome-skeleton-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/gnome-skeleton-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/gnome-skeleton-gervais-native-32x32.png"
+   }
+  }
+ },
+ "filthy-rag": {
+  "name": "& Filthy Rag~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     8,
+     20
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     9,
+     11
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     0,
+     33
+    ],
+    "status": "changed",
+    "claimed_by": "Large Metal Shield"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/filthy-rag-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/filthy-rag-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/filthy-rag-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/filthy-rag-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/filthy-rag-gervais-native-32x32.png"
+   }
+  }
+ },
+ "broken-dagger": {
+  "name": "& Broken Dagger~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     9,
+     3
+    ],
+    "status": "changed",
+    "claimed_by": "Main Gauche"
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     13
+    ],
+    "status": "changed",
+    "claimed_by": null
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     1
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/broken-dagger-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/broken-dagger-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/broken-dagger-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/broken-dagger-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/broken-dagger-gervais-native-32x32.png"
+   }
+  }
+ },
+ "broken-sword": {
+  "name": "& Broken Sword~",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "v3.0.9",
+    "cell": [
+     9,
+     3
+    ],
+    "status": "changed",
+    "claimed_by": "Main Gauche"
+   },
+   "adam-bolt": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     14
+    ],
+    "status": "changed",
+    "claimed_by": "Bastard Sword"
+   },
+   "gervais": {
+    "tag": "v3.0.9",
+    "cell": [
+     10,
+     2
+    ],
+    "status": "changed",
+    "claimed_by": null
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/broken-sword-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/broken-sword-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/broken-sword-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/broken-sword-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/broken-sword-gervais-native-32x32.png"
+   }
+  }
  }
 }

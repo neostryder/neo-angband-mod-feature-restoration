@@ -502,5 +502,89 @@
   "name": "great wyrm of perplexity",
   "last_tag": "v3.2.0",
   "slug": "great-wyrm-of-perplexity"
+ },
+ {
+  "kind": "object",
+  "name": "& Empty Bottle~",
+  "last_tag": "v3.4.1",
+  "slug": "empty-bottle"
+ },
+ {
+  "kind": "object",
+  "name": "& Shard~ of Pottery",
+  "last_tag": "v3.4.1",
+  "slug": "shard-of-pottery"
+ },
+ {
+  "kind": "object",
+  "name": "& Broken Stick~",
+  "last_tag": "v3.4.1",
+  "slug": "broken-stick"
+ },
+ {
+  "kind": "object",
+  "name": "& Broken Skull~",
+  "last_tag": "v3.4.1",
+  "slug": "broken-skull"
+ },
+ {
+  "kind": "object",
+  "name": "& Broken Bone~",
+  "last_tag": "v3.4.1",
+  "slug": "broken-bone"
+ },
+ {
+  "kind": "object",
+  "name": "& Canine Skeleton~",
+  "last_tag": "v3.4.1",
+  "slug": "canine-skeleton"
+ },
+ {
+  "kind": "object",
+  "name": "& Rodent Skeleton~",
+  "last_tag": "v3.4.1",
+  "slug": "rodent-skeleton"
+ },
+ {
+  "kind": "object",
+  "name": "& Human Skeleton~",
+  "last_tag": "v3.4.1",
+  "slug": "human-skeleton"
+ },
+ {
+  "kind": "object",
+  "name": "& Dwarf Skeleton~",
+  "last_tag": "v3.4.1",
+  "slug": "dwarf-skeleton"
+ },
+ {
+  "kind": "object",
+  "name": "& Elf Skeleton~",
+  "last_tag": "v3.4.1",
+  "slug": "elf-skeleton"
+ },
+ {
+  "kind": "object",
+  "name": "& Gnome Skeleton~",
+  "last_tag": "v3.0.9",
+  "slug": "gnome-skeleton"
+ },
+ {
+  "kind": "object",
+  "name": "& Filthy Rag~",
+  "last_tag": "v3.0.9",
+  "slug": "filthy-rag"
+ },
+ {
+  "kind": "object",
+  "name": "& Broken Dagger~",
+  "last_tag": "v3.0.9",
+  "slug": "broken-dagger"
+ },
+ {
+  "kind": "object",
+  "name": "& Broken Sword~",
+  "last_tag": "v3.0.9",
+  "slug": "broken-sword"
  }
 ]

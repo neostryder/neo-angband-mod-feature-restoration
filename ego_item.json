@@ -6,6 +6,26 @@
           { "op": "set", "path": "type", "value": ["sword", "polearm", "hafted"] }
         ]
       }
+    },
+    "sticky-curses": {
+      "records": [
+        {
+          "name": "(Shattered)",
+          "info": { "cost": 0, "rating": 0 },
+          "alloc": { "common": 0, "minmax": "1 to 80" },
+          "type": ["digger", "hafted", "polearm", "sword"],
+          "combat": { "th": "-d5", "td": "-d5", "ta": "0" },
+          "curse": [{ "name": "air swing", "power": 40 }]
+        },
+        {
+          "name": "(Blasted)",
+          "info": { "cost": 0, "rating": 0 },
+          "alloc": { "common": 0, "minmax": "1 to 80" },
+          "type": ["soft armor", "hard armor", "dragon armor"],
+          "combat": { "th": "0", "td": "0", "ta": "-d10" },
+          "curse": [{ "name": "vulnerability", "power": 40 }]
+        }
+      ]
     }
   }
 }

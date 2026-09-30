@@ -200,6 +200,286 @@
           "asset": "assets/bronze-dragon-scale-mail-shockbolt-native-64x64.png"
         }
       }
+    },
+    {
+      "kind": "feature-restoration:bottle:empty-bottle",
+      "packs": {
+        "old": {
+          "asset": "assets/empty-bottle-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/empty-bottle-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/empty-bottle-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/empty-bottle-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/empty-bottle-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:junk:shard-of-pottery",
+      "packs": {
+        "old": {
+          "asset": "assets/shard-of-pottery-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/shard-of-pottery-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/shard-of-pottery-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/shard-of-pottery-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/shard-of-pottery-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:junk:broken-stick",
+      "packs": {
+        "old": {
+          "asset": "assets/broken-stick-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/broken-stick-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/broken-stick-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/broken-stick-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/broken-stick-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:broken-skull",
+      "packs": {
+        "old": {
+          "asset": "assets/broken-skull-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/broken-skull-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/broken-skull-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/broken-skull-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/broken-skull-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:broken-bone",
+      "packs": {
+        "old": {
+          "asset": "assets/broken-bone-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/broken-bone-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/broken-bone-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/broken-bone-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/broken-bone-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:canine-skeleton",
+      "packs": {
+        "old": {
+          "asset": "assets/canine-skeleton-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/canine-skeleton-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/canine-skeleton-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/canine-skeleton-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/canine-skeleton-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:rodent-skeleton",
+      "packs": {
+        "old": {
+          "asset": "assets/rodent-skeleton-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/rodent-skeleton-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/rodent-skeleton-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/rodent-skeleton-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/rodent-skeleton-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:human-skeleton",
+      "packs": {
+        "old": {
+          "asset": "assets/human-skeleton-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/human-skeleton-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/human-skeleton-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/human-skeleton-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/human-skeleton-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:dwarf-skeleton",
+      "packs": {
+        "old": {
+          "asset": "assets/dwarf-skeleton-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/dwarf-skeleton-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/dwarf-skeleton-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/dwarf-skeleton-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/dwarf-skeleton-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:elf-skeleton",
+      "packs": {
+        "old": {
+          "asset": "assets/elf-skeleton-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/elf-skeleton-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/elf-skeleton-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/elf-skeleton-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/elf-skeleton-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:skeleton:gnome-skeleton",
+      "packs": {
+        "old": {
+          "asset": "assets/gnome-skeleton-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/gnome-skeleton-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/gnome-skeleton-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/gnome-skeleton-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/gnome-skeleton-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:soft-armor:filthy-rag",
+      "packs": {
+        "old": {
+          "asset": "assets/filthy-rag-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/filthy-rag-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/filthy-rag-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/filthy-rag-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/filthy-rag-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:sword:broken-dagger",
+      "packs": {
+        "old": {
+          "asset": "assets/broken-dagger-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/broken-dagger-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/broken-dagger-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/broken-dagger-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/broken-dagger-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "feature-restoration:sword:broken-sword",
+      "packs": {
+        "old": {
+          "asset": "assets/broken-sword-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/broken-sword-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/broken-sword-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/broken-sword-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/broken-sword-gervais-native-32x32.png"
+        }
+      }
     }
   ],
   "author": "neostryder",
