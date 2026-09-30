@@ -1,0 +1,2044 @@
+{
+  "Mage": [
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Magic Missile",
+      "level": 1,
+      "mana": 1,
+      "fail": 22,
+      "exp": 4
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Detect Monsters",
+      "level": 1,
+      "mana": 1,
+      "fail": 50,
+      "exp": 4
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Phase Door",
+      "level": 1,
+      "mana": 2,
+      "fail": 55,
+      "exp": 4
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Light Area",
+      "level": 1,
+      "mana": 2,
+      "fail": 26,
+      "exp": 4
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Find Traps, Doors & Stairs",
+      "level": 3,
+      "mana": 1,
+      "fail": 20,
+      "exp": 2
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Stinking Cloud",
+      "level": 3,
+      "mana": 2,
+      "fail": 27,
+      "exp": 3
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Confuse Monster",
+      "level": 5,
+      "mana": 4,
+      "fail": 30,
+      "exp": 4
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Lightning Bolt",
+      "level": 5,
+      "mana": 4,
+      "fail": 30,
+      "exp": 4
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Disable Traps, Destroy Doors",
+      "level": 5,
+      "mana": 5,
+      "fail": 30,
+      "exp": 6
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Cure Poison",
+      "level": 5,
+      "mana": 5,
+      "fail": 35,
+      "exp": 4
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Hold Monster",
+      "level": 7,
+      "mana": 5,
+      "fail": 30,
+      "exp": 4
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Teleport Self",
+      "level": 7,
+      "mana": 6,
+      "fail": 35,
+      "exp": 5
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Spear of Light",
+      "level": 7,
+      "mana": 6,
+      "fail": 30,
+      "exp": 5
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Frost Bolt",
+      "level": 7,
+      "mana": 5,
+      "fail": 40,
+      "exp": 6
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Wonder",
+      "level": 7,
+      "mana": 10,
+      "fail": 50,
+      "exp": 5
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Remove Hunger",
+      "level": 9,
+      "mana": 1,
+      "fail": 25,
+      "exp": 8
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Lesser Recharging",
+      "level": 9,
+      "mana": 7,
+      "fail": 75,
+      "exp": 10
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Turn Stone to Mud",
+      "level": 9,
+      "mana": 5,
+      "fail": 25,
+      "exp": 8
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Fire Bolt",
+      "level": 10,
+      "mana": 3,
+      "fail": 50,
+      "exp": 7
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Polymorph Other",
+      "level": 11,
+      "mana": 7,
+      "fail": 45,
+      "exp": 9
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Identify Rune",
+      "level": 11,
+      "mana": 7,
+      "fail": 25,
+      "exp": 6
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Reveal Monsters",
+      "level": 15,
+      "mana": 3,
+      "fail": 40,
+      "exp": 6
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Acid Bolt",
+      "level": 15,
+      "mana": 4,
+      "fail": 50,
+      "exp": 8
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Slow Monster",
+      "level": 17,
+      "mana": 9,
+      "fail": 50,
+      "exp": 7
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Frost Ball",
+      "level": 19,
+      "mana": 6,
+      "fail": 55,
+      "exp": 8
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Teleport Other",
+      "level": 23,
+      "mana": 10,
+      "fail": 30,
+      "exp": 8
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Haste Self",
+      "level": 25,
+      "mana": 12,
+      "fail": 65,
+      "exp": 10
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Mass Sleep",
+      "level": 25,
+      "mana": 7,
+      "fail": 50,
+      "exp": 6
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Fire Ball",
+      "level": 26,
+      "mana": 5,
+      "fail": 33,
+      "exp": 12
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Treasure Detection",
+      "level": 30,
+      "mana": 3,
+      "fail": 60,
+      "exp": 10
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Cold",
+      "level": 10,
+      "mana": 5,
+      "fail": 50,
+      "exp": 10
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Fire",
+      "level": 10,
+      "mana": 5,
+      "fail": 50,
+      "exp": 10
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Poison",
+      "level": 25,
+      "mana": 10,
+      "fail": 32,
+      "exp": 20
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resistance",
+      "level": 28,
+      "mana": 20,
+      "fail": 65,
+      "exp": 30
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Shield",
+      "level": 32,
+      "mana": 24,
+      "fail": 65,
+      "exp": 30
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Shock Wave",
+      "level": 16,
+      "mana": 5,
+      "fail": 40,
+      "exp": 6
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Explosion",
+      "level": 20,
+      "mana": 10,
+      "fail": 50,
+      "exp": 10
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Cloud Kill",
+      "level": 20,
+      "mana": 5,
+      "fail": 50,
+      "exp": 8
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Acid Ball",
+      "level": 20,
+      "mana": 7,
+      "fail": 70,
+      "exp": 20
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Ice Storm",
+      "level": 27,
+      "mana": 11,
+      "fail": 75,
+      "exp": 24
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Meteor Swarm",
+      "level": 30,
+      "mana": 14,
+      "fail": 75,
+      "exp": 34
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Rift",
+      "level": 35,
+      "mana": 20,
+      "fail": 50,
+      "exp": 25
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Door Creation",
+      "level": 13,
+      "mana": 9,
+      "fail": 40,
+      "exp": 12
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Stair Creation",
+      "level": 24,
+      "mana": 20,
+      "fail": 50,
+      "exp": 20
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Teleport Level",
+      "level": 28,
+      "mana": 17,
+      "fail": 65,
+      "exp": 20
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Word of Recall",
+      "level": 30,
+      "mana": 30,
+      "fail": 75,
+      "exp": 15
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Rune of Protection",
+      "level": 36,
+      "mana": 60,
+      "fail": 60,
+      "exp": 40
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Greater Recharging",
+      "level": 30,
+      "mana": 30,
+      "fail": 85,
+      "exp": 100
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Elemental Brand",
+      "level": 32,
+      "mana": 60,
+      "fail": 85,
+      "exp": 120
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Earthquake",
+      "level": 20,
+      "mana": 18,
+      "fail": 60,
+      "exp": 20
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Bedlam",
+      "level": 25,
+      "mana": 15,
+      "fail": 60,
+      "exp": 24
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Rend Soul",
+      "level": 25,
+      "mana": 15,
+      "fail": 80,
+      "exp": 30
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Banishment",
+      "level": 30,
+      "mana": 45,
+      "fail": 95,
+      "exp": 25
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Word of Destruction",
+      "level": 33,
+      "mana": 35,
+      "fail": 80,
+      "exp": 35
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Mass Banishment",
+      "level": 35,
+      "mana": 75,
+      "fail": 90,
+      "exp": 100
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Chaos Strike",
+      "level": 38,
+      "mana": 15,
+      "fail": 80,
+      "exp": 40
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Mana Storm",
+      "level": 42,
+      "mana": 16,
+      "fail": 85,
+      "exp": 200
+    }
+  ],
+  "Priest": [
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Detect Evil",
+      "level": 1,
+      "mana": 2,
+      "fail": 10,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Cure Light Wounds",
+      "level": 1,
+      "mana": 2,
+      "fail": 15,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Bless",
+      "level": 1,
+      "mana": 2,
+      "fail": 20,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Remove Fear",
+      "level": 1,
+      "mana": 2,
+      "fail": 5,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Call Light",
+      "level": 3,
+      "mana": 3,
+      "fail": 10,
+      "exp": 1
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Slow Poison",
+      "level": 3,
+      "mana": 3,
+      "fail": 28,
+      "exp": 4
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Scare Monster",
+      "level": 5,
+      "mana": 4,
+      "fail": 29,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Portal",
+      "level": 5,
+      "mana": 4,
+      "fail": 30,
+      "exp": 4
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Cure Serious Wounds",
+      "level": 5,
+      "mana": 4,
+      "fail": 32,
+      "exp": 4
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Chant",
+      "level": 5,
+      "mana": 5,
+      "fail": 34,
+      "exp": 4
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Sanctuary",
+      "level": 7,
+      "mana": 5,
+      "fail": 36,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Remove Hunger",
+      "level": 7,
+      "mana": 1,
+      "fail": 25,
+      "exp": 4
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Remove Curse",
+      "level": 7,
+      "mana": 12,
+      "fail": 38,
+      "exp": 5
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Resist Heat and Cold",
+      "level": 7,
+      "mana": 7,
+      "fail": 38,
+      "exp": 5
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Neutralize Poison",
+      "level": 9,
+      "mana": 6,
+      "fail": 38,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Orb of Draining",
+      "level": 9,
+      "mana": 7,
+      "fail": 40,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Cure Critical Wounds",
+      "level": 9,
+      "mana": 7,
+      "fail": 38,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Sense Invisible",
+      "level": 11,
+      "mana": 4,
+      "fail": 25,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Protection from Evil",
+      "level": 11,
+      "mana": 8,
+      "fail": 42,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Earthquake",
+      "level": 11,
+      "mana": 9,
+      "fail": 55,
+      "exp": 5
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Sense Surroundings",
+      "level": 13,
+      "mana": 8,
+      "fail": 35,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Cure Mortal Wounds",
+      "level": 13,
+      "mana": 11,
+      "fail": 45,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Turn Undead",
+      "level": 15,
+      "mana": 12,
+      "fail": 50,
+      "exp": 5
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Prayer",
+      "level": 15,
+      "mana": 14,
+      "fail": 50,
+      "exp": 5
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Dispel Undead",
+      "level": 17,
+      "mana": 14,
+      "fail": 55,
+      "exp": 7
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Heal",
+      "level": 21,
+      "mana": 16,
+      "fail": 60,
+      "exp": 7
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Dispel Evil",
+      "level": 25,
+      "mana": 20,
+      "fail": 70,
+      "exp": 12
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Glyph of Warding",
+      "level": 33,
+      "mana": 40,
+      "fail": 90,
+      "exp": 15
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Holy Word",
+      "level": 39,
+      "mana": 32,
+      "fail": 95,
+      "exp": 20
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Blink",
+      "level": 3,
+      "mana": 3,
+      "fail": 50,
+      "exp": 6
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Teleport Self",
+      "level": 10,
+      "mana": 6,
+      "fail": 35,
+      "exp": 8
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Teleport Other",
+      "level": 20,
+      "mana": 10,
+      "fail": 30,
+      "exp": 16
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Teleport Level",
+      "level": 30,
+      "mana": 17,
+      "fail": 65,
+      "exp": 133
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Word of Recall",
+      "level": 35,
+      "mana": 30,
+      "fail": 75,
+      "exp": 11
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Alter Reality",
+      "level": 40,
+      "mana": 60,
+      "fail": 75,
+      "exp": 250
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Detect Monsters",
+      "level": 3,
+      "mana": 1,
+      "fail": 50,
+      "exp": 2
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Detection",
+      "level": 10,
+      "mana": 10,
+      "fail": 70,
+      "exp": 20
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Perception",
+      "level": 20,
+      "mana": 20,
+      "fail": 80,
+      "exp": 20
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Probing",
+      "level": 25,
+      "mana": 40,
+      "fail": 80,
+      "exp": 150
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Clairvoyance",
+      "level": 35,
+      "mana": 50,
+      "fail": 80,
+      "exp": 230
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Cure Serious Wounds",
+      "level": 15,
+      "mana": 5,
+      "fail": 50,
+      "exp": 25
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Cure Mortal Wounds",
+      "level": 17,
+      "mana": 7,
+      "fail": 60,
+      "exp": 45
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Healing",
+      "level": 30,
+      "mana": 50,
+      "fail": 80,
+      "exp": 130
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Restoration",
+      "level": 35,
+      "mana": 70,
+      "fail": 90,
+      "exp": 230
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Remembrance",
+      "level": 35,
+      "mana": 30,
+      "fail": 90,
+      "exp": 250
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Unbarring Ways",
+      "level": 5,
+      "mana": 6,
+      "fail": 50,
+      "exp": 40
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Recharging",
+      "level": 15,
+      "mana": 10,
+      "fail": 50,
+      "exp": 25
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Dispel Curse",
+      "level": 25,
+      "mana": 40,
+      "fail": 80,
+      "exp": 160
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Enchant Weapon",
+      "level": 35,
+      "mana": 50,
+      "fail": 80,
+      "exp": 230
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Enchant Armour",
+      "level": 37,
+      "mana": 60,
+      "fail": 85,
+      "exp": 250
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Elemental Brand",
+      "level": 45,
+      "mana": 95,
+      "fail": 85,
+      "exp": 250
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Dispel Undead",
+      "level": 15,
+      "mana": 14,
+      "fail": 55,
+      "exp": 25
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Dispel Evil",
+      "level": 20,
+      "mana": 20,
+      "fail": 70,
+      "exp": 60
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Banish Evil",
+      "level": 25,
+      "mana": 25,
+      "fail": 80,
+      "exp": 250
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Word of Destruction",
+      "level": 35,
+      "mana": 35,
+      "fail": 80,
+      "exp": 115
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Annihilation",
+      "level": 45,
+      "mana": 60,
+      "fail": 75,
+      "exp": 250
+    }
+  ],
+  "Rogue": [
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Detect Monsters",
+      "level": 5,
+      "mana": 1,
+      "fail": 50,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Phase Door",
+      "level": 7,
+      "mana": 2,
+      "fail": 55,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Light Area",
+      "level": 9,
+      "mana": 3,
+      "fail": 60,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Object Detection",
+      "level": 10,
+      "mana": 3,
+      "fail": 60,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Detect Stairs",
+      "level": 8,
+      "mana": 3,
+      "fail": 50,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Stinking Cloud",
+      "level": 21,
+      "mana": 8,
+      "fail": 40,
+      "exp": 10
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Confuse Monster",
+      "level": 15,
+      "mana": 4,
+      "fail": 65,
+      "exp": 1
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Disable Traps, Destroy Doors",
+      "level": 14,
+      "mana": 5,
+      "fail": 30,
+      "exp": 2
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Cure Poison",
+      "level": 21,
+      "mana": 6,
+      "fail": 80,
+      "exp": 1
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Hold Monster",
+      "level": 19,
+      "mana": 5,
+      "fail": 75,
+      "exp": 1
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Teleport Self",
+      "level": 22,
+      "mana": 6,
+      "fail": 35,
+      "exp": 1
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Spear of Light",
+      "level": 23,
+      "mana": 6,
+      "fail": 30,
+      "exp": 1
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Wonder",
+      "level": 20,
+      "mana": 7,
+      "fail": 60,
+      "exp": 20
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Remove Hunger",
+      "level": 25,
+      "mana": 1,
+      "fail": 25,
+      "exp": 1
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Lesser Recharging",
+      "level": 27,
+      "mana": 10,
+      "fail": 89,
+      "exp": 1
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Turn Stone to Mud",
+      "level": 24,
+      "mana": 5,
+      "fail": 25,
+      "exp": 1
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Identify Rune",
+      "level": 18,
+      "mana": 7,
+      "fail": 25,
+      "exp": 2
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Reveal Monsters",
+      "level": 20,
+      "mana": 3,
+      "fail": 40,
+      "exp": 4
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Slow Monster",
+      "level": 28,
+      "mana": 13,
+      "fail": 60,
+      "exp": 2
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Teleport Other",
+      "level": 31,
+      "mana": 10,
+      "fail": 30,
+      "exp": 3
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Haste Self",
+      "level": 32,
+      "mana": 12,
+      "fail": 65,
+      "exp": 6
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Mass Sleep",
+      "level": 24,
+      "mana": 10,
+      "fail": 70,
+      "exp": 10
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Cold",
+      "level": 16,
+      "mana": 8,
+      "fail": 40,
+      "exp": 40
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Fire",
+      "level": 19,
+      "mana": 8,
+      "fail": 40,
+      "exp": 40
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Poison",
+      "level": 30,
+      "mana": 10,
+      "fail": 32,
+      "exp": 60
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resistance",
+      "level": 31,
+      "mana": 20,
+      "fail": 65,
+      "exp": 80
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Shield",
+      "level": 34,
+      "mana": 8,
+      "fail": 35,
+      "exp": 80
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Shock Wave",
+      "level": 35,
+      "mana": 5,
+      "fail": 40,
+      "exp": 50
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Cloud Kill",
+      "level": 25,
+      "mana": 13,
+      "fail": 50,
+      "exp": 15
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Door Creation",
+      "level": 17,
+      "mana": 9,
+      "fail": 40,
+      "exp": 15
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Stair Creation",
+      "level": 25,
+      "mana": 8,
+      "fail": 30,
+      "exp": 25
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Teleport Level",
+      "level": 25,
+      "mana": 17,
+      "fail": 65,
+      "exp": 20
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Word of Recall",
+      "level": 36,
+      "mana": 30,
+      "fail": 75,
+      "exp": 18
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Heroism",
+      "level": 26,
+      "mana": 5,
+      "fail": 30,
+      "exp": 40
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Berserker",
+      "level": 28,
+      "mana": 13,
+      "fail": 50,
+      "exp": 60
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Enchant Armor",
+      "level": 31,
+      "mana": 20,
+      "fail": 55,
+      "exp": 90
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Enchant Weapon",
+      "level": 33,
+      "mana": 50,
+      "fail": 80,
+      "exp": 90
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Greater Recharging",
+      "level": 35,
+      "mana": 16,
+      "fail": 55,
+      "exp": 100
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Elemental Brand",
+      "level": 37,
+      "mana": 24,
+      "fail": 40,
+      "exp": 120
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Bedlam",
+      "level": 29,
+      "mana": 13,
+      "fail": 60,
+      "exp": 20
+    }
+  ],
+  "Ranger": [
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Magic Missile",
+      "level": 1,
+      "mana": 1,
+      "fail": 22,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Detect Monsters",
+      "level": 1,
+      "mana": 1,
+      "fail": 50,
+      "exp": 2
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Phase Door",
+      "level": 1,
+      "mana": 2,
+      "fail": 55,
+      "exp": 2
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Light Area",
+      "level": 1,
+      "mana": 1,
+      "fail": 5,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Cure Light Wounds",
+      "level": 1,
+      "mana": 1,
+      "fail": 10,
+      "exp": 1
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Detect Stairs",
+      "level": 1,
+      "mana": 3,
+      "fail": 50,
+      "exp": 2
+    },
+    {
+      "book": "[Magic for Beginners]",
+      "spell": "Stinking Cloud",
+      "level": 1,
+      "mana": 2,
+      "fail": 10,
+      "exp": 3
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Confuse Monster",
+      "level": 1,
+      "mana": 2,
+      "fail": 10,
+      "exp": 2
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Lightning Bolt",
+      "level": 1,
+      "mana": 3,
+      "fail": 10,
+      "exp": 3
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Disable Traps, Destroy Doors",
+      "level": 1,
+      "mana": 5,
+      "fail": 30,
+      "exp": 3
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Cure Poison",
+      "level": 1,
+      "mana": 3,
+      "fail": 15,
+      "exp": 3
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Hold Monster",
+      "level": 1,
+      "mana": 3,
+      "fail": 10,
+      "exp": 3
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Teleport Self",
+      "level": 1,
+      "mana": 6,
+      "fail": 35,
+      "exp": 3
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Spear of Light",
+      "level": 1,
+      "mana": 6,
+      "fail": 30,
+      "exp": 4
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Frost Bolt",
+      "level": 1,
+      "mana": 5,
+      "fail": 40,
+      "exp": 4
+    },
+    {
+      "book": "[Conjurings and Tricks]",
+      "spell": "Wonder",
+      "level": 1,
+      "mana": 7,
+      "fail": 50,
+      "exp": 10
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Remove Hunger",
+      "level": 3,
+      "mana": 1,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Lesser Recharging",
+      "level": 15,
+      "mana": 7,
+      "fail": 60,
+      "exp": 4
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Turn Stone to Mud",
+      "level": 1,
+      "mana": 5,
+      "fail": 25,
+      "exp": 4
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Fire Bolt",
+      "level": 11,
+      "mana": 8,
+      "fail": 30,
+      "exp": 3
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Polymorph Other",
+      "level": 7,
+      "mana": 7,
+      "fail": 30,
+      "exp": 3
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Identify Rune",
+      "level": 9,
+      "mana": 7,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Reveal Monsters",
+      "level": 11,
+      "mana": 3,
+      "fail": 40,
+      "exp": 4
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Acid Bolt",
+      "level": 6,
+      "mana": 6,
+      "fail": 20,
+      "exp": 6
+    },
+    {
+      "book": "[Incantations and Illusions]",
+      "spell": "Slow Monster",
+      "level": 11,
+      "mana": 8,
+      "fail": 35,
+      "exp": 3
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Frost Ball",
+      "level": 13,
+      "mana": 8,
+      "fail": 35,
+      "exp": 6
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Teleport Other",
+      "level": 17,
+      "mana": 10,
+      "fail": 30,
+      "exp": 3
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Haste Self",
+      "level": 19,
+      "mana": 12,
+      "fail": 65,
+      "exp": 4
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Mass Sleep",
+      "level": 9,
+      "mana": 8,
+      "fail": 30,
+      "exp": 4
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Fire Ball",
+      "level": 20,
+      "mana": 5,
+      "fail": 33,
+      "exp": 9
+    },
+    {
+      "book": "[Sorcery and Evocations]",
+      "spell": "Treasure Detection",
+      "level": 21,
+      "mana": 3,
+      "fail": 60,
+      "exp": 10
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Cold",
+      "level": 1,
+      "mana": 6,
+      "fail": 20,
+      "exp": 30
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Fire",
+      "level": 1,
+      "mana": 6,
+      "fail": 20,
+      "exp": 30
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resist Poison",
+      "level": 12,
+      "mana": 10,
+      "fail": 32,
+      "exp": 50
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Resistance",
+      "level": 17,
+      "mana": 20,
+      "fail": 65,
+      "exp": 70
+    },
+    {
+      "book": "[Resistances of Scarabtarices]",
+      "spell": "Shield",
+      "level": 21,
+      "mana": 14,
+      "fail": 65,
+      "exp": 80
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Cloud Kill",
+      "level": 8,
+      "mana": 7,
+      "fail": 30,
+      "exp": 6
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Acid Ball",
+      "level": 16,
+      "mana": 12,
+      "fail": 60,
+      "exp": 6
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Ice Storm",
+      "level": 21,
+      "mana": 17,
+      "fail": 60,
+      "exp": 10
+    },
+    {
+      "book": "[Raal's Tome of Destruction]",
+      "spell": "Meteor Swarm",
+      "level": 22,
+      "mana": 22,
+      "fail": 70,
+      "exp": 35
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Door Creation",
+      "level": 6,
+      "mana": 9,
+      "fail": 40,
+      "exp": 25
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Stair Creation",
+      "level": 18,
+      "mana": 15,
+      "fail": 40,
+      "exp": 40
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Teleport Level",
+      "level": 20,
+      "mana": 17,
+      "fail": 65,
+      "exp": 15
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Word of Recall",
+      "level": 21,
+      "mana": 30,
+      "fail": 75,
+      "exp": 16
+    },
+    {
+      "book": "[Mordenkainen's Escapes]",
+      "spell": "Rune of Protection",
+      "level": 26,
+      "mana": 36,
+      "fail": 70,
+      "exp": 80
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Heroism",
+      "level": 4,
+      "mana": 5,
+      "fail": 30,
+      "exp": 40
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Berserker",
+      "level": 9,
+      "mana": 12,
+      "fail": 50,
+      "exp": 35
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Enchant Armor",
+      "level": 19,
+      "mana": 22,
+      "fail": 80,
+      "exp": 50
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Enchant Weapon",
+      "level": 20,
+      "mana": 50,
+      "fail": 80,
+      "exp": 60
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Greater Recharging",
+      "level": 21,
+      "mana": 24,
+      "fail": 85,
+      "exp": 115
+    },
+    {
+      "book": "[Tenser's Transformations]",
+      "spell": "Elemental Brand",
+      "level": 17,
+      "mana": 29,
+      "fail": 85,
+      "exp": 180
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Earthquake",
+      "level": 16,
+      "mana": 13,
+      "fail": 50,
+      "exp": 16
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Bedlam",
+      "level": 18,
+      "mana": 14,
+      "fail": 60,
+      "exp": 12
+    },
+    {
+      "book": "[Kelek's Grimoire of Power]",
+      "spell": "Word of Destruction",
+      "level": 23,
+      "mana": 35,
+      "fail": 80,
+      "exp": 30
+    }
+  ],
+  "Paladin": [
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Detect Evil",
+      "level": 1,
+      "mana": 2,
+      "fail": 10,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Cure Light Wounds",
+      "level": 1,
+      "mana": 2,
+      "fail": 15,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Bless",
+      "level": 1,
+      "mana": 2,
+      "fail": 20,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Remove Fear",
+      "level": 1,
+      "mana": 2,
+      "fail": 0,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Call Light",
+      "level": 1,
+      "mana": 3,
+      "fail": 10,
+      "exp": 4
+    },
+    {
+      "book": "[Beginners Handbook]",
+      "spell": "Slow Poison",
+      "level": 5,
+      "mana": 5,
+      "fail": 20,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Scare Monster",
+      "level": 5,
+      "mana": 5,
+      "fail": 20,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Portal",
+      "level": 5,
+      "mana": 4,
+      "fail": 30,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Cure Serious Wounds",
+      "level": 7,
+      "mana": 7,
+      "fail": 20,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Chant",
+      "level": 7,
+      "mana": 8,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Sanctuary",
+      "level": 7,
+      "mana": 8,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Remove Hunger",
+      "level": 9,
+      "mana": 1,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Remove Curse",
+      "level": 9,
+      "mana": 12,
+      "fail": 38,
+      "exp": 4
+    },
+    {
+      "book": "[Words of Wisdom]",
+      "spell": "Resist Heat and Cold",
+      "level": 11,
+      "mana": 3,
+      "fail": 20,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Neutralize Poison",
+      "level": 11,
+      "mana": 4,
+      "fail": 25,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Orb of Draining",
+      "level": 13,
+      "mana": 7,
+      "fail": 40,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Cure Critical Wounds",
+      "level": 13,
+      "mana": 4,
+      "fail": 25,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Sense Invisible",
+      "level": 15,
+      "mana": 4,
+      "fail": 25,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Protection from Evil",
+      "level": 15,
+      "mana": 8,
+      "fail": 42,
+      "exp": 4
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Earthquake",
+      "level": 17,
+      "mana": 5,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Sense Surroundings",
+      "level": 19,
+      "mana": 8,
+      "fail": 35,
+      "exp": 3
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Cure Mortal Wounds",
+      "level": 21,
+      "mana": 5,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Chants and Blessings]",
+      "spell": "Turn Undead",
+      "level": 23,
+      "mana": 6,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Prayer",
+      "level": 25,
+      "mana": 6,
+      "fail": 25,
+      "exp": 3
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Dispel Undead",
+      "level": 27,
+      "mana": 14,
+      "fail": 55,
+      "exp": 3
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Heal",
+      "level": 29,
+      "mana": 20,
+      "fail": 60,
+      "exp": 3
+    },
+    {
+      "book": "[Exorcism and Dispelling]",
+      "spell": "Dispel Evil",
+      "level": 31,
+      "mana": 20,
+      "fail": 70,
+      "exp": 4
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Blink",
+      "level": 3,
+      "mana": 5,
+      "fail": 30,
+      "exp": 2
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Teleport Self",
+      "level": 16,
+      "mana": 6,
+      "fail": 35,
+      "exp": 4
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Teleport Other",
+      "level": 21,
+      "mana": 10,
+      "fail": 30,
+      "exp": 12
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Teleport Level",
+      "level": 31,
+      "mana": 17,
+      "fail": 65,
+      "exp": 115
+    },
+    {
+      "book": "[Ethereal Openings]",
+      "spell": "Word of Recall",
+      "level": 36,
+      "mana": 30,
+      "fail": 75,
+      "exp": 10
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Detect Monsters",
+      "level": 1,
+      "mana": 1,
+      "fail": 50,
+      "exp": 1
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Detection",
+      "level": 11,
+      "mana": 10,
+      "fail": 70,
+      "exp": 12
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Perception",
+      "level": 21,
+      "mana": 7,
+      "fail": 55,
+      "exp": 16
+    },
+    {
+      "book": "[Godly Insights]",
+      "spell": "Probing",
+      "level": 26,
+      "mana": 11,
+      "fail": 80,
+      "exp": 135
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Cure Serious Wounds",
+      "level": 5,
+      "mana": 3,
+      "fail": 30,
+      "exp": 25
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Cure Mortal Wounds",
+      "level": 16,
+      "mana": 3,
+      "fail": 35,
+      "exp": 35
+    },
+    {
+      "book": "[Purifications and Healing]",
+      "spell": "Restoration",
+      "level": 41,
+      "mana": 70,
+      "fail": 90,
+      "exp": 250
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Unbarring Ways",
+      "level": 6,
+      "mana": 12,
+      "fail": 30,
+      "exp": 20
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Recharging",
+      "level": 21,
+      "mana": 10,
+      "fail": 50,
+      "exp": 15
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Enchant Weapon",
+      "level": 36,
+      "mana": 50,
+      "fail": 80,
+      "exp": 200
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Enchant Armour",
+      "level": 38,
+      "mana": 60,
+      "fail": 85,
+      "exp": 250
+    },
+    {
+      "book": "[Holy Infusions]",
+      "spell": "Elemental Brand",
+      "level": 43,
+      "mana": 68,
+      "fail": 85,
+      "exp": 250
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Dispel Undead",
+      "level": 16,
+      "mana": 14,
+      "fail": 55,
+      "exp": 20
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Banish Evil",
+      "level": 26,
+      "mana": 25,
+      "fail": 80,
+      "exp": 200
+    },
+    {
+      "book": "[Wrath of God]",
+      "spell": "Word of Destruction",
+      "level": 36,
+      "mana": 35,
+      "fail": 80,
+      "exp": 100
+    }
+  ]
+}

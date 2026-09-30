@@ -17,7 +17,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { bindCore, type CoreRegistries } from "@rpgm-tools/neo-angband-core";
+import { bindCore, bindPlayer, registerBookKinds, type CoreRegistries, type GamePack, type PlayerPackRecords } from "@rpgm-tools/neo-angband-core";
 import { composeContentPacks, type ComposedContent } from "@rpgm-tools/neo-angband-mod-sdk";
 
 const require = createRequire(import.meta.url);
@@ -86,7 +86,7 @@ export function compose(on: readonly string[]): ComposedContent {
 }
 
 /** Compose, then bind through core. Throws with the game's error if a record is bad. */
-export function bind(on: readonly string[]): { composed: ComposedContent; game: CoreRegistries } {
+export function gamePack(on: readonly string[]) {
   const composed = compose(on);
   const recs = (name: string): unknown[] => {
     const r = composed.records[name];
@@ -154,7 +154,25 @@ export function bind(on: readonly string[]): { composed: ComposedContent; game: 
       realms: recs("realm"),
     },
   };
-  return { composed, game: bindCore(pack as unknown as Parameters<typeof bindCore>[0]) };
+  return { composed, pack: pack as unknown as GamePack };
+}
+
+export function bind(on: readonly string[]): { composed: ComposedContent; game: CoreRegistries } {
+  const { composed, pack } = gamePack(on);
+  return { composed, game: bindCore(pack) };
+}
+
+/** Bind the player classes and register their synthesized spellbook kinds. */
+export function bindBooks(on: readonly string[]) {
+  const { composed, game } = bind(on);
+  const recs = (name: string) => composed.records[name] as never[];
+  const players = bindPlayer({
+    races: recs("p_race"), classes: recs("class"), properties: recs("player_property"),
+    timed: recs("player_timed"), shapes: recs("shape"), bodies: recs("body"),
+    history: recs("history"), realms: recs("realm"),
+  } satisfies PlayerPackRecords);
+  registerBookKinds(game.objects, players.classes);
+  return { composed, game, players };
 }
 
 export { existsSync, ROOT };

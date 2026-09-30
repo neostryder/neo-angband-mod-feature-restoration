@@ -14,6 +14,9 @@ switch has no flag of its own, the game knows it by its section id instead.
 
 | Setting | Identifier | Default | What it does |
 | --- | --- | --- | --- |
+| Classic arcane books | `classic-arcane-books` | off | Restores nine arcane books for Mage, Rogue and Ranger; locked at birth. |
+| Classic prayer books | `classic-prayer-books` | off | Restores nine prayer books for Priest and Paladin; locked at birth. |
+| Classic class chassis | `classic-class-chassis` | off | Restores the old caster experience penalties, skills and hit dice. |
 | Restore store discounts | `feature-restoration.discounts` | off | Angband 3.0.6, the last official release to carry it, sometimes discounted a store item by 10, 25, 50, 75 or 90 percent when it was stocked (10% about 1 time in 25, down to 90% about 1 time in 500; the README cites the exact source). |
 | Restore Teleport Other (Priest, Paladin, Ranger) | `teleport-other` | off | Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave every spellcasting class a way to teleport a monster away. |
 | Restore door spiking | `feature-restoration.spike-doors` | off | Angband 3.4.1, the last official release before the 4.0 command rewrite dropped it, let you jam a closed door with an iron spike to make it harder to open. |

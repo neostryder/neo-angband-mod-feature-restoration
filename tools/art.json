@@ -586,5 +586,113 @@
   "name": "& Broken Sword~",
   "last_tag": "v3.0.9",
   "slug": "broken-sword"
+ },
+ {
+  "kind": "object",
+  "name": "[Magic for Beginners]",
+  "last_tag": "4.1.3",
+  "slug": "magic-for-beginners"
+ },
+ {
+  "kind": "object",
+  "name": "[Conjurings and Tricks]",
+  "last_tag": "4.1.3",
+  "slug": "conjurings-and-tricks"
+ },
+ {
+  "kind": "object",
+  "name": "[Incantations and Illusions]",
+  "last_tag": "4.1.3",
+  "slug": "incantations-and-illusions"
+ },
+ {
+  "kind": "object",
+  "name": "[Sorcery and Evocations]",
+  "last_tag": "4.1.3",
+  "slug": "sorcery-and-evocations"
+ },
+ {
+  "kind": "object",
+  "name": "[Resistances of Scarabtarices]",
+  "last_tag": "4.1.3",
+  "slug": "resistances-of-scarabtarices"
+ },
+ {
+  "kind": "object",
+  "name": "[Raal's Tome of Destruction]",
+  "last_tag": "4.1.3",
+  "slug": "raals-tome-of-destruction"
+ },
+ {
+  "kind": "object",
+  "name": "[Mordenkainen's Escapes]",
+  "last_tag": "4.1.3",
+  "slug": "mordenkainens-escapes"
+ },
+ {
+  "kind": "object",
+  "name": "[Tenser's Transformations]",
+  "last_tag": "4.1.3",
+  "slug": "tensers-transformations"
+ },
+ {
+  "kind": "object",
+  "name": "[Kelek's Grimoire of Power]",
+  "last_tag": "4.1.3",
+  "slug": "keleks-grimoire-of-power"
+ },
+ {
+  "kind": "object",
+  "name": "[Beginners Handbook]",
+  "last_tag": "4.1.3",
+  "slug": "beginners-handbook"
+ },
+ {
+  "kind": "object",
+  "name": "[Words of Wisdom]",
+  "last_tag": "4.1.3",
+  "slug": "words-of-wisdom"
+ },
+ {
+  "kind": "object",
+  "name": "[Chants and Blessings]",
+  "last_tag": "4.1.3",
+  "slug": "chants-and-blessings"
+ },
+ {
+  "kind": "object",
+  "name": "[Exorcism and Dispelling]",
+  "last_tag": "4.1.3",
+  "slug": "exorcism-and-dispelling"
+ },
+ {
+  "kind": "object",
+  "name": "[Ethereal Openings]",
+  "last_tag": "4.1.3",
+  "slug": "ethereal-openings"
+ },
+ {
+  "kind": "object",
+  "name": "[Godly Insights]",
+  "last_tag": "4.1.3",
+  "slug": "godly-insights"
+ },
+ {
+  "kind": "object",
+  "name": "[Purifications and Healing]",
+  "last_tag": "4.1.3",
+  "slug": "purifications-and-healing"
+ },
+ {
+  "kind": "object",
+  "name": "[Holy Infusions]",
+  "last_tag": "4.1.3",
+  "slug": "holy-infusions"
+ },
+ {
+  "kind": "object",
+  "name": "[Wrath of God]",
+  "last_tag": "4.1.3",
+  "slug": "wrath-of-god"
  }
 ]

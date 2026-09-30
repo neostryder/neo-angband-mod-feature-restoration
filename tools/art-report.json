@@ -6239,5 +6239,1166 @@
     "asset": "assets/broken-sword-gervais-native-32x32.png"
    }
   }
+ },
+ "magic-for-beginners": {
+  "name": "[Magic for Beginners]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "[Magic for Beginners]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "[Magic for Beginners]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     6
+    ],
+    "status": "same",
+    "claimed_by": "[Magic for Beginners]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "[Magic for Beginners]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "[Magic for Beginners]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/magic-for-beginners-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/magic-for-beginners-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/magic-for-beginners-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/magic-for-beginners-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/magic-for-beginners-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "conjurings-and-tricks": {
+  "name": "[Conjurings and Tricks]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "[Conjurings and Tricks]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "[Into the Shadows]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "[Conjurings and Tricks]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "[Conjurings and Tricks]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "[Conjurings and Tricks]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/conjurings-and-tricks-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/conjurings-and-tricks-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/conjurings-and-tricks-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/conjurings-and-tricks-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/conjurings-and-tricks-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "incantations-and-illusions": {
+  "name": "[Incantations and Illusions]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "[Incantations and Illusions]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "[Incantations and Illusions]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "[Incantations and Illusions]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "[Incantations and Illusions]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/incantations-and-illusions-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/incantations-and-illusions-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/incantations-and-illusions-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/incantations-and-illusions-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/incantations-and-illusions-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "sorcery-and-evocations": {
+  "name": "[Sorcery and Evocations]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "[Sorcery and Evocations]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "[Sorcery and Evocations]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "[Sorcery and Evocations]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "[Sorcery and Evocations]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/sorcery-and-evocations-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/sorcery-and-evocations-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/sorcery-and-evocations-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/sorcery-and-evocations-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/sorcery-and-evocations-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "resistances-of-scarabtarices": {
+  "name": "[Resistances of Scarabtarices]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "[Resistances of Scarabtarices]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     10
+    ],
+    "status": "same",
+    "claimed_by": "[Resistances of Scarabtarices]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "[Resistances of Scarabtarices]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     4
+    ],
+    "status": "changed",
+    "claimed_by": "[Resistances of Scarabtarices]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/resistances-of-scarabtarices-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/resistances-of-scarabtarices-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/resistances-of-scarabtarices-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/resistances-of-scarabtarices-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/resistances-of-scarabtarices-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "raals-tome-of-destruction": {
+  "name": "[Raal's Tome of Destruction]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "[Fear and Torment]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     11
+    ],
+    "status": "same",
+    "claimed_by": "[Raal's Tome of Destruction]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "[Raal's Tome of Destruction]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     5
+    ],
+    "status": "changed",
+    "claimed_by": "[Raal's Tome of Destruction]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/raals-tome-of-destruction-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/raals-tome-of-destruction-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/raals-tome-of-destruction-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/raals-tome-of-destruction-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/raals-tome-of-destruction-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "mordenkainens-escapes": {
+  "name": "[Mordenkainen's Escapes]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "[Mordenkainen's Escapes]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "[Mordenkainen's Escapes]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     6
+    ],
+    "status": "same",
+    "claimed_by": "[Mordenkainen's Escapes]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     6
+    ],
+    "status": "changed",
+    "claimed_by": "[Mordenkainen's Escapes]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/mordenkainens-escapes-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/mordenkainens-escapes-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/mordenkainens-escapes-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/mordenkainens-escapes-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/mordenkainens-escapes-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "tensers-transformations": {
+  "name": "[Tenser's Transformations]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "[Tenser's Transformations]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "[Tenser's Transformations]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "[Tenser's Transformations]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     7
+    ],
+    "status": "changed",
+    "claimed_by": "[Tenser's Transformations]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/tensers-transformations-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/tensers-transformations-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/tensers-transformations-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/tensers-transformations-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/tensers-transformations-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "keleks-grimoire-of-power": {
+  "name": "[Kelek's Grimoire of Power]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     6
+    ],
+    "status": "same",
+    "claimed_by": "[Kelek's Grimoire of Power]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "[Kelek's Grimoire of Power]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "[Kelek's Grimoire of Power]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     8
+    ],
+    "status": "changed",
+    "claimed_by": "[Kelek's Grimoire of Power]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/keleks-grimoire-of-power-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/keleks-grimoire-of-power-old-native-8x8.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/keleks-grimoire-of-power-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/keleks-grimoire-of-power-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/keleks-grimoire-of-power-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "beginners-handbook": {
+  "name": "[Beginners Handbook]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "[Beginners Handbook]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     0
+    ],
+    "status": "same",
+    "claimed_by": "[Beginners Handbook]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     15
+    ],
+    "status": "same",
+    "claimed_by": "[Beginners Handbook]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "[Beginners Handbook]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     9
+    ],
+    "status": "same",
+    "claimed_by": "[Beginners Handbook]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/beginners-handbook-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/beginners-handbook-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/beginners-handbook-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/beginners-handbook-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/beginners-handbook-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "words-of-wisdom": {
+  "name": "[Words of Wisdom]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     10
+    ],
+    "status": "same",
+    "claimed_by": "[Words of Wisdom]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     1
+    ],
+    "status": "same",
+    "claimed_by": "[Words of Wisdom]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "[Words of Wisdom]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     10
+    ],
+    "status": "same",
+    "claimed_by": "[Words of Wisdom]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     10
+    ],
+    "status": "same",
+    "claimed_by": "[Words of Wisdom]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/words-of-wisdom-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/words-of-wisdom-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/words-of-wisdom-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/words-of-wisdom-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/words-of-wisdom-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "chants-and-blessings": {
+  "name": "[Chants and Blessings]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     11
+    ],
+    "status": "same",
+    "claimed_by": "[Chants and Blessings]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     2
+    ],
+    "status": "same",
+    "claimed_by": "[Lesser Charms]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "[Chants and Blessings]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     11
+    ],
+    "status": "same",
+    "claimed_by": "[Chants and Blessings]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     11
+    ],
+    "status": "same",
+    "claimed_by": "[Chants and Blessings]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/chants-and-blessings-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/chants-and-blessings-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/chants-and-blessings-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/chants-and-blessings-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/chants-and-blessings-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "exorcism-and-dispelling": {
+  "name": "[Exorcism and Dispelling]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "[Exorcism and Dispelling]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     3
+    ],
+    "status": "same",
+    "claimed_by": "[Gifts of Nature]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     18
+    ],
+    "status": "same",
+    "claimed_by": "[Exorcism and Dispelling]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "[Exorcism and Dispelling]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     12
+    ],
+    "status": "same",
+    "claimed_by": "[Exorcism and Dispelling]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/exorcism-and-dispelling-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/exorcism-and-dispelling-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/exorcism-and-dispelling-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/exorcism-and-dispelling-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/exorcism-and-dispelling-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "ethereal-openings": {
+  "name": "[Ethereal Openings]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "[Ethereal Openings]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     4
+    ],
+    "status": "same",
+    "claimed_by": "[Ethereal Openings]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     19
+    ],
+    "status": "same",
+    "claimed_by": "[Ethereal Openings]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     13
+    ],
+    "status": "same",
+    "claimed_by": "[Ethereal Openings]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     13
+    ],
+    "status": "changed",
+    "claimed_by": "[Ethereal Openings]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/ethereal-openings-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/ethereal-openings-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/ethereal-openings-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/ethereal-openings-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/ethereal-openings-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "godly-insights": {
+  "name": "[Godly Insights]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "[Godly Insights]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     5
+    ],
+    "status": "same",
+    "claimed_by": "[Creature Dominion]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     20
+    ],
+    "status": "same",
+    "claimed_by": "[Godly Insights]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     14
+    ],
+    "status": "same",
+    "claimed_by": "[Godly Insights]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     14
+    ],
+    "status": "changed",
+    "claimed_by": "[Godly Insights]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/godly-insights-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/godly-insights-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/godly-insights-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/godly-insights-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/godly-insights-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "purifications-and-healing": {
+  "name": "[Purifications and Healing]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     15
+    ],
+    "status": "same",
+    "claimed_by": "[Purifications and Healing]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     6
+    ],
+    "status": "same",
+    "claimed_by": "[Purifications and Healing]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     21
+    ],
+    "status": "same",
+    "claimed_by": "[Purifications and Healing]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     15
+    ],
+    "status": "same",
+    "claimed_by": "[Purifications and Healing]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     15
+    ],
+    "status": "changed",
+    "claimed_by": "[Purifications and Healing]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/purifications-and-healing-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/purifications-and-healing-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/purifications-and-healing-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/purifications-and-healing-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/purifications-and-healing-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "holy-infusions": {
+  "name": "[Holy Infusions]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "[Holy Infusions]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     7
+    ],
+    "status": "same",
+    "claimed_by": "[Nature Craft]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     22
+    ],
+    "status": "same",
+    "claimed_by": "[Holy Infusions]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     16
+    ],
+    "status": "same",
+    "claimed_by": "[Holy Infusions]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     16
+    ],
+    "status": "changed",
+    "claimed_by": "[Holy Infusions]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/holy-infusions-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/holy-infusions-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/holy-infusions-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/holy-infusions-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/holy-infusions-shockbolt-native-64x64.png"
+   }
+  }
+ },
+ "wrath-of-god": {
+  "name": "[Wrath of God]",
+  "kind": "object",
+  "found": {
+   "old": {
+    "tag": "4.1.3",
+    "cell": [
+     10,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "[Wrath of God]"
+   },
+   "nomad": {
+    "tag": "4.1.3",
+    "cell": [
+     8,
+     8
+    ],
+    "status": "same",
+    "claimed_by": "[Wild Forces]"
+   },
+   "adam-bolt": {
+    "tag": "4.1.3",
+    "cell": [
+     12,
+     23
+    ],
+    "status": "same",
+    "claimed_by": "[Wrath of God]"
+   },
+   "gervais": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     17
+    ],
+    "status": "same",
+    "claimed_by": "[Wrath of God]"
+   },
+   "shockbolt": {
+    "tag": "4.1.3",
+    "cell": [
+     6,
+     17
+    ],
+    "status": "changed",
+    "claimed_by": "[Wrath of God]"
+   }
+  },
+  "packs": {
+   "old": {
+    "asset": "assets/wrath-of-god-old-native-8x8.png"
+   },
+   "nomad": {
+    "asset": "assets/wrath-of-god-nomad-native-8x16.png"
+   },
+   "adam-bolt": {
+    "asset": "assets/wrath-of-god-adambolt-native-16x16.png"
+   },
+   "gervais": {
+    "asset": "assets/wrath-of-god-gervais-native-32x32.png"
+   },
+   "shockbolt": {
+    "asset": "assets/wrath-of-god-shockbolt-native-64x64.png"
+   }
+  }
  }
 }

@@ -4,6 +4,9 @@ Sections always require a reload because the content is recomposed. The store di
 
 | Flag | Default | What it does | Reload required |
 | --- | --- | --- | --- |
+| `classic-arcane-books` | off | Restores nine arcane books for Mage, Rogue and Ranger. | Yes, locked at birth. |
+| `classic-prayer-books` | off | Restores nine prayer books for Priest and Paladin. | Yes, locked at birth. |
+| `classic-class-chassis` | off | Restores historical caster experience penalties, skills and hit dice. | Yes, locked at birth. |
 | `feature-restoration.discounts` | off | Restores historical random discounts on newly stocked store items. | Yes, register side. |
 | `teleport-other` | off | Adds Teleport Other to Priest, Paladin, and Ranger spell lists. | Yes, section. |
 | `feature-restoration.spike-doors` | off | Adds Iron Spikes and the door spiking command. | Yes, section. |

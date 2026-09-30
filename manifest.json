@@ -22,6 +22,366 @@
   },
   "restoredItemArt": [
     {
+      "kind": "core:magic-book:magic-for-beginners",
+      "packs": {
+        "old": {
+          "asset": "assets/magic-for-beginners-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/magic-for-beginners-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/magic-for-beginners-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/magic-for-beginners-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/magic-for-beginners-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:conjurings-and-tricks",
+      "packs": {
+        "old": {
+          "asset": "assets/conjurings-and-tricks-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/conjurings-and-tricks-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/conjurings-and-tricks-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/conjurings-and-tricks-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/conjurings-and-tricks-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:incantations-and-illusions",
+      "packs": {
+        "old": {
+          "asset": "assets/incantations-and-illusions-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/incantations-and-illusions-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/incantations-and-illusions-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/incantations-and-illusions-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/incantations-and-illusions-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:sorcery-and-evocations",
+      "packs": {
+        "old": {
+          "asset": "assets/sorcery-and-evocations-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/sorcery-and-evocations-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/sorcery-and-evocations-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/sorcery-and-evocations-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/sorcery-and-evocations-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:resistances-of-scarabtarices",
+      "packs": {
+        "old": {
+          "asset": "assets/resistances-of-scarabtarices-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/resistances-of-scarabtarices-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/resistances-of-scarabtarices-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/resistances-of-scarabtarices-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/resistances-of-scarabtarices-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:raal-s-tome-of-destruction",
+      "packs": {
+        "old": {
+          "asset": "assets/raals-tome-of-destruction-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/raals-tome-of-destruction-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/raals-tome-of-destruction-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/raals-tome-of-destruction-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/raals-tome-of-destruction-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:mordenkainen-s-escapes",
+      "packs": {
+        "old": {
+          "asset": "assets/mordenkainens-escapes-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/mordenkainens-escapes-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/mordenkainens-escapes-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/mordenkainens-escapes-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/mordenkainens-escapes-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:tenser-s-transformations",
+      "packs": {
+        "old": {
+          "asset": "assets/tensers-transformations-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/tensers-transformations-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/tensers-transformations-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/tensers-transformations-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/tensers-transformations-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:magic-book:kelek-s-grimoire-of-power",
+      "packs": {
+        "old": {
+          "asset": "assets/keleks-grimoire-of-power-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/keleks-grimoire-of-power-old-native-8x8.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/keleks-grimoire-of-power-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/keleks-grimoire-of-power-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/keleks-grimoire-of-power-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:beginners-handbook",
+      "packs": {
+        "old": {
+          "asset": "assets/beginners-handbook-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/beginners-handbook-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/beginners-handbook-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/beginners-handbook-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/beginners-handbook-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:words-of-wisdom",
+      "packs": {
+        "old": {
+          "asset": "assets/words-of-wisdom-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/words-of-wisdom-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/words-of-wisdom-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/words-of-wisdom-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/words-of-wisdom-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:chants-and-blessings",
+      "packs": {
+        "old": {
+          "asset": "assets/chants-and-blessings-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/chants-and-blessings-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/chants-and-blessings-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/chants-and-blessings-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/chants-and-blessings-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:exorcism-and-dispelling",
+      "packs": {
+        "old": {
+          "asset": "assets/exorcism-and-dispelling-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/exorcism-and-dispelling-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/exorcism-and-dispelling-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/exorcism-and-dispelling-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/exorcism-and-dispelling-shockbolt-native-64x64.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:ethereal-openings",
+      "packs": {
+        "old": {
+          "asset": "assets/ethereal-openings-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/ethereal-openings-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/ethereal-openings-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/ethereal-openings-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/ethereal-openings-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:godly-insights",
+      "packs": {
+        "old": {
+          "asset": "assets/godly-insights-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/godly-insights-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/godly-insights-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/godly-insights-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/godly-insights-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:purifications-and-healing",
+      "packs": {
+        "old": {
+          "asset": "assets/purifications-and-healing-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/purifications-and-healing-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/purifications-and-healing-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/purifications-and-healing-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/purifications-and-healing-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:holy-infusions",
+      "packs": {
+        "old": {
+          "asset": "assets/holy-infusions-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/holy-infusions-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/holy-infusions-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/holy-infusions-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/holy-infusions-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
+      "kind": "core:prayer-book:wrath-of-god",
+      "packs": {
+        "old": {
+          "asset": "assets/wrath-of-god-old-native-8x8.png"
+        },
+        "nomad": {
+          "asset": "assets/wrath-of-god-nomad-native-8x16.png"
+        },
+        "adam-bolt": {
+          "asset": "assets/wrath-of-god-adambolt-native-16x16.png"
+        },
+        "gervais": {
+          "asset": "assets/wrath-of-god-gervais-native-32x32.png"
+        },
+        "shockbolt": {
+          "asset": "assets/wrath-of-god-gervais-native-32x32.png"
+        }
+      }
+    },
+    {
       "kind": "feature-restoration:flask:iron-spike",
       "packs": {
         "old": {
@@ -486,6 +846,27 @@
   "license": "GPL-2.0-only",
   "description": "Brings back Angband features that later versions dropped, and content upstream wrote but never switched on, as opt-in content. The base game stays faithful to Angband 4.2.6: nothing changes unless you switch a toggle on, and every toggle defaults to off.\n\nEach one has its own toggle, so you can pick just the ones you want.",
   "sections": [
+    {
+      "id": "classic-arcane-books",
+      "title": "Classic arcane books",
+      "description": "Restores the nine arcane books for Mage, Rogue and Ranger. Your character starts with the first book. Nine books take more pack space than the current set.",
+      "default": false,
+      "lockedAtBirth": true
+    },
+    {
+      "id": "classic-prayer-books",
+      "title": "Classic prayer books",
+      "description": "Restores the nine prayer books for Priest and Paladin. Your character starts with the first book. Nine books take more pack space than the current set.",
+      "default": false,
+      "lockedAtBirth": true
+    },
+    {
+      "id": "classic-class-chassis",
+      "title": "Classic class chassis",
+      "description": "Restores the historical experience penalties, skills and hit dice for the five classic spellcasting classes.",
+      "default": false,
+      "lockedAtBirth": true
+    },
     {
       "id": "teleport-other",
       "title": "Restore Teleport Other (Priest, Paladin, Ranger)",

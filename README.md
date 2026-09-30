@@ -23,6 +23,9 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 
 | Section | Default | What it does |
 |---|---|---|
+| **Classic arcane books** (`classic-arcane-books`) | off | Restores the nine arcane books for Mage, Rogue and Ranger, including the Ranger's INT-based casting. The choice is locked when the character is born. |
+| **Classic prayer books** (`classic-prayer-books`) | off | Restores the nine prayer books for Priest and Paladin. The choice is locked when the character is born. |
+| **Classic class chassis** (`classic-class-chassis`) | off | Independently restores the five classic casters' experience penalties, skills and hit dice. |
 | **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
 | **Restore store discounts** (`discounts`) | off | Stores occasionally sell an item at a random discount, the way Angband 3.0.6, the last official release to carry the mechanic, did. 4.2.6 dropped the mechanic entirely. |
 | **Restore door spiking** (`spike-doors`) | off | Adds Iron Spikes as a findable item and a `spike` command that spends one to jam a closed door, making it harder to pick open. Angband 3.4.1, the last official release before the 4.0 command rewrite dropped both, is the source; 4.2.6 has neither. The command claims the original `j` key by default when it is free; see below. |
@@ -92,6 +95,269 @@ If a core release reorders a class's books or adds a spell to one of them, the t
 [r/angband comment thread](https://www.reddit.com/r/angband/comments/1vsb2sp/angband_but_moddable/) on the game's
 alpha announcement, where a player pointed out that "nearly everyone" had lost Teleport
 Other in 4.2, a mechanic every earlier version gave every caster.
+
+### Classic spellbook prices
+
+The historical books replace the current class books when their birth-locked section is on. Every caster starts with the first town book. The optional class chassis changes experience penalties, skills and hit dice independently. Nine books take more pack space than the current set.
+
+The historical class file supplies each spell's effects and experience. A same-named current spell supplies mana and failure chance. For other spells, the generator uses the median mana ratio and median failure change among that class's matched spells in the same level band (levels 1-14, 15-29 or 30 and above). If a band has no matches, it uses all matches for that class. It adjusts each historical level by that class's median matched level change, with a minimum of level 1. Run `node tools/generate-classic-books.mjs` to regenerate the class records and this table from the historical class file and the installed content pack.
+
+| Class | Book | Spell | Level | Mana | Fail | XP |
+|---|---|---|---:|---:|---:|---:|
+| Mage | [Magic for Beginners] | Magic Missile | 1 | 1 | 22% | 4 |
+| Mage | [Magic for Beginners] | Detect Monsters | 1 | 1 | 50% | 4 |
+| Mage | [Magic for Beginners] | Phase Door | 1 | 2 | 55% | 4 |
+| Mage | [Magic for Beginners] | Light Area | 1 | 2 | 26% | 4 |
+| Mage | [Magic for Beginners] | Find Traps, Doors & Stairs | 3 | 1 | 20% | 2 |
+| Mage | [Magic for Beginners] | Stinking Cloud | 3 | 2 | 27% | 3 |
+| Mage | [Conjurings and Tricks] | Confuse Monster | 5 | 4 | 30% | 4 |
+| Mage | [Conjurings and Tricks] | Lightning Bolt | 5 | 4 | 30% | 4 |
+| Mage | [Conjurings and Tricks] | Disable Traps, Destroy Doors | 5 | 5 | 30% | 6 |
+| Mage | [Conjurings and Tricks] | Cure Poison | 5 | 5 | 35% | 4 |
+| Mage | [Conjurings and Tricks] | Hold Monster | 7 | 5 | 30% | 4 |
+| Mage | [Conjurings and Tricks] | Teleport Self | 7 | 6 | 35% | 5 |
+| Mage | [Conjurings and Tricks] | Spear of Light | 7 | 6 | 30% | 5 |
+| Mage | [Conjurings and Tricks] | Frost Bolt | 7 | 5 | 40% | 6 |
+| Mage | [Conjurings and Tricks] | Wonder | 7 | 10 | 50% | 5 |
+| Mage | [Incantations and Illusions] | Remove Hunger | 9 | 1 | 25% | 8 |
+| Mage | [Incantations and Illusions] | Lesser Recharging | 9 | 7 | 75% | 10 |
+| Mage | [Incantations and Illusions] | Turn Stone to Mud | 9 | 5 | 25% | 8 |
+| Mage | [Incantations and Illusions] | Fire Bolt | 10 | 3 | 50% | 7 |
+| Mage | [Incantations and Illusions] | Polymorph Other | 11 | 7 | 45% | 9 |
+| Mage | [Incantations and Illusions] | Identify Rune | 11 | 7 | 25% | 6 |
+| Mage | [Incantations and Illusions] | Reveal Monsters | 15 | 3 | 40% | 6 |
+| Mage | [Incantations and Illusions] | Acid Bolt | 15 | 4 | 50% | 8 |
+| Mage | [Incantations and Illusions] | Slow Monster | 17 | 9 | 50% | 7 |
+| Mage | [Sorcery and Evocations] | Frost Ball | 19 | 6 | 55% | 8 |
+| Mage | [Sorcery and Evocations] | Teleport Other | 23 | 10 | 30% | 8 |
+| Mage | [Sorcery and Evocations] | Haste Self | 25 | 12 | 65% | 10 |
+| Mage | [Sorcery and Evocations] | Mass Sleep | 25 | 7 | 50% | 6 |
+| Mage | [Sorcery and Evocations] | Fire Ball | 26 | 5 | 33% | 12 |
+| Mage | [Sorcery and Evocations] | Treasure Detection | 30 | 3 | 60% | 10 |
+| Mage | [Resistances of Scarabtarices] | Resist Cold | 10 | 5 | 50% | 10 |
+| Mage | [Resistances of Scarabtarices] | Resist Fire | 10 | 5 | 50% | 10 |
+| Mage | [Resistances of Scarabtarices] | Resist Poison | 25 | 10 | 32% | 20 |
+| Mage | [Resistances of Scarabtarices] | Resistance | 28 | 20 | 65% | 30 |
+| Mage | [Resistances of Scarabtarices] | Shield | 32 | 24 | 65% | 30 |
+| Mage | [Raal's Tome of Destruction] | Shock Wave | 16 | 5 | 40% | 6 |
+| Mage | [Raal's Tome of Destruction] | Explosion | 20 | 10 | 50% | 10 |
+| Mage | [Raal's Tome of Destruction] | Cloud Kill | 20 | 5 | 50% | 8 |
+| Mage | [Raal's Tome of Destruction] | Acid Ball | 20 | 7 | 70% | 20 |
+| Mage | [Raal's Tome of Destruction] | Ice Storm | 27 | 11 | 75% | 24 |
+| Mage | [Raal's Tome of Destruction] | Meteor Swarm | 30 | 14 | 75% | 34 |
+| Mage | [Raal's Tome of Destruction] | Rift | 35 | 20 | 50% | 25 |
+| Mage | [Mordenkainen's Escapes] | Door Creation | 13 | 9 | 40% | 12 |
+| Mage | [Mordenkainen's Escapes] | Stair Creation | 24 | 20 | 50% | 20 |
+| Mage | [Mordenkainen's Escapes] | Teleport Level | 28 | 17 | 65% | 20 |
+| Mage | [Mordenkainen's Escapes] | Word of Recall | 30 | 30 | 75% | 15 |
+| Mage | [Mordenkainen's Escapes] | Rune of Protection | 36 | 60 | 60% | 40 |
+| Mage | [Tenser's Transformations] | Greater Recharging | 30 | 30 | 85% | 100 |
+| Mage | [Tenser's Transformations] | Elemental Brand | 32 | 60 | 85% | 120 |
+| Mage | [Kelek's Grimoire of Power] | Earthquake | 20 | 18 | 60% | 20 |
+| Mage | [Kelek's Grimoire of Power] | Bedlam | 25 | 15 | 60% | 24 |
+| Mage | [Kelek's Grimoire of Power] | Rend Soul | 25 | 15 | 80% | 30 |
+| Mage | [Kelek's Grimoire of Power] | Banishment | 30 | 45 | 95% | 25 |
+| Mage | [Kelek's Grimoire of Power] | Word of Destruction | 33 | 35 | 80% | 35 |
+| Mage | [Kelek's Grimoire of Power] | Mass Banishment | 35 | 75 | 90% | 100 |
+| Mage | [Kelek's Grimoire of Power] | Chaos Strike | 38 | 15 | 80% | 40 |
+| Mage | [Kelek's Grimoire of Power] | Mana Storm | 42 | 16 | 85% | 200 |
+| Priest | [Beginners Handbook] | Detect Evil | 1 | 2 | 10% | 4 |
+| Priest | [Beginners Handbook] | Cure Light Wounds | 1 | 2 | 15% | 4 |
+| Priest | [Beginners Handbook] | Bless | 1 | 2 | 20% | 4 |
+| Priest | [Beginners Handbook] | Remove Fear | 1 | 2 | 5% | 4 |
+| Priest | [Beginners Handbook] | Call Light | 3 | 3 | 10% | 1 |
+| Priest | [Beginners Handbook] | Slow Poison | 3 | 3 | 28% | 4 |
+| Priest | [Words of Wisdom] | Scare Monster | 5 | 4 | 29% | 3 |
+| Priest | [Words of Wisdom] | Portal | 5 | 4 | 30% | 4 |
+| Priest | [Words of Wisdom] | Cure Serious Wounds | 5 | 4 | 32% | 4 |
+| Priest | [Words of Wisdom] | Chant | 5 | 5 | 34% | 4 |
+| Priest | [Words of Wisdom] | Sanctuary | 7 | 5 | 36% | 3 |
+| Priest | [Words of Wisdom] | Remove Hunger | 7 | 1 | 25% | 4 |
+| Priest | [Words of Wisdom] | Remove Curse | 7 | 12 | 38% | 5 |
+| Priest | [Words of Wisdom] | Resist Heat and Cold | 7 | 7 | 38% | 5 |
+| Priest | [Chants and Blessings] | Neutralize Poison | 9 | 6 | 38% | 4 |
+| Priest | [Chants and Blessings] | Orb of Draining | 9 | 7 | 40% | 4 |
+| Priest | [Chants and Blessings] | Cure Critical Wounds | 9 | 7 | 38% | 4 |
+| Priest | [Chants and Blessings] | Sense Invisible | 11 | 4 | 25% | 4 |
+| Priest | [Chants and Blessings] | Protection from Evil | 11 | 8 | 42% | 4 |
+| Priest | [Chants and Blessings] | Earthquake | 11 | 9 | 55% | 5 |
+| Priest | [Chants and Blessings] | Sense Surroundings | 13 | 8 | 35% | 4 |
+| Priest | [Chants and Blessings] | Cure Mortal Wounds | 13 | 11 | 45% | 4 |
+| Priest | [Chants and Blessings] | Turn Undead | 15 | 12 | 50% | 5 |
+| Priest | [Exorcism and Dispelling] | Prayer | 15 | 14 | 50% | 5 |
+| Priest | [Exorcism and Dispelling] | Dispel Undead | 17 | 14 | 55% | 7 |
+| Priest | [Exorcism and Dispelling] | Heal | 21 | 16 | 60% | 7 |
+| Priest | [Exorcism and Dispelling] | Dispel Evil | 25 | 20 | 70% | 12 |
+| Priest | [Exorcism and Dispelling] | Glyph of Warding | 33 | 40 | 90% | 15 |
+| Priest | [Exorcism and Dispelling] | Holy Word | 39 | 32 | 95% | 20 |
+| Priest | [Ethereal Openings] | Blink | 3 | 3 | 50% | 6 |
+| Priest | [Ethereal Openings] | Teleport Self | 10 | 6 | 35% | 8 |
+| Priest | [Ethereal Openings] | Teleport Other | 20 | 10 | 30% | 16 |
+| Priest | [Ethereal Openings] | Teleport Level | 30 | 17 | 65% | 133 |
+| Priest | [Ethereal Openings] | Word of Recall | 35 | 30 | 75% | 11 |
+| Priest | [Ethereal Openings] | Alter Reality | 40 | 60 | 75% | 250 |
+| Priest | [Godly Insights] | Detect Monsters | 3 | 1 | 50% | 2 |
+| Priest | [Godly Insights] | Detection | 10 | 10 | 70% | 20 |
+| Priest | [Godly Insights] | Perception | 20 | 20 | 80% | 20 |
+| Priest | [Godly Insights] | Probing | 25 | 40 | 80% | 150 |
+| Priest | [Godly Insights] | Clairvoyance | 35 | 50 | 80% | 230 |
+| Priest | [Purifications and Healing] | Cure Serious Wounds | 15 | 5 | 50% | 25 |
+| Priest | [Purifications and Healing] | Cure Mortal Wounds | 17 | 7 | 60% | 45 |
+| Priest | [Purifications and Healing] | Healing | 30 | 50 | 80% | 130 |
+| Priest | [Purifications and Healing] | Restoration | 35 | 70 | 90% | 230 |
+| Priest | [Purifications and Healing] | Remembrance | 35 | 30 | 90% | 250 |
+| Priest | [Holy Infusions] | Unbarring Ways | 5 | 6 | 50% | 40 |
+| Priest | [Holy Infusions] | Recharging | 15 | 10 | 50% | 25 |
+| Priest | [Holy Infusions] | Dispel Curse | 25 | 40 | 80% | 160 |
+| Priest | [Holy Infusions] | Enchant Weapon | 35 | 50 | 80% | 230 |
+| Priest | [Holy Infusions] | Enchant Armour | 37 | 60 | 85% | 250 |
+| Priest | [Holy Infusions] | Elemental Brand | 45 | 95 | 85% | 250 |
+| Priest | [Wrath of God] | Dispel Undead | 15 | 14 | 55% | 25 |
+| Priest | [Wrath of God] | Dispel Evil | 20 | 20 | 70% | 60 |
+| Priest | [Wrath of God] | Banish Evil | 25 | 25 | 80% | 250 |
+| Priest | [Wrath of God] | Word of Destruction | 35 | 35 | 80% | 115 |
+| Priest | [Wrath of God] | Annihilation | 45 | 60 | 75% | 250 |
+| Rogue | [Magic for Beginners] | Detect Monsters | 5 | 1 | 50% | 1 |
+| Rogue | [Magic for Beginners] | Phase Door | 7 | 2 | 55% | 1 |
+| Rogue | [Magic for Beginners] | Light Area | 9 | 3 | 60% | 1 |
+| Rogue | [Magic for Beginners] | Object Detection | 10 | 3 | 60% | 1 |
+| Rogue | [Magic for Beginners] | Detect Stairs | 8 | 3 | 50% | 1 |
+| Rogue | [Magic for Beginners] | Stinking Cloud | 21 | 8 | 40% | 10 |
+| Rogue | [Conjurings and Tricks] | Confuse Monster | 15 | 4 | 65% | 1 |
+| Rogue | [Conjurings and Tricks] | Disable Traps, Destroy Doors | 14 | 5 | 30% | 2 |
+| Rogue | [Conjurings and Tricks] | Cure Poison | 21 | 6 | 80% | 1 |
+| Rogue | [Conjurings and Tricks] | Hold Monster | 19 | 5 | 75% | 1 |
+| Rogue | [Conjurings and Tricks] | Teleport Self | 22 | 6 | 35% | 1 |
+| Rogue | [Conjurings and Tricks] | Spear of Light | 23 | 6 | 30% | 1 |
+| Rogue | [Conjurings and Tricks] | Wonder | 20 | 7 | 60% | 20 |
+| Rogue | [Incantations and Illusions] | Remove Hunger | 25 | 1 | 25% | 1 |
+| Rogue | [Incantations and Illusions] | Lesser Recharging | 27 | 10 | 89% | 1 |
+| Rogue | [Incantations and Illusions] | Turn Stone to Mud | 24 | 5 | 25% | 1 |
+| Rogue | [Incantations and Illusions] | Identify Rune | 18 | 7 | 25% | 2 |
+| Rogue | [Incantations and Illusions] | Reveal Monsters | 20 | 3 | 40% | 4 |
+| Rogue | [Incantations and Illusions] | Slow Monster | 28 | 13 | 60% | 2 |
+| Rogue | [Sorcery and Evocations] | Teleport Other | 31 | 10 | 30% | 3 |
+| Rogue | [Sorcery and Evocations] | Haste Self | 32 | 12 | 65% | 6 |
+| Rogue | [Sorcery and Evocations] | Mass Sleep | 24 | 10 | 70% | 10 |
+| Rogue | [Resistances of Scarabtarices] | Resist Cold | 16 | 8 | 40% | 40 |
+| Rogue | [Resistances of Scarabtarices] | Resist Fire | 19 | 8 | 40% | 40 |
+| Rogue | [Resistances of Scarabtarices] | Resist Poison | 30 | 10 | 32% | 60 |
+| Rogue | [Resistances of Scarabtarices] | Resistance | 31 | 20 | 65% | 80 |
+| Rogue | [Resistances of Scarabtarices] | Shield | 34 | 8 | 35% | 80 |
+| Rogue | [Raal's Tome of Destruction] | Shock Wave | 35 | 5 | 40% | 50 |
+| Rogue | [Raal's Tome of Destruction] | Cloud Kill | 25 | 13 | 50% | 15 |
+| Rogue | [Mordenkainen's Escapes] | Door Creation | 17 | 9 | 40% | 15 |
+| Rogue | [Mordenkainen's Escapes] | Stair Creation | 25 | 8 | 30% | 25 |
+| Rogue | [Mordenkainen's Escapes] | Teleport Level | 25 | 17 | 65% | 20 |
+| Rogue | [Mordenkainen's Escapes] | Word of Recall | 36 | 30 | 75% | 18 |
+| Rogue | [Tenser's Transformations] | Heroism | 26 | 5 | 30% | 40 |
+| Rogue | [Tenser's Transformations] | Berserker | 28 | 13 | 50% | 60 |
+| Rogue | [Tenser's Transformations] | Enchant Armor | 31 | 20 | 55% | 90 |
+| Rogue | [Tenser's Transformations] | Enchant Weapon | 33 | 50 | 80% | 90 |
+| Rogue | [Tenser's Transformations] | Greater Recharging | 35 | 16 | 55% | 100 |
+| Rogue | [Tenser's Transformations] | Elemental Brand | 37 | 24 | 40% | 120 |
+| Rogue | [Kelek's Grimoire of Power] | Bedlam | 29 | 13 | 60% | 20 |
+| Ranger | [Magic for Beginners] | Magic Missile | 1 | 1 | 22% | 1 |
+| Ranger | [Magic for Beginners] | Detect Monsters | 1 | 1 | 50% | 2 |
+| Ranger | [Magic for Beginners] | Phase Door | 1 | 2 | 55% | 2 |
+| Ranger | [Magic for Beginners] | Light Area | 1 | 1 | 5% | 1 |
+| Ranger | [Magic for Beginners] | Cure Light Wounds | 1 | 1 | 10% | 1 |
+| Ranger | [Magic for Beginners] | Detect Stairs | 1 | 3 | 50% | 2 |
+| Ranger | [Magic for Beginners] | Stinking Cloud | 1 | 2 | 10% | 3 |
+| Ranger | [Conjurings and Tricks] | Confuse Monster | 1 | 2 | 10% | 2 |
+| Ranger | [Conjurings and Tricks] | Lightning Bolt | 1 | 3 | 10% | 3 |
+| Ranger | [Conjurings and Tricks] | Disable Traps, Destroy Doors | 1 | 5 | 30% | 3 |
+| Ranger | [Conjurings and Tricks] | Cure Poison | 1 | 3 | 15% | 3 |
+| Ranger | [Conjurings and Tricks] | Hold Monster | 1 | 3 | 10% | 3 |
+| Ranger | [Conjurings and Tricks] | Teleport Self | 1 | 6 | 35% | 3 |
+| Ranger | [Conjurings and Tricks] | Spear of Light | 1 | 6 | 30% | 4 |
+| Ranger | [Conjurings and Tricks] | Frost Bolt | 1 | 5 | 40% | 4 |
+| Ranger | [Conjurings and Tricks] | Wonder | 1 | 7 | 50% | 10 |
+| Ranger | [Incantations and Illusions] | Remove Hunger | 3 | 1 | 25% | 3 |
+| Ranger | [Incantations and Illusions] | Lesser Recharging | 15 | 7 | 60% | 4 |
+| Ranger | [Incantations and Illusions] | Turn Stone to Mud | 1 | 5 | 25% | 4 |
+| Ranger | [Incantations and Illusions] | Fire Bolt | 11 | 8 | 30% | 3 |
+| Ranger | [Incantations and Illusions] | Polymorph Other | 7 | 7 | 30% | 3 |
+| Ranger | [Incantations and Illusions] | Identify Rune | 9 | 7 | 25% | 3 |
+| Ranger | [Incantations and Illusions] | Reveal Monsters | 11 | 3 | 40% | 4 |
+| Ranger | [Incantations and Illusions] | Acid Bolt | 6 | 6 | 20% | 6 |
+| Ranger | [Incantations and Illusions] | Slow Monster | 11 | 8 | 35% | 3 |
+| Ranger | [Sorcery and Evocations] | Frost Ball | 13 | 8 | 35% | 6 |
+| Ranger | [Sorcery and Evocations] | Teleport Other | 17 | 10 | 30% | 3 |
+| Ranger | [Sorcery and Evocations] | Haste Self | 19 | 12 | 65% | 4 |
+| Ranger | [Sorcery and Evocations] | Mass Sleep | 9 | 8 | 30% | 4 |
+| Ranger | [Sorcery and Evocations] | Fire Ball | 20 | 5 | 33% | 9 |
+| Ranger | [Sorcery and Evocations] | Treasure Detection | 21 | 3 | 60% | 10 |
+| Ranger | [Resistances of Scarabtarices] | Resist Cold | 1 | 6 | 20% | 30 |
+| Ranger | [Resistances of Scarabtarices] | Resist Fire | 1 | 6 | 20% | 30 |
+| Ranger | [Resistances of Scarabtarices] | Resist Poison | 12 | 10 | 32% | 50 |
+| Ranger | [Resistances of Scarabtarices] | Resistance | 17 | 20 | 65% | 70 |
+| Ranger | [Resistances of Scarabtarices] | Shield | 21 | 14 | 65% | 80 |
+| Ranger | [Raal's Tome of Destruction] | Cloud Kill | 8 | 7 | 30% | 6 |
+| Ranger | [Raal's Tome of Destruction] | Acid Ball | 16 | 12 | 60% | 6 |
+| Ranger | [Raal's Tome of Destruction] | Ice Storm | 21 | 17 | 60% | 10 |
+| Ranger | [Raal's Tome of Destruction] | Meteor Swarm | 22 | 22 | 70% | 35 |
+| Ranger | [Mordenkainen's Escapes] | Door Creation | 6 | 9 | 40% | 25 |
+| Ranger | [Mordenkainen's Escapes] | Stair Creation | 18 | 15 | 40% | 40 |
+| Ranger | [Mordenkainen's Escapes] | Teleport Level | 20 | 17 | 65% | 15 |
+| Ranger | [Mordenkainen's Escapes] | Word of Recall | 21 | 30 | 75% | 16 |
+| Ranger | [Mordenkainen's Escapes] | Rune of Protection | 26 | 36 | 70% | 80 |
+| Ranger | [Tenser's Transformations] | Heroism | 4 | 5 | 30% | 40 |
+| Ranger | [Tenser's Transformations] | Berserker | 9 | 12 | 50% | 35 |
+| Ranger | [Tenser's Transformations] | Enchant Armor | 19 | 22 | 80% | 50 |
+| Ranger | [Tenser's Transformations] | Enchant Weapon | 20 | 50 | 80% | 60 |
+| Ranger | [Tenser's Transformations] | Greater Recharging | 21 | 24 | 85% | 115 |
+| Ranger | [Tenser's Transformations] | Elemental Brand | 17 | 29 | 85% | 180 |
+| Ranger | [Kelek's Grimoire of Power] | Earthquake | 16 | 13 | 50% | 16 |
+| Ranger | [Kelek's Grimoire of Power] | Bedlam | 18 | 14 | 60% | 12 |
+| Ranger | [Kelek's Grimoire of Power] | Word of Destruction | 23 | 35 | 80% | 30 |
+| Paladin | [Beginners Handbook] | Detect Evil | 1 | 2 | 10% | 4 |
+| Paladin | [Beginners Handbook] | Cure Light Wounds | 1 | 2 | 15% | 4 |
+| Paladin | [Beginners Handbook] | Bless | 1 | 2 | 20% | 4 |
+| Paladin | [Beginners Handbook] | Remove Fear | 1 | 2 | 0% | 4 |
+| Paladin | [Beginners Handbook] | Call Light | 1 | 3 | 10% | 4 |
+| Paladin | [Beginners Handbook] | Slow Poison | 5 | 5 | 20% | 3 |
+| Paladin | [Words of Wisdom] | Scare Monster | 5 | 5 | 20% | 3 |
+| Paladin | [Words of Wisdom] | Portal | 5 | 4 | 30% | 3 |
+| Paladin | [Words of Wisdom] | Cure Serious Wounds | 7 | 7 | 20% | 3 |
+| Paladin | [Words of Wisdom] | Chant | 7 | 8 | 25% | 3 |
+| Paladin | [Words of Wisdom] | Sanctuary | 7 | 8 | 25% | 3 |
+| Paladin | [Words of Wisdom] | Remove Hunger | 9 | 1 | 25% | 3 |
+| Paladin | [Words of Wisdom] | Remove Curse | 9 | 12 | 38% | 4 |
+| Paladin | [Words of Wisdom] | Resist Heat and Cold | 11 | 3 | 20% | 4 |
+| Paladin | [Chants and Blessings] | Neutralize Poison | 11 | 4 | 25% | 4 |
+| Paladin | [Chants and Blessings] | Orb of Draining | 13 | 7 | 40% | 4 |
+| Paladin | [Chants and Blessings] | Cure Critical Wounds | 13 | 4 | 25% | 4 |
+| Paladin | [Chants and Blessings] | Sense Invisible | 15 | 4 | 25% | 4 |
+| Paladin | [Chants and Blessings] | Protection from Evil | 15 | 8 | 42% | 4 |
+| Paladin | [Chants and Blessings] | Earthquake | 17 | 5 | 25% | 3 |
+| Paladin | [Chants and Blessings] | Sense Surroundings | 19 | 8 | 35% | 3 |
+| Paladin | [Chants and Blessings] | Cure Mortal Wounds | 21 | 5 | 25% | 3 |
+| Paladin | [Chants and Blessings] | Turn Undead | 23 | 6 | 25% | 3 |
+| Paladin | [Exorcism and Dispelling] | Prayer | 25 | 6 | 25% | 3 |
+| Paladin | [Exorcism and Dispelling] | Dispel Undead | 27 | 14 | 55% | 3 |
+| Paladin | [Exorcism and Dispelling] | Heal | 29 | 20 | 60% | 3 |
+| Paladin | [Exorcism and Dispelling] | Dispel Evil | 31 | 20 | 70% | 4 |
+| Paladin | [Ethereal Openings] | Blink | 3 | 5 | 30% | 2 |
+| Paladin | [Ethereal Openings] | Teleport Self | 16 | 6 | 35% | 4 |
+| Paladin | [Ethereal Openings] | Teleport Other | 21 | 10 | 30% | 12 |
+| Paladin | [Ethereal Openings] | Teleport Level | 31 | 17 | 65% | 115 |
+| Paladin | [Ethereal Openings] | Word of Recall | 36 | 30 | 75% | 10 |
+| Paladin | [Godly Insights] | Detect Monsters | 1 | 1 | 50% | 1 |
+| Paladin | [Godly Insights] | Detection | 11 | 10 | 70% | 12 |
+| Paladin | [Godly Insights] | Perception | 21 | 7 | 55% | 16 |
+| Paladin | [Godly Insights] | Probing | 26 | 11 | 80% | 135 |
+| Paladin | [Purifications and Healing] | Cure Serious Wounds | 5 | 3 | 30% | 25 |
+| Paladin | [Purifications and Healing] | Cure Mortal Wounds | 16 | 3 | 35% | 35 |
+| Paladin | [Purifications and Healing] | Restoration | 41 | 70 | 90% | 250 |
+| Paladin | [Holy Infusions] | Unbarring Ways | 6 | 12 | 30% | 20 |
+| Paladin | [Holy Infusions] | Recharging | 21 | 10 | 50% | 15 |
+| Paladin | [Holy Infusions] | Enchant Weapon | 36 | 50 | 80% | 200 |
+| Paladin | [Holy Infusions] | Enchant Armour | 38 | 60 | 85% | 250 |
+| Paladin | [Holy Infusions] | Elemental Brand | 43 | 68 | 85% | 250 |
+| Paladin | [Wrath of God] | Dispel Undead | 16 | 14 | 55% | 20 |
+| Paladin | [Wrath of God] | Banish Evil | 26 | 25 | 80% | 200 |
+| Paladin | [Wrath of God] | Word of Destruction | 36 | 35 | 80% | 100 |
 
 ### Restore store discounts
 

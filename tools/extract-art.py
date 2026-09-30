@@ -252,7 +252,8 @@ def main():
         report[rec["slug"]] = {"name": rec["name"], "kind": rec["kind"], "found": found, "packs": art_entry(rec["slug"], found)}
         rows.append((rec, found))
         print(rec["slug"], " | ".join(f"{p}:{found[p]['status']}@{found[p]['tag']}" if p in found else f"{p}:-" for p in PACKS))
-    json.dump(report, open(os.path.join(ROOT, "tools", "art-report.json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+    with open(os.path.join(ROOT, "tools", "art-report.json"), "w", encoding="utf-8", newline="\n") as out:
+        json.dump(report, out, indent=1, ensure_ascii=False)
 
     if "--sheet" in sys.argv:
         out = sys.argv[sys.argv.index("--sheet") + 1]

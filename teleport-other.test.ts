@@ -105,7 +105,7 @@ describe("teleport-other", () => {
   it("declares the section the contributions are filed under", () => {
     const ids = (manifest.sections ?? []).map((s: { id: string }) => s.id);
     expect(ids).toContain("teleport-other");
-    expect(Object.keys(CONTRIB.sections)).toEqual(["teleport-other"]);
+    expect(Object.keys(CONTRIB.sections)).toContain("teleport-other");
   });
 
   it("patches exactly the three classes it names, and no others", () => {

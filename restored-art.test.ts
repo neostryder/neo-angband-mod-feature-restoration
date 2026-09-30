@@ -15,7 +15,7 @@ import { describe, expect, it } from "vitest";
 import { ContentIdResolver } from "@rpgm-tools/neo-angband-core";
 import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
 import { PNG_SIZE } from "./test/png.js";
-import { bind, modManifest, sectionIds } from "./test/game.js";
+import { bind, bindBooks, modManifest, sectionIds } from "./test/game.js";
 
 type Art = { kind: string; packs: Record<string, { asset?: string; row?: number; col?: number }> };
 const ART = (modManifest() as unknown as { restoredItemArt: Art[] }).restoredItemArt;
@@ -37,7 +37,7 @@ const CELL: Record<string, [number, number]> = {
 
 describe("restored item art", () => {
   it("names a kind the game binds, with every section on", () => {
-    const { game } = bind(sectionIds());
+    const { game } = bindBooks(sectionIds());
     const ids = new ContentIdResolver({ objects: game.objects });
     for (const a of ART) expect(ids.kindIndex(a.kind), a.kind).toBeDefined();
   });
