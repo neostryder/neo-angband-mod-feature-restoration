@@ -1,24 +1,19 @@
 /**
  * Unit coverage for plugin.ts's discount roll, its spike-a-door command, and
- * the flag gating for both. No live game is needed here - discountRoll is a
- * pure function of (rng, cost), spikeDoor is a pure function of (core, state,
- * cmd), and register()'s only job is "install it when the toggle is on, touch
- * nothing otherwise" - so fakes stand in for the real host, state and core.
+ * the flag gating for both. The spike fixture uses a real Core state so the
+ * command follows Core's gear and object types.
  */
 import { describe, expect, it, vi } from "vitest";
-import { Rng } from "@rpgm-tools/neo-angband-core";
+import * as core from "@rpgm-tools/neo-angband-core";
 // @ts-expect-error The test imports the handwritten source module.
 import plugin, { discountRoll, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, SPIKE_TRIGGER, spikeDoor } from "./plugin.ts";
 import { LOSE_MEMORIES } from "./src/lose-memories.js";
 import type { EffectTextHandler } from "@rpgm-tools/neo-angband-core";
+import { bind, gamePack } from "./test/game.js";
 
-type DiscountHandler = (ctx: { rng: { oneIn: (n: number) => boolean }; cost: number }) => number;
-/** The command action's real parameter types are plugin.ts's own, private types;
- * a fake host only needs to capture the function register() passes it, so its
- * own parameter types are widened deliberately (not `unknown`, which TS checks
- * as a covariant callback parameter type and refuses here). */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type SpikeAction = (state: any, cmd: any) => number;
+const { Rng } = core;
+type DiscountHandler = core.DiscountRollHandler;
+type SpikeAction = core.PlayerAction;
 
 interface FakeHost {
   stores: { setDiscountRoll: (handler: DiscountHandler) => void };
@@ -109,12 +104,12 @@ describe("register - Lose Memories effect", () => {
   it("installs the effect handler and recall text", () => {
     const host = fakeHost();
     let code = "";
-    let installed: { handler: unknown } | null = null;
+    let installed: { handler: core.EffectHandler } | null = null;
     let infoCode = "";
     const captured: { info?: EffectTextHandler } = {};
     const registryHost = {
       ...host,
-      effects: { register: (key: string, def: { handler: unknown }) => { code = key; installed = def; } },
+      effects: { register: (key: string, def: { handler: core.EffectHandler }) => { code = key; installed = def; } },
       effectInfo: { text: { set: (key: string, entry: EffectTextHandler) => { infoCode = key; captured.info = entry; } } },
     };
     plugin.register(registryHost, {
@@ -133,7 +128,7 @@ describe("register - Lose Memories effect", () => {
 describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
   it("never discounts an item under 5 gold, and draws no RNG at all", () => {
     const oneIn = vi.fn(() => true);
-    expect(discountRoll({ rng: { oneIn }, cost: 4 })).toBe(0);
+    expect(discountRoll({ rng: Object.assign(new Rng(1), { oneIn }), cost: 4 })).toBe(0);
     expect(oneIn).not.toHaveBeenCalled();
   });
 
@@ -147,7 +142,7 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
     ];
     for (const { hits, expected, odds } of cases) {
       const oneIn = vi.fn((n: number) => n === odds[odds.length - 1]);
-      expect(discountRoll({ rng: { oneIn }, cost: 100 })).toBe(expected);
+      expect(discountRoll({ rng: Object.assign(new Rng(1), { oneIn }), cost: 100 })).toBe(expected);
       expect(oneIn.mock.calls.map((c) => c[0])).toEqual(odds);
       expect(hits).toBe(odds.length);
     }
@@ -155,7 +150,7 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
 
   it("returns 0 when every roll misses, having checked all five tiers", () => {
     const oneIn = vi.fn((_n: number) => false);
-    expect(discountRoll({ rng: { oneIn }, cost: 100 })).toBe(0);
+    expect(discountRoll({ rng: Object.assign(new Rng(1), { oneIn }), cost: 100 })).toBe(0);
     expect(oneIn.mock.calls.map((c) => c[0])).toEqual([25, 50, 150, 300, 500]);
   });
 
@@ -192,11 +187,11 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
 });
 
 describe("register - spike-doors flag gating", () => {
-  const core = { DDGRID: [], playerConfuseDir: vi.fn(), gearObjectForUse: vi.fn() };
+  const liveCore = core;
 
   it("installs nothing when the toggle is off (the default)", () => {
     const host = fakeHost();
-    plugin.register(host, { flags: {}, core });
+    plugin.register(host, { flags: {}, core: liveCore });
     expect(host.installedSpike).toBeNull();
     expect(host.installedVerb).toBeNull();
   });
@@ -209,7 +204,7 @@ describe("register - spike-doors flag gating", () => {
 
   it("installs the command and its verb when the toggle is on", () => {
     const host = fakeHost();
-    plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core });
+    plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core: liveCore });
     expect(host.installedSpike).toBeTypeOf("function");
     expect(host.installedVerb).toEqual({ code: "feature-restoration:spike", verb: "spike" });
   });
@@ -225,7 +220,7 @@ describe("register - spike-doors flag gating", () => {
     expect(log).toHaveBeenCalledWith(`feature-restoration: spike default key ${SPIKE_TRIGGER} bound`);
 
     const { state, doors } = fakeState({ spikes: 1 });
-    expect(keymaps.dispatch(SPIKE_TRIGGER, state, { dir: 6 }, host.actions)).toBe(10);
+    expect(keymaps.dispatch(SPIKE_TRIGGER, state, { code: SPIKE_COMMAND, dir: 6 }, host.actions)).toBe(10);
     expect(doors["6,5"]!.power).toBe(1);
   });
 
@@ -247,41 +242,25 @@ describe("register - spike-doors flag gating", () => {
  * MAX_SPIKE_POWER comment for exactly what carried over.
  * ------------------------------------------------------------------ */
 
-/** ddgrid (loc.ts), reproduced here so the fake core behaves like the real one. */
-const DDGRID = [
-  { x: 0, y: 0 },
-  { x: -1, y: 1 },
-  { x: 0, y: 1 },
-  { x: 1, y: 1 },
-  { x: -1, y: 0 },
-  { x: 0, y: 0 },
-  { x: 1, y: 0 },
-  { x: -1, y: -1 },
-  { x: 0, y: -1 },
-  { x: 1, y: -1 },
-];
+const DDGRID = core.DDGRID;
 
 const PLAYER_GRID = { x: 5, y: 5 };
 /** Direction 6 (east): PLAYER_GRID + DDGRID[6]. */
 const DOOR_GRID = { x: 6, y: 5 };
 
 function fakeCore(overrides: Partial<{ confuseTo: number }> = {}) {
-  const gearObjectForUse = vi.fn(
-    (
-      _gear: unknown,
-      _player: unknown,
-      _handle: number,
-      _amt: number,
-    ): { obj: unknown; noneLeft: boolean } => ({ obj: {}, noneLeft: false }),
-  );
-  const playerConfuseDir = vi.fn((_state: unknown, dir: number): number => overrides.confuseTo ?? dir);
-  return { DDGRID, playerConfuseDir, gearObjectForUse };
+  const gearObjectForUse = vi.fn(core.gearObjectForUse);
+  const playerConfuseDir = vi.fn((_state: core.GameState, dir: number): number => overrides.confuseTo ?? dir);
+  return { ...core, DDGRID, playerConfuseDir, gearObjectForUse };
 }
 
 interface FakeDoor {
   closed: boolean;
   power: number;
 }
+
+const SPIKE_PACK = gamePack(["spike-doors"]).pack;
+const SPIKE_KIND = bind(["spike-doors"]).game.objects.kinds.find((kind) => kind?.name === IRON_SPIKE_NAME)!;
 
 function fakeState(opts: {
   spikes?: number;
@@ -291,28 +270,26 @@ function fakeState(opts: {
   const doors = opts.doors ?? { "6,5": { closed: true, power: 0 } };
   const key = (g: { x: number; y: number }) => `${g.x},${g.y}`;
   const msgs: string[] = [];
-  const store = new Map<number, { kind: { name: string }; number: number }>();
-  const pack: number[] = [];
+  const state = core.startGame(SPIKE_PACK).state;
+  state.actor.grid = PLAYER_GRID;
+  state.gear.store.clear();
+  state.gear.pack.length = 0;
   if (opts.spikes !== undefined && opts.spikes > 0) {
-    store.set(1, { kind: { name: IRON_SPIKE_NAME }, number: opts.spikes });
-    pack.push(1);
+    const obj = core.objectNew(SPIKE_KIND);
+    obj.number = opts.spikes;
+    state.gear.store.set(1, obj);
+    state.gear.pack.push(1);
   }
   const setDoorLock = vi.fn((g: { x: number; y: number }, power: number) => {
     const d = doors[key(g)];
     if (d) d.power = power;
   });
-  const state = {
-    actor: { grid: PLAYER_GRID, player: { id: "fake-player" } },
-    chunk: {
-      isClosedDoor: (g: { x: number; y: number }) => doors[key(g)]?.closed ?? false,
-      mon: (g: { x: number; y: number }) => (key(g) === opts.monsterAt ? 1 : 0),
-    },
-    gear: { pack, store },
-    z: { moveEnergy: 10 },
-    msg: (t: string) => msgs.push(t),
-    doorLockPower: (g: { x: number; y: number }) => doors[key(g)]?.power ?? 0,
-    setDoorLock,
-  };
+  state.chunk.isClosedDoor = (g) => doors[key(g)]?.closed ?? false;
+  state.chunk.mon = (g) => (key(g) === opts.monsterAt ? 1 : 0);
+  state.z.moveEnergy = 10;
+  state.msg = (t) => msgs.push(t);
+  state.doorLockPower = (g) => doors[key(g)]?.power ?? 0;
+  state.setDoorLock = setDoorLock;
   return { state, msgs, doors, setDoorLock };
 }
 
@@ -320,7 +297,7 @@ describe("spikeDoor - no spike in the pack", () => {
   it("refuses, spends no energy, and never resolves a direction or draws RNG", () => {
     const core = fakeCore();
     const { state, msgs } = fakeState({ spikes: 0 });
-    const energy = spikeDoor(core, state, { dir: 6 });
+    const energy = spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
     expect(energy).toBe(0);
     expect(msgs).toEqual(["You have no spikes!"]);
     expect(core.playerConfuseDir).not.toHaveBeenCalled();
@@ -332,16 +309,16 @@ describe("spikeDoor - direction", () => {
   it("refuses silently (no message, no energy) when no direction is given", () => {
     const core = fakeCore();
     const { state, msgs } = fakeState({ spikes: 1 });
-    expect(spikeDoor(core, state, {})).toBe(0);
+    expect(spikeDoor(core, state, { code: SPIKE_COMMAND })).toBe(0);
     expect(msgs).toEqual([]);
   });
 
   it("refuses silently for direction 5 (the player's own square) and out-of-range values", () => {
     const core = fakeCore();
     const { state } = fakeState({ spikes: 1 });
-    expect(spikeDoor(core, state, { dir: 5 })).toBe(0);
-    expect(spikeDoor(core, state, { dir: 0 })).toBe(0);
-    expect(spikeDoor(core, state, { dir: 10 })).toBe(0);
+    expect(spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 5 })).toBe(0);
+    expect(spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 0 })).toBe(0);
+    expect(spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 10 })).toBe(0);
   });
 });
 
@@ -349,7 +326,7 @@ describe("spikeDoor - pre-turn legality (do_cmd_spike_test before the turn commi
   it("refuses a grid with no closed door, spending no energy", () => {
     const core = fakeCore();
     const { state, msgs } = fakeState({ spikes: 1, doors: { "6,5": { closed: false, power: 0 } } });
-    expect(spikeDoor(core, state, { dir: 6 })).toBe(0);
+    expect(spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 })).toBe(0);
     expect(msgs).toEqual(["You see nothing there to spike."]);
     expect(core.playerConfuseDir).not.toHaveBeenCalled();
   });
@@ -360,7 +337,7 @@ describe("spikeDoor - pre-turn legality (do_cmd_spike_test before the turn commi
       spikes: 1,
       doors: { "6,5": { closed: true, power: MAX_SPIKE_POWER } },
     });
-    expect(spikeDoor(core, state, { dir: 6 })).toBe(0);
+    expect(spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 })).toBe(0);
     expect(msgs).toEqual(["You can't use more spikes on this door."]);
     expect(core.playerConfuseDir).not.toHaveBeenCalled();
     expect(core.gearObjectForUse).not.toHaveBeenCalled();
@@ -371,7 +348,7 @@ describe("spikeDoor - a monster in the way", () => {
   it("spends the turn, does not consume a spike, and does not raise the door's power", () => {
     const core = fakeCore();
     const { state, msgs, doors } = fakeState({ spikes: 1, monsterAt: "6,5" });
-    const energy = spikeDoor(core, state, { dir: 6 });
+    const energy = spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
     expect(energy).toBe(10);
     expect(msgs).toEqual(["There is a monster in the way!"]);
     expect(core.gearObjectForUse).not.toHaveBeenCalled();
@@ -383,7 +360,7 @@ describe("spikeDoor - success", () => {
   it("raises the door's lock power by one, consumes one spike, and spends the turn", () => {
     const core = fakeCore();
     const { state, msgs, doors, setDoorLock } = fakeState({ spikes: 3 });
-    const energy = spikeDoor(core, state, { dir: 6 });
+    const energy = spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
     expect(energy).toBe(10);
     expect(msgs).toEqual(["You jam the door with a spike."]);
     expect(setDoorLock).toHaveBeenCalledWith(DOOR_GRID, 1);
@@ -394,7 +371,7 @@ describe("spikeDoor - success", () => {
   it("adds onto a door's existing lock power rather than overwriting it", () => {
     const core = fakeCore();
     const { state, doors } = fakeState({ spikes: 1, doors: { "6,5": { closed: true, power: 3 } } });
-    spikeDoor(core, state, { dir: 6 });
+    spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
     expect(doors["6,5"]!.power).toBe(4);
   });
 
@@ -402,14 +379,14 @@ describe("spikeDoor - success", () => {
     const core = fakeCore();
     const { state, msgs, doors } = fakeState({ spikes: MAX_SPIKE_POWER + 2 });
     for (let i = 0; i < MAX_SPIKE_POWER; i++) {
-      const energy = spikeDoor(core, state, { dir: 6 });
+      const energy = spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
       expect(energy).toBe(10);
     }
     expect(doors["6,5"]!.power).toBe(MAX_SPIKE_POWER);
     expect(core.gearObjectForUse).toHaveBeenCalledTimes(MAX_SPIKE_POWER);
 
     msgs.length = 0;
-    const energy = spikeDoor(core, state, { dir: 6 });
+    const energy = spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
     expect(energy).toBe(0);
     expect(msgs).toEqual(["You can't use more spikes on this door."]);
   });
@@ -428,7 +405,7 @@ describe("spikeDoor - confusion redirect (player_confuse_dir applied AFTER the t
       spikes: 1,
       doors: { "6,5": { closed: true, power: 0 }, "5,4": { closed: true, power: 0 } },
     });
-    const energy = spikeDoor(core, state, { dir: 6 });
+    const energy = spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
     expect(energy).toBe(10);
     expect(doors["5,4"]!.power).toBe(1);
     expect(doors["6,5"]!.power).toBe(0);
@@ -441,7 +418,7 @@ describe("spikeDoor - confusion redirect (player_confuse_dir applied AFTER the t
       spikes: 1,
       doors: { "6,5": { closed: true, power: 0 }, "5,4": { closed: false, power: 0 } },
     });
-    const energy = spikeDoor(core, state, { dir: 6 });
+    const energy = spikeDoor(core, state, { code: SPIKE_COMMAND, dir: 6 });
     expect(energy).toBe(10);
     expect(msgs).toEqual(["You see nothing there to spike."]);
     expect(doors["6,5"]!.power).toBe(0);

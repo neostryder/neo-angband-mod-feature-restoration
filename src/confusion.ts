@@ -20,6 +20,7 @@
  * takes half damage and "resists somewhat". Core's own timed-effect check keeps
  * a NO_CONF monster from being confused at all.
  */
+import type { MonProjectContext, PlayerSideCtx } from "@rpgm-tools/neo-angband-core";
 
 export const CONFUSION = "CONFUSION";
 
@@ -33,36 +34,16 @@ export const BRONZE_BREATHERS: ReadonlySet<string> = new Set([
   "great wyrm of perplexity",
 ]);
 
-interface RngLike {
-  randint0(n: number): number;
-  randint1(n: number): number;
-}
-
-/** core's PlayerSideCtx, the slice used here. */
-export interface PlayerSideCtxLike {
-  readonly rng: RngLike;
-  incTimed(idx: number, v: number, check: boolean): boolean;
-}
-
-/** core's MonProjectContext, the slice used here. */
-export interface MonProjectCtxLike {
-  readonly rng: RngLike;
-  readonly r: number;
-  readonly seen: boolean;
-  readonly mon: { readonly race: { readonly name: string; readonly flags: { has(flag: number): boolean } } };
-  dam: number;
-  obvious: boolean;
-  hurtMsg: number;
-  monTimed: number[];
-}
-
-/** The constants the handlers read from the live core namespace. */
-export interface ConfusionCore {
-  readonly TMD: { readonly CONFUSED: number };
-  readonly MON_TMD: { readonly CONF: number };
-  readonly RF: { readonly NO_CONF: number };
-  readonly MON_MSG: { readonly RESIST: number; readonly RESIST_SOMEWHAT: number };
-}
+export type PlayerSideCtxLike = Pick<PlayerSideCtx, "incTimed"> & {
+  rng: Pick<PlayerSideCtx["rng"], "randint1">;
+};
+export type MonProjectCtxLike = Pick<MonProjectContext, "r" | "seen" | "dam" | "obvious" | "hurtMsg" | "monTimed"> & {
+  rng: Pick<MonProjectContext["rng"], "randint1">;
+  mon: { race: Pick<MonProjectContext["mon"]["race"], "name"> & {
+    flags: Pick<MonProjectContext["mon"]["race"]["flags"], "has">;
+  } };
+};
+export type ConfusionCore = Pick<typeof import("@rpgm-tools/neo-angband-core"), "TMD" | "MON_TMD" | "RF" | "MON_MSG">;
 
 export function confusePlayer(core: ConfusionCore): (ctx: PlayerSideCtxLike) => void {
   return (ctx) => {

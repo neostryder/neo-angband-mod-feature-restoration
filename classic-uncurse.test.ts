@@ -13,8 +13,10 @@
  */
 
 import { describe, expect, it, vi } from "vitest";
-import { ENCH_TOAC, ENCH_TOBOTH, ENCH_TODAM, ENCH_TOHIT, enchant, Rng, TMD } from "@rpgm-tools/neo-angband-core";
+import * as core from "@rpgm-tools/neo-angband-core";
+import { ENCH_TOAC, ENCH_TOBOTH, ENCH_TODAM, ENCH_TOHIT, enchant, objectNew, OF, Rng, TMD } from "@rpgm-tools/neo-angband-core";
 import plugin from "./plugin.js";
+import { bind } from "./test/game.js";
 import {
   classicEnchant,
   classicRemoveCurseHandler,
@@ -26,7 +28,6 @@ import {
   PERMA_POWER,
   uncurseOne,
   type ClassicCore,
-  type CurseDataLike,
   type CurseLike,
   type EnchantObjectLike,
   type UncurseObjectLike,
@@ -36,32 +37,32 @@ import {
  * Fakes
  * ------------------------------------------------------------------ */
 
-interface FakeObject extends EnchantObjectLike {
-  flags: Set<string>;
-}
+type FakeObject = EnchantObjectLike;
+
+const { game: fixtureGame } = bind([]);
+const fixtureKind = fixtureGame.objects.kinds.find((kind) => kind?.name === "& Dagger~")!;
 
 /** An object with a curse at each index; index 0 is the unused slot. */
 function fakeObject(powers: number[]): FakeObject {
-  return {
-    number: 1,
-    weight: 10,
-    curses: [null, ...powers.map((power) => ({ power, timeout: 0 }))],
-    flags: new Set<string>(),
-    tval: 1,
-    toH: 0,
-    toD: 0,
-    toA: 0,
-  };
+  const obj = objectNew(fixtureKind);
+  obj.number = 1;
+  obj.weight = 10;
+  obj.curses = [{ power: 0, timeout: 0 }, ...powers.map((power) => ({ power, timeout: 0 }))];
+  obj.tval = 1;
+  return obj;
 }
 
 /**
  * A fake core whose curse removal mirrors core's own, including dropping the
  * curse array once the last curse goes (no fragility path).
  */
+let cachedFakeCore: ClassicCore | null = null;
 function fakeCore(): ClassicCore {
-  return {
+  if (cachedFakeCore) return cachedFakeCore;
+  cachedFakeCore = {
+    ...core,
     removeObjectCurse(...[obj, pick, message, env]: Parameters<ClassicCore["removeObjectCurse"]>) {
-      const c = (obj.curses as (CurseDataLike | null)[])[pick];
+      const c = obj.curses?.[pick];
       if (!c || !c.power) return false;
       c.power = 0;
       c.timeout = 0;
@@ -72,19 +73,12 @@ function fakeCore(): ClassicCore {
     objectWeightOne(obj: Parameters<ClassicCore["objectWeightOne"]>[0]) {
       return obj.weight;
     },
-    requestForEffect: () => ({}),
+    requestForEffect: () => ({ prompt: "", reject: "", tester: () => true, mode: { equip: true } }),
     describeObject: () => "Dagger",
     objectIsCarried: () => true,
     tvalIsAmmo: () => false,
-    ENCH_TOBOTH,
-    ENCH_TOHIT,
-    ENCH_TODAM,
-    ENCH_TOAC,
-    ODESC: { BASE: 0 },
-    PN: { COMBINE: 1 },
-    EF: { ENCHANT: 48 },
-    TMD,
-  } as unknown as ClassicCore;
+  };
+  return cachedFakeCore;
 }
 
 /** Remove Curse's dice in each form (object.txt). */
@@ -92,11 +86,12 @@ const LIGHT_DICE = { base: 20, dice: 1, sides: 20, mBonus: 0 };
 const HEAVY_DICE = { base: 50, dice: 1, sides: 50, mBonus: 0 };
 
 /** Curse names for indices 1..n, matching the fake objects. */
+const fixtureCurse = fixtureGame.objects.curses.find((curse) => curse !== null)!;
 const CURSE_TABLE: readonly (CurseLike | null)[] = [
   null,
-  { name: "weakness" },
-  { name: "vulnerability" },
-  { name: "dullness" },
+  { ...fixtureCurse, name: "weakness" },
+  { ...fixtureCurse, name: "vulnerability" },
+  { ...fixtureCurse, name: "dullness" },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -116,7 +111,7 @@ describe("uncurseOne - remove_curse_aux (Angband 4.0.5, effects.c L720-747)", ()
     const obj = fakeObject([0, LIGHT_MAX_POWER + 1, 0]);
     expect(uncurseOne(fakeCore(), CURSE_TABLE, obj, false)).toBe(0);
     expect(obj.curses?.[2]?.power).toBe(LIGHT_MAX_POWER + 1);
-    expect(obj.flags.has("FRAGILE")).toBe(false);
+    expect(obj.flags.has(OF.FRAGILE)).toBe(false);
   });
 
   it("lifts a heavy curse with the heavy form", () => {
@@ -282,7 +277,7 @@ describe("classicRemoveCurseHandler", () => {
     expect(isHeavySource(LIGHT_DICE)).toBe(false);
     expect(isHeavySource(HEAVY_DICE)).toBe(true);
     /* Dispel Curse, 4.0's REMOVE_ALL_CURSE spell, rolls $B+d50 at any level. */
-    expect(isHeavySource({ base: 25, dice: 1, sides: 50 })).toBe(true);
+    expect(isHeavySource({ base: 25, dice: 1, sides: 50, mBonus: 0 })).toBe(true);
   });
 });
 

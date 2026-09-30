@@ -5,6 +5,7 @@
  * Filthy Rag and the broken weapons belong to Angband's own armour and sword
  * classes, whose kinds the ignore menus never offer, so they are left alone.
  */
+import type { CoreRegistries, GameState } from "@rpgm-tools/neo-angband-core";
 const JUNK_KINDS: Readonly<Record<string, readonly string[]>> = {
   bottle: ["& Empty Bottle~"],
   junk: ["& Shard~ of Pottery", "& Broken Stick~"],
@@ -15,20 +16,9 @@ const JUNK_KINDS: Readonly<Record<string, readonly string[]>> = {
   ],
 };
 
-export interface JunkState {
-  ignore: {
-    kindIgnoreWhenAware(kidx: number): void;
-    kindIgnoreWhenUnaware(kidx: number): void;
-  };
-}
-
-export interface JunkRegistries {
-  objects: { kinds: readonly ({ name: string; tval: number; kidx: number } | null)[] };
-}
-
 export function ignoreJunk(
-  state: JunkState,
-  registries: JunkRegistries,
+  state: GameState,
+  registries: CoreRegistries,
   tvalFindIdx: (name: string) => number,
 ): void {
   for (const [type, names] of Object.entries(JUNK_KINDS)) {

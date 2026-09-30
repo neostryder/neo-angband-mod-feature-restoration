@@ -517,7 +517,7 @@ Some sections rely on game fixes that are not in a published release yet. The te
 |---|---|
 | `bronze-dragons` | neostryder/neo-angband#319: the web loader has to declare a mod's monster spells before binding, or the first bronze dragon stops the game from starting. |
 
-The game packages this repository tests against are pinned at 1.18.0 until neostryder/neo-angband#318 is fixed, because 1.19.0 and 1.19.1 cannot be installed.
+The dev pins and manifest require Neo Angband 1.20.0 or later for the new-character hook, restored art fields, and exported experience helpers.
 
 ## Installing
 

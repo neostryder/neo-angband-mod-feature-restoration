@@ -1,26 +1,7 @@
-import type { EffectHandler, EffectHandlerContext } from "@rpgm-tools/neo-angband-core";
+import type { EffectHandler } from "@rpgm-tools/neo-angband-core";
 
-interface ExpPlayer {
-  exp: number;
-}
-
-interface ExpState {
-  actor: { player: ExpPlayer };
-  runeEnv: unknown;
-}
-
-interface ExpEnv {
-  state: ExpState;
-}
-
-export interface LoseMemoriesCore {
-  readonly OF: { readonly HOLD_LIFE: number };
-  gameEnv(ctx: EffectHandlerContext): ExpEnv | null;
-  playerOfHas(state: ExpState, flag: number): boolean;
-  playerExpLose(player: ExpPlayer, amount: number, permanent: boolean, deps: unknown): void;
-  effectExpDeps(ctx: EffectHandlerContext, env: ExpEnv): unknown;
-  equipLearnFlag(player: ExpPlayer, runeEnv: unknown, flag: number): void;
-}
+export type LoseMemoriesCore = Pick<typeof import("@rpgm-tools/neo-angband-core"),
+  "OF" | "gameEnv" | "playerOfHas" | "playerExpLose" | "effectExpDeps" | "equipLearnFlag">;
 
 export const LOSE_MEMORIES = "feature-restoration:LOSE_EXP";
 

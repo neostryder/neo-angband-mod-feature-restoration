@@ -8,123 +8,20 @@
  * The combat values are 3.0.9's own, and pval is kept, as 3.0.9 kept it.
  */
 
-import type { EffectHandler, EffectHandlerContext } from "@rpgm-tools/neo-angband-core";
+import type { EffectHandler, EffectHandlerContext, EgoItem, GameObject, ObjRegistry, Rng } from "@rpgm-tools/neo-angband-core";
 
 export const CURSE_WEAPON = "feature-restoration:CURSE_WEAPON";
 export const CURSE_ARMOUR = "feature-restoration:CURSE_ARMOR";
 
-/** A random value, as core's RandomValue is read by randcalc. */
-interface RandomValueLike {
-  base: number;
-  dice: number;
-  sides: number;
-  mBonus: number;
-}
-
-/** An object flag set, structurally (core's FlagSet). */
-interface FlagSetLike {
-  copy(other: FlagSetLike): void;
-  union(other: FlagSetLike): void;
-  diff(other: FlagSetLike): void;
-}
-
-/** One element's resist entry, structurally (core's ElementInfo). */
-interface ElementInfoLike {
-  resLevel: number;
-  flags: number;
-}
-
-/** What the reset reads off the kind and the ego, structurally. */
-interface PowersLike {
-  flags: FlagSetLike;
-  modifiers: RandomValueLike[];
-  elInfo: ElementInfoLike[];
-  slays: boolean[] | null;
-  brands: boolean[] | null;
-}
-
-interface KindLike extends PowersLike {
-  kidx: number;
-  base: { elInfo: ElementInfoLike[] };
-  effect: unknown;
-  time: RandomValueLike;
-}
-
-interface EgoLike extends PowersLike {
-  name: string;
-  possItems: ReadonlySet<number>;
-  flagsOff: FlagSetLike;
-  curses: number[] | null;
-}
-
-interface CursedObject {
-  kind: KindLike;
-  artifact: unknown;
-  ego: unknown;
-  curses: unknown;
-  flags: FlagSetLike;
-  modifiers: number[];
-  elInfo: ElementInfoLike[];
-  slays: boolean[] | null;
-  brands: boolean[] | null;
-  activation: unknown;
-  knownActivation?: unknown;
-  effect: unknown;
-  time: RandomValueLike;
-  toH: number;
-  toD: number;
-  toA: number;
-  ac: number;
-  dd: number;
-  ds: number;
-}
-
-interface CurseRng {
-  randint0(n: number): number;
-  randint1(n: number): number;
-  randcalc(v: RandomValueLike, level: number, aspect: "average"): number;
-}
-
-interface CurseState {
-  rng: CurseRng;
-  gear: { store: ReadonlyMap<number, CursedObject> };
-  actor: {
-    player: {
-      body: { slots: readonly { type: string }[] };
-      equipment: readonly (number | null)[];
-      upkeep: { notice: number };
-    };
-  };
-  updateBonuses?(): void;
-}
-
-interface CurseRegistry {
-  egos: readonly (EgoLike | null)[];
-  curses: readonly unknown[];
-  slays: readonly unknown[];
-  brands: readonly unknown[];
-}
-
-interface CurseEnv {
-  state: CurseState;
-  item?: { reg?: CurseRegistry };
-}
-
-export interface CurseScrollCore {
-  readonly PN: { readonly COMBINE: number };
-  readonly ODESC: { readonly BASE: number };
-  describeObject(state: CurseState, obj: CursedObject, mode: number): string;
-  copySlays(dest: boolean[] | null, source: boolean[] | null, slays: readonly unknown[]): boolean[] | null;
-  copyBrands(dest: boolean[] | null, source: boolean[] | null, brands: readonly unknown[]): boolean[] | null;
-  copyCurses(rng: CurseRng, obj: CursedObject, source: number[] | null, curses: readonly unknown[]): void;
-}
+export type CurseScrollCore = Pick<typeof import("@rpgm-tools/neo-angband-core"),
+  "PN" | "ODESC" | "describeObject" | "copySlays" | "copyBrands" | "copyCurses" | "gameEnv">;
 
 /**
  * Strip an object back to its kind's own powers (object_prep's copies, without
  * its RNG) and apply `ego`'s. The kind's modifiers are read at their average,
  * which draws nothing and is exact for every fixed kind value.
  */
-export function resetToEgo(core: CurseScrollCore, rng: CurseRng, reg: CurseRegistry, obj: CursedObject, ego: EgoLike): void {
+export function resetToEgo(core: CurseScrollCore, rng: Rng, reg: ObjRegistry, obj: GameObject, ego: EgoItem): void {
   const kind = obj.kind;
   obj.artifact = null;
   obj.ego = ego;
@@ -143,7 +40,7 @@ export function resetToEgo(core: CurseScrollCore, rng: CurseRng, reg: CurseRegis
   obj.slays = core.copySlays(core.copySlays(null, kind.slays, reg.slays), ego.slays, reg.slays);
   obj.brands = core.copyBrands(core.copyBrands(null, kind.brands, reg.brands), ego.brands, reg.brands);
   obj.activation = null;
-  obj.knownActivation = undefined;
+  delete obj.knownActivation;
   obj.effect = kind.effect;
   obj.time = { ...kind.time };
   obj.curses = null;
@@ -152,7 +49,7 @@ export function resetToEgo(core: CurseScrollCore, rng: CurseRng, reg: CurseRegis
 
 export function curseScrollHandler(core: CurseScrollCore, slotType: "WEAPON" | "BODY_ARMOR"): EffectHandler {
   return (ctx: EffectHandlerContext) => {
-    const env = ctx.env.game as CurseEnv | undefined;
+    const env = core.gameEnv(ctx);
     if (!env) return true;
     const { state } = env;
     const player = state.actor.player;

@@ -1,4 +1,4 @@
-// crf-fix - generated from plugin.ts by neo-angband-mod-build
+// crf-core - generated from plugin.ts by neo-angband-mod-build
 // (@rpgm-tools/neo-angband-mod-sdk). Edit the TypeScript source, not this file.
 
 // src/confusion.ts
@@ -35,8 +35,8 @@ var LIGHT_MAX_POWER = 40;
 var PERMA_POWER = 100;
 var ENCHANT_CURSE_CHANCE = 25;
 var HEAVY_MIN_SIDES = 50;
-function gameEnvOf(ctx) {
-  return ctx.env.game ?? null;
+function gameEnvOf(core, ctx) {
+  return core.gameEnv(ctx);
 }
 function say(ctx, text) {
   ctx.env.messages?.msg(text);
@@ -82,7 +82,7 @@ function cursesOf(env) {
 }
 function classicRemoveCurseHandler(core) {
   return (ctx) => {
-    const env = gameEnvOf(ctx);
+    const env = gameEnvOf(core, ctx);
     if (!env) return true;
     const { state } = env;
     const curses = cursesOf(env);
@@ -166,7 +166,7 @@ function classicEnchant(core, rng, obj, n, eflag, breakCurse) {
 }
 function enchantCurseBreakHandler(core) {
   return (ctx) => {
-    const env = gameEnvOf(ctx);
+    const env = gameEnvOf(core, ctx);
     if (!env) return true;
     const { state } = env;
     const value = state.rng.randcalc(
@@ -190,7 +190,7 @@ function enchantCurseBreakHandler(core) {
     };
     const spell = (numHit, numDam, numAc) => {
       const request = core.requestForEffect(core.EF.ENCHANT, ctx.subtype, state);
-      const obj = env.item?.getItem?.(request);
+      const obj = request ? env.item?.getItem?.(request) : null;
       if (!obj) return false;
       const name = core.describeObject(state, obj, core.ODESC.BASE);
       const carried = core.objectIsCarried(state.gear, obj);
@@ -256,7 +256,7 @@ function resetToEgo(core, rng, reg, obj, ego) {
   obj.slays = core.copySlays(core.copySlays(null, kind.slays, reg.slays), ego.slays, reg.slays);
   obj.brands = core.copyBrands(core.copyBrands(null, kind.brands, reg.brands), ego.brands, reg.brands);
   obj.activation = null;
-  obj.knownActivation = void 0;
+  delete obj.knownActivation;
   obj.effect = kind.effect;
   obj.time = { ...kind.time };
   obj.curses = null;
@@ -264,7 +264,7 @@ function resetToEgo(core, rng, reg, obj, ego) {
 }
 function curseScrollHandler(core, slotType) {
   return (ctx) => {
-    const env = ctx.env.game;
+    const env = core.gameEnv(ctx);
     if (!env) return true;
     const { state } = env;
     const player = state.actor.player;
@@ -399,7 +399,7 @@ var plugin_default = {
   api: 1,
   hooks(ctx) {
     if (ctx.flags["feature-restoration.junk"] !== true) return {};
-    if (!ctx.core?.tvalFindIdx) throw new Error("Junk ignore requires the live core item classes");
+    if (!ctx.core) throw new Error("Junk ignore requires the live core item classes");
     const { tvalFindIdx } = ctx.core;
     return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
   },
@@ -409,8 +409,7 @@ var plugin_default = {
    */
   register(host, ctx) {
     if (ctx.core && host.effects && host.effectInfo) {
-      const core = ctx.core;
-      host.effects.register(LOSE_MEMORIES, { handler: loseMemoriesHandler(core) });
+      host.effects.register(LOSE_MEMORIES, { handler: loseMemoriesHandler(ctx.core) });
       host.effectInfo.text.set(LOSE_MEMORIES, {
         menuName: () => "drains experience",
         describe: () => "drains experience"
@@ -422,22 +421,18 @@ var plugin_default = {
       ctx.log?.("feature-restoration: store discount roll installed");
     }
     if (ctx.flags["feature-restoration.bronze-dragons"] === true && ctx.core && host.projections) {
-      const core = ctx.core;
-      host.projections.player.set(CONFUSION, confusePlayer(core));
-      host.projections.mon.set(CONFUSION, confuseMonster(core, BRONZE_BREATHERS));
+      host.projections.player.set(CONFUSION, confusePlayer(ctx.core));
+      host.projections.mon.set(CONFUSION, confuseMonster(ctx.core, BRONZE_BREATHERS));
       ctx.log?.("feature-restoration: confusion projection handlers installed");
     }
     if (ctx.flags["feature-restoration.classic-uncurse"] === true && ctx.core && host.effects) {
-      const core = ctx.core;
-      const ef = ctx.core.EF;
-      host.effects.register(ef.REMOVE_CURSE, { handler: classicRemoveCurseHandler(core) });
-      host.effects.register(ef.ENCHANT, { handler: enchantCurseBreakHandler(core) });
+      host.effects.register(ctx.core.EF.REMOVE_CURSE, { handler: classicRemoveCurseHandler(ctx.core) });
+      host.effects.register(ctx.core.EF.ENCHANT, { handler: enchantCurseBreakHandler(ctx.core) });
       ctx.log?.("feature-restoration: classic uncursing handlers installed");
     }
     if (ctx.flags["feature-restoration.sticky-curses"] === true && ctx.core && host.effects && host.effectInfo) {
-      const core = ctx.core;
-      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(core, "WEAPON") });
-      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(core, "BODY_ARMOR") });
+      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(ctx.core, "WEAPON") });
+      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(ctx.core, "BODY_ARMOR") });
       host.effectInfo.text.set(CURSE_WEAPON, {
         menuName: () => "curses a wielded weapon",
         describe: () => "curses a wielded weapon"

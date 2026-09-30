@@ -31,7 +31,7 @@
  * breakable curse.
  */
 
-import type { EffectHandler, EffectHandlerContext } from "@rpgm-tools/neo-angband-core";
+import type { Curse, CurseData, EffectHandler, EffectHandlerContext, GameEffectEnv, GameObject, RandomValue, Rng } from "@rpgm-tools/neo-angband-core";
 
 /** A light curse: Remove Curse can lift it. 4.0's OF_LIGHT_CURSE tier. */
 export const LIGHT_MAX_POWER = 40;
@@ -46,107 +46,21 @@ export const ENCHANT_CURSE_CHANCE = 25;
  */
 export const HEAVY_MIN_SIDES = 50;
 
-/** The RNG calls the classic handlers make, structurally. */
-export interface RngLike {
-  randint0(n: number): number;
-}
-
-/** enchant_score also needs randint1. */
-export interface EnchantRngLike extends RngLike {
-  randint1(n: number): number;
-}
-
-/** One curse on an object: power 0 means "not present". */
-export interface CurseDataLike {
-  power: number;
-  timeout: number;
-}
-
-/** The object slice the classic handlers touch. */
-export interface UncurseObjectLike {
-  number: number;
-  weight: number;
-  curses: (CurseDataLike | null | undefined)[] | null;
-  artifact?: unknown;
-}
-
-/** The object slice enchanting also reads and raises. */
-export interface EnchantObjectLike extends UncurseObjectLike {
-  tval: number;
-  toH: number;
-  toD: number;
-  toA: number;
-}
-
-/** A bound curse, by name only. */
-export interface CurseLike {
-  name: string;
-}
-
-/** A random value, as core's RandomValue is read by randcalc. */
-export interface RandomValueLike {
-  base: number;
-  dice: number;
-  sides: number;
-}
-
-/** get_item request, opaque to this module (core builds and reads it). */
-export type ItemRequestLike = unknown;
-
-/** The live game state slice the classic handlers read, structurally. */
-interface ClassicStateLike {
-  rng: EnchantRngLike & { randcalc(value: RandomValueLike, depth: number, mode: string): number };
-  chunk: { depth: number };
-  gear: { store: ReadonlyMap<number, UncurseObjectLike> };
-  actor: {
-    player: {
-      equipment: readonly (number | null)[];
-      upkeep: { totalWeight: number; notice: number };
-      timed?: readonly number[];
-    };
-  };
-  updateBonuses?: () => void;
-}
-
-/** The game-layer effect environment, structurally (core's GameEffectEnv). */
-interface ClassicGameEnvLike {
-  state: ClassicStateLike;
-  item?: {
-    getItem?: (req: ItemRequestLike) => UncurseObjectLike | null;
-    /** The bound object registry, whose `curses` table names each curse. */
-    reg?: { curses?: readonly (CurseLike | null)[] };
-  };
-}
-
-/** The core helpers the classic handlers call through. */
-export interface ClassicCore {
-  removeObjectCurse(
-    obj: UncurseObjectLike,
-    pick: number,
-    message?: boolean,
-    env?: { curses: readonly (CurseLike | null)[]; msg: (text: string) => void },
-  ): boolean;
-  objectWeightOne(
-    obj: { weight: number; curses: (CurseDataLike | null | undefined)[] | null },
-    curses?: readonly (CurseLike | null)[] | null,
-  ): number;
-  requestForEffect(code: number, subtype: number, state: ClassicStateLike): ItemRequestLike | null;
-  tvalIsAmmo(tval: number): boolean;
-  describeObject(state: ClassicStateLike, obj: UncurseObjectLike, mode: number): string;
-  objectIsCarried(gear: ClassicStateLike["gear"], obj: UncurseObjectLike): boolean;
-  readonly ENCH_TOBOTH: number;
-  readonly ENCH_TOHIT: number;
-  readonly ENCH_TODAM: number;
-  readonly ENCH_TOAC: number;
-  readonly ODESC: { readonly BASE: number };
-  readonly PN: { readonly COMBINE: number };
-  readonly EF: { readonly ENCHANT: number };
-  readonly TMD: { readonly BLIND: number };
-}
+export type RngLike = Pick<Rng, "randint0">;
+export type EnchantRngLike = Pick<Rng, "randint0" | "randint1">;
+export type CurseDataLike = CurseData;
+export type UncurseObjectLike = GameObject;
+export type EnchantObjectLike = GameObject;
+export type CurseLike = Curse;
+export type RandomValueLike = RandomValue;
+export type ClassicCore = Pick<typeof import("@rpgm-tools/neo-angband-core"),
+  "removeObjectCurse" | "objectWeightOne" | "requestForEffect" | "tvalIsAmmo" |
+  "describeObject" | "objectIsCarried" | "gameEnv" | "ENCH_TOBOTH" | "ENCH_TOHIT" |
+  "ENCH_TODAM" | "ENCH_TOAC" | "ODESC" | "PN" | "EF" | "TMD">;
 
 /** The game env off an effect context, or null for a worldless interpreter. */
-function gameEnvOf(ctx: EffectHandlerContext): ClassicGameEnvLike | null {
-  return (ctx.env.game as ClassicGameEnvLike | undefined) ?? null;
+function gameEnvOf(core: ClassicCore, ctx: EffectHandlerContext): GameEffectEnv | null {
+  return core.gameEnv(ctx);
 }
 
 /** msg() over the effect context's optional message sink. */
@@ -225,7 +139,7 @@ export function uncurseOne(
 }
 
 /** The curse table the live game is running, or null when it is not wired. */
-function cursesOf(env: ClassicGameEnvLike): readonly (CurseLike | null)[] | null {
+function cursesOf(env: GameEffectEnv): readonly (CurseLike | null)[] | null {
   return env.item?.reg?.curses ?? null;
 }
 
@@ -238,7 +152,7 @@ function cursesOf(env: ClassicGameEnvLike): readonly (CurseLike | null)[] | null
  */
 export function classicRemoveCurseHandler(core: ClassicCore): EffectHandler {
   return (ctx) => {
-    const env = gameEnvOf(ctx);
+    const env = gameEnvOf(core, ctx);
     if (!env) return true;
     const { state } = env;
     const curses = cursesOf(env);
@@ -335,11 +249,11 @@ export function classicEnchant(
  */
 export function enchantCurseBreakHandler(core: ClassicCore): EffectHandler {
   return (ctx) => {
-    const env = gameEnvOf(ctx);
+    const env = gameEnvOf(core, ctx);
     if (!env) return true;
     const { state } = env;
     const value = state.rng.randcalc(
-      ctx.value as unknown as RandomValueLike,
+      ctx.value,
       state.chunk.depth,
       "randomise",
     );
@@ -362,7 +276,7 @@ export function enchantCurseBreakHandler(core: ClassicCore): EffectHandler {
 
     const spell = (numHit: number, numDam: number, numAc: number): boolean => {
       const request = core.requestForEffect(core.EF.ENCHANT, ctx.subtype, state);
-      const obj = env.item?.getItem?.(request) as EnchantObjectLike | null | undefined;
+      const obj = request ? env.item?.getItem?.(request) : null;
       if (!obj) return false;
 
       const name = core.describeObject(state, obj, core.ODESC.BASE);

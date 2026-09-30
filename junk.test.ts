@@ -14,8 +14,8 @@
 
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
-import { tvalFindIdx, tvalInClass, tvals, IgnoreSettings } from "@rpgm-tools/neo-angband-core";
-import { bind } from "./test/game.js";
+import { tvalFindIdx, tvalInClass, tvals, IgnoreSettings, startGame } from "@rpgm-tools/neo-angband-core";
+import { bind, gamePack } from "./test/game.js";
 // @ts-expect-error The test imports the handwritten source module.
 import plugin from "./plugin.ts";
 
@@ -57,7 +57,9 @@ describe("junk", () => {
       core: { tvalFindIdx } as NonNullable<Parameters<typeof plugin.hooks>[0]["core"]>,
     }).newCharacter;
     expect(hook).toBeTypeOf("function");
-    hook!({ ignore }, game);
+    const state = startGame(gamePack(["junk"]).pack).state;
+    state.ignore = ignore;
+    hook!(state, game);
     const modClass = new Set(Object.keys(CLASSES).map((c) => tvalFindIdx(c)));
     const ignored = game.objects.kinds.filter((k) => k && ignore.kindIsIgnoredAware(k.kidx));
     expect(ignored.map((k) => k!.name).sort()).toEqual(Object.values(CLASSES).flat().sort());

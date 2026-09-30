@@ -62,135 +62,15 @@ import {
   CONFUSION,
   confuseMonster,
   confusePlayer,
-  type ConfusionCore,
-  type MonProjectCtxLike,
-  type PlayerSideCtxLike,
 } from "./src/confusion.js";
 import {
   classicRemoveCurseHandler,
   enchantCurseBreakHandler,
-  type ClassicCore,
 } from "./src/classic-uncurse.js";
-import type { EffectHandler, EffectTextHandler } from "@rpgm-tools/neo-angband-core";
+import type { DiscountRollContext, GameObject, GameState, Loc, ModHooks, ModRegistryHost, PlayerCommand } from "@rpgm-tools/neo-angband-core";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
-import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler, type CurseScrollCore } from "./src/curse-scrolls.js";
-import { ignoreJunk, type JunkState, type JunkRegistries } from "./src/junk-ignore.js";
-
-/**
- * The RNG the host hands a discount roll, structurally - same reason as
- * everywhere else in this file: the mod names what it touches instead of
- * importing a host type.
- */
-interface RngLike {
-  /** True with probability 1/n (host's Rng.oneIn). */
-  oneIn(n: number): boolean;
-}
-
-/** DiscountRollContext, structurally (core's store/store.ts). */
-interface DiscountRollContext {
-  rng: RngLike;
-  /** object_value_real(obj, 1) - the cost band the roll qualifies against. */
-  cost: number;
-}
-
-/** A grid on the level map, structurally (core's loc.ts Loc). */
-interface Loc {
-  x: number;
-  y: number;
-}
-
-/** A live player command, structurally (core's game/context.ts PlayerCommand). */
-interface PlayerCommandLike {
-  dir?: number;
-  [key: string]: unknown;
-}
-
-/** The one pack object this plugin cares to look at: its kind's own name. */
-interface SpikeGearObject {
-  kind: { name: string };
-  number: number;
-}
-
-/**
- * The slice of a live GameState this plugin touches, structurally - same
- * reason as everywhere else in this file: the mod names what it needs rather
- * than importing a host type.
- */
-interface GameStateLike {
-  readonly actor: { readonly grid: Loc; readonly player: unknown };
-  readonly chunk: {
-    isClosedDoor(grid: Loc): boolean;
-    /** > 0 when a monster occupies the grid (core's chunk.mon). */
-    mon(grid: Loc): number;
-  };
-  readonly gear: {
-    /** Non-equipped handles, master-gear order (core's Gear.pack). */
-    readonly pack: readonly number[];
-    readonly store: ReadonlyMap<number, SpikeGearObject>;
-  };
-  readonly z: { readonly moveEnergy: number };
-  /** Emit a message; the host decides where it goes. */
-  msg?(text: string): void;
-  /** square_door_power (game/trap.ts): a closed door's lock strength. */
-  doorLockPower?(grid: Loc): number;
-  /** square_set_door_lock (game/trap.ts): set a closed door's lock strength. */
-  setDoorLock?(grid: Loc, power: number): void;
-}
-
-/**
- * The slice of `ctx.core` - the live core namespace, not a bundled copy - this
- * plugin calls directly, so confusion-redirect and item-stack consumption stay
- * byte-identical to core's own rather than a second, hand-written copy of
- * either.
- */
-interface CoreLike {
-  tvalFindIdx?(name: string): number;
-  /** ddgrid: keypad direction (1-9, 5 is "no direction") -> grid offset. */
-  readonly DDGRID: readonly Loc[];
-  /**
-   * player_confuse_dir (player-util.c): redirects `dir` while the player is
-   * confused, drawing the RNG and emitting core's own message. Returns `dir`
-   * unchanged while not confused - drawing nothing.
-   */
-  playerConfuseDir(state: GameStateLike, dir: number): number;
-  /**
-   * gear_object_for_use (obj-gear.c): splits `amt` off the pack stack at
-   * `handle` (or excises the whole stack), for a caller that is about to
-   * consume it. The returned object is deliberately left unused here, exactly
-   * as core's own consuming callers (obj-cmd.ts, world.ts) leave it - letting
-   * it fall out of scope IS the destroy.
-   */
-  gearObjectForUse(
-    gear: GameStateLike["gear"],
-    player: unknown,
-    handle: number,
-    amt: number,
-  ): { obj: unknown; noneLeft: boolean };
-}
-
-/** The one registry facade this plugin reaches, structurally. */
-interface HostLike {
-  /** `registry:effect-info`: the text an effect shows on the object recall screen. */
-  readonly effectInfo?: { text: { set(code: string, handler: EffectTextHandler): void } };
-  /** `registry:projection`: what a projection does to the player and to monsters. */
-  readonly projections?: {
-    readonly player: { set(code: string, handler: (ctx: PlayerSideCtxLike) => void): void };
-    readonly mon: { set(code: string, handler: (ctx: MonProjectCtxLike) => void): void };
-  };
-  /** `registry:effect`: replace the handler a numeric or named effect code runs. */
-  readonly effects?: {
-    register(code: number | string, def: { handler: EffectHandler }): void;
-  };
-  readonly stores: {
-    setDiscountRoll(handler: (ctx: DiscountRollContext) => number): void;
-  };
-  readonly commands: {
-    /** Register (or replace) the action a player command code runs. */
-    register(code: string, action: (state: GameStateLike, cmd: PlayerCommandLike) => number): void;
-    /** Name the command, for the "Really <verb> ...?" inscription confirm. */
-    setVerb(code: string, verb: string): void;
-  };
-}
+import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler } from "./src/curse-scrolls.js";
+import { ignoreJunk } from "./src/junk-ignore.js";
 
 /** The narrow `keymap:write` facade this plugin needs. */
 interface KeymapsLike {
@@ -198,10 +78,21 @@ interface KeymapsLike {
   bind(trigger: string, action: string): boolean;
 }
 
+type HostLike = {
+  readonly effectInfo?: { text: Pick<ModRegistryHost["effectInfo"]["text"], "set"> };
+  readonly projections?: {
+    readonly player: Pick<ModRegistryHost["projections"]["player"], "set">;
+    readonly mon: Pick<ModRegistryHost["projections"]["mon"], "set">;
+  };
+  readonly effects?: Pick<ModRegistryHost["effects"], "register">;
+  readonly stores: Pick<ModRegistryHost["stores"], "setDiscountRoll">;
+  readonly commands: Pick<ModRegistryHost["commands"], "register" | "setVerb">;
+};
+
 interface HookCtx {
   readonly flags: Readonly<Record<string, boolean>>;
   /** The live core namespace; the host passes it to both hooks() and register(). */
-  readonly core?: CoreLike;
+  readonly core?: typeof import("@rpgm-tools/neo-angband-core");
   /** Present only when the mod declared `keymap:write` and the player consented. */
   readonly keymaps?: KeymapsLike;
   /** Emit a diagnostic line; the host decides where it goes. */
@@ -262,7 +153,7 @@ export const SPIKE_COMMAND = "feature-restoration:spike";
 export const MAX_SPIKE_POWER = 7;
 
 /** get_spike (cmd2.c): the first pack object of this mod's Iron Spike kind. */
-function findSpike(state: GameStateLike): { handle: number; obj: SpikeGearObject } | null {
+function findSpike(state: GameState): { handle: number; obj: GameObject } | null {
   for (const handle of state.gear.pack) {
     const obj = state.gear.store.get(handle);
     if (obj && obj.kind.name === IRON_SPIKE_NAME) return { handle, obj };
@@ -271,13 +162,13 @@ function findSpike(state: GameStateLike): { handle: number; obj: SpikeGearObject
 }
 
 /** do_cmd_spike_test (cmd2.c v3.4.1 L1322-1345): a closed door with room for one more spike. */
-function spikeTest(state: GameStateLike, at: Loc): "ok" | "not-a-door" | "fully-spiked" {
+function spikeTest(state: GameState, at: Loc): "ok" | "not-a-door" | "fully-spiked" {
   if (!state.chunk.isClosedDoor(at)) return "not-a-door";
   if ((state.doorLockPower?.(at) ?? 0) >= MAX_SPIKE_POWER) return "fully-spiked";
   return "ok";
 }
 
-function gridInDirection(state: GameStateLike, core: CoreLike, dir: number): Loc {
+function gridInDirection(state: GameState, core: typeof import("@rpgm-tools/neo-angband-core"), dir: number): Loc {
   const offset = core.DDGRID[dir] ?? { x: 0, y: 0 };
   return { x: state.actor.grid.x + offset.x, y: state.actor.grid.y + offset.y };
 }
@@ -291,7 +182,7 @@ function gridInDirection(state: GameStateLike, core: CoreLike, dir: number): Loc
  * Exported so plugin.test.ts can drive it directly against a fake state and a
  * fake core, the same way discountRoll is tested against a fake Rng.
  */
-export function spikeDoor(core: CoreLike, state: GameStateLike, cmd: PlayerCommandLike): number {
+export function spikeDoor(core: typeof import("@rpgm-tools/neo-angband-core"), state: GameState, cmd: PlayerCommand): number {
   const spike = findSpike(state);
   if (!spike) {
     state.msg?.("You have no spikes!");
@@ -350,9 +241,9 @@ export function spikeDoor(core: CoreLike, state: GameStateLike, cmd: PlayerComma
 export default {
   api: 1,
 
-  hooks(ctx: HookCtx): { newCharacter?: (state: JunkState, registries: JunkRegistries) => void } {
+  hooks(ctx: HookCtx): ModHooks {
     if (ctx.flags["feature-restoration.junk"] !== true) return {};
-    if (!ctx.core?.tvalFindIdx) throw new Error("Junk ignore requires the live core item classes");
+    if (!ctx.core) throw new Error("Junk ignore requires the live core item classes");
     const { tvalFindIdx } = ctx.core;
     return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
   },
@@ -363,8 +254,7 @@ export default {
    */
   register(host: HostLike, ctx: HookCtx): void {
     if (ctx.core && host.effects && host.effectInfo) {
-      const core = ctx.core as unknown as Parameters<typeof loseMemoriesHandler>[0];
-      host.effects.register(LOSE_MEMORIES, { handler: loseMemoriesHandler(core) });
+      host.effects.register(LOSE_MEMORIES, { handler: loseMemoriesHandler(ctx.core) });
       host.effectInfo.text.set(LOSE_MEMORIES, {
         menuName: () => "drains experience",
         describe: () => "drains experience",
@@ -381,11 +271,8 @@ export default {
      * is on (its projection.json record), so its handlers go in under the same
      * flag and no other. */
     if (ctx.flags["feature-restoration.bronze-dragons"] === true && ctx.core && host.projections) {
-      /* The live core namespace carries TMD, MON_TMD, RF and MON_MSG; CoreLike
-       * names only what the spike command uses. */
-      const core = ctx.core as unknown as ConfusionCore;
-      host.projections.player.set(CONFUSION, confusePlayer(core));
-      host.projections.mon.set(CONFUSION, confuseMonster(core, BRONZE_BREATHERS));
+      host.projections.player.set(CONFUSION, confusePlayer(ctx.core));
+      host.projections.mon.set(CONFUSION, confuseMonster(ctx.core, BRONZE_BREATHERS));
       ctx.log?.("feature-restoration: confusion projection handlers installed");
     }
 
@@ -394,17 +281,14 @@ export default {
      * namespace carries EF, ENCH_*, ODESC, PN and the obj helpers the handlers
      * call through; ClassicCore names only those. */
     if (ctx.flags["feature-restoration.classic-uncurse"] === true && ctx.core && host.effects) {
-      const core = ctx.core as unknown as ClassicCore;
-      const ef = (ctx.core as unknown as { EF: { REMOVE_CURSE: number; ENCHANT: number } }).EF;
-      host.effects.register(ef.REMOVE_CURSE, { handler: classicRemoveCurseHandler(core) });
-      host.effects.register(ef.ENCHANT, { handler: enchantCurseBreakHandler(core) });
+      host.effects.register(ctx.core.EF.REMOVE_CURSE, { handler: classicRemoveCurseHandler(ctx.core) });
+      host.effects.register(ctx.core.EF.ENCHANT, { handler: enchantCurseBreakHandler(ctx.core) });
       ctx.log?.("feature-restoration: classic uncursing handlers installed");
     }
 
     if (ctx.flags["feature-restoration.sticky-curses"] === true && ctx.core && host.effects && host.effectInfo) {
-      const core = ctx.core as unknown as CurseScrollCore;
-      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(core, "WEAPON") });
-      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(core, "BODY_ARMOR") });
+      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(ctx.core, "WEAPON") });
+      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(ctx.core, "BODY_ARMOR") });
       host.effectInfo.text.set(CURSE_WEAPON, {
         menuName: () => "curses a wielded weapon",
         describe: () => "curses a wielded weapon",

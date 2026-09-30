@@ -1,35 +1,32 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { LOSE_MEMORIES, loseMemoriesHandler, type LoseMemoriesCore } from "./src/lose-memories.js";
-import { bind, modManifest } from "./test/game.js";
-
-interface Player {
-  exp: number;
-  maxExp: number;
-}
+import * as core from "@rpgm-tools/neo-angband-core";
+import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
+import { bind, gamePack, modManifest } from "./test/game.js";
 
 function usePotion(exp: number, holdLife = false) {
-  const player: Player = { exp, maxExp: exp };
-  const runeEnv = {};
-  const state = { actor: { player }, runeEnv };
+  const state = core.startGame(gamePack(["classic-potions"]).pack).state;
+  const player = state.actor.player;
+  player.exp = exp;
+  player.maxExp = exp;
+  const { runeEnv } = state;
   const msgs: string[] = [];
   const learned: unknown[][] = [];
   let permanentLoss: boolean | undefined;
-  const core = {
-    OF: { HOLD_LIFE: 1 },
-    gameEnv: () => ({ state }),
+  const testCore = {
+    ...core,
     playerOfHas: () => holdLife,
-    playerExpLose: (target: Player, amount: number, permanent: boolean) => {
+    playerExpLose: (target: core.Player, amount: number, permanent: boolean) => {
       permanentLoss = permanent;
       target.exp -= Math.min(target.exp, amount);
       if (permanent) target.maxExp -= amount;
     },
-    effectExpDeps: () => ({}),
-    equipLearnFlag: (...args: unknown[]) => learned.push(args),
-  } as unknown as LoseMemoriesCore;
-  const handler = loseMemoriesHandler(core);
+    effectExpDeps: () => ({ rng: state.rng }),
+    equipLearnFlag: (...args: Parameters<typeof core.equipLearnFlag>) => { learned.push(args); },
+  };
+  const handler = loseMemoriesHandler(testCore);
   const ctx = {
-    env: { messages: { msg: (text: string) => msgs.push(text) } },
+    env: { game: { state }, messages: { msg: (text: string) => msgs.push(text) } },
     ident: false,
   } as unknown as Parameters<typeof handler>[0];
   handler(ctx);
@@ -58,7 +55,7 @@ describe("Potion of Lose Memories", () => {
 
   it.each([false, true])("teaches the Hold Life rune from worn gear, as 4.1.3 did (Hold Life %s)", (holdLife) => {
     const { player, learned, runeEnv } = usePotion(1000, holdLife);
-    expect(learned).toEqual([[player, runeEnv, 1]]);
+    expect(learned).toEqual([[player, runeEnv, core.OF.HOLD_LIFE]]);
   });
 
   it("lets Restore Life Levels recover the lost experience", () => {
