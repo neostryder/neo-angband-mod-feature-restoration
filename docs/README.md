@@ -30,7 +30,7 @@ switch has no flag of its own, the game knows it by its section id instead.
 | Add the Amulet of Amandil (never released) | `amandil` | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | Restore the bronze dragons | `feature-restoration.bronze-dragons` | off | Bronze dragons breathed confusion. |
 | Restore sticky curses | `feature-restoration.sticky-curses` | off | Angband 4.0 made a cursed item impossible to take off, and nothing else could be wielded into its slot, until the curse itself was lifted. |
-| Restore classic uncursing | `feature-restoration.classic-uncurse` | off | Angband 4.0's Remove Curse took every light curse off every worn item at once and never damaged the item; its stronger form, *Remove Curse*, also lifted heavy curses, and a permanent curse never came off. |
+| Restore classic uncursing | `feature-restoration.classic-uncurse` | off | Angband 4.0's Remove Curse cleared every worn item whose curses were all light, at once, and never damaged the item; its stronger form, *Remove Curse*, also lifted heavy curses, and a permanent curse never came off. |
 | Restore junk items | `feature-restoration.junk` | off | Angband 3.4.1 still had the junk that fills a dungeon: empty bottles, shards of pottery, broken sticks, bones and the skeletons of the creatures that died there, plus the Filthy Rag and the Broken Dagger and Sword. |
 | Restore seven ring and amulet flavors | `flavors` | off | In 2013 upstream gave seven ring and amulet looks to artifacts. |
 

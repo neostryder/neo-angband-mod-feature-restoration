@@ -25,7 +25,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 |---|---|---|
 | **Classic arcane books** (`classic-arcane-books`) | off | Restores the nine arcane books for Mage, Rogue and Ranger, including the Ranger's INT-based casting. The choice is locked when the character is born. |
 | **Classic prayer books** (`classic-prayer-books`) | off | Restores the nine prayer books for Priest and Paladin. The choice is locked when the character is born. |
-| **Classic class chassis** (`classic-class-chassis`) | off | Independently restores the five classic casters' experience penalties, skills and hit dice. |
+| **Classic class chassis** (`classic-class-chassis`) | off | Independently restores the five classic casters' experience penalties, skills and hit dice. The choice is locked when the character is born. |
 | **Restore Teleport Other** (`teleport-other`) | off | Gives the Priest, the Paladin and the Ranger the same "teleport the monster in front of you away" spell the Mage and the Rogue already have in Angband 4.2.6. Angband 4.1.3, the last official release before the 4.2.0 spellbook rewrite, gave it to every caster; 4.2.6 kept it for two classes and dropped it for the rest. |
 | **Restore store discounts** (`discounts`) | off | Stores occasionally sell an item at a random discount, the way Angband 3.0.6, the last official release to carry the mechanic, did. 4.2.6 dropped the mechanic entirely. |
 | **Restore door spiking** (`spike-doors`) | off | Adds Iron Spikes as a findable item and a `spike` command that spends one to jam a closed door, making it harder to pick open. Angband 3.4.1, the last official release before the 4.0 command rewrite dropped both, is the source; 4.2.6 has neither. The command claims the original `j` key by default when it is free; see below. |
@@ -40,7 +40,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
 | **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
 | **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
-| **Restore junk items** (`junk`) | off | Adds 14 old junk kinds, ignored by default for new characters. |
+| **Restore junk items** (`junk`) | off | Adds 14 old junk kinds at a low frequency. |
 | **Restore seven ring and amulet flavors** (`flavors`) | off | In 2013 upstream gave seven ring and amulet looks to artifacts. |
 
 ### Restore Teleport Other
@@ -455,15 +455,41 @@ Confusion breath follows 3.2.0's rules, with one change. A monster is confused f
 
 ### Restore sticky curses
 
-Angband 4.0 made cursed equipment stay on until its curse was removed. This switch restores that rule for the curses that match 4.0's cursed items; other curses come off as usual, so remove the curse before trying to replace a sticky item. It also brings back the Rings of Woe, Weakness, Stupidity and Aggravate Monster, the Amulet of DOOM, the Staff of Slowness, and 3.0.9's Curse Weapon and Curse Armour scrolls. Curse Weapon turns the wielded weapon into a (Shattered) one and Curse Armour turns worn body armour into (Blasted) armour, each with a curse and ruined combat values, though an artifact resists half the time. Those two egos never turn up on their own: reading one of the scrolls is the only way to meet them.
+Angband 4.0 made cursed equipment stay on until its curse was removed. This switch restores that rule for the curses that match 4.0's cursed items, and for air swing, the curse (Shattered) weapons carry. Other curses come off as usual, so remove the curse before trying to replace a sticky item. Air swing was not one of 4.0's curses, so a 4.2 weapon that rolls it sticks too.
+
+The switch also brings back the Rings of Woe, Weakness, Stupidity and Aggravate Monster, the Amulet of DOOM, the Staff of Slowness, and the Curse Weapon and Curse Armour scrolls. All of them come from Angband 3.0.9, not 4.0, which had none of them. Curse Weapon turns the wielded weapon into a (Shattered) one and Curse Armour turns worn body armour into (Blasted) armour. The item loses its old ego or artifact powers, takes the new ego's ruined combat values and gains its curse, though an artifact resists half the time. A scroll read with nothing in the slot is used up and does nothing. Those two egos never turn up on their own: reading one of the scrolls is the only way to meet them.
+
+In 3.0.9 a cursed item did its harm through its own negative bonuses, and the curse only kept it on. 4.2 puts the harm in the curse, so each restored item carries the 4.2 curse closest to its old penalty. Every one of those curses has power 40, the light band that 3.0.9's light curse maps to, so Remove Curse lifts it. 4.2 data can hold a negative bonus, but its version of 3.0.9's depth bonus shrinks the penalty with depth where 3.0.9's grew it, so the restored items carry no negative bonuses of their own. The curses are fixed on the item, so they apply even where a curse's own list of item types, such as gloves only for weakness, would not allow them. Allocations follow the rarity rule under Restore cut rods, wands, staffs, potions and equipment: a 3.0.9 rarity of 1 becomes commonness 20.
+
+| Item | 3.0.9 | Here | Why |
+|---|---|---|---|
+| Ring of Weakness | Strength -(1 + M5), light curse, level 5, rarity 1 | Weakness curse (Strength -10) at 40, level 5, commonness 20 | 4.2's only curse that lowers Strength alone. It is harsher than the old ring. |
+| Ring of Stupidity | Intelligence -(1 + M5), light curse, level 5, rarity 1 | Dullness curse (Intelligence and Wisdom -5) at 40, level 5, commonness 20 | 4.2 has no curse that lowers Intelligence alone. |
+| Ring of Woe | Random teleports, Wisdom and Charisma -(1 + M5), armour -(5 + M10), light curse, level 50, rarity 1 | Teleportation and dullness curses at 40, level 50, commonness 20 | 4.2 has no Charisma, and dullness adds an Intelligence loss. No 4.2 ring curse lowers armour, so that penalty is gone. |
+| Ring of Aggravate Monster | Aggravates, light curse, level 5, rarity 1 | Irritation curse (aggravates, to-hit and to-dam -15) at 40, level 5, commonness 20 | 4.2's only other aggravating curse, vulnerability, costs 50 armour. |
+| Amulet of DOOM | All six stats and armour -(d5 + M5), light curse, level 50, rarity 1 | Sickliness and dullness curses at 40, level 50, commonness 20 | Together they lower the five stats 4.2 keeps. The armour penalty is gone. |
+| Staff of Slowness | Slows for 15 + d25 turns, 8 + d8 charges, level 40, rarity 1 | The same, commonness 20 | No difference. |
+| Curse Weapon and Curse Armour | Level 50, rarity 1 | Commonness 20 from level 50 | The rarity rule. 4.2.6 keeps both records with a commented-out commonness of 10. |
+| (Shattered) | To-hit and to-dam -d5, cursed | Air swing curse (to-hit -20) at 40, made sticky | 3.0.9 marked the weapon cursed and did no other harm. Air swing is the 4.2 weapon curse that costs to-hit and nothing else. |
+| (Blasted) | Armour -d10, cursed | Vulnerability curse (armour -50, aggravates) at 40 | 3.0.9 marked the armour cursed and did no other harm. Vulnerability is the sticky 4.2 curse for body armour that costs armour. It also aggravates, which the old ego did not. |
 
 ### Restore classic uncursing
 
-Angband 4.0's Remove Curse lifted every light curse on worn equipment at once; *Remove Curse* also lifted heavy curses, but neither lifted permanent ones. This switch restores those effects and the chance for enchanting to break a curse. It does not change how curses are generated.
+Angband 4.0's Remove Curse worked item by item. The ordinary form lifted every curse from each worn item whose curses were all light, and left an item alone if any of its curses was heavy or permanent. *Remove Curse* also cleared items with heavy curses. Neither touched an item with a permanent curse, and neither could fail or damage an item. This switch restores those rules and the chance for enchanting to break a curse.
+
+The source decides which form it casts, not a roll. A source that rolls a d50 or larger is the strong form: *Remove Curse* (50 + d50) and the restored Dispel Curse prayer. The scroll of Remove Curse (20 + d20) and the Staff of Remove Curse (35 + d30) are the ordinary form. 4.2's own Remove Curse spell rolls the caster's level plus a die with as many sides as that level, so it becomes the strong form at level 50.
+
+A curse's power sets its band, for 4.2's own curses as well as this mod's: 40 or less is light, 41 to 99 heavy and 100 permanent. 4.2 gives a curse it generates a power of 1d9 plus up to 90 more that grows with depth, so many generated curses are heavy.
+
+An enchant scroll rolls to break a curse after each point it tries to add, as 4.0.5 did: one chance in four each time, half that on an artifact, and never on an item with a permanent curse. A broken curse takes every curse off the item, heavy ones included. The switch does not change how curses are generated.
 
 ### Restore junk items
 
-Angband 3.4.1 still generated empty bottles, shards, sticks, bones, skeletons, a filthy rag and broken weapons. This switch brings back all 14 kinds. New characters start with each kind ignored, both before and after identifying it; use the ignore settings to un-ignore a kind you want to collect. Enabling the switch on an existing character does not change that character's ignore choices.
+Angband 3.4.1 still had empty bottles, shards of pottery, broken sticks, skulls and bones, and five kinds of skeleton. Angband 3.0.9 also had the Gnome Skeleton, the Filthy Rag and the Broken Dagger and Sword, and it is the source for those four. This switch brings back all 14 kinds with the level, weight, cost, dice and armour of their source release.
+
+Neither release generated eleven of them at random: the bottle, shard, stick, skull, bone and all six skeletons had no allocation, so their allocation here is new. In 3.0.9 the rag had rarity 1 from level 0 and the two broken weapons had rarity 2 from level 0 and again from level 5, which the rarity rule would turn into commonness 20 and 10. All 14 have commonness 1 instead, so that junk stays rare and does not crowd out better finds.
+
+No junk is ignored by default. The game's ignore menu can only ignore a whole kind from its own item classes, so a player could not undo a default ignore on these. The ignore command on a single piece of junk still works.
 
 ### Restore seven ring and amulet flavors
 
@@ -471,7 +497,7 @@ Upstream commit `e08ed1dcb` ("Add some fixed artifact flavors", 4 October 2013) 
 
 ### Where the tiles come from
 
-`tools/extract-art.py` takes each restored item and monster's tile from upstream's own tile sheets. For every bundled pack it walks back from the record's last release to the newest one whose pref file still maps it, crops that cell from the sheet at the same release, and records in `tools/art-report.json` whether 4.2.6's sheet still holds the same pixels there and what 4.2.6 draws in that cell now. A pack with no tile of its own takes the best real tile from a pack at the same or a lower resolution. No tile from a larger pack is scaled down. The seven restored flavors alias their historical tiles and carry hue rotations where they share art with a fixed artifact flavor. Restored monster art carries hue rotations where its old tile is now used by a 4.2 monster.
+`tools/extract-art.py` takes each restored item and monster's tile from upstream's own tile sheets. For every bundled pack it walks back from the record's last release to the newest one whose pref file still maps it, crops that cell from the sheet at the same release, and records in `tools/art-report.json` whether 4.2.6's sheet still holds the same pixels there and what 4.2.6 draws in that cell now. A pack with no tile of its own takes the best real tile from a pack at the same or a lower resolution. No tile from a larger pack is scaled down. The seven restored flavors alias their historical tiles and carry hue rotations where they share art with a fixed artifact flavor. Restored monster art carries hue rotations where its old tile is now used by a 4.2 monster. Hue rotations need Linoleum. Without it, each tinted monster or flavor draws exactly like the 4.2 tile it shares.
 
 ## Content, plus one plugin
 

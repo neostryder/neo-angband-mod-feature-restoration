@@ -10,8 +10,10 @@ interface Player {
 
 function usePotion(exp: number, holdLife = false) {
   const player: Player = { exp, maxExp: exp };
-  const state = { actor: { player } };
+  const runeEnv = {};
+  const state = { actor: { player }, runeEnv };
   const msgs: string[] = [];
+  const learned: unknown[][] = [];
   let permanentLoss: boolean | undefined;
   const core = {
     OF: { HOLD_LIFE: 1 },
@@ -23,6 +25,7 @@ function usePotion(exp: number, holdLife = false) {
       if (permanent) target.maxExp -= amount;
     },
     effectExpDeps: () => ({}),
+    equipLearnFlag: (...args: unknown[]) => learned.push(args),
   } as unknown as LoseMemoriesCore;
   const handler = loseMemoriesHandler(core);
   const ctx = {
@@ -30,7 +33,7 @@ function usePotion(exp: number, holdLife = false) {
     ident: false,
   } as unknown as Parameters<typeof handler>[0];
   handler(ctx);
-  return { player, msgs, permanentLoss, identified: ctx.ident };
+  return { player, msgs, permanentLoss, identified: ctx.ident, learned, runeEnv };
 }
 
 describe("Potion of Lose Memories", () => {
@@ -51,6 +54,11 @@ describe("Potion of Lose Memories", () => {
     expect(msgs).toEqual([]);
     expect(permanentLoss).toBeUndefined();
     expect(identified).toBe(true);
+  });
+
+  it.each([false, true])("teaches the Hold Life rune from worn gear, as 4.1.3 did (Hold Life %s)", (holdLife) => {
+    const { player, learned, runeEnv } = usePotion(1000, holdLife);
+    expect(learned).toEqual([[player, runeEnv, 1]]);
   });
 
   it("lets Restore Life Levels recover the lost experience", () => {

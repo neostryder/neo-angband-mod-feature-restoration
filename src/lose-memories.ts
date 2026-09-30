@@ -6,6 +6,7 @@ interface ExpPlayer {
 
 interface ExpState {
   actor: { player: ExpPlayer };
+  runeEnv: unknown;
 }
 
 interface ExpEnv {
@@ -18,6 +19,7 @@ export interface LoseMemoriesCore {
   playerOfHas(state: ExpState, flag: number): boolean;
   playerExpLose(player: ExpPlayer, amount: number, permanent: boolean, deps: unknown): void;
   effectExpDeps(ctx: EffectHandlerContext, env: ExpEnv): unknown;
+  equipLearnFlag(player: ExpPlayer, runeEnv: unknown, flag: number): void;
 }
 
 export const LOSE_MEMORIES = "feature-restoration:LOSE_EXP";
@@ -32,6 +34,8 @@ export function loseMemoriesHandler(core: LoseMemoriesCore): EffectHandler {
       core.playerExpLose(player, Math.trunc(player.exp / 4), false, core.effectExpDeps(ctx, env));
     }
     ctx.ident = true;
+    /* 4.1.3 teaches the Hold Life rune whether or not it saved the player. */
+    core.equipLearnFlag(player, env.state.runeEnv, core.OF.HOLD_LIFE);
     return true;
   };
 }

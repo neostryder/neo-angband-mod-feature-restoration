@@ -10,7 +10,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { TV } from "@rpgm-tools/neo-angband-core";
+import { OF, TV } from "@rpgm-tools/neo-angband-core";
 import { bind } from "./test/game.js";
 
 type Game = ReturnType<typeof bind>["game"];
@@ -67,6 +67,16 @@ describe("(Shattered) and (Blasted)", () => {
     expect(range(e.toD)).toEqual({ lo: -5, hi: -1 });
     expect(range(e.toA)).toEqual({ lo: 0, hi: 0 });
     expect(curseNames(game, e)).toEqual([["air swing", 40]]);
+  });
+
+  it("pin their item the way 3.0.9's cursed (Shattered) and (Blasted) did", () => {
+    const { game } = bind(["sticky-curses"]);
+    for (const name of ["(Shattered)", "(Blasted)"]) {
+      for (const [curse] of curseNames(game, ego(game, name)!)) {
+        const c = game.objects.curses.find((x) => x?.name === curse)!;
+        expect(c.obj.flags.has(OF.STICKY), `${name} ${curse}`).toBe(true);
+      }
+    }
   });
 
   it("(Blasted) goes on body armour only, and takes 1 to 10 from to-ac", () => {

@@ -27,7 +27,7 @@ function setup() {
   return { game, handlers, info };
 }
 
-function readScroll(code: string, artifact = false, seed = 7) {
+function readScroll(code: string, artifact = false, seed = 7, prepare?: (obj: core.GameObject, game: ReturnType<typeof bind>["game"]) => void) {
   const { game, handlers } = setup();
   const scroll = game.objects.kinds.find((k) => k?.name === (code === CURSE_WEAPON ? "Curse Weapon" : "Curse Armour"))!;
   expect(scroll.effect?.[0]?.eff).toBe(code);
@@ -37,6 +37,7 @@ function readScroll(code: string, artifact = false, seed = 7) {
   expect(kind).toBeDefined();
   const obj = core.objectPrep(new core.Rng(13), game.objects, game.constants, kind!, 1, "average");
   if (artifact) obj.artifact = game.objects.artifacts.find((a) => a !== null)!;
+  prepare?.(obj, game);
   const rng = new core.Rng(seed);
   const state = {
     rng,
@@ -97,7 +98,35 @@ describe("curse scrolls", () => {
     expect(obj.ego?.name).toBe(code === CURSE_WEAPON ? "(Shattered)" : "(Blasted)");
   });
 
-  it.each([CURSE_WEAPON, CURSE_ARMOUR])("%s cannot curse an empty equipment slot", (code) => {
+  it.each([
+    [CURSE_WEAPON, "of Westernesse"],
+    [CURSE_ARMOUR, "of Resistance"],
+  ])("%s strips the old ego's powers back to the kind's own", (code, oldEgo) => {
+    let before: { modifiers: number[]; elInfo: core.ElementInfo[]; slays: boolean[] | null } | null = null;
+    const { obj, game } = readScroll(code, false, 7, (o, g) => {
+      o.ego = g.objects.egos.find((e) => e?.name === oldEgo && e.possItems.has(o.kind.kidx))!;
+      expect(o.ego).toBeDefined();
+      core.egoApplyMagic(new core.Rng(3), g.objects, o, 40);
+      o.activation = {} as core.Activation;
+      before = { modifiers: [...o.modifiers], elInfo: o.elInfo.map((e) => ({ ...e })), slays: o.slays && [...o.slays] };
+    });
+    /* The old ego must really have given the item something to lose. */
+    const fresh = core.objectPrep(new core.Rng(13), game.objects, game.constants, obj.kind, 1, "average");
+    const gained = JSON.stringify(before) !== JSON.stringify({ modifiers: fresh.modifiers, elInfo: fresh.elInfo, slays: fresh.slays });
+    expect(gained).toBe(true);
+
+    expect(obj.ego?.name).toBe(code === CURSE_WEAPON ? "(Shattered)" : "(Blasted)");
+    expect(obj.modifiers).toEqual(fresh.modifiers);
+    expect(obj.elInfo).toEqual(fresh.elInfo);
+    expect(obj.slays).toEqual(fresh.slays);
+    expect(obj.brands).toEqual(fresh.brands);
+    expect(obj.flags.isEqual(fresh.flags)).toBe(true);
+    expect(obj.activation).toBeNull();
+    const cursed = game.objects.curses.flatMap((c, i) => (obj.curses?.[i]?.power ? [c?.name] : []));
+    expect(cursed).toEqual([code === CURSE_WEAPON ? "air swing" : "vulnerability"]);
+  });
+
+  it.each([CURSE_WEAPON, CURSE_ARMOUR])("%s uses the scroll up, unidentified, on an empty equipment slot", (code) => {
     const { game, handlers } = setup();
     const messages: string[] = [];
     const ctx = {
@@ -113,7 +142,7 @@ describe("curse scrolls", () => {
       },
       ident: false,
     } as unknown as Parameters<Handler>[0];
-    expect(handlers.get(code)!(ctx)).toBe(false);
+    expect(handlers.get(code)!(ctx)).toBe(true);
     expect(ctx.ident).toBe(false);
     expect(messages).toEqual([]);
   });

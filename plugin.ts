@@ -73,7 +73,6 @@ import {
 } from "./src/classic-uncurse.js";
 import type { EffectHandler, EffectTextHandler } from "@rpgm-tools/neo-angband-core";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
-import { ignoreJunk, type JunkState, type JunkRegistries } from "./src/junk-ignore.js";
 import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler, type CurseScrollCore } from "./src/curse-scrolls.js";
 
 /**
@@ -144,7 +143,6 @@ interface GameStateLike {
  * either.
  */
 interface CoreLike {
-  tvalFindIdx?(name: string): number;
   /** ddgrid: keypad direction (1-9, 5 is "no direction") -> grid offset. */
   readonly DDGRID: readonly Loc[];
   /**
@@ -200,7 +198,7 @@ interface KeymapsLike {
 
 interface HookCtx {
   readonly flags: Readonly<Record<string, boolean>>;
-  /** The live core namespace; present on register()'s ctx, not on hooks()'s. */
+  /** The live core namespace; the host passes it to both hooks() and register(). */
   readonly core?: CoreLike;
   /** Present only when the mod declared `keymap:write` and the player consented. */
   readonly keymaps?: KeymapsLike;
@@ -350,11 +348,10 @@ export function spikeDoor(core: CoreLike, state: GameStateLike, cmd: PlayerComma
 export default {
   api: 1,
 
-  hooks(ctx: HookCtx): { newCharacter?: (state: JunkState, registries: JunkRegistries) => void } {
-    if (ctx.flags["feature-restoration.junk"] !== true) return {};
-    if (!ctx.core?.tvalFindIdx) throw new Error("Junk ignore requires the live core item classes");
-    const { tvalFindIdx } = ctx.core;
-    return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
+  /* Junk is not ignored for new characters: the game's ignore menus offer a
+   * whole kind only for its own item classes, so a player could never undo it. */
+  hooks(_ctx: HookCtx): Record<string, never> {
+    return {};
   },
 
   /**

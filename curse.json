@@ -31,6 +31,9 @@
         ],
         "core:annoyance": [
           { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:air-swing": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
         ]
       }
     }

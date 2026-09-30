@@ -11,7 +11,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { bind } from "./test/game.js";
-import { BANDS, countBand, sectionRecords, type Band, type BandCounts } from "./tools/population.js";
+import { bootLevel, type CorePack } from "@rpgm-tools/neo-angband-core";
+import { BANDS, countBand, sectionRecords, seedFor, type Band, type BandCounts } from "./tools/population.js";
 
 const SMALL_BAND: Band = { label: "probe", min: 5, max: 6 };
 const SMALL_SEEDS = 2;
@@ -37,11 +38,15 @@ describe("population harness", () => {
     expect(serialize(second)).toBe(serialize(first));
   });
 
-  it("generates a level set that depends on the seed", () => {
+  it("generates a different level from a different seed at the same depth", () => {
     const game = bind(["monsters-4-1"]).game;
-    const a = countBand(game, { label: "a", min: 10, max: 10 }, 1);
-    const b = countBand(game, { label: "b", min: 11, max: 11 }, 1);
-    expect(serialize(a)).not.toBe(serialize(b));
+    const level = (k: number): string => {
+      const { monsters, objects } = bootLevel({} as CorePack, { seed: seedFor(10, k), depth: 10, registries: game });
+      return [monsters.map((m) => m.mon.race.ridx).join(","), objects.map((o) => o.obj.kind.kidx).join(",")].join("|");
+    };
+    expect(seedFor(10, 0)).not.toBe(seedFor(10, 1));
+    expect(level(1)).not.toBe(level(0));
+    expect(level(0)).toBe(level(0));
   });
 
   it("attributes a section's records to the section that declares them", () => {

@@ -3,9 +3,10 @@
  *
  * 4.0 pinned a cursed item until its curse was lifted; 4.2's curses are runes
  * that come off freely. This section patches the STICKY flag onto the 4.2
- * curses that answer to 4.0's cursed egos, and nothing else, and restores the
+ * curses that answer to 4.0's cursed egos, plus the air swing curse that
+ * (Shattered) carries, and nothing else, and restores the
  * cursed rings, the Amulet of DOOM and the Staff of Slowness as ordinary kinds
- * carrying those curses at the 4.0 tiers (light at 40, permanent at 100).
+ * carrying those curses at the light tier (40) that 3.0.9 gave them.
  *
  * The tests below read the real composed-and-bound game, so a flag name the
  * engine does not know, a curse name that does not exist, or a record that
@@ -14,7 +15,7 @@
 
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
-import { OF } from "@rpgm-tools/neo-angband-core";
+import { OF, Rng, objCanTakeoff, objectPrep } from "@rpgm-tools/neo-angband-core";
 import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
 import { bind } from "./test/game.js";
 
@@ -23,8 +24,9 @@ const require = createRequire(import.meta.url);
 type Game = ReturnType<typeof bind>["game"];
 type Kind = Game["objects"]["kinds"][number];
 
-/** The 4.2 curses that answer to 4.0's cursed egos and items, and no others. */
+/** The 4.2 curses that answer to 4.0's cursed egos and items, plus (Shattered)'s. */
 const STICKY_CURSES = [
+  "air swing",
   "vulnerability",
   "teleportation",
   "dullness",
@@ -43,7 +45,7 @@ const RESTORED: Array<{ name: string; type: string; curses: Array<[string, numbe
   { name: "Weakness", type: "ring", curses: [["weakness", 40]] },
   { name: "Stupidity", type: "ring", curses: [["dullness", 40]] },
   { name: "Aggravate Monster", type: "ring", curses: [["irritation", 40]] },
-  { name: "DOOM", type: "amulet", curses: [["sickliness", 100], ["dullness", 100]] },
+  { name: "DOOM", type: "amulet", curses: [["sickliness", 40], ["dullness", 40]] },
   { name: "Slowness", type: "staff", curses: [] },
 ];
 
@@ -104,14 +106,30 @@ describe("sticky-curses", () => {
     }
   });
 
-  it("uses only the light (40) and permanent (100) power bands", () => {
+  it("gives every curse the light power (40), as 3.0.9's LIGHT_CURSE was", () => {
     const { game } = bind(["sticky-curses"]);
     for (const r of RESTORED) {
       const k = kind(game, r.name, r.type)!;
       for (const [name, power] of r.curses) {
-        expect([40, 100], `${r.name} ${name}`).toContain(power);
+        expect(power, `${r.name} ${name}`).toBe(40);
         expect(cursePower(game, k, name), `${r.name} ${name}`).toBe(power);
       }
+    }
+  });
+
+  it("pins a worn cursed ring with the section on and frees it with the section off", () => {
+    const { game } = bind(["sticky-curses"]);
+    const ring = objectPrep(new Rng(1), game.objects, game.constants, kind(game, "Weakness", "ring")!, 5, "average");
+    expect(ring.curses, "the ring carries its curse").not.toBeNull();
+    expect(objCanTakeoff(ring, game.objects.curses)).toBe(false);
+    /* Curse indices match between the two binds because the section adds no curse record. */
+    expect(objCanTakeoff(ring, bind([]).game.objects.curses)).toBe(true);
+  });
+
+  it("gives both curse scrolls 3.0.9's allocation, rarity 1 from level 50, as commonness 20", () => {
+    for (const name of ["Curse Weapon", "Curse Armour"]) {
+      const k = kind(bind(["sticky-curses"]).game, name, "scroll")!;
+      expect([k.allocProb, k.allocMin, k.allocMax], name).toEqual([20, 50, 100]);
     }
   });
 

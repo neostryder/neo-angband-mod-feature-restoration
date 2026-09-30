@@ -14,7 +14,7 @@
 
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
-import { tvalFindIdx, tvalInClass, IgnoreSettings } from "@rpgm-tools/neo-angband-core";
+import { tvalFindIdx, tvalInClass } from "@rpgm-tools/neo-angband-core";
 import { bind } from "./test/game.js";
 // @ts-expect-error The test imports the handwritten source module.
 import plugin from "./plugin.ts";
@@ -49,33 +49,12 @@ function kindNamed(game: Game, name: string): Game["objects"]["kinds"][number] |
 }
 
 describe("junk", () => {
-  it("ignores all 14 kinds when a new character starts with junk enabled", () => {
-    const { game } = bind(["junk"]);
-    const ignore = new IgnoreSettings();
-    const hook = plugin.hooks({
-      flags: { "feature-restoration.junk": true },
-      core: { tvalFindIdx } as NonNullable<Parameters<typeof plugin.hooks>[0]["core"]>,
-    }).newCharacter;
-    expect(hook).toBeTypeOf("function");
-    hook!({ ignore }, game);
-    for (const r of JUNK) {
-      const kind = game.objects.kinds.find((k) => k?.name === r.name && k.tval === tvalFindIdx(r.type))!;
-      expect(ignore.kindIsIgnoredAware(kind.kidx), r.name).toBe(true);
-      expect(ignore.kindIsIgnoredUnaware(kind.kidx), r.name).toBe(true);
+  it("leaves a new character's ignore settings alone, junk on or off", () => {
+    /* The game's ignore menus cannot un-ignore a mod item class's kinds, so a
+     * default ignore could never be undone by the player. */
+    for (const junk of [true, false]) {
+      expect(plugin.hooks({ flags: { "feature-restoration.junk": junk } })).toEqual({});
     }
-    expect(JUNK).toHaveLength(14);
-    expect(game.objects.kinds.filter((k) => k && !JUNK.some((r) => r.name === k.name && tvalFindIdx(r.type) === k.tval))
-      .some((k) => k && ignore.kindIsIgnoredAware(k.kidx))).toBe(false);
-  });
-
-  it("leaves new characters' ignore settings empty when junk is off", () => {
-    const { game } = bind([]);
-    const ignore = new IgnoreSettings();
-    const hook = plugin.hooks({ flags: { "feature-restoration.junk": false } }).newCharacter;
-    expect(hook).toBeUndefined();
-    hook?.({ ignore }, game);
-    expect(game.objects.kinds.some((k) => k && ignore.kindIsIgnoredAware(k.kidx))).toBe(false);
-    expect(game.objects.kinds.some((k) => k && ignore.kindIsIgnoredUnaware(k.kidx))).toBe(false);
   });
   it("binds at once, with every record reaching the game", () => {
     const { game } = bind(["junk"]);
@@ -125,6 +104,13 @@ describe("junk", () => {
     for (const r of JUNK) {
       expect((r as { alloc?: { common?: number } }).alloc?.common, r.name).toBe(1);
     }
+  });
+
+  it("keeps 3.0.9's own numbers for the rag and the broken weapons", () => {
+    const byName = (name: string) => JUNK.find((r) => r.name === name) as unknown as Record<string, unknown>;
+    expect(byName("& Filthy Rag~")).toMatchObject({ level: 0, weight: 20, cost: 1, attack: { hd: "0d0" }, armor: { ac: 1, "to-a": "-1" } });
+    expect(byName("& Broken Dagger~")).toMatchObject({ level: 0, weight: 5, cost: 1, attack: { hd: "1d1", "to-h": "-2", "to-d": "-4" } });
+    expect(byName("& Broken Sword~")).toMatchObject({ level: 0, weight: 30, cost: 2, attack: { hd: "1d2", "to-h": "-2", "to-d": "-4" } });
   });
 
   it("collides with nothing core ships", () => {

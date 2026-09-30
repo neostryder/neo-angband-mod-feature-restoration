@@ -939,14 +939,14 @@
       "id": "sticky-curses",
       "flag": "feature-restoration.sticky-curses",
       "title": "Restore sticky curses",
-      "description": "Angband 4.0 made a cursed item impossible to take off, and nothing else could be wielded into its slot, until the curse itself was lifted. Angband 4.2 turned curses into runes that come and go freely. This pins the 4.2 curses that answer to 4.0's cursed egos (weakness, clumsiness, dullness, sickliness, vulnerability, teleportation, irritation, annoyance, enveloping and slowness) back onto their items, and brings back the cursed Rings of Woe, Weakness, Stupidity and Aggravate Monster, the Amulet of DOOM and the Staff of Slowness. Curses 4.2 invents beyond those stay free, because 4.2 generates far more curses than 4.0 did.",
+      "description": "Angband 4.0 made a cursed item impossible to take off, and nothing else could be wielded into its slot, until the curse itself was lifted. Angband 4.2 turned curses into runes that come and go freely. This pins the 4.2 curses that answer to 4.0's cursed egos (weakness, clumsiness, dullness, sickliness, vulnerability, teleportation, irritation, annoyance, enveloping and slowness), plus air swing for the restored (Shattered) weapons, back onto their items, and brings back the cursed Rings of Woe, Weakness, Stupidity and Aggravate Monster, the Amulet of DOOM and the Staff of Slowness. Curses 4.2 invents beyond those stay free, because 4.2 generates far more curses than 4.0 did.",
       "default": false
     },
     {
       "id": "classic-uncurse",
       "flag": "feature-restoration.classic-uncurse",
       "title": "Restore classic uncursing",
-      "description": "Angband 4.0's Remove Curse took every light curse off every worn item at once and never damaged the item; its stronger form, *Remove Curse*, also lifted heavy curses, and a permanent curse never came off. Angband 4.2's Remove Curse lifts one curse from one chosen item, and a failed attempt can leave the item fragile. This restores the 4.0 behaviour, and the 4.0 chance for an enchant scroll to break a curse: one in four, halved for artifacts.",
+      "description": "Angband 4.0's Remove Curse cleared every worn item whose curses were all light, at once, and never damaged the item; its stronger form, *Remove Curse*, also lifted heavy curses, and a permanent curse never came off. Angband 4.2's Remove Curse lifts one curse from one chosen item, and a failed attempt can leave the item fragile. This restores the 4.0 behaviour, and the 4.0 chance for an enchant scroll to break a curse: one in four, halved for artifacts.",
       "default": false
     },
     {

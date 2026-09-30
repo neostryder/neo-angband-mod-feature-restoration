@@ -790,11 +790,11 @@
     "sticky-curses": {
       "fieldPatches": {
         "core:scroll--curse-weapon": [
-          { "op": "set", "path": "alloc", "value": { "common": 1, "minmax": "50 to 100" } },
+          { "op": "set", "path": "alloc", "value": { "common": 20, "minmax": "50 to 100" } },
           { "op": "set", "path": "effect", "value": [{ "eff": "feature-restoration:CURSE_WEAPON" }] }
         ],
         "core:scroll--curse-armour": [
-          { "op": "set", "path": "alloc", "value": { "common": 1, "minmax": "50 to 100" } },
+          { "op": "set", "path": "alloc", "value": { "common": 20, "minmax": "50 to 100" } },
           { "op": "set", "path": "effect", "value": [{ "eff": "feature-restoration:CURSE_ARMOR" }] }
         ]
       },
@@ -916,15 +916,15 @@
           "curse": [
             {
               "name": "sickliness",
-              "power": 100
+              "power": 40
             },
             {
               "name": "dullness",
-              "power": 100
+              "power": 40
             }
           ],
           "desc": [
-            "A cold iron amulet stamped with a skull. Its curse never lifts, and it drains body and mind alike."
+            "A cold iron amulet stamped with a skull. It drains body and mind alike."
           ]
         },
         {
@@ -1177,7 +1177,7 @@
             "minmax": "0 to 100"
           },
           "attack": {
-            "hd": "1d1",
+            "hd": "0d0",
             "to-h": "0",
             "to-d": "0"
           },
