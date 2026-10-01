@@ -111,8 +111,7 @@ export function gamePack(on: readonly string[]) {
     /* A pack's own monster spells have to be declared before bindCore binds a
      * monster that casts one (core session/boot.ts, #281). Core's own spells
      * are compiled in, so only records that carry a declaration `type` go here.
-     * The game's web loader does not pass this field yet; see this repository's
-     * README, "Needs a core release". */
+     * The game's web loader passes this field from 1.20.0 (#319). */
     monsterSpells: (composed.records["monster_spell"] ?? []).filter(
       (r) => typeof (r as { type?: unknown }).type === "string",
     ),

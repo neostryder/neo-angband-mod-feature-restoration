@@ -509,16 +509,6 @@ Door spiking needs both halves. Iron Spikes are a new `object.json` record (in t
 
 The bronze dragons need behaviour of a third kind: confusion as an element. `projection.json` adds the CONFUSION projection as data, and `plugin.ts` installs what it does to the player and to monsters through `registry:projection`, from `src/confusion.ts`. Both are gated on `feature-restoration.bronze-dragons`, the section's own flag, so the handlers never run for a projection that does not exist.
 
-## Needs a core release
-
-Some sections rely on game fixes that are not in a published release yet. The tests run against a loader that already has each fix, and a section listed here must not ship until the game release carrying its fix is out and `manifest.json`'s `engine` floor names it.
-
-| Section | Needs |
-|---|---|
-| `bronze-dragons` | neostryder/neo-angband#319: the web loader has to declare a mod's monster spells before binding, or the first bronze dragon stops the game from starting. |
-
-The dev pins and manifest require Neo Angband 1.20.0 or later for the new-character hook, restored art fields, and exported experience helpers.
-
 ## Installing
 
 The mod is `manifest.json`, its gamedata files (`artifact.json`, `class.json`, `ego_item.json`, `flavor.json`, `message_type.json`, `monster.json`, `monster_spell.json`, `object.json`, `projection.json`) and `plugin.js` (built from `plugin.ts`; see below). You can install it in either of these ways:

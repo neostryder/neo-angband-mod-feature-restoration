@@ -36,10 +36,10 @@ switch has no flag of its own, the game knows it by its section id instead.
 
 ## What it needs
 
-- **Engine:** `>=1.0.0`
+- **Engine:** `>=1.21.0`
 - **Shape:** `content`
 - **Facets:** `content`, `plugin`
-- **Capabilities:** `registry:store`, `registry:command`, `keymap:write`, `registry:projection`
+- **Capabilities:** `registry:store`, `registry:command`, `keymap:write`, `registry:projection`, `registry:effect`, `registry:effect-info`
 
 What a capability string permits, and what a mod that asks for one cannot do
 without it, is in [the mod lifecycle
