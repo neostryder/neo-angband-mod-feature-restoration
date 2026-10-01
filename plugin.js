@@ -1,4 +1,4 @@
-// crf-core - generated from plugin.ts by neo-angband-mod-build
+// neo-angband-mod-feature-restoration - generated from plugin.ts by neo-angband-mod-build
 // (@rpgm-tools/neo-angband-mod-sdk). Edit the TypeScript source, not this file.
 
 // src/confusion.ts

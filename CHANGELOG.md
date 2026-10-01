@@ -47,6 +47,7 @@ were not retagged.
 
 ### Changed
 
+- [Visible] [Compatibility] **Cutting Room Floor now needs Neo Angband 1.21.0 or later**, the version it is built and tested against.
 - [Visible] [Compatibility] **Cutting Room Floor now needs Neo Angband 1.20.0 or later.** It uses `newCharacter`, `lockedAtBirth`, `restoredMonsterArt`, `restoredFlavorArt`, `hue`, `playerExpLose`, and `effectExpDeps` from that release.
 - [Internal] **The tests compose and bind the mod with the game.** Each section now goes through the same composition and binding a player's game runs, so an unknown flag or a renamed record fails a test.
 
