@@ -46,7 +46,7 @@ were not retagged.
 
 ### Changed
 
-- [Visible] [Compatibility] **Cutting Room Floor now needs Neo Angband 1.21.0 or later.** It is built and tested against that version.
+- [Visible] [Compatibility] **Cutting Room Floor now needs Neo Angband 1.21.1 or later.** It is built and tested against that version.
 - [Internal] **The tests compose and bind the mod with the game.** Each section now goes through the same composition and binding a player's game runs, so an unknown flag or a renamed record fails a test.
 
 ### Removed
