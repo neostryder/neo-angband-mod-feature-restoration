@@ -24,6 +24,8 @@ were not retagged.
 
 ## [Unreleased]
 
+## 1.3.0 - 2026-10-01
+
 ### Added
 
 - [Visible] [Content] **"Of Fury" can appear on weapons again.** Upstream commented out the ego's three weapon types in 2011; the new `fury` switch puts them back, and the ego keeps 4.2.6's own numbers.
