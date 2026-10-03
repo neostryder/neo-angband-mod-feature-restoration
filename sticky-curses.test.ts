@@ -159,3 +159,31 @@ describe("sticky-curses", () => {
     }
   });
 });
+
+describe("sticky-curses-all", () => {
+  const ALL = (
+    require("@rpgm-tools/neo-angband-content/pack/curse.json") as { records: Array<{ name: string }> }
+  ).records
+    .map((r) => r.name)
+    .sort();
+
+  it("pins STICKY onto every core curse", () => {
+    expect(stickyNames(bind(["sticky-curses-all"]).game)).toEqual(ALL);
+  });
+
+  it("binds cleanly beside sticky-curses, with each curse pinned once", () => {
+    const { game } = bind(["sticky-curses", "sticky-curses-all"]);
+    expect(stickyNames(game)).toEqual(ALL);
+  });
+
+  it("pins a worn item carrying a curse 4.0 never had", () => {
+    const { game } = bind(["sticky-curses-all"]);
+    const siren = game.objects.curses.findIndex((c) => c?.name === "siren");
+    expect(siren).toBeGreaterThan(0);
+    const k = game.objects.kinds.find((x) => x?.name === "& Pair~ of Leather Boots")!;
+    const boots = objectPrep(new Rng(1), game.objects, game.constants, k, 5, "average");
+    boots.curses = game.objects.curses.map((_, i) => (i === siren ? { power: 40, timeout: 0 } : { power: 0, timeout: 0 }));
+    expect(objCanTakeoff(boots, game.objects.curses)).toBe(false);
+    expect(objCanTakeoff(boots, bind([]).game.objects.curses)).toBe(true);
+  });
+});

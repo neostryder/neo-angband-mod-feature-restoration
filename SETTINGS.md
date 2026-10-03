@@ -20,6 +20,7 @@ Sections always require a reload because the content is recomposed. The store di
 | `amandil` | off | Adds the Amulet of Amandil, an artifact upstream wrote and never enabled. | Yes, section. |
 | `feature-restoration.bronze-dragons` | off | Adds the bronze dragons, their confusion breath and Bronze Dragon Scale Mail. | Yes, section and register side. |
 | `feature-restoration.sticky-curses` | off | Marks 4.0's curses and air swing sticky, adds four cursed rings, the Amulet of DOOM and the Staff of Slowness, and enables the Curse Weapon and Curse Armour scrolls. | Yes, section and register side. |
+| `feature-restoration.sticky-curses-all` | off | Marks all 27 core curses sticky, including the ones 4.0 had no equivalent for. | Yes, section. |
 | `feature-restoration.classic-uncurse` | off | Replaces the REMOVE_CURSE and ENCHANT handlers with 4.0's: uncursing clears every eligible worn curse, and an enchant can break one. | Yes, section and register side. |
 | `feature-restoration.junk` | off | Declares the junk, skeleton and bottle classes and adds 14 junk items; new characters start with the bottles, shards, sticks, skulls, bones and skeletons ignored. | Yes, section. |
 | `flavors` | off | Adds seven ring and amulet looks back, including five the artifacts took. | Yes, section. |

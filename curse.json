@@ -36,6 +36,91 @@
           { "op": "addFlag", "path": "flags", "flag": "STICKY" }
         ]
       }
+    },
+    "sticky-curses-all": {
+      "fieldPatches": {
+        "core:vulnerability": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:teleportation": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:dullness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:sickliness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:enveloping": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:irritation": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:weakness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:clumsiness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:slowness": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:annoyance": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:poison": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:siren": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:hallucination": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:paralysis": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:dragon-summon": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:demon-summon": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:undead-summon": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:impair-mana-recovery": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:impair-hitpoint-recovery": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:cowardice": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:stone": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:anti-teleportation": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:treacherous-weapon": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:burning-up": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:chilled-to-the-bone": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:steelskin": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ],
+        "core:air-swing": [
+          { "op": "addFlag", "path": "flags", "flag": "STICKY" }
+        ]
+      }
     }
   }
 }

@@ -39,6 +39,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
 | **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
+| **Make every curse sticky** (`sticky-curses-all`) | off | Every curse keeps worn equipment on until it is removed, including curses 4.0 never had. Harsher than any release of Angband. |
 | **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
 | **Restore junk items** (`junk`) | off | Adds 14 old junk kinds at a low frequency. |
 | **Restore seven ring and amulet flavors** (`flavors`) | off | In 2013 upstream gave seven ring and amulet looks to artifacts. |

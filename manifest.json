@@ -943,6 +943,13 @@
       "default": false
     },
     {
+      "id": "sticky-curses-all",
+      "flag": "feature-restoration.sticky-curses-all",
+      "title": "Make every curse sticky",
+      "description": "Angband 4.0 kept a cursed item on until its curse was lifted, but 4.0 had only a handful of curses. This pins every 4.2 curse that way, siren, stone, steelskin and the summoning curses included. Remove Curse can lift a curse of power 40 or less and *Remove Curse* one of up to 99, while a power of 100 never comes off. It works on its own or alongside Restore sticky curses.",
+      "default": false
+    },
+    {
       "id": "classic-uncurse",
       "flag": "feature-restoration.classic-uncurse",
       "title": "Restore classic uncursing",
