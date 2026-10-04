@@ -21,6 +21,7 @@
  * a NO_CONF monster from being confused at all.
  */
 import type { MonProjectContext, PlayerSideCtx } from "@rpgm-tools/neo-angband-core";
+import type { EngineCore } from "./core-adapter.js";
 
 export const CONFUSION = "CONFUSION";
 
@@ -43,11 +44,11 @@ export type MonProjectCtxLike = Pick<MonProjectContext, "r" | "seen" | "dam" | "
     flags: Pick<MonProjectContext["mon"]["race"]["flags"], "has">;
   } };
 };
-export type ConfusionCore = Pick<typeof import("@rpgm-tools/neo-angband-core"), "TMD" | "MON_TMD" | "RF" | "MON_MSG">;
+export type ConfusionCore = Pick<EngineCore, "TMD" | "MON_TMD" | "RF" | "MON_MSG">;
 
-export function confusePlayer(core: ConfusionCore): (ctx: PlayerSideCtxLike) => void {
+export function confusePlayer(engine: ConfusionCore): (ctx: PlayerSideCtxLike) => void {
   return (ctx) => {
-    ctx.incTimed(core.TMD.CONFUSED, ctx.rng.randint1(20) + 10, true);
+    ctx.incTimed(engine.TMD.CONFUSED, ctx.rng.randint1(20) + 10, true);
   };
 }
 
@@ -57,17 +58,17 @@ export function confusePlayer(core: ConfusionCore): (ctx: PlayerSideCtxLike) => 
  * this section's own six monsters, so they are named instead.
  */
 export function confuseMonster(
-  core: ConfusionCore,
+  engine: ConfusionCore,
   breathers: ReadonlySet<string>,
 ): (ctx: MonProjectCtxLike) => void {
   return (ctx) => {
     if (ctx.seen) ctx.obvious = true;
-    ctx.monTimed[core.MON_TMD.CONF] = Math.trunc((10 + ctx.rng.randint1(15) + ctx.r) / (ctx.r + 1));
+    ctx.monTimed[engine.MON_TMD.CONF] = Math.trunc((10 + ctx.rng.randint1(15) + ctx.r) / (ctx.r + 1));
     if (breathers.has(ctx.mon.race.name)) {
-      ctx.hurtMsg = core.MON_MSG.RESIST;
+      ctx.hurtMsg = engine.MON_MSG.RESIST;
       ctx.dam = Math.trunc((ctx.dam * 2) / (ctx.rng.randint1(6) + 6));
-    } else if (ctx.mon.race.flags.has(core.RF.NO_CONF)) {
-      ctx.hurtMsg = core.MON_MSG.RESIST_SOMEWHAT;
+    } else if (ctx.mon.race.flags.has(engine.RF.NO_CONF)) {
+      ctx.hurtMsg = engine.MON_MSG.RESIST_SOMEWHAT;
       ctx.dam = Math.trunc(ctx.dam / 2);
     }
   };

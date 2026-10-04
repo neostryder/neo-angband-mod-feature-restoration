@@ -11,20 +11,20 @@ var BRONZE_BREATHERS = /* @__PURE__ */ new Set([
   "ancient bronze dragon",
   "great wyrm of perplexity"
 ]);
-function confusePlayer(core) {
+function confusePlayer(engine) {
   return (ctx) => {
-    ctx.incTimed(core.TMD.CONFUSED, ctx.rng.randint1(20) + 10, true);
+    ctx.incTimed(engine.TMD.CONFUSED, ctx.rng.randint1(20) + 10, true);
   };
 }
-function confuseMonster(core, breathers) {
+function confuseMonster(engine, breathers) {
   return (ctx) => {
     if (ctx.seen) ctx.obvious = true;
-    ctx.monTimed[core.MON_TMD.CONF] = Math.trunc((10 + ctx.rng.randint1(15) + ctx.r) / (ctx.r + 1));
+    ctx.monTimed[engine.MON_TMD.CONF] = Math.trunc((10 + ctx.rng.randint1(15) + ctx.r) / (ctx.r + 1));
     if (breathers.has(ctx.mon.race.name)) {
-      ctx.hurtMsg = core.MON_MSG.RESIST;
+      ctx.hurtMsg = engine.MON_MSG.RESIST;
       ctx.dam = Math.trunc(ctx.dam * 2 / (ctx.rng.randint1(6) + 6));
-    } else if (ctx.mon.race.flags.has(core.RF.NO_CONF)) {
-      ctx.hurtMsg = core.MON_MSG.RESIST_SOMEWHAT;
+    } else if (ctx.mon.race.flags.has(engine.RF.NO_CONF)) {
+      ctx.hurtMsg = engine.MON_MSG.RESIST_SOMEWHAT;
       ctx.dam = Math.trunc(ctx.dam / 2);
     }
   };
@@ -35,8 +35,8 @@ var LIGHT_MAX_POWER = 40;
 var PERMA_POWER = 100;
 var ENCHANT_CURSE_CHANCE = 25;
 var HEAVY_MIN_SIDES = 50;
-function gameEnvOf(core, ctx) {
-  return core.gameEnv(ctx);
+function gameEnvOf(engine, ctx) {
+  return engine.gameEnv(ctx);
 }
 function say(ctx, text) {
   ctx.env.messages?.msg(text);
@@ -59,20 +59,20 @@ function enchantCurseBreak(rng, isArtifact) {
 function isHeavySource(value) {
   return value.sides >= HEAVY_MIN_SIDES;
 }
-function uncurseOne(core, curses, obj, heavy, onWeightDelta, msg) {
+function uncurseOne(engine, curses, obj, heavy, onWeightDelta, msg) {
   const worst = worstCurse(obj);
   if (worst <= 0 || worst >= PERMA_POWER) return 0;
   if (worst > LIGHT_MAX_POWER && !heavy) return 0;
-  const oldWeight = obj.number * core.objectWeightOne(obj, curses);
+  const oldWeight = obj.number * engine.objectWeightOne(obj, curses);
   let count = 0;
   for (let i = 1; i < curses.length; i++) {
     if (!obj.curses) break;
     if (!(obj.curses[i]?.power ?? 0)) continue;
     const env = msg ? { curses, msg } : void 0;
-    if (core.removeObjectCurse(obj, i, msg !== void 0, env)) count++;
+    if (engine.removeObjectCurse(obj, i, msg !== void 0, env)) count++;
   }
   if (count > 0) {
-    const newWeight = obj.number * core.objectWeightOne(obj, curses);
+    const newWeight = obj.number * engine.objectWeightOne(obj, curses);
     onWeightDelta?.(newWeight - oldWeight);
   }
   return count;
@@ -80,9 +80,9 @@ function uncurseOne(core, curses, obj, heavy, onWeightDelta, msg) {
 function cursesOf(env) {
   return env.item?.reg?.curses ?? null;
 }
-function classicRemoveCurseHandler(core) {
+function classicRemoveCurseHandler(engine) {
   return (ctx) => {
-    const env = gameEnvOf(core, ctx);
+    const env = gameEnvOf(engine, ctx);
     if (!env) return true;
     const { state } = env;
     const curses = cursesOf(env);
@@ -95,11 +95,11 @@ function classicRemoveCurseHandler(core) {
       if (!handle) continue;
       const obj = state.gear.store.get(handle);
       if (!obj) continue;
-      if (uncurseOne(core, curses, obj, heavy, (d) => weightDelta += d) > 0) items++;
+      if (uncurseOne(engine, curses, obj, heavy, (d) => weightDelta += d) > 0) items++;
     }
     if (items > 0) {
       player.upkeep.totalWeight += weightDelta;
-      player.upkeep.notice |= core.PN.COMBINE;
+      player.upkeep.notice |= engine.PN.COMBINE;
       state.updateBonuses?.();
     }
     if (heavy) {
@@ -107,7 +107,7 @@ function classicRemoveCurseHandler(core) {
       return true;
     }
     if (items > 0) {
-      const blind = (player.timed?.[core.TMD.BLIND] ?? 0) > 0;
+      const blind = (player.timed?.[engine.TMD.BLIND] ?? 0) > 0;
       say(ctx, blind ? "You feel as if someone is watching over you." : "The air around your body glows blue for a moment...");
       ctx.ident = true;
     }
@@ -138,11 +138,11 @@ function enchantScore(rng, score, isArtifact) {
   if (rng.randint1(1e3) <= chance) return score;
   return score + 1;
 }
-function classicEnchant(core, rng, obj, n, eflag, breakCurse) {
+function classicEnchant(engine, rng, obj, n, eflag, breakCurse) {
   const isArtifact = !!obj.artifact;
   let res = false;
   let prob = obj.number * 100;
-  if (core.tvalIsAmmo(obj.tval)) prob = Math.trunc(prob / 20);
+  if (engine.tvalIsAmmo(obj.tval)) prob = Math.trunc(prob / 20);
   const enchant2 = (key) => {
     let result = false;
     const next = enchantScore(rng, obj[key], isArtifact);
@@ -158,15 +158,15 @@ function classicEnchant(core, rng, obj, n, eflag, breakCurse) {
   };
   for (let i = 0; i < n; i++) {
     if (prob > 100 && rng.randint0(prob) >= 100) continue;
-    if (eflag & core.ENCH_TOHIT && enchant2("toH")) res = true;
-    if (eflag & core.ENCH_TODAM && enchant2("toD")) res = true;
-    if (eflag & core.ENCH_TOAC && enchant2("toA")) res = true;
+    if (eflag & engine.ENCH_TOHIT && enchant2("toH")) res = true;
+    if (eflag & engine.ENCH_TODAM && enchant2("toD")) res = true;
+    if (eflag & engine.ENCH_TOAC && enchant2("toA")) res = true;
   }
   return res;
 }
-function enchantCurseBreakHandler(core) {
+function enchantCurseBreakHandler(engine) {
   return (ctx) => {
-    const env = gameEnvOf(core, ctx);
+    const env = gameEnvOf(engine, ctx);
     if (!env) return true;
     const { state } = env;
     const value = state.rng.randcalc(
@@ -180,56 +180,133 @@ function enchantCurseBreakHandler(core) {
     const breakCurse = (obj) => {
       say(ctx, "The curse is broken!");
       const curses = cursesOf(env);
-      if (curses) uncurseOne(core, curses, obj, true, (d) => player.upkeep.totalWeight += d);
+      if (curses) uncurseOne(engine, curses, obj, true, (d) => player.upkeep.totalWeight += d);
     };
     const enchant = (obj, n, eflag) => {
-      if (!classicEnchant(core, state.rng, obj, n, eflag, breakCurse)) return false;
+      if (!classicEnchant(engine, state.rng, obj, n, eflag, breakCurse)) return false;
       state.updateBonuses?.();
-      player.upkeep.notice |= core.PN.COMBINE;
+      player.upkeep.notice |= engine.PN.COMBINE;
       return true;
     };
     const spell = (numHit, numDam, numAc) => {
-      const request = core.requestForEffect(core.EF.ENCHANT, ctx.subtype, state);
+      const request = engine.requestForEffect(engine.EF.ENCHANT, ctx.subtype, state);
       const obj = request ? env.item?.getItem?.(request) : null;
       if (!obj) return false;
-      const name = core.describeObject(state, obj, core.ODESC.BASE);
-      const carried = core.objectIsCarried(state.gear, obj);
+      const name = engine.describeObject(state, obj, engine.ODESC.BASE);
+      const carried = engine.objectIsCarried(state.gear, obj);
       say(ctx, `${carried ? "Your" : "The"} ${name} glow${obj.number > 1 ? "" : "s"} brightly!`);
       let okay = false;
-      if (numDam && enchant(obj, numHit, core.ENCH_TOBOTH)) okay = true;
-      else if (enchant(obj, numHit, core.ENCH_TOHIT)) okay = true;
-      else if (enchant(obj, numDam, core.ENCH_TODAM)) okay = true;
-      if (enchant(obj, numAc, core.ENCH_TOAC)) okay = true;
+      if (numDam && enchant(obj, numHit, engine.ENCH_TOBOTH)) okay = true;
+      else if (enchant(obj, numHit, engine.ENCH_TOHIT)) okay = true;
+      else if (enchant(obj, numDam, engine.ENCH_TODAM)) okay = true;
+      if (enchant(obj, numAc, engine.ENCH_TOAC)) okay = true;
       if (!okay) say(ctx, "The enchantment failed.");
       return true;
     };
-    if ((ctx.subtype & core.ENCH_TOBOTH) === core.ENCH_TOBOTH) {
+    if ((ctx.subtype & engine.ENCH_TOBOTH) === engine.ENCH_TOBOTH) {
       if (spell(value, value, 0)) used = true;
-    } else if (ctx.subtype & core.ENCH_TOHIT) {
+    } else if (ctx.subtype & engine.ENCH_TOHIT) {
       if (spell(value, 0, 0)) used = true;
-    } else if (ctx.subtype & core.ENCH_TODAM) {
+    } else if (ctx.subtype & engine.ENCH_TODAM) {
       if (spell(0, value, 0)) used = true;
     }
-    if (ctx.subtype & core.ENCH_TOAC) {
+    if (ctx.subtype & engine.ENCH_TOAC) {
       if (spell(0, 0, value)) used = true;
     }
     return used;
   };
 }
 
+// src/core-adapter.ts
+function pickCore(core) {
+  return {
+    EF: core.EF,
+    ENCH_TOHIT: core.ENCH_TOHIT,
+    ENCH_TODAM: core.ENCH_TODAM,
+    ENCH_TOAC: core.ENCH_TOAC,
+    ENCH_TOBOTH: core.ENCH_TOBOTH,
+    MON_MSG: core.MON_MSG,
+    MON_TMD: core.MON_TMD,
+    RF: core.RF,
+    TMD: core.TMD,
+    ODESC: core.ODESC,
+    OF: core.OF,
+    PN: core.PN,
+    DDGRID: core.DDGRID,
+    gameEnv: core.gameEnv,
+    describeObject: core.describeObject,
+    objectIsCarried: core.objectIsCarried,
+    objectWeightOne: core.objectWeightOne,
+    removeObjectCurse: core.removeObjectCurse,
+    requestForEffect: core.requestForEffect,
+    tvalIsAmmo: core.tvalIsAmmo,
+    copySlays: core.copySlays,
+    copyBrands: core.copyBrands,
+    copyCurses: core.copyCurses,
+    playerOfHas: core.playerOfHas,
+    playerExpLose: core.playerExpLose,
+    effectExpDeps: core.effectExpDeps,
+    equipLearnFlag: core.equipLearnFlag,
+    playerConfuseDir: core.playerConfuseDir,
+    gearObjectForUse: core.gearObjectForUse,
+    tvalFindIdx: core.tvalFindIdx
+  };
+}
+function engineRegistry(host) {
+  const { effects, effectInfo, projections, stores, commands } = host;
+  return {
+    registerEffect: effects ? (code, handler) => effects.register(code, { handler }) : null,
+    setEffectText: effectInfo ? (code, text) => effectInfo.text.set(code, text) : null,
+    setPlayerProjection: projections ? (code, handler) => projections.player.set(code, handler) : null,
+    setMonsterProjection: projections ? (code, handler) => projections.mon.set(code, handler) : null,
+    setDiscountRoll: (roll) => stores.setDiscountRoll(roll),
+    registerCommand: (code, action) => commands.register(code, action),
+    setCommandVerb: (code, verb) => commands.setVerb(code, verb)
+  };
+}
+function createAdapter(ctx, host) {
+  const core = ctx.core ? pickCore(ctx.core) : null;
+  const keymaps = ctx.keymaps;
+  return {
+    meta: {
+      flags: ctx.flags,
+      log: (message) => ctx.log?.(message)
+    },
+    ui: {
+      keys: keymaps ? { bind: (trigger, action) => keymaps.isBindableTriggerKey(trigger) && keymaps.bind(trigger, action) } : null
+    },
+    engine: {
+      core,
+      registry: host ? engineRegistry(host) : null,
+      newCharacter(run) {
+        if (!core) throw new Error("The newCharacter hook requires the live core namespace");
+        const { tvalFindIdx } = core;
+        return (state, registries) => run({
+          tvalFindIdx,
+          findKind: (name, tval) => registries.objects.kinds.find((k) => k?.name === name && k.tval === tval)?.kidx,
+          ignoreKind: (kidx) => {
+            state.ignore.kindIgnoreWhenAware(kidx);
+            state.ignore.kindIgnoreWhenUnaware(kidx);
+          }
+        });
+      }
+    }
+  };
+}
+
 // src/lose-memories.ts
 var LOSE_MEMORIES = "feature-restoration:LOSE_EXP";
-function loseMemoriesHandler(core) {
+function loseMemoriesHandler(engine) {
   return (ctx) => {
-    const env = core.gameEnv(ctx);
+    const env = engine.gameEnv(ctx);
     if (!env) return true;
     const player = env.state.actor.player;
-    if (!core.playerOfHas(env.state, core.OF.HOLD_LIFE) && player.exp > 0) {
+    if (!engine.playerOfHas(env.state, engine.OF.HOLD_LIFE) && player.exp > 0) {
       ctx.env.messages?.msg("You feel your memories fade.");
-      core.playerExpLose(player, Math.trunc(player.exp / 4), false, core.effectExpDeps(ctx, env));
+      engine.playerExpLose(player, Math.trunc(player.exp / 4), false, engine.effectExpDeps(ctx, env));
     }
     ctx.ident = true;
-    core.equipLearnFlag(player, env.state.runeEnv, core.OF.HOLD_LIFE);
+    engine.equipLearnFlag(player, env.state.runeEnv, engine.OF.HOLD_LIFE);
     return true;
   };
 }
@@ -237,7 +314,7 @@ function loseMemoriesHandler(core) {
 // src/curse-scrolls.ts
 var CURSE_WEAPON = "feature-restoration:CURSE_WEAPON";
 var CURSE_ARMOUR = "feature-restoration:CURSE_ARMOR";
-function resetToEgo(core, rng, reg, obj, ego) {
+function resetToEgo(engine, rng, reg, obj, ego) {
   const kind = obj.kind;
   obj.artifact = null;
   obj.ego = ego;
@@ -253,18 +330,18 @@ function resetToEgo(core, rng, reg, obj, ego) {
     dst.resLevel = Math.max(kind.elInfo[i]?.resLevel ?? 0, ego.elInfo[i]?.resLevel ?? 0);
     dst.flags = (kind.elInfo[i]?.flags ?? 0) | (kind.base.elInfo[i]?.flags ?? 0) | (ego.elInfo[i]?.flags ?? 0);
   }
-  obj.slays = core.copySlays(core.copySlays(null, kind.slays, reg.slays), ego.slays, reg.slays);
-  obj.brands = core.copyBrands(core.copyBrands(null, kind.brands, reg.brands), ego.brands, reg.brands);
+  obj.slays = engine.copySlays(engine.copySlays(null, kind.slays, reg.slays), ego.slays, reg.slays);
+  obj.brands = engine.copyBrands(engine.copyBrands(null, kind.brands, reg.brands), ego.brands, reg.brands);
   obj.activation = null;
   delete obj.knownActivation;
   obj.effect = kind.effect;
   obj.time = { ...kind.time };
   obj.curses = null;
-  core.copyCurses(rng, obj, ego.curses, reg.curses);
+  engine.copyCurses(rng, obj, ego.curses, reg.curses);
 }
-function curseScrollHandler(core, slotType) {
+function curseScrollHandler(engine, slotType) {
   return (ctx) => {
-    const env = core.gameEnv(ctx);
+    const env = engine.gameEnv(ctx);
     if (!env) return true;
     const { state } = env;
     const player = state.actor.player;
@@ -277,20 +354,20 @@ function curseScrollHandler(core, slotType) {
     const name = slotType === "WEAPON" ? "(Shattered)" : "(Blasted)";
     const ego = reg.egos.find((e) => e?.name === name && e.possItems.has(obj.kind.kidx));
     if (!ego) throw new Error(`Missing curse scroll ego: ${name}`);
-    const description = core.describeObject(state, obj, core.ODESC.BASE);
+    const description = engine.describeObject(state, obj, engine.ODESC.BASE);
     const noun = slotType === "WEAPON" ? "weapon" : "armour";
     if (obj.artifact && state.rng.randint0(100) < 50) {
       ctx.env.messages?.msg(`A terrible black aura tries to surround your ${noun}, but your ${description} resists the effects!`);
     } else {
       ctx.env.messages?.msg(`A terrible black aura blasts your ${description}!`);
-      resetToEgo(core, state.rng, reg, obj, ego);
+      resetToEgo(engine, state.rng, reg, obj, ego);
       obj.toH = slotType === "WEAPON" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
       obj.toD = slotType === "WEAPON" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
       obj.toA = slotType === "BODY_ARMOR" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
       obj.ac = 0;
       obj.dd = 0;
       obj.ds = 0;
-      player.upkeep.notice |= core.PN.COMBINE;
+      player.upkeep.notice |= engine.PN.COMBINE;
       state.updateBonuses?.();
     }
     ctx.ident = true;
@@ -313,15 +390,14 @@ var JUNK_KINDS = {
     "& Gnome Skeleton~"
   ]
 };
-function ignoreJunk(state, registries, tvalFindIdx) {
+function ignoreJunk(game) {
   for (const [type, names] of Object.entries(JUNK_KINDS)) {
-    const tval = tvalFindIdx(type);
+    const tval = game.tvalFindIdx(type);
     if (tval < 0) throw new Error(`Missing junk item class: ${type}`);
     for (const name of names) {
-      const kind = registries.objects.kinds.find((k) => k?.name === name && k.tval === tval);
-      if (!kind) throw new Error(`Missing junk kind: ${type} ${name}`);
-      state.ignore.kindIgnoreWhenAware(kind.kidx);
-      state.ignore.kindIgnoreWhenUnaware(kind.kidx);
+      const kidx = game.findKind(name, tval);
+      if (kidx === void 0) throw new Error(`Missing junk kind: ${type} ${name}`);
+      game.ignoreKind(kidx);
     }
   }
 }
@@ -353,11 +429,11 @@ function spikeTest(state, at) {
   if ((state.doorLockPower?.(at) ?? 0) >= MAX_SPIKE_POWER) return "fully-spiked";
   return "ok";
 }
-function gridInDirection(state, core, dir) {
-  const offset = core.DDGRID[dir] ?? { x: 0, y: 0 };
+function gridInDirection(state, engine, dir) {
+  const offset = engine.DDGRID[dir] ?? { x: 0, y: 0 };
   return { x: state.actor.grid.x + offset.x, y: state.actor.grid.y + offset.y };
 }
-function spikeDoor(core, state, cmd) {
+function spikeDoor(engine, state, cmd) {
   const spike = findSpike(state);
   if (!spike) {
     state.msg?.("You have no spikes!");
@@ -365,7 +441,7 @@ function spikeDoor(core, state, cmd) {
   }
   const dir = cmd.dir;
   if (dir === void 0 || dir < 1 || dir > 9 || dir === 5) return 0;
-  const at = gridInDirection(state, core, dir);
+  const at = gridInDirection(state, engine, dir);
   const pre = spikeTest(state, at);
   if (pre === "not-a-door") {
     state.msg?.("You see nothing there to spike.");
@@ -375,8 +451,8 @@ function spikeDoor(core, state, cmd) {
     state.msg?.("You can't use more spikes on this door.");
     return 0;
   }
-  const confusedDir = core.playerConfuseDir(state, dir);
-  const finalGrid = confusedDir === dir ? at : gridInDirection(state, core, confusedDir);
+  const confusedDir = engine.playerConfuseDir(state, dir);
+  const finalGrid = confusedDir === dir ? at : gridInDirection(state, engine, confusedDir);
   if (state.chunk.mon(finalGrid) > 0) {
     state.msg?.("There is a monster in the way!");
     return state.z.moveEnergy;
@@ -392,68 +468,69 @@ function spikeDoor(core, state, cmd) {
   }
   state.setDoorLock?.(finalGrid, (state.doorLockPower?.(finalGrid) ?? 0) + 1);
   state.msg?.("You jam the door with a spike.");
-  core.gearObjectForUse(state.gear, state.actor.player, spike.handle, 1);
+  engine.gearObjectForUse(state.gear, state.actor.player, spike.handle, 1);
   return state.z.moveEnergy;
 }
 var plugin_default = {
   api: 1,
   hooks(ctx) {
-    if (ctx.flags["feature-restoration.junk"] !== true) return {};
-    if (!ctx.core) throw new Error("Junk ignore requires the live core item classes");
-    const { tvalFindIdx } = ctx.core;
-    return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
+    const { meta, engine } = createAdapter(ctx);
+    if (meta.flags["feature-restoration.junk"] !== true) return {};
+    if (!engine.core) throw new Error("Junk ignore requires the live core item classes");
+    return { newCharacter: engine.newCharacter(ignoreJunk) };
   },
   /**
    * Registry handlers install when their host seams are available. Content
    * toggles control whether the matching effect or command record exists.
    */
   register(host, ctx) {
-    if (ctx.core && host.effects && host.effectInfo) {
-      host.effects.register(LOSE_MEMORIES, { handler: loseMemoriesHandler(ctx.core) });
-      host.effectInfo.text.set(LOSE_MEMORIES, {
+    const { meta, ui, engine } = createAdapter(ctx, host);
+    const { core: engineCore, registry } = engine;
+    if (engineCore && registry.registerEffect && registry.setEffectText) {
+      registry.registerEffect(LOSE_MEMORIES, loseMemoriesHandler(engineCore));
+      registry.setEffectText(LOSE_MEMORIES, {
         menuName: () => "drains experience",
         describe: () => "drains experience"
       });
-      ctx.log?.("feature-restoration: Lose Memories effect installed");
+      meta.log("feature-restoration: Lose Memories effect installed");
     }
-    if (ctx.flags["feature-restoration.discounts"] === true) {
-      host.stores.setDiscountRoll(discountRoll);
-      ctx.log?.("feature-restoration: store discount roll installed");
+    if (meta.flags["feature-restoration.discounts"] === true) {
+      registry.setDiscountRoll(discountRoll);
+      meta.log("feature-restoration: store discount roll installed");
     }
-    if (ctx.flags["feature-restoration.bronze-dragons"] === true && ctx.core && host.projections) {
-      host.projections.player.set(CONFUSION, confusePlayer(ctx.core));
-      host.projections.mon.set(CONFUSION, confuseMonster(ctx.core, BRONZE_BREATHERS));
-      ctx.log?.("feature-restoration: confusion projection handlers installed");
+    if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
+      registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));
+      registry.setMonsterProjection(CONFUSION, confuseMonster(engineCore, BRONZE_BREATHERS));
+      meta.log("feature-restoration: confusion projection handlers installed");
     }
-    if (ctx.flags["feature-restoration.classic-uncurse"] === true && ctx.core && host.effects) {
-      host.effects.register(ctx.core.EF.REMOVE_CURSE, { handler: classicRemoveCurseHandler(ctx.core) });
-      host.effects.register(ctx.core.EF.ENCHANT, { handler: enchantCurseBreakHandler(ctx.core) });
-      ctx.log?.("feature-restoration: classic uncursing handlers installed");
+    if (meta.flags["feature-restoration.classic-uncurse"] === true && engineCore && registry.registerEffect) {
+      registry.registerEffect(engineCore.EF.REMOVE_CURSE, classicRemoveCurseHandler(engineCore));
+      registry.registerEffect(engineCore.EF.ENCHANT, enchantCurseBreakHandler(engineCore));
+      meta.log("feature-restoration: classic uncursing handlers installed");
     }
-    if (ctx.flags["feature-restoration.sticky-curses"] === true && ctx.core && host.effects && host.effectInfo) {
-      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(ctx.core, "WEAPON") });
-      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(ctx.core, "BODY_ARMOR") });
-      host.effectInfo.text.set(CURSE_WEAPON, {
+    if (meta.flags["feature-restoration.sticky-curses"] === true && engineCore && registry.registerEffect && registry.setEffectText) {
+      registry.registerEffect(CURSE_WEAPON, curseScrollHandler(engineCore, "WEAPON"));
+      registry.registerEffect(CURSE_ARMOUR, curseScrollHandler(engineCore, "BODY_ARMOR"));
+      registry.setEffectText(CURSE_WEAPON, {
         menuName: () => "curses a wielded weapon",
         describe: () => "curses a wielded weapon"
       });
-      host.effectInfo.text.set(CURSE_ARMOUR, {
+      registry.setEffectText(CURSE_ARMOUR, {
         menuName: () => "curses worn body armour",
         describe: () => "curses worn body armour"
       });
     }
-    if (ctx.flags["feature-restoration.spike-doors"] === true && ctx.core) {
-      const core = ctx.core;
-      host.commands.register(SPIKE_COMMAND, (state, cmd) => spikeDoor(core, state, cmd));
-      host.commands.setVerb(SPIKE_COMMAND, "spike");
-      ctx.log?.("feature-restoration: spike-a-door command installed");
-      if (ctx.keymaps) {
-        const bound = ctx.keymaps.isBindableTriggerKey(SPIKE_TRIGGER) && ctx.keymaps.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
-        ctx.log?.(
+    if (meta.flags["feature-restoration.spike-doors"] === true && engineCore) {
+      registry.registerCommand(SPIKE_COMMAND, (state, cmd) => spikeDoor(engineCore, state, cmd));
+      registry.setCommandVerb(SPIKE_COMMAND, "spike");
+      meta.log("feature-restoration: spike-a-door command installed");
+      if (ui.keys) {
+        const bound = ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
+        meta.log(
           bound ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound` : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`
         );
       } else {
-        ctx.log?.(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
+        meta.log(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
       }
     }
   }

@@ -9,11 +9,12 @@
  */
 
 import type { EffectHandler, EffectHandlerContext, EgoItem, GameObject, ObjRegistry, Rng } from "@rpgm-tools/neo-angband-core";
+import type { EngineCore } from "./core-adapter.js";
 
 export const CURSE_WEAPON = "feature-restoration:CURSE_WEAPON";
 export const CURSE_ARMOUR = "feature-restoration:CURSE_ARMOR";
 
-export type CurseScrollCore = Pick<typeof import("@rpgm-tools/neo-angband-core"),
+export type CurseScrollCore = Pick<EngineCore,
   "PN" | "ODESC" | "describeObject" | "copySlays" | "copyBrands" | "copyCurses" | "gameEnv">;
 
 /**
@@ -21,7 +22,7 @@ export type CurseScrollCore = Pick<typeof import("@rpgm-tools/neo-angband-core")
  * its RNG) and apply `ego`'s. The kind's modifiers are read at their average,
  * which draws nothing and is exact for every fixed kind value.
  */
-export function resetToEgo(core: CurseScrollCore, rng: Rng, reg: ObjRegistry, obj: GameObject, ego: EgoItem): void {
+export function resetToEgo(engine: CurseScrollCore, rng: Rng, reg: ObjRegistry, obj: GameObject, ego: EgoItem): void {
   const kind = obj.kind;
   obj.artifact = null;
   obj.ego = ego;
@@ -37,19 +38,19 @@ export function resetToEgo(core: CurseScrollCore, rng: Rng, reg: ObjRegistry, ob
     dst.resLevel = Math.max(kind.elInfo[i]?.resLevel ?? 0, ego.elInfo[i]?.resLevel ?? 0);
     dst.flags = (kind.elInfo[i]?.flags ?? 0) | (kind.base.elInfo[i]?.flags ?? 0) | (ego.elInfo[i]?.flags ?? 0);
   }
-  obj.slays = core.copySlays(core.copySlays(null, kind.slays, reg.slays), ego.slays, reg.slays);
-  obj.brands = core.copyBrands(core.copyBrands(null, kind.brands, reg.brands), ego.brands, reg.brands);
+  obj.slays = engine.copySlays(engine.copySlays(null, kind.slays, reg.slays), ego.slays, reg.slays);
+  obj.brands = engine.copyBrands(engine.copyBrands(null, kind.brands, reg.brands), ego.brands, reg.brands);
   obj.activation = null;
   delete obj.knownActivation;
   obj.effect = kind.effect;
   obj.time = { ...kind.time };
   obj.curses = null;
-  core.copyCurses(rng, obj, ego.curses, reg.curses);
+  engine.copyCurses(rng, obj, ego.curses, reg.curses);
 }
 
-export function curseScrollHandler(core: CurseScrollCore, slotType: "WEAPON" | "BODY_ARMOR"): EffectHandler {
+export function curseScrollHandler(engine: CurseScrollCore, slotType: "WEAPON" | "BODY_ARMOR"): EffectHandler {
   return (ctx: EffectHandlerContext) => {
-    const env = core.gameEnv(ctx);
+    const env = engine.gameEnv(ctx);
     if (!env) return true;
     const { state } = env;
     const player = state.actor.player;
@@ -65,20 +66,20 @@ export function curseScrollHandler(core: CurseScrollCore, slotType: "WEAPON" | "
     const ego = reg.egos.find((e) => e?.name === name && e.possItems.has(obj.kind.kidx));
     if (!ego) throw new Error(`Missing curse scroll ego: ${name}`);
 
-    const description = core.describeObject(state, obj, core.ODESC.BASE);
+    const description = engine.describeObject(state, obj, engine.ODESC.BASE);
     const noun = slotType === "WEAPON" ? "weapon" : "armour";
     if (obj.artifact && state.rng.randint0(100) < 50) {
       ctx.env.messages?.msg(`A terrible black aura tries to surround your ${noun}, but your ${description} resists the effects!`);
     } else {
       ctx.env.messages?.msg(`A terrible black aura blasts your ${description}!`);
-      resetToEgo(core, state.rng, reg, obj, ego);
+      resetToEgo(engine, state.rng, reg, obj, ego);
       obj.toH = slotType === "WEAPON" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
       obj.toD = slotType === "WEAPON" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
       obj.toA = slotType === "BODY_ARMOR" ? -state.rng.randint1(5) - state.rng.randint1(5) : 0;
       obj.ac = 0;
       obj.dd = 0;
       obj.ds = 0;
-      player.upkeep.notice |= core.PN.COMBINE;
+      player.upkeep.notice |= engine.PN.COMBINE;
       state.updateBonuses?.();
     }
     ctx.ident = true;
