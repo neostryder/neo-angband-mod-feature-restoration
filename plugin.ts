@@ -45,12 +45,14 @@
  * capability-gated registry (here, `registry:store` and `registry:command`) is
  * reached - see docs/modding/PLUGINS.md in the game's repo.
  *
- * `ctx.core` is the live core namespace - the same module instance the game
- * runs on, not a bundled copy - so `spikeDoor` below reaches
- * `playerConfuseDir`, `gearObjectForUse` and `DDGRID` through it rather than
- * reimplementing them: a mod that duplicated confusion-redirect or item-stack
- * arithmetic by hand would be a second copy of behaviour core already owns,
- * and one this file has no way of keeping in sync. This file otherwise imports
+ * The engine names this file uses come from src/core-adapter.ts, the only
+ * module that reads `ctx.core`. That namespace is the live one, the same module
+ * instance the game runs on rather than a bundled copy, so `spikeDoor` below
+ * reaches `playerConfuseDir`, `gearObjectForUse` and `DDGRID` through the
+ * adapter rather than reimplementing them: a mod that duplicated
+ * confusion-redirect or item-stack arithmetic by hand would be a second copy
+ * of behaviour core already owns, and one this file has no way of keeping in
+ * sync. This file otherwise imports
  * @rpgm-tools/neo-angband-core for TYPES ONLY, never as a bare specifier: a
  * module fetched from a mod folder cannot resolve one, nor should it - a
  * bundled copy of core would give this plugin its own registries while the
@@ -67,27 +69,14 @@ import {
   classicRemoveCurseHandler,
   enchantCurseBreakHandler,
 } from "./src/classic-uncurse.js";
-import type { DiscountRollContext, GameObject, GameState, Loc, ModHooks, ModKeymaps, ModPluginContext, ModRegistryHost, PlayerCommand } from "@rpgm-tools/neo-angband-core";
+import type { DiscountRollContext, GameObject, GameState, Loc, ModHooks, PlayerCommand } from "@rpgm-tools/neo-angband-core";
+import { createAdapter, type EngineCore, type HookCtx, type HostLike } from "./src/core-adapter.js";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
 import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler } from "./src/curse-scrolls.js";
 import { ignoreJunk } from "./src/junk-ignore.js";
 
-type HostLike = {
-  readonly effectInfo?: { text: Pick<ModRegistryHost["effectInfo"]["text"], "set"> };
-  readonly projections?: {
-    readonly player: Pick<ModRegistryHost["projections"]["player"], "set">;
-    readonly mon: Pick<ModRegistryHost["projections"]["mon"], "set">;
-  };
-  readonly effects?: Pick<ModRegistryHost["effects"], "register">;
-  readonly stores: Pick<ModRegistryHost["stores"], "setDiscountRoll">;
-  readonly commands: Pick<ModRegistryHost["commands"], "register" | "setVerb">;
-};
-
-type HookCtx = Pick<ModPluginContext, "flags"> &
-  Partial<Pick<ModPluginContext, "core" | "log">> & {
-    /** The spike command uses only the consented keymap writer. */
-    readonly keymaps?: Pick<ModKeymaps, "isBindableTriggerKey" | "bind">;
-  };
+/** The engine names the spike command uses. */
+type SpikeEngine = Pick<EngineCore, "DDGRID" | "playerConfuseDir" | "gearObjectForUse">;
 
 /**
  * mass_produce's discount arm (Angband 3.0.6, store.c), transcribed exactly:
@@ -158,8 +147,8 @@ function spikeTest(state: GameState, at: Loc): "ok" | "not-a-door" | "fully-spik
   return "ok";
 }
 
-function gridInDirection(state: GameState, core: typeof import("@rpgm-tools/neo-angband-core"), dir: number): Loc {
-  const offset = core.DDGRID[dir] ?? { x: 0, y: 0 };
+function gridInDirection(state: GameState, engine: SpikeEngine, dir: number): Loc {
+  const offset = engine.DDGRID[dir] ?? { x: 0, y: 0 };
   return { x: state.actor.grid.x + offset.x, y: state.actor.grid.y + offset.y };
 }
 
@@ -172,7 +161,7 @@ function gridInDirection(state: GameState, core: typeof import("@rpgm-tools/neo-
  * Exported so plugin.test.ts can drive it directly against a fake state and a
  * fake core, the same way discountRoll is tested against a fake Rng.
  */
-export function spikeDoor(core: typeof import("@rpgm-tools/neo-angband-core"), state: GameState, cmd: PlayerCommand): number {
+export function spikeDoor(engine: SpikeEngine, state: GameState, cmd: PlayerCommand): number {
   const spike = findSpike(state);
   if (!spike) {
     state.msg?.("You have no spikes!");
@@ -184,7 +173,7 @@ export function spikeDoor(core: typeof import("@rpgm-tools/neo-angband-core"), s
 
   /* do_cmd_spike_test, reached BEFORE the turn is committed (L1376): an
    * illegal target draws no RNG and spends no energy. */
-  const at = gridInDirection(state, core, dir);
+  const at = gridInDirection(state, engine, dir);
   const pre = spikeTest(state, at);
   if (pre === "not-a-door") {
     state.msg?.("You see nothing there to spike.");
@@ -198,8 +187,8 @@ export function spikeDoor(core: typeof import("@rpgm-tools/neo-angband-core"), s
   /* Take a turn (L1383), THEN apply confusion (L1386-1391) - upstream's own
    * order, so a confused player can waste a turn jamming the wrong door, or
    * nothing at all, exactly as do_cmd_spike does. */
-  const confusedDir = core.playerConfuseDir(state, dir);
-  const finalGrid = confusedDir === dir ? at : gridInDirection(state, core, confusedDir);
+  const confusedDir = engine.playerConfuseDir(state, dir);
+  const finalGrid = confusedDir === dir ? at : gridInDirection(state, engine, confusedDir);
 
   if (state.chunk.mon(finalGrid) > 0) {
     /* do_cmd_spike attacks the blocker here (py_attack) and keeps the turn;
@@ -223,7 +212,7 @@ export function spikeDoor(core: typeof import("@rpgm-tools/neo-angband-core"), s
 
   state.setDoorLock?.(finalGrid, (state.doorLockPower?.(finalGrid) ?? 0) + 1);
   state.msg?.("You jam the door with a spike.");
-  core.gearObjectForUse(state.gear, state.actor.player, spike.handle, 1);
+  engine.gearObjectForUse(state.gear, state.actor.player, spike.handle, 1);
 
   return state.z.moveEnergy;
 }
@@ -232,10 +221,10 @@ export default {
   api: 1,
 
   hooks(ctx: HookCtx): ModHooks {
-    if (ctx.flags["feature-restoration.junk"] !== true) return {};
-    if (!ctx.core) throw new Error("Junk ignore requires the live core item classes");
-    const { tvalFindIdx } = ctx.core;
-    return { newCharacter: (state, registries) => ignoreJunk(state, registries, tvalFindIdx) };
+    const { meta, engine } = createAdapter(ctx);
+    if (meta.flags["feature-restoration.junk"] !== true) return {};
+    if (!engine.core) throw new Error("Junk ignore requires the live core item classes");
+    return { newCharacter: engine.newCharacter(ignoreJunk) };
   },
 
   /**
@@ -243,47 +232,50 @@ export default {
    * toggles control whether the matching effect or command record exists.
    */
   register(host: HostLike, ctx: HookCtx): void {
-    if (ctx.core && host.effects && host.effectInfo) {
-      host.effects.register(LOSE_MEMORIES, { handler: loseMemoriesHandler(ctx.core) });
-      host.effectInfo.text.set(LOSE_MEMORIES, {
+    const { meta, ui, engine } = createAdapter(ctx, host);
+    const { core: engineCore, registry } = engine;
+
+    if (engineCore && registry.registerEffect && registry.setEffectText) {
+      registry.registerEffect(LOSE_MEMORIES, loseMemoriesHandler(engineCore));
+      registry.setEffectText(LOSE_MEMORIES, {
         menuName: () => "drains experience",
         describe: () => "drains experience",
       });
-      ctx.log?.("feature-restoration: Lose Memories effect installed");
+      meta.log("feature-restoration: Lose Memories effect installed");
     }
 
-    if (ctx.flags["feature-restoration.discounts"] === true) {
-      host.stores.setDiscountRoll(discountRoll);
-      ctx.log?.("feature-restoration: store discount roll installed");
+    if (meta.flags["feature-restoration.discounts"] === true) {
+      registry.setDiscountRoll(discountRoll);
+      meta.log("feature-restoration: store discount roll installed");
     }
 
     /* The CONFUSION projection only exists while the bronze-dragons section
      * is on (its projection.json record), so its handlers go in under the same
      * flag and no other. */
-    if (ctx.flags["feature-restoration.bronze-dragons"] === true && ctx.core && host.projections) {
-      host.projections.player.set(CONFUSION, confusePlayer(ctx.core));
-      host.projections.mon.set(CONFUSION, confuseMonster(ctx.core, BRONZE_BREATHERS));
-      ctx.log?.("feature-restoration: confusion projection handlers installed");
+    if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
+      registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));
+      registry.setMonsterProjection(CONFUSION, confuseMonster(engineCore, BRONZE_BREATHERS));
+      meta.log("feature-restoration: confusion projection handlers installed");
     }
 
     /* Classic uncursing replaces core's own REMOVE_CURSE and ENCHANT handlers,
-     * so both go in under the section's flag and no other. The live core
-     * namespace carries EF, ENCH_*, ODESC, PN and the obj helpers the handlers
-     * call through; ClassicCore names only those. */
-    if (ctx.flags["feature-restoration.classic-uncurse"] === true && ctx.core && host.effects) {
-      host.effects.register(ctx.core.EF.REMOVE_CURSE, { handler: classicRemoveCurseHandler(ctx.core) });
-      host.effects.register(ctx.core.EF.ENCHANT, { handler: enchantCurseBreakHandler(ctx.core) });
-      ctx.log?.("feature-restoration: classic uncursing handlers installed");
+     * so both go in under the section's flag and no other. The adapter's
+     * engine core carries EF, ENCH_*, ODESC, PN and the obj helpers the
+     * handlers call through; ClassicCore names only those. */
+    if (meta.flags["feature-restoration.classic-uncurse"] === true && engineCore && registry.registerEffect) {
+      registry.registerEffect(engineCore.EF.REMOVE_CURSE, classicRemoveCurseHandler(engineCore));
+      registry.registerEffect(engineCore.EF.ENCHANT, enchantCurseBreakHandler(engineCore));
+      meta.log("feature-restoration: classic uncursing handlers installed");
     }
 
-    if (ctx.flags["feature-restoration.sticky-curses"] === true && ctx.core && host.effects && host.effectInfo) {
-      host.effects.register(CURSE_WEAPON, { handler: curseScrollHandler(ctx.core, "WEAPON") });
-      host.effects.register(CURSE_ARMOUR, { handler: curseScrollHandler(ctx.core, "BODY_ARMOR") });
-      host.effectInfo.text.set(CURSE_WEAPON, {
+    if (meta.flags["feature-restoration.sticky-curses"] === true && engineCore && registry.registerEffect && registry.setEffectText) {
+      registry.registerEffect(CURSE_WEAPON, curseScrollHandler(engineCore, "WEAPON"));
+      registry.registerEffect(CURSE_ARMOUR, curseScrollHandler(engineCore, "BODY_ARMOR"));
+      registry.setEffectText(CURSE_WEAPON, {
         menuName: () => "curses a wielded weapon",
         describe: () => "curses a wielded weapon",
       });
-      host.effectInfo.text.set(CURSE_ARMOUR, {
+      registry.setEffectText(CURSE_ARMOUR, {
         menuName: () => "curses worn body armour",
         describe: () => "curses worn body armour",
       });
@@ -292,20 +284,19 @@ export default {
     /* Iron Spikes only EXIST while this same flag's content section is on
      * (object.json's spike-doors section) - installing the command under any
      * other flag could register "spike" over an item nothing composed. */
-    if (ctx.flags["feature-restoration.spike-doors"] === true && ctx.core) {
-      const core = ctx.core;
-      host.commands.register(SPIKE_COMMAND, (state, cmd) => spikeDoor(core, state, cmd));
-      host.commands.setVerb(SPIKE_COMMAND, "spike");
-      ctx.log?.("feature-restoration: spike-a-door command installed");
-      if (ctx.keymaps) {
-        const bound = ctx.keymaps.isBindableTriggerKey(SPIKE_TRIGGER) && ctx.keymaps.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
-        ctx.log?.(
+    if (meta.flags["feature-restoration.spike-doors"] === true && engineCore) {
+      registry.registerCommand(SPIKE_COMMAND, (state, cmd) => spikeDoor(engineCore, state, cmd));
+      registry.setCommandVerb(SPIKE_COMMAND, "spike");
+      meta.log("feature-restoration: spike-a-door command installed");
+      if (ui.keys) {
+        const bound = ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
+        meta.log(
           bound
             ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound`
             : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`,
         );
       } else {
-        ctx.log?.(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
+        meta.log(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
       }
     }
   },

@@ -32,6 +32,7 @@
  */
 
 import type { Curse, CurseData, EffectHandler, EffectHandlerContext, GameEffectEnv, GameObject, RandomValue, Rng } from "@rpgm-tools/neo-angband-core";
+import type { EngineCore } from "./core-adapter.js";
 
 /** A light curse: Remove Curse can lift it. 4.0's OF_LIGHT_CURSE tier. */
 export const LIGHT_MAX_POWER = 40;
@@ -53,14 +54,14 @@ export type UncurseObjectLike = GameObject;
 export type EnchantObjectLike = GameObject;
 export type CurseLike = Curse;
 export type RandomValueLike = RandomValue;
-export type ClassicCore = Pick<typeof import("@rpgm-tools/neo-angband-core"),
+export type ClassicCore = Pick<EngineCore,
   "removeObjectCurse" | "objectWeightOne" | "requestForEffect" | "tvalIsAmmo" |
   "describeObject" | "objectIsCarried" | "gameEnv" | "ENCH_TOBOTH" | "ENCH_TOHIT" |
   "ENCH_TODAM" | "ENCH_TOAC" | "ODESC" | "PN" | "EF" | "TMD">;
 
 /** The game env off an effect context, or null for a worldless interpreter. */
-function gameEnvOf(core: ClassicCore, ctx: EffectHandlerContext): GameEffectEnv | null {
-  return core.gameEnv(ctx);
+function gameEnvOf(engine: ClassicCore, ctx: EffectHandlerContext): GameEffectEnv | null {
+  return engine.gameEnv(ctx);
 }
 
 /** msg() over the effect context's optional message sink. */
@@ -112,7 +113,7 @@ export function isHeavySource(value: RandomValueLike): boolean {
  * weight bookkeeping, so the delta is reported through `onWeightDelta`.
  */
 export function uncurseOne(
-  core: ClassicCore,
+  engine: ClassicCore,
   curses: readonly (CurseLike | null)[],
   obj: UncurseObjectLike,
   heavy: boolean,
@@ -122,17 +123,17 @@ export function uncurseOne(
   const worst = worstCurse(obj);
   if (worst <= 0 || worst >= PERMA_POWER) return 0;
   if (worst > LIGHT_MAX_POWER && !heavy) return 0;
-  const oldWeight = obj.number * core.objectWeightOne(obj, curses);
+  const oldWeight = obj.number * engine.objectWeightOne(obj, curses);
   let count = 0;
   for (let i = 1; i < curses.length; i++) {
     /* removeObjectCurse drops the whole array once the last curse goes. */
     if (!obj.curses) break;
     if (!(obj.curses[i]?.power ?? 0)) continue;
     const env = msg ? { curses, msg } : undefined;
-    if (core.removeObjectCurse(obj, i, msg !== undefined, env)) count++;
+    if (engine.removeObjectCurse(obj, i, msg !== undefined, env)) count++;
   }
   if (count > 0) {
-    const newWeight = obj.number * core.objectWeightOne(obj, curses);
+    const newWeight = obj.number * engine.objectWeightOne(obj, curses);
     onWeightDelta?.(newWeight - oldWeight);
   }
   return count;
@@ -150,9 +151,9 @@ function cursesOf(env: GameEffectEnv): readonly (CurseLike | null)[] | null {
  * something was lifted; the strong form always identifies and never speaks.
  * 4.0's uncurse_object said nothing per curse, so neither does this.
  */
-export function classicRemoveCurseHandler(core: ClassicCore): EffectHandler {
+export function classicRemoveCurseHandler(engine: ClassicCore): EffectHandler {
   return (ctx) => {
-    const env = gameEnvOf(core, ctx);
+    const env = gameEnvOf(engine, ctx);
     if (!env) return true;
     const { state } = env;
     const curses = cursesOf(env);
@@ -166,12 +167,12 @@ export function classicRemoveCurseHandler(core: ClassicCore): EffectHandler {
       if (!handle) continue;
       const obj = state.gear.store.get(handle);
       if (!obj) continue;
-      if (uncurseOne(core, curses, obj, heavy, (d) => (weightDelta += d)) > 0) items++;
+      if (uncurseOne(engine, curses, obj, heavy, (d) => (weightDelta += d)) > 0) items++;
     }
 
     if (items > 0) {
       player.upkeep.totalWeight += weightDelta;
-      player.upkeep.notice |= core.PN.COMBINE;
+      player.upkeep.notice |= engine.PN.COMBINE;
       state.updateBonuses?.();
     }
     if (heavy) {
@@ -179,7 +180,7 @@ export function classicRemoveCurseHandler(core: ClassicCore): EffectHandler {
       return true;
     }
     if (items > 0) {
-      const blind = (player.timed?.[core.TMD.BLIND] ?? 0) > 0;
+      const blind = (player.timed?.[engine.TMD.BLIND] ?? 0) > 0;
       say(ctx, blind ? "You feel as if someone is watching over you." : "The air around your body glows blue for a moment...");
       ctx.ident = true;
     }
@@ -207,7 +208,7 @@ function enchantScore(rng: EnchantRngLike, score: number, isArtifact: boolean): 
  * broke. For an item with no breakable curse the draws are core's own.
  */
 export function classicEnchant(
-  core: ClassicCore,
+  engine: ClassicCore,
   rng: EnchantRngLike,
   obj: EnchantObjectLike,
   n: number,
@@ -217,7 +218,7 @@ export function classicEnchant(
   const isArtifact = !!obj.artifact;
   let res = false;
   let prob = obj.number * 100;
-  if (core.tvalIsAmmo(obj.tval)) prob = Math.trunc(prob / 20);
+  if (engine.tvalIsAmmo(obj.tval)) prob = Math.trunc(prob / 20);
 
   const enchant2 = (key: "toH" | "toD" | "toA"): boolean => {
     let result = false;
@@ -235,9 +236,9 @@ export function classicEnchant(
 
   for (let i = 0; i < n; i++) {
     if (prob > 100 && rng.randint0(prob) >= 100) continue;
-    if (eflag & core.ENCH_TOHIT && enchant2("toH")) res = true;
-    if (eflag & core.ENCH_TODAM && enchant2("toD")) res = true;
-    if (eflag & core.ENCH_TOAC && enchant2("toA")) res = true;
+    if (eflag & engine.ENCH_TOHIT && enchant2("toH")) res = true;
+    if (eflag & engine.ENCH_TODAM && enchant2("toD")) res = true;
+    if (eflag & engine.ENCH_TOAC && enchant2("toA")) res = true;
   }
   return res;
 }
@@ -247,9 +248,9 @@ export function classicEnchant(
  * classicEnchant. As in 4.0 and 4.2, a chosen item uses the scroll up whether
  * or not anything changed.
  */
-export function enchantCurseBreakHandler(core: ClassicCore): EffectHandler {
+export function enchantCurseBreakHandler(engine: ClassicCore): EffectHandler {
   return (ctx) => {
-    const env = gameEnvOf(core, ctx);
+    const env = gameEnvOf(engine, ctx);
     if (!env) return true;
     const { state } = env;
     const value = state.rng.randcalc(
@@ -264,43 +265,43 @@ export function enchantCurseBreakHandler(core: ClassicCore): EffectHandler {
     const breakCurse = (obj: EnchantObjectLike): void => {
       say(ctx, "The curse is broken!");
       const curses = cursesOf(env);
-      if (curses) uncurseOne(core, curses, obj, true, (d) => (player.upkeep.totalWeight += d));
+      if (curses) uncurseOne(engine, curses, obj, true, (d) => (player.upkeep.totalWeight += d));
     };
 
     const enchant = (obj: EnchantObjectLike, n: number, eflag: number): boolean => {
-      if (!classicEnchant(core, state.rng, obj, n, eflag, breakCurse)) return false;
+      if (!classicEnchant(engine, state.rng, obj, n, eflag, breakCurse)) return false;
       state.updateBonuses?.();
-      player.upkeep.notice |= core.PN.COMBINE;
+      player.upkeep.notice |= engine.PN.COMBINE;
       return true;
     };
 
     const spell = (numHit: number, numDam: number, numAc: number): boolean => {
-      const request = core.requestForEffect(core.EF.ENCHANT, ctx.subtype, state);
+      const request = engine.requestForEffect(engine.EF.ENCHANT, ctx.subtype, state);
       const obj = request ? env.item?.getItem?.(request) : null;
       if (!obj) return false;
 
-      const name = core.describeObject(state, obj, core.ODESC.BASE);
-      const carried = core.objectIsCarried(state.gear, obj);
+      const name = engine.describeObject(state, obj, engine.ODESC.BASE);
+      const carried = engine.objectIsCarried(state.gear, obj);
       say(ctx, `${carried ? "Your" : "The"} ${name} glow${obj.number > 1 ? "" : "s"} brightly!`);
 
       let okay = false;
-      if (numDam && enchant(obj, numHit, core.ENCH_TOBOTH)) okay = true;
-      else if (enchant(obj, numHit, core.ENCH_TOHIT)) okay = true;
-      else if (enchant(obj, numDam, core.ENCH_TODAM)) okay = true;
-      if (enchant(obj, numAc, core.ENCH_TOAC)) okay = true;
+      if (numDam && enchant(obj, numHit, engine.ENCH_TOBOTH)) okay = true;
+      else if (enchant(obj, numHit, engine.ENCH_TOHIT)) okay = true;
+      else if (enchant(obj, numDam, engine.ENCH_TODAM)) okay = true;
+      if (enchant(obj, numAc, engine.ENCH_TOAC)) okay = true;
 
       if (!okay) say(ctx, "The enchantment failed.");
       return true;
     };
 
-    if ((ctx.subtype & core.ENCH_TOBOTH) === core.ENCH_TOBOTH) {
+    if ((ctx.subtype & engine.ENCH_TOBOTH) === engine.ENCH_TOBOTH) {
       if (spell(value, value, 0)) used = true;
-    } else if (ctx.subtype & core.ENCH_TOHIT) {
+    } else if (ctx.subtype & engine.ENCH_TOHIT) {
       if (spell(value, 0, 0)) used = true;
-    } else if (ctx.subtype & core.ENCH_TODAM) {
+    } else if (ctx.subtype & engine.ENCH_TODAM) {
       if (spell(0, value, 0)) used = true;
     }
-    if (ctx.subtype & core.ENCH_TOAC) {
+    if (ctx.subtype & engine.ENCH_TOAC) {
       if (spell(0, 0, value)) used = true;
     }
 
