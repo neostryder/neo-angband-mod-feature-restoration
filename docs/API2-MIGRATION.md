@@ -78,7 +78,7 @@ The 59 rows comprise 1 moved read, 5 API 2 homes that remain unwired, and 53 Cor
 
 R1. The folder loader needs to run an API 2 definition. It can use the existing in-process wrapper when the manifest range admits API 2. The build validator also needs to accept that definition instead of requiring an integer `api`. Both changes apply to in-process mods across tiers.
 
-R2. A versioned `engine` domain gives the P-tier handlers their current namespace, state and registries while declarations remain incomplete. Its proposed members are `api`, `core`, `state` and `registries`, with synchronous contexts for effects and commands. The first-party loader check controls access. This domain is P-tier only, including live RNG and flag objects.
+R2. The `engine` request covers more than the documented `engine = ctx.core` alias. `engine.core` holds the live core namespace. `engine.registry` holds this adapter's registry methods. Effect and command handlers receive state and bound registries in synchronous contexts. Only P-tier mods admitted by the first-party loader check can use those contexts, including their RNG and flag objects.
 
 R3. A host-read `content.effects` declaration replaces the Lose Memories, uncurse and curse-scroll handlers. Each entry names a `code` and a `kind`. `loseExperience` takes fraction 0.25, prevention flag `HOLD_LIFE` and the same flag to learn after use. `uncurseEquipment` takes light power 40, heavy power 99 and permanent power 100, with source-dice selection and the current identification and message rules. `curseEquipment` takes a body slot and eligible ego reference, 50 percent artifact resistance, kind-reset rules and combat-score dice. Core supplies prompts, weight changes, notices, bonus updates and rune learning in the current RNG order. The effect grant can cover these declarations across tiers. Live callbacks under R2 stay P-tier only.
 
@@ -94,11 +94,15 @@ R8. A host-read command declaration adds the spike action. It names `code`, `ver
 
 R9. An `effectText` content entry keyed by effect code supplies `menuName` and `describe` strings. Three overrides need it today. API 2 content reads do not install a text handler. The host must read these entries when it formats effects. The effect-info grant can cover the strings across tiers.
 
-R10. A `birthDefaults` declaration applies the junk ignore rules before a new character starts play. Its `ignoredKinds` entries take a stable `kind` reference, `aware: true` and `unaware: true`. Core resolves the references and sets both ignore states at the current hook point while the junk section is on. The declaration can serve every tier. The existing hook with live state stays P-tier only.
+R10. Core needs a `birthDefaults.ignoredKinds` list to replace the junk birth hook. Each entry names a stable kind reference and sets `aware` and `unaware` to `true`. Resolving that reference replaces `findKind(name, tval)`. Setting both ignore states replaces `ignoreKind(kidx)`. Core applies the list at the existing birth hook point when the junk section is on. Every tier can use this list. The live-state hook remains P-tier only.
 
 R11. Content lookup finds records by class name or kind key, but the composed records lack the numeric `tval` and `kidx` values used by the birth adapter. R10 avoids these numbers by taking kind references. A numeric lookup, if retained, needs class bindings `{ name, index }` and kind bindings `{ key, kindIndex, tval }`. These bindings describe content and can serve every tier.
 
-R12. The builder's `readManifestId` reads only a top-level `id`. With schema 2 it falls back to the checkout basename, so this build writes `overhaul-api2` in the plugin banner. Normalizing the manifest before reading the id fixes that directory dependency for every tier. The build check currently passes only against the banner produced for this directory.
+R12. `readManifestId` calls `manifestFields`, but the Core builder has no import for that function. The catch block returns `null`, so the builder uses the folder name `overhaul-api2` in this plugin's banner. An import in the Core builder fixes the lookup. Until then, the committed-plugin check depends on this folder name.
+
+## Checker warnings
+
+The first-party checker lists 12 dangling references. It also warns that Core does not read `tval.json` or `message_type.json`, although the boot code reads both. `junk.test.ts` binds the custom item classes and their kinds. `bronze-dragons.test.ts` binds `BR_CONF` with its monster spell. These checker findings need a Core fix. The data files stay unchanged.
 
 ## Removal list
 
@@ -108,6 +112,6 @@ The other engine reads remain behind the API 1 adapter until their table request
 
 ## Verification
 
-`pnpm verify` runs typechecking, every test and the committed-plugin build check. The twin tests compare flags, logging and binding answers with the API 1 adapter on matching facts. They also test refusals, a host fault and the local direction table. The boundary test parses TypeScript and rejects context assertions, spaced accesses, core re-exports, dynamic imports, engine suffixes and `ctx` in the twin.
+`pnpm verify` runs the typecheck, all tests and the committed-plugin build check. The flags test uses separate fixtures with the same entries, so changing the twin's flag map leaves the API 1 expectation intact. The key tests distinguish a denied grant from a host permission refusal. An invalid-trigger test checks the mock host's refusal result and empty binding list. Other twin tests cover log calls, binding answers, a rejected host fault and the local direction table. The boundary scan catches aliases and destructures of the context, member-held contexts and CommonJS imports of core or an engine module. It also catches copied engine objects and member-held engines. Existing checks still cover assertions, spaced reads, core re-exports, dynamic imports, engine suffixes and `ctx` in the twin.
 
 The existing on/off checks are in `plugin.test.ts`, `bronze-dragons.test.ts`, `classic-uncurse.test.ts`, `junk.test.ts`, `sticky-curses.test.ts`, `sticky-egos.test.ts` and `classic-books.test.ts`. They test registry installation, birth defaults, curses and composed content. Pixel rendering and a complete live-game replay remain unverified.

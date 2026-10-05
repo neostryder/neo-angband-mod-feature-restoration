@@ -13,6 +13,7 @@ import { createAdapter } from "./src/core-adapter-api2.js";
 
 function fakeApi(flags: Readonly<Record<string, boolean>>, granted = true, result: Api2Result<null> = api2Ok(null)): ModApi2 {
   const unused = async (): Promise<never> => { throw new Error("Unexpected domain call"); };
+  const bindings: { trigger: string; action: string }[] = [];
   return {
     meta: {
       id: "feature-restoration",
@@ -36,7 +37,14 @@ function fakeApi(flags: Readonly<Record<string, boolean>>, granted = true, resul
     events: { on: unused, off: unused },
     hooks: { available: [], active: [] },
     content: { own: unused, asset: unused, records: unused, lookup: unused },
-    ui: { mount: unused, patch: unused, keys: { bind: vi.fn(async () => result), list: unused, remove: unused } },
+    ui: { mount: unused, patch: unused, keys: {
+      bind: vi.fn(async (trigger, action) => {
+        if (result.ok) bindings.push({ trigger, action });
+        return result;
+      }),
+      list: vi.fn(async () => api2Ok([...bindings])),
+      remove: unused,
+    } },
     store: { prefs: { get: unused, set: unused }, character: { get: unused, set: unused } },
   };
 }
@@ -46,9 +54,10 @@ describe("the API 2 adapter twin", () => {
     const flags = { "feature-restoration.junk": false, "feature-restoration.spike-doors": true };
     const mod = fakeApi(flags);
     const log = vi.fn();
-    const old = createApi1Adapter({ flags, log });
+    const old = createApi1Adapter({ flags: { ...flags }, log });
     const twin = createAdapter(mod);
-    expect(twin.meta.flags).toBe(old.meta.flags);
+    expect(mod.meta.flags).not.toBe(old.meta.flags);
+    expect(twin.meta.flags).toEqual(old.meta.flags);
     expect(twin.meta.flags["missing"]).toBe(old.meta.flags["missing"]);
     old.meta.log("spike binding");
     twin.meta.log("spike binding");
@@ -58,7 +67,7 @@ describe("the API 2 adapter twin", () => {
   it.each([
     ["success", api2Ok(null), true],
     ["claimed trigger", api2Refused("trigger-taken", "The trigger is claimed"), false],
-    ["denied permission", api2NotGranted("keymap:write"), false],
+    ["host permission refusal", api2NotGranted("keymap:write"), false],
     ["unavailable host", api2Unavailable("The host has no keymaps"), false],
   ] as const)("matches the API 1 binding answer for %s", async (_name, result, bound) => {
     const flags = {};
@@ -68,19 +77,24 @@ describe("the API 2 adapter twin", () => {
     expect(await createAdapter(mod).ui.keys!.bind("j", "feature-restoration:spike"))
       .toBe(old.ui.keys!.bind("j", "feature-restoration:spike"));
     expect(vi.mocked(mod.ui.keys.bind).mock.calls).toEqual(bind.mock.calls);
+    expect(await mod.ui.keys.list()).toEqual(api2Ok(bound ? [{ trigger: "j", action: "feature-restoration:spike" }] : []));
   });
 
   it("matches an invalid trigger without writing a binding", async () => {
-    const mod = fakeApi({}, true, api2Refused("trigger-taken", "The trigger is unavailable"));
+    const refusal = api2Refused("trigger-taken", "The trigger is unavailable");
+    const mod = fakeApi({}, true, refusal);
     const bind = vi.fn(() => true);
     const old = createApi1Adapter({ flags: {}, keymaps: { isBindableTriggerKey: () => false, bind } });
     expect(await createAdapter(mod).ui.keys!.bind("Escape", "feature-restoration:spike"))
       .toBe(old.ui.keys!.bind("Escape", "feature-restoration:spike"));
     expect(bind).not.toHaveBeenCalled();
+    expect(mod.ui.keys.bind).toHaveBeenCalledWith("Escape", "feature-restoration:spike");
+    expect(await vi.mocked(mod.ui.keys.bind).mock.results[0]!.value).toEqual(refusal);
+    expect(await mod.ui.keys.list()).toEqual(api2Ok([]));
   });
 
   it("omits key access when the permission is denied", () => {
-    const mod = fakeApi({}, false);
+    const mod = fakeApi({}, false, api2NotGranted("keymap:write"));
     expect(createAdapter(mod).ui.keys).toBe(createApi1Adapter({ flags: {} }).ui.keys);
     expect(mod.meta.granted).toHaveBeenCalledWith("keymap:write");
     expect(mod.ui.keys.bind).not.toHaveBeenCalled();
