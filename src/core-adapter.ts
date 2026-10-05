@@ -95,8 +95,8 @@ export interface EngineCore {
   readonly OF: CoreNs["OF"];
   /** Notice bit COMBINE, set after an item changes. API 2: host bookkeeping inside an effect declaration. */
   readonly PN: CoreNs["PN"];
-  /** Direction-to-offset table for the spike's target grid. API 2: plain data the mod can carry, or a view field. */
-  readonly DDGRID: CoreNs["DDGRID"];
+  /** Local keypad offsets avoid an engine read for fixed command data. */
+  readonly DDGRID: readonly { readonly x: number; readonly y: number }[];
   /** Live game env (state, item registry) off an effect context. API 2: none; each handler needs a host-interpreted effect declaration. */
   readonly gameEnv: CoreNs["gameEnv"];
   /** Item name for effect messages. API 2: a view field with the item's known name. */
@@ -176,6 +176,19 @@ export interface Adapter<R extends EngineRegistry | null = EngineRegistry | null
   readonly engine: AdapterEngine & { readonly registry: R };
 }
 
+const DDGRID = [
+  { x: 0, y: 0 },
+  { x: -1, y: 1 },
+  { x: 0, y: 1 },
+  { x: 1, y: 1 },
+  { x: -1, y: 0 },
+  { x: 0, y: 0 },
+  { x: 1, y: 0 },
+  { x: -1, y: -1 },
+  { x: 0, y: -1 },
+  { x: 1, y: -1 },
+];
+
 function pickCore(core: CoreNs): EngineCore {
   return {
     EF: core.EF,
@@ -190,7 +203,7 @@ function pickCore(core: CoreNs): EngineCore {
     ODESC: core.ODESC,
     OF: core.OF,
     PN: core.PN,
-    DDGRID: core.DDGRID,
+    DDGRID,
     gameEnv: core.gameEnv,
     describeObject: core.describeObject,
     objectIsCarried: core.objectIsCarried,

@@ -23,10 +23,11 @@ import { objectNew, objCanRefill, OF, TV } from "@rpgm-tools/neo-angband-core";
 import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
 
 import objectContrib from "./object.json";
-import manifest from "./manifest.json";
+import manifestDocument from "./manifest.json";
 import { IRON_SPIKE_NAME } from "./plugin.js";
 
 const require = createRequire(import.meta.url);
+const manifest = manifestDocument.data;
 
 interface ObjectRecord {
   name: string;

@@ -16,8 +16,13 @@ import { readFileSync } from "node:fs";
  * version that reaches the site as nothing at all.
  */
 describe("the two version sites", () => {
-  const read = (f: string): string =>
-    (JSON.parse(readFileSync(new URL(f, import.meta.url), "utf8")) as { version: string }).version;
+  const read = (f: string): string => {
+    const value = JSON.parse(readFileSync(new URL(f, import.meta.url), "utf8")) as {
+      version: string;
+      data?: { version: string };
+    };
+    return (value.data ?? value).version;
+  };
 
   it("agree", () => {
     expect(read("./package.json")).toBe(read("./manifest.json"));

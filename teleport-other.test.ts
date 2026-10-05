@@ -26,9 +26,10 @@ import { describe, expect, it } from "vitest";
 import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
 
 import classContrib from "./class.json";
-import manifest from "./manifest.json";
+import manifestDocument from "./manifest.json";
 
 const require = createRequire(import.meta.url);
+const manifest = manifestDocument.data;
 
 interface SpellRecord {
   name: string;
