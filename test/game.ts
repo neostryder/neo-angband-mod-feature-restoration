@@ -18,7 +18,7 @@ import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { bindCore, bindPlayer, registerBookKinds, type CoreRegistries, type GamePack, type PlayerPackRecords } from "@rpgm-tools/neo-angband-core";
-import { composeContentPacks, type ComposedContent } from "@rpgm-tools/neo-angband-mod-sdk";
+import { composeContentPacks, validateManifest, type ComposedContent } from "@rpgm-tools/neo-angband-mod-sdk";
 
 const require = createRequire(import.meta.url);
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -57,7 +57,7 @@ export function modFiles(): Record<string, Json> {
 }
 
 export function modManifest(): Loaded["manifest"] {
-  return readJson(join(ROOT, "manifest.json")) as Loaded["manifest"];
+  return validateManifest(readJson(join(ROOT, "manifest.json"))) as unknown as Loaded["manifest"];
 }
 
 /** Every section and rule id this mod declares. */
