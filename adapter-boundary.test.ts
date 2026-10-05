@@ -29,6 +29,24 @@ function unwrap(node: ts.Node): ts.Node {
   return node;
 }
 
+function memberName(node: ts.Node): string | null {
+  if (ts.isPropertyAccessExpression(node)) return node.name.text;
+  if (ts.isElementAccessExpression(node) && ts.isStringLiteralLike(node.argumentExpression)) {
+    return node.argumentExpression.text;
+  }
+  return null;
+}
+
+function rawContext(node: ts.Node): boolean {
+  const value = unwrap(node);
+  return ts.isIdentifier(value) ? value.text === "ctx" : memberName(value) === "ctx";
+}
+
+function engineModule(node: ts.Node): boolean {
+  return ts.isStringLiteralLike(node) && (node.text === CORE ||
+    /(?:^|\/)engine(?:\/index)?(?:\.[cm]?[jt]s)?$/.test(node.text));
+}
+
 function violations(path: string, text: string): string[] {
   const source = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
   const found = new Set<string>();
@@ -93,6 +111,21 @@ function violations(path: string, text: string): string[] {
   };
 
   const visit = (node: ts.Node): void => {
+    if (ts.isVariableDeclaration(node) && node.initializer) {
+      const value = unwrap(node.initializer);
+      if (rawContext(value)) {
+        if (!ts.isObjectBindingPattern(node.name) || node.name.elements.some((entry) =>
+          entry.dotDotDotToken || CONTEXT_MEMBERS.has((entry.propertyName ?? entry.name).getText(source).replace(/["']/g, "")))) {
+          report("a raw plugin context alias or destructure");
+        }
+      }
+      if (ts.isIdentifier(value) && /engine$/i.test(value.text) && !adaptedEngine(value)) {
+        report("an unadapted engine namespace");
+      }
+    }
+    if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken && rawContext(node.right)) {
+      report("a raw plugin context alias or destructure");
+    }
     if (ts.isIdentifier(node)) {
       if (node.text === "registries") report("the registries");
       if (path === TWIN && node.text === "ctx") report("ctx in the API 2 twin");
@@ -111,12 +144,21 @@ function violations(path: string, text: string): string[] {
         ts.isStringLiteral(node.argument.literal) && node.argument.literal.text === CORE) report("the core namespace type");
     if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword &&
         node.arguments.some((arg) => ts.isStringLiteralLike(arg) && arg.text === CORE)) report("a dynamic import of core");
+    if (ts.isCallExpression(node) && ts.isIdentifier(unwrap(node.expression)) &&
+        unwrap(node.expression).getText(source) === "require" && node.arguments.some(engineModule)) {
+      report("a runtime require of core or engine");
+    }
+    if (ts.isImportEqualsDeclaration(node) && ts.isExternalModuleReference(node.moduleReference) &&
+        node.moduleReference.expression && engineModule(node.moduleReference.expression)) {
+      report("a runtime require of core or engine");
+    }
     if (ts.isPropertyAccessExpression(node) || ts.isElementAccessExpression(node)) {
       const object = unwrap(node.expression);
-      const member = ts.isPropertyAccessExpression(node) ? node.name.text :
-        ts.isStringLiteralLike(node.argumentExpression) ? node.argumentExpression.text : null;
+      const member = memberName(node);
+      if (rawContext(object) && (member === null || CONTEXT_MEMBERS.has(member))) report("a raw plugin context member");
+      if (memberName(object) === "engine") report("an unadapted engine namespace");
       if (ts.isIdentifier(object)) {
-        if (object.text === "ctx" && (member === null || CONTEXT_MEMBERS.has(member))) report("a raw plugin context member");
+        if (member === "engine" && !adaptedEngine(object)) report("an unadapted engine namespace");
         if (object.text === "core") report("a local core namespace");
         if (object.text === "host") report("the registry host");
         if (/engine$/i.test(object.text) && !adaptedEngine(object)) report("an unadapted engine namespace");
@@ -169,6 +211,18 @@ describe("the engine adapter boundary", () => {
     "rawEngine.EF;",
     "someengine . TMD;",
     "(rawEngine as any)!.EF;",
+    "const x = ctx; x.core;",
+    "let y = ctx; y.state;",
+    "const { core: c } = ctx; c.EF;",
+    "this.ctx.core;",
+    "obj.ctx.state;",
+    'obj["ctx"]["core"];',
+    'const c = require("@rpgm-tools/neo-angband-core");',
+    'import c = require("@rpgm-tools/neo-angband-core");',
+    'const c = require("./engine.js");',
+    'import c = require("./engine.js");',
+    "const c = rawEngine; c.EF;",
+    "obj.engine.EF;",
     'import type { EngineCore } from "./core-adapter.js"; function a(engine: EngineCore) { engine.EF; } function b(engine: any) { engine.EF; }',
   ])("rejects the injected read: %s", (sample) => {
     expect(violations("sample.ts", sample), sample).not.toEqual([]);
@@ -186,5 +240,7 @@ describe("the engine adapter boundary", () => {
       'function run(engine: LocalEngine) { engine.EF; ctx.env.messages?.msg(t); }';
     expect(violations("sample.ts", sample)).toEqual([]);
     expect(violations("sample.ts", '// ctx!.core;\nconst text = "rawEngine.EF";')).toEqual([]);
+    expect(violations("sample.ts", 'const { rng, cost } = ctx; const text = require("./text.js");')).toEqual([]);
+    expect(violations("sample.ts", 'import type { EngineCore } from "./core-adapter.js"; function run(engine: EngineCore) { const c = engine; c.EF; }')).toEqual([]);
   });
 });
