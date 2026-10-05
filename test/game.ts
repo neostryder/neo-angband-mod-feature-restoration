@@ -57,7 +57,7 @@ export function modFiles(): Record<string, Json> {
 }
 
 export function modManifest(): Loaded["manifest"] {
-  return validateManifest(readJson(join(ROOT, "manifest.json"))) as unknown as Loaded["manifest"];
+  return { ...validateManifest(readJson(join(ROOT, "manifest.json"))) };
 }
 
 /** Every section and rule id this mod declares. */
