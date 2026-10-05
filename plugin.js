@@ -1,4 +1,4 @@
-// neo-angband-mod-feature-restoration - generated from plugin.ts by neo-angband-mod-build
+// overhaul-api2 - generated from plugin.ts by neo-angband-mod-build
 // (@rpgm-tools/neo-angband-mod-sdk). Edit the TypeScript source, not this file.
 
 // src/confusion.ts
@@ -218,6 +218,18 @@ function enchantCurseBreakHandler(engine) {
 }
 
 // src/core-adapter.ts
+var DDGRID = [
+  { x: 0, y: 0 },
+  { x: -1, y: 1 },
+  { x: 0, y: 1 },
+  { x: 1, y: 1 },
+  { x: -1, y: 0 },
+  { x: 0, y: 0 },
+  { x: 1, y: 0 },
+  { x: -1, y: -1 },
+  { x: 0, y: -1 },
+  { x: 1, y: -1 }
+];
 function pickCore(core) {
   return {
     EF: core.EF,
@@ -232,7 +244,7 @@ function pickCore(core) {
     ODESC: core.ODESC,
     OF: core.OF,
     PN: core.PN,
-    DDGRID: core.DDGRID,
+    DDGRID,
     gameEnv: core.gameEnv,
     describeObject: core.describeObject,
     objectIsCarried: core.objectIsCarried,

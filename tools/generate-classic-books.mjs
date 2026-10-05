@@ -110,10 +110,10 @@ const itemArt = books.map((entry) => {
 });
 const manifestPath = join(root, "manifest.json");
 const manifest = readFileSync(manifestPath, "utf8");
-const start = manifest.indexOf('  "restoredItemArt": [\n') + '  "restoredItemArt": [\n'.length;
-const end = manifest.indexOf('    {\n      "kind": "feature-restoration:flask:iron-spike"', start);
+const start = manifest.indexOf('    "restoredItemArt": [\n') + '    "restoredItemArt": [\n'.length;
+const end = manifest.indexOf('      {\n        "kind": "feature-restoration:flask:iron-spike"', start);
 if (start < 25 || end < start) throw new Error("Cannot locate restored item art in manifest");
-const entries = itemArt.map((item) => JSON.stringify(item, null, 2).split("\n").map((line) => `    ${line}`).join("\n")).join(",\n");
+const entries = itemArt.map((item) => JSON.stringify(item, null, 2).split("\n").map((line) => `      ${line}`).join("\n")).join(",\n");
 writeFileSync(manifestPath, manifest.slice(0, start) + entries + ",\n" + manifest.slice(end));
 
 const readmePath = join(root, "README.md");
