@@ -502,6 +502,25 @@ Upstream commit `e08ed1dcb` ("Add some fixed artifact flavors", 4 October 2013) 
 
 ## Content, plus one plugin
 
+```mermaid
+flowchart TD
+  F["A restoration has a manifest section or rule<br/>Each switch defaults off"] --> C{"Does existing data express the restoration?"}
+  C -->|"Yes, the record already exists"| PATCH["fieldPatches<br/>class.json restores Teleport Other<br/>for Priest, Paladin and Ranger"]
+  C -->|"Yes, a new record is needed"| REC["records<br/>object.json adds Iron Spike under flask"]
+  C -->|"No, the mechanism is missing"| REG["plugin.ts register installs behaviour"]
+  F --> LOCK["classic-arcane-books, classic-prayer-books<br/>and classic-class-chassis lock at birth"]
+  REG --> D["feature-restoration.discounts<br/>setDiscountRoll"]
+  REG --> B["feature-restoration.bronze-dragons<br/>setPlayerProjection and setMonsterProjection<br/>CONFUSION"]
+  REG --> U["feature-restoration.classic-uncurse<br/>registerEffect replaces REMOVE_CURSE and ENCHANT"]
+  REG --> SC["feature-restoration.sticky-curses<br/>registerEffect installs CURSE_WEAPON and CURSE_ARMOUR"]
+  REG --> SP["feature-restoration.spike-doors<br/>registerCommand and setCommandVerb<br/>The keymap binds j when available"]
+  REC -->|"The spike-doors section uses the same flag"| SP
+  F --> H["hooks<br/>feature-restoration.junk gates newCharacter with ignoreJunk"]
+  R["register has engineCore,<br/>registerEffect and setEffectText"] --> LM["LOSE_MEMORIES handler and effect text<br/>The registration has no feature-flag check"]
+```
+
+*Source of truth: `manifest.json`, `plugin.ts`, and the content files. `LOSE_MEMORIES` registers whenever the host methods it needs exist, with no feature flag.*
+
 Restoring a spell to a class's book only takes data. The spell already exists (the Mage and the Rogue cast it today), so nothing new has to run; the class's book just needs one more entry. A [field-level patch](https://github.com/neostryder/neo-angband/blob/master/packages/mod-sdk/src/patch.ts) onto core's own `class.json` does exactly that, and a manifest [section](https://github.com/neostryder/neo-angband/blob/master/docs/modding/MOD_LIFECYCLE.md) turns it on and off. That is all `teleport-other` needs.
 
 Store discounts are different. 4.2.6's core has no discount field and no discount roll left to patch, so there is no data to attach to. Restoring them needed one small addition to the game's own engine: a `registry:store` discount-roll hook alongside the stack-size hook that was already there. This mod's `plugin.ts` installs a handler into it, gated on the `feature-restoration.discounts` rule flag and nothing else. No other system in the game is touched, and with the toggle off the hook is never called at all, like every other disabled mod hook.
@@ -521,6 +540,31 @@ The mod is `manifest.json`, its gamedata files (`artifact.json`, `class.json`, `
   build at it with **Load mod folder**.
 
 ## Working on it
+
+```mermaid
+flowchart TD
+  L["tools/restore/*.json<br/>Each list names its output file, section and records"] --> C["tools/convert-records.mjs"]
+  U["A local Angband git clone<br/>Historical release records"] --> C
+  CP["The installed 4.2.6 content pack"] --> C
+  C --> CC["compileGamedata uses 4.2.6 file specs"]
+  CC --> O["object.json and sibling content files<br/>The script replaces generated sections"]
+  OLD["reference/lib/gamedata/old_class.txt"] --> B["tools/generate-classic-books.mjs"]
+  CP --> B
+  B --> CLASS["class.json<br/>Classic books and class chassis"]
+  B --> PR["tools/classic-book-prices.json<br/>and the README price table"]
+  ART["tools/art.json<br/>Names, kinds, last_tag and slugs"] --> EX["tools/extract-art.py"]
+  U --> EX
+  EX --> WALK["The extractor searches each pack's historical prefs<br/>It crops the mapped cell from the same release"]
+  WALK --> AS["assets/*.png"]
+  WALK --> REPORT["tools/art-report.json"]
+  REPORT --> PACK["The mapping uses the pack's own tile<br/>or the best real tile at equal or lower resolution"]
+  PACK --> MAN["manifest.json<br/>restoredItemArt references assets"]
+  REPORT -->|"The book generator reads book art"| B
+  B --> MAN
+  LIN["Linoleum"] -.->|"It applies declared hue rotations"| MAN
+```
+
+*Source of truth: the scripts under `tools/` and `manifest.json`. Hue rotations require Linoleum.*
 
 ```bash
 pnpm install --frozen-lockfile
