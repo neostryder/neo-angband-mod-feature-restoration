@@ -15,7 +15,7 @@
 import { describe, expect, it, vi } from "vitest";
 import * as core from "@rpgm-tools/neo-angband-core";
 import { ENCH_TOAC, ENCH_TOBOTH, ENCH_TODAM, ENCH_TOHIT, enchant, objectNew, OF, Rng, TMD } from "@rpgm-tools/neo-angband-core";
-import plugin from "./plugin.js";
+import { startWith } from "./test/api2.js";
 import { bind } from "./test/game.js";
 import {
   classicEnchant,
@@ -438,7 +438,6 @@ function fakeHost() {
         registered.set(code, def);
       },
     },
-    stores: { setDiscountRoll: vi.fn() },
     commands: { register: vi.fn(), setVerb: vi.fn() },
   };
 }
@@ -446,17 +445,18 @@ function fakeHost() {
 const EF = { REMOVE_CURSE: 47, ENCHANT: 48 };
 
 describe("register - classic-uncurse flag gating", () => {
-  it("installs nothing when the toggle is off (the default)", () => {
+  it("installs nothing when the toggle is off (the default)", async () => {
     const host = fakeHost();
-    plugin.register(host, { flags: {}, core: { EF } as never });
+    await startWith({ flags: {}, core: { EF }, host });
     expect(host.registered.size).toBe(0);
   });
 
-  it("replaces both effect handlers when the toggle is on", () => {
+  it("replaces both effect handlers when the toggle is on", async () => {
     const host = fakeHost();
-    plugin.register(host, {
+    await startWith({
       flags: { "feature-restoration.classic-uncurse": true },
-      core: { EF } as never,
+      core: { EF },
+      host,
     });
     expect([...host.registered.keys()].sort()).toEqual([EF.REMOVE_CURSE, EF.ENCHANT]);
     expect(host.registered.get(EF.REMOVE_CURSE)?.handler).toBeTypeOf("function");

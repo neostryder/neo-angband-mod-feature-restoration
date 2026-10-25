@@ -16,8 +16,7 @@ import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 import { tvalFindIdx, tvalInClass, tvals, IgnoreSettings, startGame } from "@rpgm-tools/neo-angband-core";
 import { bind, gamePack } from "./test/game.js";
-// @ts-expect-error The test imports the handwritten source module.
-import plugin from "./plugin.ts";
+import { engineHooksFor } from "./test/api2.js";
 
 const require = createRequire(import.meta.url);
 
@@ -52,10 +51,10 @@ describe("junk", () => {
   it("ignores the junk, skeleton and bottle kinds for a new character with junk on", () => {
     const { game } = bind(["junk"]);
     const ignore = new IgnoreSettings();
-    const hook = plugin.hooks({
+    const hook = engineHooksFor({
       flags: { "feature-restoration.junk": true },
-      core: { tvalFindIdx } as NonNullable<Parameters<typeof plugin.hooks>[0]["core"]>,
-    }).newCharacter;
+      core: { tvalFindIdx },
+    }).newCharacter as ((state: unknown, registries: unknown) => void) | undefined;
     expect(hook).toBeTypeOf("function");
     const state = startGame(gamePack(["junk"]).pack).state;
     state.ignore = ignore;
@@ -84,7 +83,7 @@ describe("junk", () => {
   it("leaves new characters' ignore settings empty when junk is off", () => {
     const { game } = bind([]);
     const ignore = new IgnoreSettings();
-    const hook = plugin.hooks({ flags: { "feature-restoration.junk": false } }).newCharacter;
+    const hook = engineHooksFor({ flags: { "feature-restoration.junk": false } }).newCharacter;
     expect(hook).toBeUndefined();
     expect(game.objects.kinds.some((k) => k && ignore.kindIsIgnoredAware(k.kidx))).toBe(false);
   });

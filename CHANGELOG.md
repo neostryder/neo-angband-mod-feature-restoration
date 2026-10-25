@@ -28,6 +28,12 @@ were not retagged.
 
 - [Visible] [Balance] **Every curse can be made sticky.** With `sticky-curses-all` on, any cursed item stays on until its curse is lifted, including curses Angband 4.0 never had, such as siren, stone and the summoning curses. Remove Curse can lift a curse of power 40 or less, *Remove Curse* one of up to 99, and a power of 100 never comes off. `sticky-curses` still pins only the curses that match 4.0's, and either setting works without the other.
 
+### Changed
+
+- [Visible] [Compatibility] **Cutting Room Floor now needs Neo Angband 1.22.0 or later.** The mod runs on mod API 2, which that game build introduced.
+- [Visible] **Five restorations wait for the game.** Mod API 2 has no registry host for mods yet, so Lose Memories, the bronze dragons' confusion, classic uncursing, the sticky-curse scrolls, and the spike command do not run, even with their switches on. The mod logs one line saying so. Store discounts and junk items are unaffected, and each of the five starts working once the game offers a registry host.
+- [Internal] [Modding-API] **Store discounts are a policy table.** The five tiers and the 5 gold floor are declared as `storeDiscountRoll` data and the game rolls them itself, so the mod no longer installs a handler. Junk items use the `newCharacter` entry in `engineHooks`.
+
 ## 1.3.0 - 2026-10-01
 
 ### Added

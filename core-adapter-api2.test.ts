@@ -6,15 +6,16 @@ import {
   api2Refused,
   api2Unavailable,
   type Api2Result,
+  type Api2Engine,
   type ModApi2,
 } from "@rpgm-tools/neo-angband-mod-sdk";
-import { createAdapter as createApi1Adapter } from "./src/core-adapter.js";
 import { createAdapter } from "./src/core-adapter-api2.js";
 
-function fakeApi(flags: Readonly<Record<string, boolean>>, granted = true, result: Api2Result<null> = api2Ok(null)): ModApi2 {
+function fakeApi(flags: Readonly<Record<string, boolean>>, granted = true, result: Api2Result<null> = api2Ok(null), engine?: Api2Engine): ModApi2 {
   const unused = async (): Promise<never> => { throw new Error("Unexpected domain call"); };
   const bindings: { trigger: string; action: string }[] = [];
   return {
+    ...(engine ? { engine } : {}),
     meta: {
       id: "feature-restoration",
       api: "2.0.0",
@@ -22,7 +23,7 @@ function fakeApi(flags: Readonly<Record<string, boolean>>, granted = true, resul
       tier: "first-party",
       flags,
       newCharacter: false,
-      granted: vi.fn((cap) => cap === "keymap:write" && granted),
+      granted: vi.fn((cap: string) => cap === "keymap:write" && granted),
       log: vi.fn(),
       settings: unused,
       setSetting: unused,
@@ -38,7 +39,7 @@ function fakeApi(flags: Readonly<Record<string, boolean>>, granted = true, resul
     hooks: { available: [], active: [] },
     content: { own: unused, asset: unused, records: unused, lookup: unused },
     ui: { mount: unused, patch: unused, keys: {
-      bind: vi.fn(async (trigger, action) => {
+      bind: vi.fn(async (trigger: string, action: string) => {
         if (result.ok) bindings.push({ trigger, action });
         return result;
       }),
@@ -46,22 +47,18 @@ function fakeApi(flags: Readonly<Record<string, boolean>>, granted = true, resul
       remove: unused,
     } },
     store: { prefs: { get: unused, set: unused }, character: { get: unused, set: unused } },
-  };
+  } as unknown as ModApi2;
 }
 
-describe("the API 2 adapter twin", () => {
-  it("returns the API 1 flags and forwards the same log text", () => {
+describe("the API 2 adapter", () => {
+  it("returns the mod's flags and forwards log text unchanged", () => {
     const flags = { "feature-restoration.junk": false, "feature-restoration.spike-doors": true };
     const mod = fakeApi(flags);
-    const log = vi.fn();
-    const old = createApi1Adapter({ flags: { ...flags }, log });
-    const twin = createAdapter(mod);
-    expect(mod.meta.flags).not.toBe(old.meta.flags);
-    expect(twin.meta.flags).toEqual(old.meta.flags);
-    expect(twin.meta.flags["missing"]).toBe(old.meta.flags["missing"]);
-    old.meta.log("spike binding");
-    twin.meta.log("spike binding");
-    expect(vi.mocked(mod.meta.log).mock.calls).toEqual(log.mock.calls);
+    const adapter = createAdapter(mod);
+    expect(adapter.meta.flags).toEqual(flags);
+    expect(adapter.meta.flags["missing"]).toBeUndefined();
+    adapter.meta.log("spike binding");
+    expect(vi.mocked(mod.meta.log).mock.calls).toEqual([["spike binding"]]);
   });
 
   it.each([
@@ -69,33 +66,16 @@ describe("the API 2 adapter twin", () => {
     ["claimed trigger", api2Refused("trigger-taken", "The trigger is claimed"), false],
     ["host permission refusal", api2NotGranted("keymap:write"), false],
     ["unavailable host", api2Unavailable("The host has no keymaps"), false],
-  ] as const)("matches the API 1 binding answer for %s", async (_name, result, bound) => {
-    const flags = {};
-    const mod = fakeApi(flags, true, result);
-    const bind = vi.fn(() => bound);
-    const old = createApi1Adapter({ flags, keymaps: { isBindableTriggerKey: () => true, bind } });
-    expect(await createAdapter(mod).ui.keys!.bind("j", "feature-restoration:spike"))
-      .toBe(old.ui.keys!.bind("j", "feature-restoration:spike"));
-    expect(vi.mocked(mod.ui.keys.bind).mock.calls).toEqual(bind.mock.calls);
+  ] as const)("answers the binding as a boolean for %s", async (_name, result, bound) => {
+    const mod = fakeApi({}, true, result);
+    expect(await createAdapter(mod).ui.keys!.bind("j", "feature-restoration:spike")).toBe(bound);
+    expect(mod.ui.keys.bind).toHaveBeenCalledWith("j", "feature-restoration:spike");
     expect(await mod.ui.keys.list()).toEqual(api2Ok(bound ? [{ trigger: "j", action: "feature-restoration:spike" }] : []));
-  });
-
-  it("matches an invalid trigger without writing a binding", async () => {
-    const refusal = api2Refused("trigger-taken", "The trigger is unavailable");
-    const mod = fakeApi({}, true, refusal);
-    const bind = vi.fn(() => true);
-    const old = createApi1Adapter({ flags: {}, keymaps: { isBindableTriggerKey: () => false, bind } });
-    expect(await createAdapter(mod).ui.keys!.bind("Escape", "feature-restoration:spike"))
-      .toBe(old.ui.keys!.bind("Escape", "feature-restoration:spike"));
-    expect(bind).not.toHaveBeenCalled();
-    expect(mod.ui.keys.bind).toHaveBeenCalledWith("Escape", "feature-restoration:spike");
-    expect(await vi.mocked(mod.ui.keys.bind).mock.results[0]!.value).toEqual(refusal);
-    expect(await mod.ui.keys.list()).toEqual(api2Ok([]));
   });
 
   it("omits key access when the permission is denied", () => {
     const mod = fakeApi({}, false, api2NotGranted("keymap:write"));
-    expect(createAdapter(mod).ui.keys).toBe(createApi1Adapter({ flags: {} }).ui.keys);
+    expect(createAdapter(mod).ui.keys).toBeNull();
     expect(mod.meta.granted).toHaveBeenCalledWith("keymap:write");
     expect(mod.ui.keys.bind).not.toHaveBeenCalled();
   });
@@ -106,7 +86,24 @@ describe("the API 2 adapter twin", () => {
     await expect(createAdapter(mod).ui.keys!.bind("j", "feature-restoration:spike")).rejects.toThrow("host fault");
   });
 
+  it("carries no engine names when the mod has no engine domain", () => {
+    const { engine } = createAdapter(fakeApi({}));
+    expect(engine.core).toBeNull();
+    expect(engine.registry).toBeNull();
+  });
+
   it("keeps local keypad offsets equal to the engine table", () => {
-    expect(createApi1Adapter({ flags: {}, core }).engine.core!.DDGRID).toEqual(core.DDGRID);
+    const engine = { api: "1.0.0", core, state: undefined, registries: undefined } as unknown as Api2Engine;
+    expect(createAdapter(fakeApi({}, true, api2Ok(null), engine)).engine.core!.DDGRID).toEqual(core.DDGRID);
+  });
+
+  it("builds the registry adapter from the engine domain's host", () => {
+    const set = vi.fn();
+    const host = { commands: { register: vi.fn(), setVerb: set }, effects: undefined };
+    const engine = { api: "1.0.0", core, state: undefined, registries: undefined, registry: host } as unknown as Api2Engine;
+    const { registry } = createAdapter(fakeApi({}, true, api2Ok(null), engine)).engine;
+    registry!.setCommandVerb("feature-restoration:spike", "spike");
+    expect(set).toHaveBeenCalledWith("feature-restoration:spike", "spike");
+    expect(registry!.registerEffect).toBeNull();
   });
 });

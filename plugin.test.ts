@@ -1,22 +1,21 @@
 /**
- * Unit coverage for plugin.ts's discount roll, its spike-a-door command, and
+ * Unit coverage for plugin.ts's discount table, its spike-a-door command, and
  * the flag gating for both. The spike fixture uses a real Core state so the
  * command follows Core's gear and object types.
  */
 import { describe, expect, it, vi } from "vitest";
 import * as core from "@rpgm-tools/neo-angband-core";
 // @ts-expect-error The test imports the handwritten source module.
-import plugin, { discountRoll, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, SPIKE_TRIGGER, spikeDoor } from "./plugin.ts";
+import { DISCOUNT_ROLL, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, SPIKE_TRIGGER, spikeDoor } from "./plugin.ts";
 import { LOSE_MEMORIES } from "./src/lose-memories.js";
 import type { EffectTextHandler } from "@rpgm-tools/neo-angband-core";
 import { bind, gamePack } from "./test/game.js";
+import { engineHooksFor, policiesFor, startWith } from "./test/api2.js";
 
 const { Rng } = core;
-type DiscountHandler = core.DiscountRollHandler;
 type SpikeAction = core.PlayerAction;
 
 interface FakeHost {
-  stores: { setDiscountRoll: (handler: DiscountHandler) => void };
   commands: {
     register(code: string, action: SpikeAction): void;
     setVerb(code: string, verb: string): void;
@@ -24,21 +23,14 @@ interface FakeHost {
 }
 
 function fakeHost(): FakeHost & {
-  installedDiscount: DiscountHandler | null;
   installedSpike: SpikeAction | null;
   installedVerb: { code: string; verb: string } | null;
   actions: Map<string, SpikeAction>;
 } {
   const host = {
-    installedDiscount: null as DiscountHandler | null,
     installedSpike: null as SpikeAction | null,
     installedVerb: null as { code: string; verb: string } | null,
     actions: new Map<string, SpikeAction>(),
-    stores: {
-      setDiscountRoll(h: DiscountHandler) {
-        host.installedDiscount = h;
-      },
-    },
     commands: {
       register(code: string, action: SpikeAction) {
         host.actions.set(code, action);
@@ -50,6 +42,18 @@ function fakeHost(): FakeHost & {
     },
   };
   return host;
+}
+
+/**
+ * The roll the game applies for the `storeDiscountRoll` table (Angband 3.0.6's
+ * mass_produce): items under `minCost` draw nothing, then the tiers are checked
+ * in order and the first hit wins. This double follows that rule so the tests
+ * can assert the declared odds against a recording `oneIn`.
+ */
+function rollTable(table: typeof DISCOUNT_ROLL, rng: { oneIn(n: number): boolean }, cost: number): number {
+  if (cost < table.minCost) return 0;
+  for (const tier of table.tiers) if (rng.oneIn(tier.oneIn)) return tier.percent;
+  return 0;
 }
 
 /** Minimal ModKeymaps double: bind only claims an otherwise free one-key trigger. */
@@ -72,36 +76,30 @@ class FakeKeymaps {
   }
 }
 
-describe("hooks", () => {
+describe("engineHooks", () => {
   it("returns no hook when junk is off", () => {
-    expect(plugin.hooks({ flags: {} })).toEqual({});
-    expect(plugin.hooks({ flags: { "feature-restoration.discounts": true } })).toEqual({});
-    expect(plugin.hooks({ flags: { "feature-restoration.junk": false } })).toEqual({});
+    expect(engineHooksFor({ flags: {} })).toEqual({});
+    expect(engineHooksFor({ flags: { "feature-restoration.discounts": true } })).toEqual({});
+    expect(engineHooksFor({ flags: { "feature-restoration.junk": false } })).toEqual({});
   });
 });
 
-describe("register - discount flag gating", () => {
-  it("installs nothing when the toggle is off (the default)", () => {
-    const host = fakeHost();
-    plugin.register(host, { flags: {} });
-    expect(host.installedDiscount).toBeNull();
+describe("policies - discount flag gating", () => {
+  it("declares nothing when the toggle is off (the default)", () => {
+    expect(policiesFor({})).toEqual({});
   });
 
-  it("installs nothing when the toggle is explicitly off", () => {
-    const host = fakeHost();
-    plugin.register(host, { flags: { "feature-restoration.discounts": false } });
-    expect(host.installedDiscount).toBeNull();
+  it("declares nothing when the toggle is explicitly off", () => {
+    expect(policiesFor({ "feature-restoration.discounts": false })).toEqual({});
   });
 
-  it("installs the discount roll when the toggle is on", () => {
-    const host = fakeHost();
-    plugin.register(host, { flags: { "feature-restoration.discounts": true } });
-    expect(host.installedDiscount).toBe(discountRoll);
+  it("declares the discount table when the toggle is on", () => {
+    expect(policiesFor({ "feature-restoration.discounts": true })).toEqual({ storeDiscountRoll: DISCOUNT_ROLL });
   });
 });
 
-describe("register - Lose Memories effect", () => {
-  it("installs the effect handler and recall text", () => {
+describe("start - Lose Memories effect", () => {
+  it("installs the effect handler and recall text", async () => {
     const host = fakeHost();
     let code = "";
     let installed: { handler: core.EffectHandler } | null = null;
@@ -112,10 +110,7 @@ describe("register - Lose Memories effect", () => {
       effects: { register: (key: string, def: { handler: core.EffectHandler }) => { code = key; installed = def; } },
       effectInfo: { text: { set: (key: string, entry: EffectTextHandler) => { infoCode = key; captured.info = entry; } } },
     };
-    plugin.register(registryHost, {
-      flags: {},
-      core: {} as NonNullable<Parameters<typeof plugin.register>[1]["core"]>,
-    });
+    await startWith({ flags: {}, core: {}, host: registryHost });
 
     expect(code).toBe(LOSE_MEMORIES);
     expect(installed).toBeDefined();
@@ -125,10 +120,10 @@ describe("register - Lose Memories effect", () => {
   });
 });
 
-describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
+describe("storeDiscountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
   it("never discounts an item under 5 gold, and draws no RNG at all", () => {
     const oneIn = vi.fn(() => true);
-    expect(discountRoll({ rng: Object.assign(new Rng(1), { oneIn }), cost: 4 })).toBe(0);
+    expect(rollTable(DISCOUNT_ROLL, Object.assign(new Rng(1), { oneIn }), 4)).toBe(0);
     expect(oneIn).not.toHaveBeenCalled();
   });
 
@@ -142,7 +137,7 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
     ];
     for (const { hits, expected, odds } of cases) {
       const oneIn = vi.fn((n: number) => n === odds[odds.length - 1]);
-      expect(discountRoll({ rng: Object.assign(new Rng(1), { oneIn }), cost: 100 })).toBe(expected);
+      expect(rollTable(DISCOUNT_ROLL, Object.assign(new Rng(1), { oneIn }), 100)).toBe(expected);
       expect(oneIn.mock.calls.map((c) => c[0])).toEqual(odds);
       expect(hits).toBe(odds.length);
     }
@@ -150,7 +145,7 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
 
   it("returns 0 when every roll misses, having checked all five tiers", () => {
     const oneIn = vi.fn((_n: number) => false);
-    expect(discountRoll({ rng: Object.assign(new Rng(1), { oneIn }), cost: 100 })).toBe(0);
+    expect(rollTable(DISCOUNT_ROLL, Object.assign(new Rng(1), { oneIn }), 100)).toBe(0);
     expect(oneIn.mock.calls.map((c) => c[0])).toEqual([25, 50, 150, 300, 500]);
   });
 
@@ -163,7 +158,7 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
     const before = ineligible.getState();
     let ineligibleHits = 0;
     for (let i = 0; i < trials; i++) {
-      if (discountRoll({ rng: ineligible, cost: 4 }) > 0) ineligibleHits++;
+      if (rollTable(DISCOUNT_ROLL, ineligible, 4) > 0) ineligibleHits++;
     }
     expect(ineligibleHits).toBe(0);
     expect(ineligible.getState()).toEqual(before);
@@ -176,7 +171,7 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
       const rng = new Rng(20_260_912 + cost);
       let hits = 0;
       for (let i = 0; i < trials; i++) {
-        if (discountRoll({ rng, cost }) > 0) hits++;
+        if (rollTable(DISCOUNT_ROLL, rng, cost) > 0) hits++;
       }
       const rate = hits / trials;
       expect(rate, `cost ${String(cost)} observed ${String(rate)}`).toBeGreaterThan(0.065);
@@ -186,35 +181,35 @@ describe("discountRoll - mass_produce's discount arm (Angband 3.0.6)", () => {
   });
 });
 
-describe("register - spike-doors flag gating", () => {
+describe("start - spike-doors flag gating", () => {
   const liveCore = core;
 
-  it("installs nothing when the toggle is off (the default)", () => {
+  it("installs nothing when the toggle is off (the default)", async () => {
     const host = fakeHost();
-    plugin.register(host, { flags: {}, core: liveCore });
+    await startWith({ flags: {}, core: liveCore, host });
     expect(host.installedSpike).toBeNull();
     expect(host.installedVerb).toBeNull();
   });
 
-  it("installs nothing when ctx.core is absent, even with the toggle on", () => {
+  it("installs nothing when the engine domain carries no core, even with the toggle on", async () => {
     const host = fakeHost();
-    plugin.register(host, { flags: { "feature-restoration.spike-doors": true } });
+    await startWith({ flags: { "feature-restoration.spike-doors": true }, host });
     expect(host.installedSpike).toBeNull();
   });
 
-  it("installs the command and its verb when the toggle is on", () => {
+  it("installs the command and its verb when the toggle is on", async () => {
     const host = fakeHost();
-    plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core: liveCore });
+    await startWith({ flags: { "feature-restoration.spike-doors": true }, core: liveCore, host });
     expect(host.installedSpike).toBeTypeOf("function");
     expect(host.installedVerb).toEqual({ code: "feature-restoration:spike", verb: "spike" });
   });
 
-  it("claims Angband 3.4.1's j trigger when free and dispatches it to the spike command", () => {
+  it("claims Angband 3.4.1's j trigger when free and dispatches it to the spike command", async () => {
     const host = fakeHost();
     const core = fakeCore();
     const keymaps = new FakeKeymaps();
     const log = vi.fn();
-    plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core, keymaps, log });
+    await startWith({ flags: { "feature-restoration.spike-doors": true }, core, host, keymaps, log });
 
     expect(keymaps.bindings).toEqual(new Map([[SPIKE_TRIGGER, SPIKE_COMMAND]]));
     expect(log).toHaveBeenCalledWith(`feature-restoration: spike default key ${SPIKE_TRIGGER} bound`);
@@ -224,12 +219,12 @@ describe("register - spike-doors flag gating", () => {
     expect(doors["6,5"]!.power).toBe(1);
   });
 
-  it("leaves an occupied default trigger unchanged", () => {
+  it("leaves an occupied default trigger unchanged", async () => {
     const host = fakeHost();
     const keymaps = new FakeKeymaps();
     keymaps.bind(SPIKE_TRIGGER, "player-command");
     const log = vi.fn();
-    plugin.register(host, { flags: { "feature-restoration.spike-doors": true }, core, keymaps, log });
+    await startWith({ flags: { "feature-restoration.spike-doors": true }, core, host, keymaps, log });
 
     expect(keymaps.bindings).toEqual(new Map([[SPIKE_TRIGGER, "player-command"]]));
     expect(log).toHaveBeenCalledWith(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`);
