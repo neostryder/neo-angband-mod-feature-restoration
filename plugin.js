@@ -1,4 +1,4 @@
-// overhaul-api2 - generated from plugin.ts by neo-angband-mod-build
+// feature-restoration - generated from plugin.ts by neo-angband-mod-build
 // (@rpgm-tools/neo-angband-mod-sdk). Edit the TypeScript source, not this file.
 
 // src/confusion.ts
@@ -265,44 +265,52 @@ function pickCore(core) {
   };
 }
 function engineRegistry(host) {
-  const { effects, effectInfo, projections, stores, commands } = host;
+  const { effects, effectInfo, projections, commands } = host;
   return {
     registerEffect: effects ? (code, handler) => effects.register(code, { handler }) : null,
     setEffectText: effectInfo ? (code, text) => effectInfo.text.set(code, text) : null,
     setPlayerProjection: projections ? (code, handler) => projections.player.set(code, handler) : null,
     setMonsterProjection: projections ? (code, handler) => projections.mon.set(code, handler) : null,
-    setDiscountRoll: (roll) => stores.setDiscountRoll(roll),
     registerCommand: (code, action) => commands.register(code, action),
     setCommandVerb: (code, verb) => commands.setVerb(code, verb)
   };
 }
-function createAdapter(ctx, host) {
-  const core = ctx.core ? pickCore(ctx.core) : null;
-  const keymaps = ctx.keymaps;
+function adaptEngine(engine) {
+  const live = engine;
+  const core = live?.core ? pickCore(live.core) : null;
+  const host = live?.registry;
+  return {
+    core,
+    registry: host ? engineRegistry(host) : null,
+    newCharacter(run) {
+      if (!core) throw new Error("The newCharacter hook requires the live core namespace");
+      const { tvalFindIdx } = core;
+      return (state, registries) => run({
+        tvalFindIdx,
+        findKind: (name, tval) => registries.objects.kinds.find((k) => k?.name === name && k.tval === tval)?.kidx,
+        ignoreKind: (kidx) => {
+          state.ignore.kindIgnoreWhenAware(kidx);
+          state.ignore.kindIgnoreWhenUnaware(kidx);
+        }
+      });
+    }
+  };
+}
+function engineOf(mod) {
+  return adaptEngine(mod.engine);
+}
+
+// src/core-adapter-api2.ts
+function createAdapter(mod) {
   return {
     meta: {
-      flags: ctx.flags,
-      log: (message) => ctx.log?.(message)
+      flags: mod.meta.flags,
+      log: (message) => mod.meta.log(message)
     },
     ui: {
-      keys: keymaps ? { bind: (trigger, action) => keymaps.isBindableTriggerKey(trigger) && keymaps.bind(trigger, action) } : null
+      keys: mod.meta.granted("keymap:write") ? { bind: async (trigger, action) => (await mod.ui.keys.bind(trigger, action)).ok } : null
     },
-    engine: {
-      core,
-      registry: host ? engineRegistry(host) : null,
-      newCharacter(run) {
-        if (!core) throw new Error("The newCharacter hook requires the live core namespace");
-        const { tvalFindIdx } = core;
-        return (state, registries) => run({
-          tvalFindIdx,
-          findKind: (name, tval) => registries.objects.kinds.find((k) => k?.name === name && k.tval === tval)?.kidx,
-          ignoreKind: (kidx) => {
-            state.ignore.kindIgnoreWhenAware(kidx);
-            state.ignore.kindIgnoreWhenUnaware(kidx);
-          }
-        });
-      }
-    }
+    engine: engineOf(mod)
   };
 }
 
@@ -415,16 +423,16 @@ function ignoreJunk(game) {
 }
 
 // plugin.ts
-function discountRoll(ctx) {
-  const { rng, cost } = ctx;
-  if (cost < 5) return 0;
-  if (rng.oneIn(25)) return 10;
-  if (rng.oneIn(50)) return 25;
-  if (rng.oneIn(150)) return 50;
-  if (rng.oneIn(300)) return 75;
-  if (rng.oneIn(500)) return 90;
-  return 0;
-}
+var DISCOUNT_ROLL = {
+  minCost: 5,
+  tiers: [
+    { oneIn: 25, percent: 10 },
+    { oneIn: 50, percent: 25 },
+    { oneIn: 150, percent: 50 },
+    { oneIn: 300, percent: 75 },
+    { oneIn: 500, percent: 90 }
+  ]
+};
 var IRON_SPIKE_NAME = "& Iron Spike~";
 var SPIKE_TRIGGER = "j";
 var SPIKE_COMMAND = "feature-restoration:spike";
@@ -484,20 +492,30 @@ function spikeDoor(engine, state, cmd) {
   return state.z.moveEnergy;
 }
 var plugin_default = {
-  api: 1,
-  hooks(ctx) {
-    const { meta, engine } = createAdapter(ctx);
-    if (meta.flags["feature-restoration.junk"] !== true) return {};
-    if (!engine.core) throw new Error("Junk ignore requires the live core item classes");
-    return { newCharacter: engine.newCharacter(ignoreJunk) };
+  api: ">=2.0.0 <3.0.0",
+  /** The store discount is a table the game rolls itself, present only while its flag is on. */
+  policies({ flags }) {
+    return flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {};
+  },
+  /** Junk ignore marks its kinds ignored on a new character, through the game's own `newCharacter` hook. */
+  engineHooks({ flags, engine }) {
+    if (flags["feature-restoration.junk"] !== true) return {};
+    const adapted = adaptEngine(engine);
+    if (!adapted.core) throw new Error("Junk ignore requires the live core item classes");
+    return { newCharacter: adapted.newCharacter(ignoreJunk) };
   },
   /**
-   * Registry handlers install when their host seams are available. Content
-   * toggles control whether the matching effect or command record exists.
+   * Registry handlers install when the engine domain carries the registry host.
+   * Content toggles control whether the matching effect or command record
+   * exists.
    */
-  register(host, ctx) {
-    const { meta, ui, engine } = createAdapter(ctx, host);
+  async start(mod) {
+    const { meta, ui, engine } = createAdapter(mod);
     const { core: engineCore, registry } = engine;
+    if (!registry) {
+      meta.log("feature-restoration: the engine domain carries no registry host, so the effect, projection and spike-command restorations are waiting for the game (gap CRF-1)");
+      return;
+    }
     if (engineCore && registry.registerEffect && registry.setEffectText) {
       registry.registerEffect(LOSE_MEMORIES, loseMemoriesHandler(engineCore));
       registry.setEffectText(LOSE_MEMORIES, {
@@ -505,10 +523,6 @@ var plugin_default = {
         describe: () => "drains experience"
       });
       meta.log("feature-restoration: Lose Memories effect installed");
-    }
-    if (meta.flags["feature-restoration.discounts"] === true) {
-      registry.setDiscountRoll(discountRoll);
-      meta.log("feature-restoration: store discount roll installed");
     }
     if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
       registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));
@@ -537,7 +551,7 @@ var plugin_default = {
       registry.setCommandVerb(SPIKE_COMMAND, "spike");
       meta.log("feature-restoration: spike-a-door command installed");
       if (ui.keys) {
-        const bound = ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
+        const bound = await ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
         meta.log(
           bound ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound` : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`
         );
@@ -548,11 +562,11 @@ var plugin_default = {
   }
 };
 export {
+  DISCOUNT_ROLL,
   IRON_SPIKE_NAME,
   MAX_SPIKE_POWER,
   SPIKE_COMMAND,
   SPIKE_TRIGGER,
   plugin_default as default,
-  discountRoll,
   spikeDoor
 };

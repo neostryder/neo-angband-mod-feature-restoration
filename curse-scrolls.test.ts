@@ -2,8 +2,7 @@ import { describe, expect, it } from "vitest";
 import * as core from "@rpgm-tools/neo-angband-core";
 import { bind } from "./test/game.js";
 import { CURSE_ARMOUR, CURSE_WEAPON } from "./src/curse-scrolls.js";
-// @ts-expect-error The test imports the handwritten source module.
-import plugin from "./plugin.ts";
+import { startWith } from "./test/api2.js";
 
 type Handler = core.EffectHandler;
 type Info = core.EffectTextHandler;
@@ -12,17 +11,18 @@ function setup() {
   const { game } = bind(["sticky-curses"]);
   const handlers = new Map<string, Handler>();
   const info = new Map<string, Info>();
-  plugin.register({
-    stores: { setDiscountRoll() {} },
-    commands: { register() {}, setVerb() {} },
-    effects: { register(code, def) { handlers.set(String(code), def.handler); } },
-    effectInfo: { text: { set(code, entry) { info.set(code, entry); } } },
-  }, {
+  /* Everything the registrations need runs before `start`'s first await, so the handlers are installed when this returns. */
+  void startWith({
     flags: { "feature-restoration.sticky-curses": true },
     core: {
       ...core,
       describeObject: (_state: unknown, obj: { kind: { name: string } }) => obj.kind.name,
-    } as unknown as NonNullable<Parameters<typeof plugin.register>[1]["core"]>,
+    },
+    host: {
+      commands: { register() {}, setVerb() {} },
+      effects: { register(code: string, def: { handler: Handler }) { handlers.set(String(code), def.handler); } },
+      effectInfo: { text: { set(code: string, entry: Info) { info.set(code, entry); } } },
+    },
   });
   return { game, handlers, info };
 }

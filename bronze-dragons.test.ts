@@ -13,7 +13,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { MON_MSG, MON_TMD, RF, TMD } from "@rpgm-tools/neo-angband-core";
-import plugin from "./plugin.js";
+import { startWith } from "./test/api2.js";
 import { BRONZE_BREATHERS, CONFUSION, confuseMonster, confusePlayer, type MonProjectCtxLike } from "./src/confusion.js";
 import { bind } from "./test/game.js";
 
@@ -108,21 +108,20 @@ describe("plugin.ts", () => {
           player: { set: (code: string) => set.player!.push(code) },
           mon: { set: (code: string) => set.mon!.push(code) },
         },
-        stores: { setDiscountRoll: () => {} },
         commands: { register: () => {}, setVerb: () => {} },
       },
     };
   }
 
-  it("installs both confusion handlers while the section's flag is on", () => {
+  it("installs both confusion handlers while the section's flag is on", async () => {
     const h = host();
-    plugin.register(h.host as never, { flags: { "feature-restoration.bronze-dragons": true }, core: CORE } as never);
+    await startWith({ flags: { "feature-restoration.bronze-dragons": true }, core: CORE, host: h.host });
     expect(h.set).toEqual({ player: [CONFUSION], mon: [CONFUSION] });
   });
 
-  it("installs nothing while it is off", () => {
+  it("installs nothing while it is off", async () => {
     const h = host();
-    plugin.register(h.host as never, { flags: {}, core: CORE } as never);
+    await startWith({ flags: {}, core: CORE, host: h.host });
     expect(h.set).toEqual({ player: [], mon: [] });
   });
 });

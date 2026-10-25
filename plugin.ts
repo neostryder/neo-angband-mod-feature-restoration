@@ -31,28 +31,26 @@
  * locked/jammed encoding.
  *
  * ------------------------------------------------------------------
- * ENTRY POINT CONTRACT - one shape, for every mod and every front end
+ * ENTRY POINT CONTRACT - mod API 2, first-party tier
  * ------------------------------------------------------------------
  *
- * A mod that runs code default-exports a ModPlugin:
- *
- *   export default { api: 1, hooks(ctx) { ... }, register(host, ctx) { ... } }
- *
- * `ctx.flags` is the host's RESOLVED per-patch choice map: every `rules[].flag`
- * and every `sections[].flag` this mod declares in manifest.json, mapped to the
- * player's toggle choice (manifest `default` unless they changed it).
- * `register(host, ctx)` runs once, with the live game built, and is where a
- * capability-gated registry (here, `registry:store` and `registry:command`) is
- * reached - see docs/modding/PLUGINS.md in the game's repo.
+ * The default export is an Api2ModDefinition. `meta.flags` is the host's
+ * RESOLVED per-patch choice map: every `rules[].flag` and every
+ * `sections[].flag` this mod declares in manifest.json, mapped to the player's
+ * toggle choice (manifest `default` unless they changed it). The store
+ * discount is a policy table the game applies itself. The other restorations
+ * (effects, projections, the spike command, the junk ignore at birth) change
+ * the live game, so they go through the `engine` domain, which the game hands
+ * to its own first-party mods and to nobody else.
  *
  * The engine names this file uses come from src/core-adapter.ts, the only
- * module that reads `ctx.core`. That namespace is the live one, the same module
- * instance the game runs on rather than a bundled copy, so `spikeDoor` below
- * reaches `playerConfuseDir`, `gearObjectForUse` and `DDGRID` through the
- * adapter rather than reimplementing them: a mod that duplicated
- * confusion-redirect or item-stack arithmetic by hand would be a second copy
- * of behaviour core already owns, and one this file has no way of keeping in
- * sync. This file otherwise imports
+ * module that reads the engine domain. That namespace is the live one, the
+ * same module instance the game runs on rather than a bundled copy, so
+ * `spikeDoor` below reaches `playerConfuseDir`, `gearObjectForUse` and
+ * `DDGRID` through the adapter rather than reimplementing them: a mod that
+ * duplicated confusion-redirect or item-stack arithmetic by hand would be a
+ * second copy of behaviour core already owns, and one this file has no way of
+ * keeping in sync. This file otherwise imports
  * @rpgm-tools/neo-angband-core for TYPES ONLY, never as a bare specifier: a
  * module fetched from a mod folder cannot resolve one, nor should it - a
  * bundled copy of core would give this plugin its own registries while the
@@ -69,8 +67,10 @@ import {
   classicRemoveCurseHandler,
   enchantCurseBreakHandler,
 } from "./src/classic-uncurse.js";
-import type { DiscountRollContext, GameObject, GameState, Loc, ModHooks, PlayerCommand } from "@rpgm-tools/neo-angband-core";
-import { createAdapter, type EngineCore, type HookCtx, type HostLike } from "./src/core-adapter.js";
+import type { Api2ModDefinition, Api2Policies } from "@rpgm-tools/neo-angband-mod-sdk";
+import type { GameObject, GameState, Loc, PlayerCommand } from "@rpgm-tools/neo-angband-core";
+import { adaptEngine, type EngineCore } from "./src/core-adapter.js";
+import { createAdapter } from "./src/core-adapter-api2.js";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
 import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler } from "./src/curse-scrolls.js";
 import { ignoreJunk } from "./src/junk-ignore.js";
@@ -82,20 +82,22 @@ type SpikeEngine = Pick<EngineCore, "DDGRID" | "playerConfuseDir" | "gearObjectF
  * mass_produce's discount arm (Angband 3.0.6, store.c), transcribed exactly:
  * successive independent rolls, each only reached if the previous one missed,
  * cheapest tier first. Items under 5 gold never discount. See this mod's
- * README for the fetched source and the citation. Exported (rather than kept
- * module-private) so plugin.test.ts can assert the exact odds against a
- * recording Rng double, not just the tier outputs.
+ * README for the fetched source and the citation. A policy table rather than a
+ * function: the game rolls it during stocking on its own random stream, in this
+ * order, and draws nothing for a cheap item. Exported so plugin.test.ts can
+ * assert the exact odds against a recording roll double, not just the tier
+ * outputs.
  */
-export function discountRoll(ctx: DiscountRollContext): number {
-  const { rng, cost } = ctx;
-  if (cost < 5) return 0;
-  if (rng.oneIn(25)) return 10;
-  if (rng.oneIn(50)) return 25;
-  if (rng.oneIn(150)) return 50;
-  if (rng.oneIn(300)) return 75;
-  if (rng.oneIn(500)) return 90;
-  return 0;
-}
+export const DISCOUNT_ROLL = {
+  minCost: 5,
+  tiers: [
+    { oneIn: 25, percent: 10 },
+    { oneIn: 50, percent: 25 },
+    { oneIn: 150, percent: 50 },
+    { oneIn: 300, percent: 75 },
+    { oneIn: 500, percent: 90 },
+  ],
+} as const;
 
 /**
  * The `object.json` `spike-doors` record's own `name` field, markup and all
@@ -218,22 +220,34 @@ export function spikeDoor(engine: SpikeEngine, state: GameState, cmd: PlayerComm
 }
 
 export default {
-  api: 1,
+  api: ">=2.0.0 <3.0.0",
 
-  hooks(ctx: HookCtx): ModHooks {
-    const { meta, engine } = createAdapter(ctx);
-    if (meta.flags["feature-restoration.junk"] !== true) return {};
-    if (!engine.core) throw new Error("Junk ignore requires the live core item classes");
-    return { newCharacter: engine.newCharacter(ignoreJunk) };
+  /** The store discount is a table the game rolls itself, present only while its flag is on. */
+  policies({ flags }): Api2Policies {
+    return flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {};
+  },
+
+  /** Junk ignore marks its kinds ignored on a new character, through the game's own `newCharacter` hook. */
+  engineHooks({ flags, engine }) {
+    if (flags["feature-restoration.junk"] !== true) return {};
+    const adapted = adaptEngine(engine);
+    if (!adapted.core) throw new Error("Junk ignore requires the live core item classes");
+    return { newCharacter: adapted.newCharacter(ignoreJunk) };
   },
 
   /**
-   * Registry handlers install when their host seams are available. Content
-   * toggles control whether the matching effect or command record exists.
+   * Registry handlers install when the engine domain carries the registry host.
+   * Content toggles control whether the matching effect or command record
+   * exists.
    */
-  register(host: HostLike, ctx: HookCtx): void {
-    const { meta, ui, engine } = createAdapter(ctx, host);
+  async start(mod): Promise<void> {
+    const { meta, ui, engine } = createAdapter(mod);
     const { core: engineCore, registry } = engine;
+
+    if (!registry) {
+      meta.log("feature-restoration: the engine domain carries no registry host, so the effect, projection and spike-command restorations are waiting for the game (gap CRF-1)");
+      return;
+    }
 
     if (engineCore && registry.registerEffect && registry.setEffectText) {
       registry.registerEffect(LOSE_MEMORIES, loseMemoriesHandler(engineCore));
@@ -242,11 +256,6 @@ export default {
         describe: () => "drains experience",
       });
       meta.log("feature-restoration: Lose Memories effect installed");
-    }
-
-    if (meta.flags["feature-restoration.discounts"] === true) {
-      registry.setDiscountRoll(discountRoll);
-      meta.log("feature-restoration: store discount roll installed");
     }
 
     /* The CONFUSION projection only exists while the bronze-dragons section
@@ -289,7 +298,7 @@ export default {
       registry.setCommandVerb(SPIKE_COMMAND, "spike");
       meta.log("feature-restoration: spike-a-door command installed");
       if (ui.keys) {
-        const bound = ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
+        const bound = await ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
         meta.log(
           bound
             ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound`
@@ -300,4 +309,4 @@ export default {
       }
     }
   },
-};
+} satisfies Api2ModDefinition;
