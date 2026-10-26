@@ -1,6 +1,6 @@
 # Cutting Room Floor and mod API 2
 
-This mod runs on mod API 2. Its manifest asks for API `>=2.0.0 <3.0.0` and engine `>=1.22.0`, and it holds three capabilities: `registry:store`, `keymap:write` and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks` and `start`. Only `src/core-adapter.ts` reads the engine domain, and `src/core-adapter-api2.ts` gives the rest of the code its flags, its log, its single key binding and the engine names.
+Cutting Room Floor, the first-party mod that restores content cut from the base game, runs on mod API 2. Its manifest asks for API `>=2.0.0 <3.0.0` and engine `>=1.22.0` and holds three capabilities: `registry:store`, `keymap:write`, and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks`, and `start`. Only `src/core-adapter.ts` reads the engine domain. The rest of the code gets its flags, its log, its single key binding, and the engine names from `src/core-adapter-api2.ts`.
 
 ## What each restoration uses
 
@@ -16,8 +16,10 @@ This mod runs on mod API 2. Its manifest asks for API `>=2.0.0 <3.0.0` and engin
 
 ## The open Core request
 
-CRF-1 exists because the engine domain hands a mod `api`, `core`, `state` and `registries` and no registry host. Without one, a mod cannot register an effect, a projection handler or a command, and the five restorations above have nowhere to attach. The smallest fix is an `engine.registry` member with the methods the API 1 host offered (`effects.register`, `effectInfo.text.set`, `projections.player.set`, `projections.mon.set`, `commands.register` and `commands.setVerb`). Declarative forms for effects, projections and commands would also work. Today `start` logs one line naming the gap, and it installs each restoration as soon as the member appears.
+CRF-1 asks Core for a registry host. The engine domain hands a mod `api`, `core`, `state`, and `registries`, and none of those can register an effect, a projection handler, or a command, so the five restorations marked CRF-1 in the table have nowhere to attach. The smallest fix is an `engine.registry` member with the methods the API 1 host offered: `effects.register`, `effectInfo.text.set`, `projections.player.set`, `projections.mon.set`, `commands.register`, and `commands.setVerb`. Declarative forms for effects, projections, and commands would also work.
+
+Until that member exists, `start` logs one line naming the gap. It installs each restoration as soon as the member appears.
 
 ## How the tests drive the entry
 
-`test/api2.ts` stands in for the host. `engineHooksFor` returns what `engineHooks` yields for a set of flags and an engine domain, and `policiesFor` returns the declared tables. `startWith` runs `start` against a fake mod that carries a core namespace, and optionally a registry host and a keymap double.
+`test/api2.ts` stands in for the host. `engineHooksFor` returns what `engineHooks` yields for a set of flags and an engine domain, and `policiesFor` returns the declared tables. `startWith` runs `start` against a fake mod that carries a core namespace and, when a test supplies them, a registry host and a keymap double.
