@@ -1,6 +1,6 @@
 # Cutting Room Floor and mod API 2
 
-Cutting Room Floor, the first-party mod that restores content cut from the base game, runs on mod API 2. Its manifest asks for API `>=2.0.0 <3.0.0` and engine `>=1.22.0` and holds three capabilities: `registry:store`, `keymap:write`, and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks`, and `start`. Only `src/core-adapter.ts` reads the engine domain. The rest of the code gets its flags, its log, its single key binding, and the engine names from `src/core-adapter-api2.ts`.
+Cutting Room Floor, the first-party mod that restores content cut from the base game, runs on mod API 2. Its manifest asks for API `>=2.0.0 <3.0.0` and engine `>=1.22.0` and holds six capabilities: `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks`, and `start`. Only `src/core-adapter.ts` reads the engine domain. The rest of the code gets its flags, its log, and the engine names from `src/core-adapter-api2.ts`.
 
 ## What each restoration uses
 
@@ -8,17 +8,17 @@ Cutting Room Floor, the first-party mod that restores content cut from the base 
 | --- | --- | --- |
 | Store discounts | `policies`: a `storeDiscountRoll` table, present while `feature-restoration.discounts` is on | Works. The game rolls the table when it stocks a store. |
 | Junk items | `engineHooks`: a `newCharacter` hook built from the engine domain | Works. |
-| Lose Memories effect | `start`, through a registry host | Waits for CRF-1. |
-| Bronze dragons' confusion | `start`, through a registry host | Waits for CRF-1. |
-| Classic uncursing | `start`, through a registry host | Waits for CRF-1. |
-| Sticky-curse scrolls | `start`, through a registry host | Waits for CRF-1. |
-| Spike command and `j` key | `start`, through a registry host, then `ui.keys.bind` | Waits for CRF-1. |
+| Lose Memories effect | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effect is `FEATURE_RESTORATION_LOSE_EXP`, because the game reads an effect line as `name:type:radius:other`, so a name with a colon never resolves. |
+| Bronze dragons' confusion | `start`, through `engine.registry` (`registry:projection`) | Installed. The game never lets a monster cast a spell a mod added (gap CRF-4), so the dragons do not breathe yet. |
+| Classic uncursing | `start`, through `engine.registry` (`registry:effect`) | Works. |
+| Sticky-curse scrolls | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effects are `FEATURE_RESTORATION_CURSE_WEAPON` and `FEATURE_RESTORATION_CURSE_ARMOR`. |
+| Spike command | `start`, through `engine.registry` (`registry:command`) | Installed, but no key or menu reaches it yet (gap CRF-3). |
 
-## The open Core request
+## What is still open
 
-CRF-1 asks Core for a registry host. The engine domain hands a mod `api`, `core`, `state`, and `registries`, and none of those can register an effect, a projection handler, or a command, so the five restorations marked CRF-1 in the table have nowhere to attach. The smallest fix is an `engine.registry` member with the methods the API 1 host offered: `effects.register`, `effectInfo.text.set`, `projections.player.set`, `projections.mon.set`, `commands.register`, and `commands.setVerb`. Declarative forms for effects, projections, and commands would also work.
+CRF-3: a key bound with `ui.keys.bind` replays its action as typed keys, so a command that needs a direction, such as spiking a door, cannot be the target of a key. The mod therefore binds no key. The command is registered and named "spike", and it becomes playable once a keymap action can name a registered command.
 
-Until that member exists, `start` logs one line naming the gap. It installs each restoration as soon as the member appears.
+CRF-4: the game builds the list of spells a monster may cast from its compiled spell count, which leaves out a spell a mod adds. The bronze dragons carry the BR_CONF spell and their confusion handlers are installed, but a dragon never chooses to breathe.
 
 ## How the tests drive the entry
 
