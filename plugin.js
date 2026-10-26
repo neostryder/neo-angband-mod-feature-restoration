@@ -307,15 +307,12 @@ function createAdapter(mod) {
       flags: mod.meta.flags,
       log: (message) => mod.meta.log(message)
     },
-    ui: {
-      keys: mod.meta.granted("keymap:write") ? { bind: async (trigger, action) => (await mod.ui.keys.bind(trigger, action)).ok } : null
-    },
     engine: engineOf(mod)
   };
 }
 
 // src/lose-memories.ts
-var LOSE_MEMORIES = "feature-restoration:LOSE_EXP";
+var LOSE_MEMORIES = "FEATURE_RESTORATION_LOSE_EXP";
 function loseMemoriesHandler(engine) {
   return (ctx) => {
     const env = engine.gameEnv(ctx);
@@ -332,8 +329,8 @@ function loseMemoriesHandler(engine) {
 }
 
 // src/curse-scrolls.ts
-var CURSE_WEAPON = "feature-restoration:CURSE_WEAPON";
-var CURSE_ARMOUR = "feature-restoration:CURSE_ARMOR";
+var CURSE_WEAPON = "FEATURE_RESTORATION_CURSE_WEAPON";
+var CURSE_ARMOUR = "FEATURE_RESTORATION_CURSE_ARMOR";
 function resetToEgo(engine, rng, reg, obj, ego) {
   const kind = obj.kind;
   obj.artifact = null;
@@ -434,7 +431,6 @@ var DISCOUNT_ROLL = {
   ]
 };
 var IRON_SPIKE_NAME = "& Iron Spike~";
-var SPIKE_TRIGGER = "j";
 var SPIKE_COMMAND = "feature-restoration:spike";
 var MAX_SPIKE_POWER = 7;
 function findSpike(state) {
@@ -510,10 +506,10 @@ var plugin_default = {
    * exists.
    */
   async start(mod) {
-    const { meta, ui, engine } = createAdapter(mod);
+    const { meta, engine } = createAdapter(mod);
     const { core: engineCore, registry } = engine;
     if (!registry) {
-      meta.log("feature-restoration: the engine domain carries no registry host, so the effect, projection and spike-command restorations are waiting for the game (gap CRF-1)");
+      meta.log("feature-restoration: the engine domain carries no registry host, so the effect, projection and spike-command restorations are not installed");
       return;
     }
     if (engineCore && registry.registerEffect && registry.setEffectText) {
@@ -550,14 +546,6 @@ var plugin_default = {
       registry.registerCommand(SPIKE_COMMAND, (state, cmd) => spikeDoor(engineCore, state, cmd));
       registry.setCommandVerb(SPIKE_COMMAND, "spike");
       meta.log("feature-restoration: spike-a-door command installed");
-      if (ui.keys) {
-        const bound = await ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
-        meta.log(
-          bound ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound` : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`
-        );
-      } else {
-        meta.log(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
-      }
     }
   }
 };
@@ -566,7 +554,6 @@ export {
   IRON_SPIKE_NAME,
   MAX_SPIKE_POWER,
   SPIKE_COMMAND,
-  SPIKE_TRIGGER,
   plugin_default as default,
   spikeDoor
 };

@@ -4,7 +4,8 @@ import type { EngineCore } from "./core-adapter.js";
 export type LoseMemoriesCore = Pick<EngineCore,
   "OF" | "gameEnv" | "playerOfHas" | "playerExpLose" | "effectExpDeps" | "equipLearnFlag">;
 
-export const LOSE_MEMORIES = "feature-restoration:LOSE_EXP";
+/* The game reads an effect line as name:type:radius:other, so a name with a colon in it never resolves. */
+export const LOSE_MEMORIES = "FEATURE_RESTORATION_LOSE_EXP";
 
 export function loseMemoriesHandler(engine: LoseMemoriesCore): EffectHandler {
   return (ctx) => {

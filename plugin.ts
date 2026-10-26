@@ -109,9 +109,6 @@ export const DISCOUNT_ROLL = {
  */
 export const IRON_SPIKE_NAME = "& Iron Spike~";
 
-/** Angband 3.4.1's original-command trigger for jamming a door. */
-export const SPIKE_TRIGGER = "j";
-
 export const SPIKE_COMMAND = "feature-restoration:spike";
 
 /**
@@ -241,11 +238,11 @@ export default {
    * exists.
    */
   async start(mod): Promise<void> {
-    const { meta, ui, engine } = createAdapter(mod);
+    const { meta, engine } = createAdapter(mod);
     const { core: engineCore, registry } = engine;
 
     if (!registry) {
-      meta.log("feature-restoration: the engine domain carries no registry host, so the effect, projection and spike-command restorations are waiting for the game (gap CRF-1)");
+      meta.log("feature-restoration: the engine domain carries no registry host, so the effect, projection and spike-command restorations are not installed");
       return;
     }
 
@@ -297,16 +294,6 @@ export default {
       registry.registerCommand(SPIKE_COMMAND, (state, cmd) => spikeDoor(engineCore, state, cmd));
       registry.setCommandVerb(SPIKE_COMMAND, "spike");
       meta.log("feature-restoration: spike-a-door command installed");
-      if (ui.keys) {
-        const bound = await ui.keys.bind(SPIKE_TRIGGER, SPIKE_COMMAND);
-        meta.log(
-          bound
-            ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound`
-            : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`,
-        );
-      } else {
-        meta.log(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; keymap access is unavailable`);
-      }
     }
   },
 } satisfies Api2ModDefinition;

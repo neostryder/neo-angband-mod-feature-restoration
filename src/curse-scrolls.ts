@@ -11,8 +11,8 @@
 import type { EffectHandler, EffectHandlerContext, EgoItem, GameObject, ObjRegistry, Rng } from "@rpgm-tools/neo-angband-core";
 import type { EngineCore } from "./core-adapter.js";
 
-export const CURSE_WEAPON = "feature-restoration:CURSE_WEAPON";
-export const CURSE_ARMOUR = "feature-restoration:CURSE_ARMOR";
+export const CURSE_WEAPON = "FEATURE_RESTORATION_CURSE_WEAPON";
+export const CURSE_ARMOUR = "FEATURE_RESTORATION_CURSE_ARMOR";
 
 export type CurseScrollCore = Pick<EngineCore,
   "PN" | "ODESC" | "describeObject" | "copySlays" | "copyBrands" | "copyCurses" | "gameEnv">;

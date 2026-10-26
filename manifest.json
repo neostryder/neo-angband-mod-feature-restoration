@@ -25,7 +25,10 @@
     },
     "capabilities": [
       "registry:store",
-      "keymap:write",
+      "registry:effect",
+      "registry:effect-info",
+      "registry:projection",
+      "registry:command",
       "engine:access"
     ],
     "description": "Brings back Angband features that later versions dropped, and content upstream wrote but never switched on, as opt-in content. The base game stays faithful to Angband 4.2.6: nothing changes unless you switch a toggle on, and every toggle defaults to off.\n\nEach one has its own toggle, so you can pick just the ones you want.",

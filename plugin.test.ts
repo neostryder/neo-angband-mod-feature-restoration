@@ -6,7 +6,7 @@
 import { describe, expect, it, vi } from "vitest";
 import * as core from "@rpgm-tools/neo-angband-core";
 // @ts-expect-error The test imports the handwritten source module.
-import { DISCOUNT_ROLL, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, SPIKE_TRIGGER, spikeDoor } from "./plugin.ts";
+import { DISCOUNT_ROLL, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, spikeDoor } from "./plugin.ts";
 import { LOSE_MEMORIES } from "./src/lose-memories.js";
 import type { EffectTextHandler } from "@rpgm-tools/neo-angband-core";
 import { bind, gamePack } from "./test/game.js";
@@ -54,26 +54,6 @@ function rollTable(table: typeof DISCOUNT_ROLL, rng: { oneIn(n: number): boolean
   if (cost < table.minCost) return 0;
   for (const tier of table.tiers) if (rng.oneIn(tier.oneIn)) return tier.percent;
   return 0;
-}
-
-/** Minimal ModKeymaps double: bind only claims an otherwise free one-key trigger. */
-class FakeKeymaps {
-  readonly bindings = new Map<string, string>();
-
-  isBindableTriggerKey(trigger: string): boolean {
-    return trigger.length === 1 && !this.bindings.has(trigger);
-  }
-
-  bind(trigger: string, action: string): boolean {
-    if (!this.isBindableTriggerKey(trigger) || action.length === 0) return false;
-    this.bindings.set(trigger, action);
-    return true;
-  }
-
-  dispatch(trigger: string, state: Parameters<SpikeAction>[0], cmd: Parameters<SpikeAction>[1], actions: ReadonlyMap<string, SpikeAction>): number | null {
-    const action = this.bindings.get(trigger);
-    return action ? (actions.get(action)?.(state, cmd) ?? null) : null;
-  }
 }
 
 describe("engineHooks", () => {
@@ -202,32 +182,6 @@ describe("start - spike-doors flag gating", () => {
     await startWith({ flags: { "feature-restoration.spike-doors": true }, core: liveCore, host });
     expect(host.installedSpike).toBeTypeOf("function");
     expect(host.installedVerb).toEqual({ code: "feature-restoration:spike", verb: "spike" });
-  });
-
-  it("claims Angband 3.4.1's j trigger when free and dispatches it to the spike command", async () => {
-    const host = fakeHost();
-    const core = fakeCore();
-    const keymaps = new FakeKeymaps();
-    const log = vi.fn();
-    await startWith({ flags: { "feature-restoration.spike-doors": true }, core, host, keymaps, log });
-
-    expect(keymaps.bindings).toEqual(new Map([[SPIKE_TRIGGER, SPIKE_COMMAND]]));
-    expect(log).toHaveBeenCalledWith(`feature-restoration: spike default key ${SPIKE_TRIGGER} bound`);
-
-    const { state, doors } = fakeState({ spikes: 1 });
-    expect(keymaps.dispatch(SPIKE_TRIGGER, state, { code: SPIKE_COMMAND, dir: 6 }, host.actions)).toBe(10);
-    expect(doors["6,5"]!.power).toBe(1);
-  });
-
-  it("leaves an occupied default trigger unchanged", async () => {
-    const host = fakeHost();
-    const keymaps = new FakeKeymaps();
-    keymaps.bind(SPIKE_TRIGGER, "player-command");
-    const log = vi.fn();
-    await startWith({ flags: { "feature-restoration.spike-doors": true }, core, host, keymaps, log });
-
-    expect(keymaps.bindings).toEqual(new Map([[SPIKE_TRIGGER, "player-command"]]));
-    expect(log).toHaveBeenCalledWith(`feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`);
   });
 });
 

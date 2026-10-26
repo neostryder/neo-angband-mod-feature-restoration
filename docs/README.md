@@ -40,7 +40,7 @@ switch has no flag of its own, the game knows it by its section id instead.
 - **Engine:** `>=1.22.0`
 - **Shape:** `content`
 - **Facets:** `content`, `plugin`
-- **Capabilities:** `registry:store`, `keymap:write`, `engine:access`
+- **Capabilities:** `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, `engine:access`
 
 What a capability string permits, and what a mod that asks for one cannot do
 without it, is in [the mod lifecycle
