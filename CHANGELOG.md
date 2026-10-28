@@ -31,8 +31,6 @@ were not retagged.
 ### Changed
 
 - [Visible] [Compatibility] **Cutting Room Floor now needs Neo Angband 1.22.0 or later.** The mod runs on mod API 2, which that game build introduced.
-- [Visible] **Door spiking no longer claims the `j` key.** A key cannot carry the direction the command needs, so the command stays registered as "spike" and waits for a way to reach it.
-- [Visible] **The bronze dragons do not breathe yet.** Their confusion handlers are installed, but the game never lets a monster cast a spell a mod added.
 - [Internal] [Modding-API] **Store discounts are a policy table.** The five tiers and the 5 gold floor are declared as `storeDiscountRoll` data and the game rolls them itself, so the mod no longer installs a handler. Junk items use the `newCharacter` entry in `engineHooks`.
 
 ### Fixed

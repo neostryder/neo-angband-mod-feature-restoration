@@ -67,9 +67,9 @@ import {
   classicRemoveCurseHandler,
   enchantCurseBreakHandler,
 } from "./src/classic-uncurse.js";
-import type { Api2ModDefinition, Api2Policies } from "@rpgm-tools/neo-angband-mod-sdk";
+import type { Api2ModDefinition, Api2Policies, ModApi2 } from "@rpgm-tools/neo-angband-mod-sdk";
 import type { GameObject, GameState, Loc, PlayerCommand } from "@rpgm-tools/neo-angband-core";
-import { adaptEngine, type EngineCore } from "./src/core-adapter.js";
+import { adaptEngine, type AdapterEngine, type EngineCore } from "./src/core-adapter.js";
 import { createAdapter } from "./src/core-adapter-api2.js";
 import { LOSE_MEMORIES, loseMemoriesHandler } from "./src/lose-memories.js";
 import { CURSE_ARMOUR, CURSE_WEAPON, curseScrollHandler } from "./src/curse-scrolls.js";
@@ -110,6 +110,12 @@ export const DISCOUNT_ROLL = {
 export const IRON_SPIKE_NAME = "& Iron Spike~";
 
 export const SPIKE_COMMAND = "feature-restoration:spike";
+
+/** The command a key runs: it asks for a direction, then spikes that way and spends the turn. */
+export const SPIKE_KEY_COMMAND = "feature-restoration:spike-door";
+
+/** Angband 3.4.1's original-command trigger for jamming a door. */
+export const SPIKE_TRIGGER = "j";
 
 /**
  * A door already at this lock power - however it got there - takes no further
@@ -216,6 +222,33 @@ export function spikeDoor(engine: SpikeEngine, state: GameState, cmd: PlayerComm
   return state.z.moveEnergy;
 }
 
+/**
+ * Gives the spike command a key. The game asks for a direction, the command spikes that way and
+ * charges the turn, and the key goes on `j` when nothing else holds it. Each step logs how it ended, since
+ * a refusal (the key already bound, keymap access not granted) is the player's to see in the log.
+ */
+async function bindSpikeKey(mod: ModApi2, engine: AdapterEngine, core: EngineCore): Promise<void> {
+  const { meta } = createAdapter(mod);
+  const registered = await mod.ui.commands.register(
+    SPIKE_KEY_COMMAND,
+    "spike",
+    ({ dir }) => {
+      if (dir !== undefined) engine.spendTurn((state) => spikeDoor(core, state, { code: SPIKE_COMMAND, dir } as PlayerCommand));
+    },
+    { direction: true },
+  );
+  if (!registered.ok) {
+    meta.log("feature-restoration: spike key not bound; the command could not be registered");
+    return;
+  }
+  const bound = await mod.ui.keys.bind(SPIKE_TRIGGER, SPIKE_KEY_COMMAND);
+  meta.log(
+    bound.ok
+      ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound`
+      : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`,
+  );
+}
+
 export default {
   api: ">=2.0.0 <3.0.0",
 
@@ -261,6 +294,7 @@ export default {
     if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
       registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));
       registry.setMonsterProjection(CONFUSION, confuseMonster(engineCore, BRONZE_BREATHERS));
+      registry.resolveBreathProjection?.(engineCore.EF.BREATH);
       meta.log("feature-restoration: confusion projection handlers installed");
     }
 
@@ -294,6 +328,7 @@ export default {
       registry.registerCommand(SPIKE_COMMAND, (state, cmd) => spikeDoor(engineCore, state, cmd));
       registry.setCommandVerb(SPIKE_COMMAND, "spike");
       meta.log("feature-restoration: spike-a-door command installed");
+      await bindSpikeKey(mod, engine, engineCore);
     }
   },
 } satisfies Api2ModDefinition;
