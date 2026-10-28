@@ -12,12 +12,12 @@
 
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { MON_MSG, MON_TMD, RF, TMD } from "@rpgm-tools/neo-angband-core";
+import { EF, MON_MSG, MON_TMD, RF, TMD } from "@rpgm-tools/neo-angband-core";
 import { startWith } from "./test/api2.js";
 import { BRONZE_BREATHERS, CONFUSION, confuseMonster, confusePlayer, type MonProjectCtxLike } from "./src/confusion.js";
 import { bind } from "./test/game.js";
 
-const CORE = { TMD, MON_TMD, RF, MON_MSG } as const;
+const CORE = { EF, TMD, MON_TMD, RF, MON_MSG } as const;
 
 /** An Rng whose rolls come from a list, so a test states the exact dice. */
 function rolls(...values: number[]) {
@@ -123,5 +123,58 @@ describe("plugin.ts", () => {
     const h = host();
     await startWith({ flags: {}, core: CORE, host: h.host });
     expect(h.set).toEqual({ player: [], mon: [] });
+  });
+});
+
+describe("naming CONFUSION as a breath", () => {
+  type Resolver = (type: string, inject: object) => number | null;
+
+  /** A registry host whose BREATH subtype resolver is core's own: known names resolve, the rest are -1. */
+  function breathHost(prior: (type: string) => number | null) {
+    const installed: Record<number, Resolver> = {};
+    return {
+      installed,
+      host: {
+        projections: { player: { set: () => {} }, mon: { set: () => {} } },
+        effectInfo: {
+          text: { set: () => {} },
+          subtype: {
+            handlerFor: () => prior,
+            set: (effect: number, handler: Resolver) => {
+              installed[effect] = handler;
+            },
+          },
+        },
+        commands: { register: () => {}, setVerb: () => {} },
+      },
+    };
+  }
+
+  const projections = [{ code: "ACID" }, { code: "FIRE" }, { code: "CONFUSION" }];
+
+  async function resolver(): Promise<Resolver> {
+    const h = breathHost((type) => (type === "FIRE" ? 1 : -1));
+    await startWith({ flags: { "feature-restoration.bronze-dragons": true }, core: CORE, host: h.host, registries: { projections } });
+    const handler = h.installed[EF.BREATH];
+    expect(handler).toBeTypeOf("function");
+    return handler!;
+  }
+
+  it("resolves the section's own projection from the live table, which core's lookup does not know", async () => {
+    const resolve = await resolver();
+    expect(resolve("CONFUSION", {})).toBe(2);
+    expect(resolve("confusion", {})).toBe(2);
+  });
+
+  it("leaves core's own names to core and refuses an unknown one", async () => {
+    const resolve = await resolver();
+    expect(resolve("FIRE", {})).toBe(1);
+    expect(resolve("NOPE", {})).toBeNull();
+  });
+
+  it("installs no resolver while the section is off", async () => {
+    const h = breathHost(() => -1);
+    await startWith({ flags: {}, core: CORE, host: h.host, registries: { projections } });
+    expect(h.installed[EF.BREATH]).toBeUndefined();
   });
 });

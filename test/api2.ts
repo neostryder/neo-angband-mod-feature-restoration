@@ -20,11 +20,25 @@ export interface FakeGame {
   readonly keymaps?: { isBindableTriggerKey(trigger: string): boolean; bind(trigger: string, action: string): boolean };
   /** Receives every `meta.log` line. */
   readonly log?: (message: string) => void;
+  /** The live game state the engine domain carries; absent means `engine.state` is undefined. */
+  readonly state?: unknown;
+  /** The live registries the engine domain carries. */
+  readonly registries?: unknown;
+  /** Collects each command the mod registers through `ui.commands.register`. */
+  readonly commands?: RegisteredCommand[];
+}
+
+/** One `ui.commands.register` call, as the mod made it. */
+export interface RegisteredCommand {
+  readonly id: string;
+  readonly verb: string;
+  readonly run: (args: { readonly dir?: number }) => void | Promise<void>;
+  readonly options?: { readonly direction?: boolean };
 }
 
 function engineOf(game: FakeGame): Api2Engine | undefined {
   if (game.core === undefined && game.host === undefined) return undefined;
-  return { api: "1.0.0", core: game.core, state: undefined, registries: undefined, ...(game.host === undefined ? {} : { registry: game.host }) } as unknown as Api2Engine;
+  return { api: "1.0.0", core: game.core, state: game.state, registries: game.registries, ...(game.host === undefined ? {} : { registry: game.host }) } as unknown as Api2Engine;
 }
 
 /** What `engineHooks` returns for these flags and this engine domain. */
@@ -50,6 +64,12 @@ export async function startWith(game: FakeGame): Promise<void> {
       granted: (capability: string) => (capability === "keymap:write" ? granted : true),
     },
     ui: {
+      commands: {
+        register: vi.fn(async (id: string, verb: string, run: RegisteredCommand["run"], options?: RegisteredCommand["options"]) => {
+          game.commands?.push({ id, verb, run, ...(options === undefined ? {} : { options }) });
+          return { ok: true, value: null };
+        }),
+      },
       keys: {
         bind: vi.fn(async (trigger: string, action: string) =>
           game.keymaps && game.keymaps.isBindableTriggerKey(trigger) && game.keymaps.bind(trigger, action) ? { ok: true, value: null } : refused,

@@ -6,11 +6,11 @@
 import { describe, expect, it, vi } from "vitest";
 import * as core from "@rpgm-tools/neo-angband-core";
 // @ts-expect-error The test imports the handwritten source module.
-import { DISCOUNT_ROLL, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, spikeDoor } from "./plugin.ts";
+import { DISCOUNT_ROLL, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, SPIKE_KEY_COMMAND, SPIKE_TRIGGER, spikeDoor } from "./plugin.ts";
 import { LOSE_MEMORIES } from "./src/lose-memories.js";
 import type { EffectTextHandler } from "@rpgm-tools/neo-angband-core";
 import { bind, gamePack } from "./test/game.js";
-import { engineHooksFor, policiesFor, startWith } from "./test/api2.js";
+import { engineHooksFor, policiesFor, startWith, type RegisteredCommand } from "./test/api2.js";
 
 const { Rng } = core;
 type SpikeAction = core.PlayerAction;
@@ -182,6 +182,67 @@ describe("start - spike-doors flag gating", () => {
     await startWith({ flags: { "feature-restoration.spike-doors": true }, core: liveCore, host });
     expect(host.installedSpike).toBeTypeOf("function");
     expect(host.installedVerb).toEqual({ code: "feature-restoration:spike", verb: "spike" });
+  });
+});
+
+describe("start - the spike key", () => {
+  const liveCore = core;
+  const flags = { "feature-restoration.spike-doors": true };
+  const keymaps = (bound: boolean) => ({ isBindableTriggerKey: () => true, bind: vi.fn(() => bound) });
+
+  it("registers a command that asks for a direction, and binds j to it", async () => {
+    const commands: RegisteredCommand[] = [];
+    const keys = keymaps(true);
+    await startWith({ flags, core: liveCore, host: fakeHost(), keymaps: keys, commands });
+    expect(commands.map(({ id, verb, options }) => ({ id, verb, options }))).toEqual([
+      { id: SPIKE_KEY_COMMAND, verb: "spike", options: { direction: true } },
+    ]);
+    expect(keys.bind).toHaveBeenCalledWith(SPIKE_TRIGGER, SPIKE_KEY_COMMAND);
+  });
+
+  it("says so in the log when the key is already taken", async () => {
+    const lines: string[] = [];
+    await startWith({ flags, core: liveCore, host: fakeHost(), keymaps: keymaps(false), commands: [], log: (line) => lines.push(line) });
+    expect(lines.some((line) => line.includes("not bound; it is already claimed"))).toBe(true);
+  });
+
+  it("registers nothing while the toggle is off", async () => {
+    const commands: RegisteredCommand[] = [];
+    await startWith({ flags: {}, core: liveCore, host: fakeHost(), keymaps: keymaps(true), commands });
+    expect(commands).toEqual([]);
+  });
+
+  it("spikes the chosen way on the live state and charges the turn", async () => {
+    const commands: RegisteredCommand[] = [];
+    const { state, msgs, doors } = fakeState({ spikes: 2 });
+    state.actor.energy = 100;
+    const totalBefore = state.actor.totalEnergy;
+    await startWith({ flags, core: fakeCore(), host: fakeHost(), keymaps: keymaps(true), commands, state });
+    await commands[0]!.run({ dir: 6 });
+    expect(msgs).toEqual(["You jam the door with a spike."]);
+    expect(doors["6,5"]!.power).toBe(1);
+    expect(state.actor.energy).toBe(90);
+    expect(state.actor.totalEnergy).toBe(totalBefore + 10);
+  });
+
+  it("charges nothing when there is no door that way", async () => {
+    const commands: RegisteredCommand[] = [];
+    const { state, msgs } = fakeState({ spikes: 2, doors: {} });
+    state.actor.energy = 100;
+    await startWith({ flags, core: fakeCore(), host: fakeHost(), keymaps: keymaps(true), commands, state });
+    await commands[0]!.run({ dir: 6 });
+    expect(msgs).toEqual(["You see nothing there to spike."]);
+    expect(state.actor.energy).toBe(100);
+  });
+
+  it("does nothing without a direction", async () => {
+    const commands: RegisteredCommand[] = [];
+    const { state, msgs } = fakeState({ spikes: 2 });
+    state.actor.energy = 100;
+    await startWith({ flags, core: fakeCore(), host: fakeHost(), keymaps: keymaps(true), commands, state });
+    await commands[0]!.run({});
+    expect(msgs).toEqual([]);
+    expect(state.actor.energy).toBe(100);
   });
 });
 

@@ -264,9 +264,20 @@ function pickCore(core) {
     tvalFindIdx: core.tvalFindIdx
   };
 }
-function engineRegistry(host) {
+function engineRegistry(host, liveRegistries) {
   const { effects, effectInfo, projections, commands } = host;
   return {
+    resolveBreathProjection: effectInfo ? (effect) => {
+      const { subtype } = effectInfo;
+      const core = subtype.handlerFor(effect);
+      subtype.set(effect, (type, inject) => {
+        const named = core?.(type, inject) ?? -1;
+        if (named >= 0) return named;
+        const wanted = type.toLowerCase();
+        const found = liveRegistries()?.projections?.findIndex((p) => p.code.toLowerCase() === wanted) ?? -1;
+        return found >= 0 ? found : null;
+      });
+    } : null,
     registerEffect: effects ? (code, handler) => effects.register(code, { handler }) : null,
     setEffectText: effectInfo ? (code, text) => effectInfo.text.set(code, text) : null,
     setPlayerProjection: projections ? (code, handler) => projections.player.set(code, handler) : null,
@@ -281,7 +292,17 @@ function adaptEngine(engine) {
   const host = live?.registry;
   return {
     core,
-    registry: host ? engineRegistry(host) : null,
+    registry: host ? engineRegistry(host, () => live?.registries) : null,
+    spendTurn(act) {
+      const state = live?.state;
+      if (!state) return false;
+      const spent = act(state);
+      if (spent > 0) {
+        state.actor.energy -= spent;
+        state.actor.totalEnergy += spent;
+      }
+      return true;
+    },
     newCharacter(run) {
       if (!core) throw new Error("The newCharacter hook requires the live core namespace");
       const { tvalFindIdx } = core;
@@ -432,6 +453,8 @@ var DISCOUNT_ROLL = {
 };
 var IRON_SPIKE_NAME = "& Iron Spike~";
 var SPIKE_COMMAND = "feature-restoration:spike";
+var SPIKE_KEY_COMMAND = "feature-restoration:spike-door";
+var SPIKE_TRIGGER = "j";
 var MAX_SPIKE_POWER = 7;
 function findSpike(state) {
   for (const handle of state.gear.pack) {
@@ -487,6 +510,25 @@ function spikeDoor(engine, state, cmd) {
   engine.gearObjectForUse(state.gear, state.actor.player, spike.handle, 1);
   return state.z.moveEnergy;
 }
+async function bindSpikeKey(mod, engine, core) {
+  const { meta } = createAdapter(mod);
+  const registered = await mod.ui.commands.register(
+    SPIKE_KEY_COMMAND,
+    "spike",
+    ({ dir }) => {
+      if (dir !== void 0) engine.spendTurn((state) => spikeDoor(core, state, { code: SPIKE_COMMAND, dir }));
+    },
+    { direction: true }
+  );
+  if (!registered.ok) {
+    meta.log("feature-restoration: spike key not bound; the command could not be registered");
+    return;
+  }
+  const bound = await mod.ui.keys.bind(SPIKE_TRIGGER, SPIKE_KEY_COMMAND);
+  meta.log(
+    bound.ok ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound` : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`
+  );
+}
 var plugin_default = {
   api: ">=2.0.0 <3.0.0",
   /** The store discount is a table the game rolls itself, present only while its flag is on. */
@@ -523,6 +565,7 @@ var plugin_default = {
     if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
       registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));
       registry.setMonsterProjection(CONFUSION, confuseMonster(engineCore, BRONZE_BREATHERS));
+      registry.resolveBreathProjection?.(engineCore.EF.BREATH);
       meta.log("feature-restoration: confusion projection handlers installed");
     }
     if (meta.flags["feature-restoration.classic-uncurse"] === true && engineCore && registry.registerEffect) {
@@ -546,6 +589,7 @@ var plugin_default = {
       registry.registerCommand(SPIKE_COMMAND, (state, cmd) => spikeDoor(engineCore, state, cmd));
       registry.setCommandVerb(SPIKE_COMMAND, "spike");
       meta.log("feature-restoration: spike-a-door command installed");
+      await bindSpikeKey(mod, engine, engineCore);
     }
   }
 };
@@ -554,6 +598,8 @@ export {
   IRON_SPIKE_NAME,
   MAX_SPIKE_POWER,
   SPIKE_COMMAND,
+  SPIKE_KEY_COMMAND,
+  SPIKE_TRIGGER,
   plugin_default as default,
   spikeDoor
 };
