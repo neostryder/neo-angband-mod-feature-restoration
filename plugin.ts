@@ -224,7 +224,7 @@ export function spikeDoor(engine: SpikeEngine, state: GameState, cmd: PlayerComm
 
 /**
  * Gives the spike command a key. The game asks for a direction, the command spikes that way and
- * charges the turn, and the key goes on `j` when nothing else holds it. Each step logs how it ended, since
+ * returns the energy it used, and the key goes on `j` when nothing else holds it. Each step logs how it ended, since
  * a refusal (the key already bound, keymap access not granted) is the player's to see in the log.
  */
 async function bindSpikeKey(mod: ModApi2, engine: AdapterEngine, core: EngineCore): Promise<void> {
@@ -233,9 +233,11 @@ async function bindSpikeKey(mod: ModApi2, engine: AdapterEngine, core: EngineCor
     SPIKE_KEY_COMMAND,
     "spike",
     ({ dir }) => {
-      if (dir !== undefined) engine.spendTurn((state) => spikeDoor(core, state, { code: SPIKE_COMMAND, dir } as PlayerCommand));
+      const state = engine.state;
+      if (dir === undefined || !state) return {};
+      return { energy: spikeDoor(core, state, { code: SPIKE_COMMAND, dir } as PlayerCommand) };
     },
-    { direction: true },
+    { direction: true, turn: true },
   );
   if (!registered.ok) {
     meta.log("feature-restoration: spike key not bound; the command could not be registered");
@@ -294,7 +296,6 @@ export default {
     if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
       registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));
       registry.setMonsterProjection(CONFUSION, confuseMonster(engineCore, BRONZE_BREATHERS));
-      registry.resolveBreathProjection?.(engineCore.EF.BREATH);
       meta.log("feature-restoration: confusion projection handlers installed");
     }
 

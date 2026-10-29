@@ -9,16 +9,14 @@ Cutting Room Floor, the first-party mod that restores content cut from the base 
 | Store discounts | `policies`: a `storeDiscountRoll` table, present while `feature-restoration.discounts` is on | Works. The game rolls the table when it stocks a store. |
 | Junk items | `engineHooks`: a `newCharacter` hook built from the engine domain | Works. |
 | Lose Memories effect | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effect is `FEATURE_RESTORATION_LOSE_EXP`, because the game reads an effect line as `name:type:radius:other`, so a name with a colon never resolves. |
-| Bronze dragons' confusion | `start`, through `engine.registry` (`registry:projection`) | Works. The `BREATH` subtype lookup is widened so the breath can name the mod's own projection (CRF-5 below). |
+| Bronze dragons' confusion | `start`, through `engine.registry` (`registry:projection`) | Works. The game resolves the breath's projection name against the mod's own projection table. |
 | Classic uncursing | `start`, through `engine.registry` (`registry:effect`) | Works. |
 | Sticky-curse scrolls | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effects are `FEATURE_RESTORATION_CURSE_WEAPON` and `FEATURE_RESTORATION_CURSE_ARMOR`. |
-| Spike command | `start`, through `engine.registry` (`registry:command`), plus `ui.commands` and `ui.keys` (`keymap:write`) | Works. `j` asks for a direction, then spikes that way (CRF-6 below). |
+| Spike command | `start`, through `engine.registry` (`registry:command`), plus `ui.commands` and `ui.keys` (`keymap:write`) | Works. `j` asks for a direction, then spikes that way and spends the turn the command returns. |
 
 ## What is still open
 
-CRF-5: the game resolves the name in `BREATH:CONFUSION` against the projections compiled into it, so a projection a mod adds comes back as -1 and the breath does nothing. The mod wraps the `BREATH` subtype resolver: core's own lookup goes first, then the live projection table. It becomes unnecessary once the game resolves a mod's projection names itself.
-
-CRF-6: a command registered with `ui.commands.register` runs outside the turn loop when a key reaches it, and a command that hears a direction has no way to hand back the energy it used. The spike command therefore runs `spikeDoor` on the live state and charges the energy itself, the way the loop does. It becomes unnecessary once the key path spends a turn for the command.
+Nothing. The game resolves a mod's projection name for a breath, a monster casts a spell a mod added, a key bound to a direction command runs inside the turn when the command is registered with `turn: true`, and the load-time check leaves out findings the base game's own records already raise.
 
 ## How the tests drive the entry
 

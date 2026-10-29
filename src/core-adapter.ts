@@ -25,7 +25,6 @@ type CoreNs = typeof import("@rpgm-tools/neo-angband-core");
 export type HostLike = {
   readonly effectInfo?: {
     text: Pick<ModRegistryHost["effectInfo"]["text"], "set">;
-    subtype: Pick<ModRegistryHost["effectInfo"]["subtype"], "set" | "handlerFor">;
   };
   readonly projections?: {
     readonly player: Pick<ModRegistryHost["projections"]["player"], "set">;
@@ -113,13 +112,6 @@ export interface EngineRegistry {
   readonly setPlayerProjection: NonNullable<HostLike["projections"]>["player"]["set"] | null;
   /** Confusion's effect on a monster. API 2: host-interpreted projection declaration. Null without `registry:projection`. */
   readonly setMonsterProjection: NonNullable<HostLike["projections"]>["mon"]["set"] | null;
-  /**
-   * Lets a breath effect name a projection the mod itself added (BREATH:CONFUSION). Core's own
-   * name lookup knows only the projections compiled into it, so the name resolves to -1 and the
-   * breath does nothing; this tries core's lookup first and then the live projection table.
-   * API 2: host-interpreted projection declaration. Null without the effect-info seam.
-   */
-  readonly resolveBreathProjection: ((effect: CoreNs["EF"]["BREATH"]) => void) | null;
   /** Installs the spike command; its action receives the live GameState. API 2: host-declared command. */
   readonly registerCommand: HostLike["commands"]["register"];
   /** Names a command in prompts. API 2: part of the command declaration. */
@@ -141,13 +133,8 @@ export interface AdapterEngine {
   readonly core: EngineCore | null;
   /** Null when the engine domain carries no registry host. */
   readonly registry: EngineRegistry | null;
-  /**
-   * Runs a player action against the live state and charges the energy it returns, the way the
-   * game's own turn loop does. A key bound through `ui.commands` runs outside that loop, so an
-   * energy count handed back to nobody would be a free action. False when the engine domain
-   * carries no live state. API 2: the command declaration itself, with a direction prompt.
-   */
-  spendTurn(act: (state: GameState) => number): boolean;
+  /** The live game state the engine domain carries, or undefined when it carries none. API 2: the command declaration itself, with a direction prompt. */
+  readonly state: GameState | undefined;
   /** The newCharacter hook over the live state and registries. API 2: a content declaration of kinds ignored at birth. */
   newCharacter(run: (game: NewCharacterGame) => void): NonNullable<ModHooks["newCharacter"]>;
 }
@@ -200,22 +187,9 @@ function pickCore(core: CoreNs): EngineCore {
   };
 }
 
-function engineRegistry(host: HostLike, liveRegistries: () => CoreRegistries | undefined): EngineRegistry {
+function engineRegistry(host: HostLike): EngineRegistry {
   const { effects, effectInfo, projections, commands } = host;
   return {
-    resolveBreathProjection: effectInfo
-      ? (effect) => {
-          const { subtype } = effectInfo;
-          const core = subtype.handlerFor(effect);
-          subtype.set(effect, (type, inject) => {
-            const named = core?.(type, inject) ?? -1;
-            if (named >= 0) return named;
-            const wanted = type.toLowerCase();
-            const found = liveRegistries()?.projections?.findIndex((p) => p.code.toLowerCase() === wanted) ?? -1;
-            return found >= 0 ? found : null;
-          });
-        }
-      : null,
     registerEffect: effects ? (code, handler) => effects.register(code, { handler }) : null,
     setEffectText: effectInfo ? (code, text) => effectInfo.text.set(code, text) : null,
     setPlayerProjection: projections ? (code, handler) => projections.player.set(code, handler) : null,
@@ -237,16 +211,9 @@ export function adaptEngine(engine: Api2Engine | undefined): AdapterEngine {
   const host = live?.registry;
   return {
     core,
-    registry: host ? engineRegistry(host, () => live?.registries as CoreRegistries | undefined) : null,
-    spendTurn(act) {
-      const state = live?.state as GameState | undefined;
-      if (!state) return false;
-      const spent = act(state);
-      if (spent > 0) {
-        state.actor.energy -= spent;
-        state.actor.totalEnergy += spent;
-      }
-      return true;
+    registry: host ? engineRegistry(host) : null,
+    get state() {
+      return live?.state as GameState | undefined;
     },
     newCharacter(run) {
       if (!core) throw new Error("The newCharacter hook requires the live core namespace");

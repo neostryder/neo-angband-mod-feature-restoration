@@ -27,6 +27,7 @@ were not retagged.
 ### Added
 
 - [Visible] [Balance] **Every curse can be made sticky.** With `sticky-curses-all` on, any cursed item stays on until its curse is lifted, including curses Angband 4.0 never had, such as siren, stone and the summoning curses. Remove Curse can lift a curse of power 40 or less, *Remove Curse* one of up to 99, and a power of 100 never comes off. `sticky-curses` still pins only the curses that match 4.0's, and either setting works without the other.
+- [Visible] **Door spiking has its `j` key.** The key asks for a direction, jams the door that way with an Iron Spike, and spends the turn. If another mod or your own keys already hold `j`, the mod leaves it alone and says so in the log.
 
 ### Changed
 
