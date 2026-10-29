@@ -195,7 +195,7 @@ describe("start - the spike key", () => {
     const keys = keymaps(true);
     await startWith({ flags, core: liveCore, host: fakeHost(), keymaps: keys, commands });
     expect(commands.map(({ id, verb, options }) => ({ id, verb, options }))).toEqual([
-      { id: SPIKE_KEY_COMMAND, verb: "spike", options: { direction: true } },
+      { id: SPIKE_KEY_COMMAND, verb: "spike", options: { direction: true, turn: true } },
     ]);
     expect(keys.bind).toHaveBeenCalledWith(SPIKE_TRIGGER, SPIKE_KEY_COMMAND);
   });
@@ -212,37 +212,32 @@ describe("start - the spike key", () => {
     expect(commands).toEqual([]);
   });
 
-  it("spikes the chosen way on the live state and charges the turn", async () => {
+  it("spikes the chosen way on the live state and hands the energy back to the game", async () => {
     const commands: RegisteredCommand[] = [];
     const { state, msgs, doors } = fakeState({ spikes: 2 });
-    state.actor.energy = 100;
-    const totalBefore = state.actor.totalEnergy;
     await startWith({ flags, core: fakeCore(), host: fakeHost(), keymaps: keymaps(true), commands, state });
-    await commands[0]!.run({ dir: 6 });
+    const result = await commands[0]!.run({ dir: 6 });
     expect(msgs).toEqual(["You jam the door with a spike."]);
     expect(doors["6,5"]!.power).toBe(1);
-    expect(state.actor.energy).toBe(90);
-    expect(state.actor.totalEnergy).toBe(totalBefore + 10);
+    expect(result).toEqual({ energy: 10 });
   });
 
-  it("charges nothing when there is no door that way", async () => {
+  it("spends no energy when there is no door that way", async () => {
     const commands: RegisteredCommand[] = [];
     const { state, msgs } = fakeState({ spikes: 2, doors: {} });
-    state.actor.energy = 100;
     await startWith({ flags, core: fakeCore(), host: fakeHost(), keymaps: keymaps(true), commands, state });
-    await commands[0]!.run({ dir: 6 });
+    const result = await commands[0]!.run({ dir: 6 });
     expect(msgs).toEqual(["You see nothing there to spike."]);
-    expect(state.actor.energy).toBe(100);
+    expect(result).toEqual({ energy: 0 });
   });
 
   it("does nothing without a direction", async () => {
     const commands: RegisteredCommand[] = [];
     const { state, msgs } = fakeState({ spikes: 2 });
-    state.actor.energy = 100;
     await startWith({ flags, core: fakeCore(), host: fakeHost(), keymaps: keymaps(true), commands, state });
-    await commands[0]!.run({});
+    const result = await commands[0]!.run({});
     expect(msgs).toEqual([]);
-    expect(state.actor.energy).toBe(100);
+    expect(result).toEqual({});
   });
 });
 

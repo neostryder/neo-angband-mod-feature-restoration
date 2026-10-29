@@ -32,8 +32,8 @@ export interface FakeGame {
 export interface RegisteredCommand {
   readonly id: string;
   readonly verb: string;
-  readonly run: (args: { readonly dir?: number }) => void | Promise<void>;
-  readonly options?: { readonly direction?: boolean };
+  readonly run: (args: { readonly dir?: number }) => void | { readonly energy?: number } | Promise<void | { readonly energy?: number }>;
+  readonly options?: { readonly direction?: boolean; readonly turn?: boolean };
 }
 
 function engineOf(game: FakeGame): Api2Engine | undefined {

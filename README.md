@@ -521,7 +521,7 @@ flowchart TD
 
 *Source of truth: `manifest.json`, `plugin.ts`, and the content files. `LOSE_MEMORIES` registers whenever the registry host exists, with no feature flag.*
 
-**Status.** The Lose Memories effect, classic uncursing, and the sticky-curse scrolls run. The spike command runs on `j`, and the bronze dragons breathe confusion. Two small workarounds in the adapter cover what the game does not yet do for a mod, and `docs/API2-MIGRATION.md` describes both.
+**Status.** The Lose Memories effect, classic uncursing, and the sticky-curse scrolls run. The spike command runs on `j`, and the bronze dragons breathe confusion. `docs/API2-MIGRATION.md` lists what each restoration uses.
 
 Restoring a spell to a class's book only takes data. The spell already exists (the Mage and the Rogue cast it today), so nothing new has to run; the class's book just needs one more entry. A [field-level patch](https://github.com/neostryder/neo-angband/blob/master/packages/mod-sdk/src/patch.ts) onto core's own `class.json` does exactly that, and a manifest [section](https://github.com/neostryder/neo-angband/blob/master/docs/modding/MOD_LIFECYCLE.md) turns it on and off. That is all `teleport-other` needs.
 

@@ -264,20 +264,9 @@ function pickCore(core) {
     tvalFindIdx: core.tvalFindIdx
   };
 }
-function engineRegistry(host, liveRegistries) {
+function engineRegistry(host) {
   const { effects, effectInfo, projections, commands } = host;
   return {
-    resolveBreathProjection: effectInfo ? (effect) => {
-      const { subtype } = effectInfo;
-      const core = subtype.handlerFor(effect);
-      subtype.set(effect, (type, inject) => {
-        const named = core?.(type, inject) ?? -1;
-        if (named >= 0) return named;
-        const wanted = type.toLowerCase();
-        const found = liveRegistries()?.projections?.findIndex((p) => p.code.toLowerCase() === wanted) ?? -1;
-        return found >= 0 ? found : null;
-      });
-    } : null,
     registerEffect: effects ? (code, handler) => effects.register(code, { handler }) : null,
     setEffectText: effectInfo ? (code, text) => effectInfo.text.set(code, text) : null,
     setPlayerProjection: projections ? (code, handler) => projections.player.set(code, handler) : null,
@@ -292,16 +281,9 @@ function adaptEngine(engine) {
   const host = live?.registry;
   return {
     core,
-    registry: host ? engineRegistry(host, () => live?.registries) : null,
-    spendTurn(act) {
-      const state = live?.state;
-      if (!state) return false;
-      const spent = act(state);
-      if (spent > 0) {
-        state.actor.energy -= spent;
-        state.actor.totalEnergy += spent;
-      }
-      return true;
+    registry: host ? engineRegistry(host) : null,
+    get state() {
+      return live?.state;
     },
     newCharacter(run) {
       if (!core) throw new Error("The newCharacter hook requires the live core namespace");
@@ -516,9 +498,11 @@ async function bindSpikeKey(mod, engine, core) {
     SPIKE_KEY_COMMAND,
     "spike",
     ({ dir }) => {
-      if (dir !== void 0) engine.spendTurn((state) => spikeDoor(core, state, { code: SPIKE_COMMAND, dir }));
+      const state = engine.state;
+      if (dir === void 0 || !state) return {};
+      return { energy: spikeDoor(core, state, { code: SPIKE_COMMAND, dir }) };
     },
-    { direction: true }
+    { direction: true, turn: true }
   );
   if (!registered.ok) {
     meta.log("feature-restoration: spike key not bound; the command could not be registered");
@@ -565,7 +549,6 @@ var plugin_default = {
     if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
       registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));
       registry.setMonsterProjection(CONFUSION, confuseMonster(engineCore, BRONZE_BREATHERS));
-      registry.resolveBreathProjection?.(engineCore.EF.BREATH);
       meta.log("feature-restoration: confusion projection handlers installed");
     }
     if (meta.flags["feature-restoration.classic-uncurse"] === true && engineCore && registry.registerEffect) {
