@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { readdirSync, readFileSync } from "node:fs";
-import ts from "typescript";
+import ts from "@typescript/typescript6";
 
 const ADAPTER = "src/core-adapter.ts";
 const TWIN = "src/core-adapter-api2.ts";
