@@ -290,6 +290,15 @@ export default {
       meta.log("feature-restoration: Lose Memories effect installed");
     }
 
+    if (meta.flags["feature-restoration.trap-density"] === true && engineCore && registry.setGlyph && mod.meta.granted("registry:glyph")) {
+      registry.setGlyph("vault", "^", {
+        terrain({ g, grid }) {
+          // Angband 4.0.5 build_vault (gen-room.c) places every '^' without a density roll.
+          engineCore.placeTrap(g, grid);
+        },
+      });
+    }
+
     /* The CONFUSION projection only exists while the bronze-dragons section
      * is on (its projection.json record), so its handlers go in under the same
      * flag and no other. */

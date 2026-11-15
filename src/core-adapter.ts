@@ -31,6 +31,7 @@ export type HostLike = {
     readonly mon: Pick<ModRegistryHost["projections"]["mon"], "set">;
   };
   readonly effects?: Pick<ModRegistryHost["effects"], "register">;
+  readonly glyphs?: Pick<ModRegistryHost["glyphs"], "set">;
   readonly commands: Pick<ModRegistryHost["commands"], "register" | "setVerb">;
 };
 
@@ -40,6 +41,8 @@ export type HostLike = {
 
 /** The core names this mod uses. None has an API 2 counterpart. */
 export interface EngineCore {
+  /** Host placement keeps hidden trap selection inside generation. API 2: a vault trap-density policy. */
+  readonly placeTrap: CoreNs["placeTrap"];
   /** Effect codes: classic-uncurse replaces REMOVE_CURSE and ENCHANT and asks for an ENCHANT item. API 2: host-interpreted effect declaration. */
   readonly EF: CoreNs["EF"];
   /** Enchant subtype bit for to-hit. API 2: part of a host-interpreted classic-enchant policy. */
@@ -104,6 +107,8 @@ export interface EngineCore {
 
 /** The registry seams. None has an API 2 counterpart yet; the store discount roll left this list for the `storeDiscountRoll` policy. */
 export interface EngineRegistry {
+  /** Vault glyph placement, available with registry:glyph. API 2: a vault trap-density policy. */
+  readonly setGlyph: NonNullable<HostLike["glyphs"]>["set"] | null;
   /** Installs an effect handler (Lose Memories, classic uncurse, curse scrolls). API 2: host-interpreted effect declaration. Null without `registry:effect`. */
   readonly registerEffect: ((code: Parameters<NonNullable<HostLike["effects"]>["register"]>[0], handler: EffectHandler) => void) | null;
   /** Sets an effect's recall text. API 2: effect text as content data. Null without the effect-info seam. */
@@ -154,6 +159,7 @@ const DDGRID = [
 
 function pickCore(core: CoreNs): EngineCore {
   return {
+    placeTrap: core.placeTrap,
     EF: core.EF,
     ENCH_TOHIT: core.ENCH_TOHIT,
     ENCH_TODAM: core.ENCH_TODAM,
@@ -188,8 +194,9 @@ function pickCore(core: CoreNs): EngineCore {
 }
 
 function engineRegistry(host: HostLike): EngineRegistry {
-  const { effects, effectInfo, projections, commands } = host;
+  const { effects, effectInfo, projections, commands, glyphs } = host;
   return {
+    setGlyph: glyphs ? (kind, glyph, handler) => glyphs.set(kind, glyph, handler) : null,
     registerEffect: effects ? (code, handler) => effects.register(code, { handler }) : null,
     setEffectText: effectInfo ? (code, text) => effectInfo.text.set(code, text) : null,
     setPlayerProjection: projections ? (code, handler) => projections.player.set(code, handler) : null,

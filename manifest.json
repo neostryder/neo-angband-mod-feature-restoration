@@ -29,6 +29,7 @@
       "registry:effect-info",
       "registry:projection",
       "registry:command",
+      "registry:glyph",
       "keymap:write",
       "engine:access"
     ],
@@ -42,6 +43,13 @@
       "plugin"
     ],
     "rules": [
+      {
+        "flag": "feature-restoration.trap-density",
+        "title": "Restore vault trap density",
+        "description": "Puts a trap on every vault trap marker, as Angband 4.0.5 did, instead of on one marker in four. Trap types, trap powers, and all other trap placement follow the current game.",
+        "default": false,
+        "requiresReload": true
+      },
       {
         "flag": "feature-restoration.discounts",
         "title": "Restore store discounts",

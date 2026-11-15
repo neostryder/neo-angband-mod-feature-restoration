@@ -430,3 +430,70 @@ describe("spikeDoor - confusion redirect (player_confuse_dir applied AFTER the t
     expect(core.gearObjectForUse).not.toHaveBeenCalled();
   });
 });
+
+describe("start - vault trap density", () => {
+  async function glyphsFor(flags: Record<string, boolean>) {
+    const glyphs = core.createGlyphRegistry();
+    await startWith({ flags, core, host: { ...fakeHost(), glyphs } });
+    return glyphs;
+  }
+
+  function vault(glyphs: core.GlyphRegistry, seed: number) {
+    const { game } = bind([]);
+    const chunk = new core.Chunk(game.features, 20, 20);
+    chunk.depth = 30;
+    const g = new core.Gen(chunk, new Rng(seed), game.features, game.constants, new core.Dun(game.constants), null, null, game.traps);
+    g.glyphs = glyphs;
+    const v: core.Vault = {
+      name: "Trap test", typ: "Lesser vault", rat: 0, hgt: 5, wid: 5,
+      minLev: 0, maxLev: 100, fewEntrances: false, rows: Array(5).fill("^^^^^"),
+    };
+    expect(core.buildVault(g, { x: 10, y: 10 }, v)).toBe(true);
+    return g;
+  }
+
+  it.each([{}, { "feature-restoration.trap-density": false }, { "feature-restoration.sticky-curses": true }])("retains the stock vault handler for %j", async (flags) => {
+    const glyphs = core.createGlyphRegistry();
+    const before = glyphs.handlerFor("vault", "^");
+    await startWith({ flags, core, host: { ...fakeHost(), glyphs } });
+    expect(glyphs.handlerFor("vault", "^")).toBe(before);
+    expect(vault(glyphs, 52).traps.length).toBeLessThan(25);
+  });
+
+  it("fills every vault marker with a bound trap independently of other settings", async () => {
+    const glyphs = await glyphsFor({ "feature-restoration.trap-density": true });
+    for (const seed of [1, 52, 53, 100]) {
+      const g = vault(glyphs, seed);
+      expect(g.traps).toHaveLength(25);
+      expect(g.trapGrids.size).toBe(25);
+      expect(new Set(g.traps.map(({ grid }) => grid.y * 20 + grid.x)).size).toBe(25);
+      for (const trap of g.traps) {
+        expect(g.trapKinds![trap.tidx]).toBeDefined();
+        expect(trap.power).toBeGreaterThanOrEqual(0);
+      }
+    }
+  });
+
+  it("replaces only the vault trap glyph and leaves templates and other glyphs alone", async () => {
+    const glyphs = core.createGlyphRegistry();
+    const template = glyphs.handlerFor("template", "^");
+    const treasure = glyphs.handlerFor("vault", "&");
+    await startWith({ flags: { "feature-restoration.trap-density": true }, core, host: { ...fakeHost(), glyphs } });
+    expect(glyphs.handlerFor("template", "^")).toBe(template);
+    expect(glyphs.handlerFor("vault", "&")).toBe(treasure);
+  });
+
+  it("leaves trap selection to the host without a one-in-four roll", async () => {
+    const glyphs = core.createGlyphRegistry();
+    const placeTrap = vi.fn();
+    await startWith({ flags: { "feature-restoration.trap-density": true }, core: { ...core, placeTrap }, host: { ...fakeHost(), glyphs } });
+    const g = {} as core.Gen;
+    const grid = { x: 5, y: 5 };
+    glyphs.handlerFor("vault", "^")!.terrain!({ g, grid, glyph: "^", fewEntrances: false, rndDoors: 0, rndWalls: false, tval: 0 });
+    expect(placeTrap).toHaveBeenCalledExactlyOnceWith(g, grid);
+  });
+
+  it("does not require a glyph facade when the host does not provide one", async () => {
+    await expect(startWith({ flags: { "feature-restoration.trap-density": true }, core, host: fakeHost() })).resolves.toBeUndefined();
+  });
+});
