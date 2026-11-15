@@ -232,6 +232,7 @@ var DDGRID = [
 ];
 function pickCore(core) {
   return {
+    placeTrap: core.placeTrap,
     EF: core.EF,
     ENCH_TOHIT: core.ENCH_TOHIT,
     ENCH_TODAM: core.ENCH_TODAM,
@@ -265,8 +266,9 @@ function pickCore(core) {
   };
 }
 function engineRegistry(host) {
-  const { effects, effectInfo, projections, commands } = host;
+  const { effects, effectInfo, projections, commands, glyphs } = host;
   return {
+    setGlyph: glyphs ? (kind, glyph, handler) => glyphs.set(kind, glyph, handler) : null,
     registerEffect: effects ? (code, handler) => effects.register(code, { handler }) : null,
     setEffectText: effectInfo ? (code, text) => effectInfo.text.set(code, text) : null,
     setPlayerProjection: projections ? (code, handler) => projections.player.set(code, handler) : null,
@@ -545,6 +547,13 @@ var plugin_default = {
         describe: () => "drains experience"
       });
       meta.log("feature-restoration: Lose Memories effect installed");
+    }
+    if (meta.flags["feature-restoration.trap-density"] === true && engineCore && registry.setGlyph && mod.meta.granted("registry:glyph")) {
+      registry.setGlyph("vault", "^", {
+        terrain({ g, grid }) {
+          engineCore.placeTrap(g, grid);
+        }
+      });
     }
     if (meta.flags["feature-restoration.bronze-dragons"] === true && engineCore && registry.setPlayerProjection && registry.setMonsterProjection) {
       registry.setPlayerProjection(CONFUSION, confusePlayer(engineCore));

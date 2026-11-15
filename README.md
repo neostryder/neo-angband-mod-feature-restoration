@@ -38,6 +38,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the novices, swordsmen and angels** (`monsters-3x`) | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
+| **Restore vault trap density** (`feature-restoration.trap-density`) | off | Places traps at every vault trap marker instead of one in four. |
 | **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
 | **Make every curse sticky** (`sticky-curses-all`) | off | Every curse keeps worn equipment on until it is removed, including curses 4.0 never had. Harsher than any release of Angband. |
 | **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
@@ -453,6 +454,12 @@ Upstream commit `0ce785897` ("Remove "bronze" monsters and DSM. Remove BR_CONF f
 In 3.2.0 the baby bronze dragon and the giant bronze dragon fly were exact copies of their gold siblings, and each larger bronze dragon was a weaker gold dragon. 4.2 rebalanced the gold dragons, so each bronze dragon starts from its 4.2 gold sibling and scales hit points, armour, experience and blow dice by the 3.2.0 bronze-to-gold ratio, with depth moved by the 3.2.0 difference. The mature bronze dragon, for example, had 80% of the mature gold dragon's hit points in 3.2.0, so it has 592 against 4.2's 740. The Great Wyrm of Perplexity had exactly the Great Storm Wyrm's numbers in 3.2.0 and takes 4.2's great storm wyrm with confusion in place of lightning. Bronze Dragon Scale Mail matched Gold on level, cost and breath damage, and takes 4.2's Gold Dragon Scale Mail with 3.2.0 Bronze's weight, armour and depth.
 
 Confusion breath follows 3.2.0's rules, with one change. A monster is confused for (10 + 1d15 + r) / (r + 1) turns, takes half damage if it cannot be confused, and a confusion breather takes dam x 2 / (1d6 + 6). The player is confused for 1d20 + 10 turns. In 3.2.0, resisting confusion also cut the damage. 4.2 made that resistance the protection from confusion, and a 4.2 protection stops a status without reducing damage, so protection here stops the confusion and the damage lands in full. The breath's divisor (hit points / 6) and damage cap (400) are 3.x's own.
+
+### Restore vault trap density
+
+This switch places a trap at every vault trap marker. Angband 4.0.5's build_vault in gen-room.c always called place_trap for '^'; 4.2.6 does so only one time in four. Trap types, powers, and placement eligibility follow the current game. This switch defaults to off, requires a reload, and affects newly generated vaults. It does not require another restoration setting.
+
+Active searching and general dungeon trap placement retain the current game's rules. Angband 4.0.5's search in cmd-cave.c rolled searching skill independently on each of nine nearby grids, and do_cmd_search spent a turn only when the adjusted chance exceeded zero. Its classic_gen in gen-cave.c allocated 1d(max(2, min(depth / 3, 10))) traps across rooms and corridors through alloc_objects and alloc_object in gen-util.c. These rules require host seams for hidden discovery and generation placement.
 
 ### Restore sticky curses
 
