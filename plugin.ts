@@ -252,7 +252,7 @@ async function bindSpikeKey(mod: ModApi2, engine: AdapterEngine, core: EngineCor
 }
 
 export default {
-  api: ">=2.0.0 <3.0.0",
+  api: ">=2.2.0 <3.0.0",
 
   /** The store discount is a table the game rolls itself, present only while its flag is on. */
   policies({ flags }): Api2Policies {

@@ -516,7 +516,7 @@ async function bindSpikeKey(mod, engine, core) {
   );
 }
 var plugin_default = {
-  api: ">=2.0.0 <3.0.0",
+  api: ">=2.2.0 <3.0.0",
   /** The store discount is a table the game rolls itself, present only while its flag is on. */
   policies({ flags }) {
     return flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {};
