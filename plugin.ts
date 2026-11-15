@@ -252,7 +252,7 @@ async function bindSpikeKey(mod: ModApi2, engine: AdapterEngine, core: EngineCor
 }
 
 export default {
-  api: ">=2.2.0 <3.0.0",
+  api: ">=2.3.0 <3.0.0",
 
   policies({ flags }): Api2Policies {
     return {

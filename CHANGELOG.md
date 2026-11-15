@@ -30,7 +30,7 @@ were not retagged.
 
 ### Changed
 
-- [Visible] [Compatibility] Cutting Room Floor now requires mod API 2.2.0 or later.
+- [Visible] [Compatibility] Cutting Room Floor now requires mod API 2.3.0 or later.
 
 ## 1.4.0-beta.2 - 2026-10-30
 

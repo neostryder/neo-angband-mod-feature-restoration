@@ -516,7 +516,7 @@ async function bindSpikeKey(mod, engine, core) {
   );
 }
 var plugin_default = {
-  api: ">=2.2.0 <3.0.0",
+  api: ">=2.3.0 <3.0.0",
   policies({ flags }) {
     return {
       ...flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {},
