@@ -474,6 +474,8 @@ In 3.0.9 a cursed item did its harm through its own negative bonuses, and the cu
 | (Shattered) | To-hit and to-dam -d5, cursed | Air swing curse (to-hit -20) at 40, made sticky | 3.0.9 marked the weapon cursed and did no other harm. Air swing is the 4.2 weapon curse that costs to-hit and nothing else. |
 | (Blasted) | Armour -d10, cursed | Vulnerability curse (armour -50, aggravates) at 40 | 3.0.9 marked the armour cursed and did no other harm. Vulnerability is the sticky 4.2 curse for body armour that costs armour. It also aggravates, which the old ego did not. |
 
+The sticky flag comes from the curse record, so removing the last sticky curse frees the item. An item's own STICKY flag remains after uncursing. Sticky curses and classic uncursing are separate switches; enable both for the old equipment and removal rules. Cursed light sources do not regain 4.0's light suppression.
+
 ### Restore classic uncursing
 
 Angband 4.0's Remove Curse worked item by item. The ordinary form lifted every curse from each worn item whose curses were all light, and left an item alone if any of its curses was heavy or permanent. *Remove Curse* also cleared items with heavy curses. Neither touched an item with a permanent curse, and neither could fail or damage an item. This switch restores those rules and the chance for enchanting to break a curse.

@@ -15,9 +15,11 @@
 
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
+import * as core from "@rpgm-tools/neo-angband-core";
 import { OF, Rng, objCanTakeoff, objectPrep } from "@rpgm-tools/neo-angband-core";
 import { recordKey } from "@rpgm-tools/neo-angband-mod-sdk";
 import { bind } from "./test/game.js";
+import { uncurseOne } from "./src/classic-uncurse.js";
 
 const require = createRequire(import.meta.url);
 
@@ -124,6 +126,34 @@ describe("sticky-curses", () => {
     expect(objCanTakeoff(ring, game.objects.curses)).toBe(false);
     /* Curse indices match between the two binds because the section adds no curse record. */
     expect(objCanTakeoff(ring, bind([]).game.objects.curses)).toBe(true);
+  });
+
+  it.each([
+    [1, false, true],
+    [40, false, true],
+    [41, false, false],
+    [41, true, true],
+    [99, true, true],
+    [100, false, false],
+    [100, true, false],
+  ])("maps curse power %i and strong removal %s to release %s", (power, heavy, released) => {
+    const { game } = bind(["sticky-curses"]);
+    const ring = objectPrep(new Rng(1), game.objects, game.constants, kind(game, "Weakness", "ring")!, 5, "average");
+    const weakness = game.objects.curses.findIndex((curse) => curse?.name === "weakness");
+    ring.curses![weakness]!.power = power;
+    expect(objCanTakeoff(ring, game.objects.curses)).toBe(false);
+    expect(uncurseOne(core, game.objects.curses, ring, heavy)).toBe(released ? 1 : 0);
+    expect(objCanTakeoff(ring, game.objects.curses)).toBe(released);
+    expect(ring.flags.has(OF.FRAGILE)).toBe(false);
+  });
+
+  it("keeps an item's own STICKY flag after its removable curse is lifted", () => {
+    const { game } = bind(["sticky-curses"]);
+    const ring = objectPrep(new Rng(1), game.objects, game.constants, kind(game, "Weakness", "ring")!, 5, "average");
+    ring.flags.on(OF.STICKY);
+    expect(uncurseOne(core, game.objects.curses, ring, true)).toBe(1);
+    expect(ring.curses).toBeNull();
+    expect(objCanTakeoff(ring, game.objects.curses)).toBe(false);
   });
 
   it("gives both curse scrolls 3.0.9's allocation, rarity 1 from level 50, as commonness 20", () => {
