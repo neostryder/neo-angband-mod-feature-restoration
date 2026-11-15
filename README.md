@@ -460,7 +460,9 @@ Confusion breath follows 3.2.0's rules, with one change. A monster is confused f
 
 This switch puts a trap on every vault trap marker. Angband 4.0.5's build_vault in gen-room.c always called place_trap for a '^' marker, while 4.2.6 places a trap there only one time in four. Trap types, trap powers, and the grids that can hold a trap still follow the current game. The switch is off by default and needs a reload. It changes only vaults generated after that, and it works without any other restoration setting.
 
-Active searching follows the current game's rules. In Angband 4.0.5, a search rolled your searching skill separately for each of the nine nearby grids, and it used up a turn only when your adjusted chance was above zero (search and do_cmd_search in 4.0.5 cmd-cave.c).
+### Restore active searching
+
+This switch adds Angband 4.0.5's active search: s rolls your searching skill separately for each of the nine nearby grids to find hidden traps, secret doors, and chest traps. Blindness or darkness divides the chance by ten, and confusion or hallucination divides it by ten again, rounding down. A search spends a turn only when the adjusted chance is above zero, even when nothing is found (search and do_cmd_search in 4.0.5 cmd-cave.c). S or # toggles search mode without spending a turn; the mode searches on movement and hold, reduces speed by ten, and doubles regeneration under the current regeneration rules. Existing key bindings stay in place. The switch defaults to off and requires a reload. With it off, searching follows the current game's rules.
 
 ### Restore general trap density
 

@@ -11,14 +11,17 @@ Cutting Room Floor is the first-party mod that restores content cut from the bas
 | Lose Memories effect | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effect is `FEATURE_RESTORATION_LOSE_EXP`, because the game reads an effect line as `name:type:radius:other`, so a name with a colon never resolves. |
 | Bronze dragons' confusion | `start`, through `engine.registry` (`registry:projection`) | Works. The game resolves the breath's projection name against the mod's own projection table. |
 | Vault trap density | `start`, through `engine.registry` (`registry:glyph`) | The vault ^ handler calls host trap placement without a density roll. |
+| Active searching | `policies`: `classicSearch`, plus host-owned turn commands under `registry:command` and `keymap:write` | The default-off rule adds s to search and S or # to toggle search mode; existing bindings stay in place. |
 | General trap density | `policies`: `trapAllocation` under `registry:room`, present while `feature-restoration.general-trap-density` is on | Classic levels use 4.0.5's bounded one-die count and both room and corridor placement. |
 | Classic uncursing | `start`, through `engine.registry` (`registry:effect`) | Works. |
 | Sticky-curse scrolls | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effects are `FEATURE_RESTORATION_CURSE_WEAPON` and `FEATURE_RESTORATION_CURSE_ARMOR`. |
 | Spike command | `start`, through `engine.registry` (`registry:command`), plus `ui.commands` and `ui.keys` (`keymap:write`) | Works. `j` asks for a direction, then spikes that way and spends the turn the command returns. |
 
-## What is still open
+## Search behavior and remaining gaps
 
-Active searching stays unrestored until its design is decided. General dungeon trap density uses the host's generation policy, and vault trap density uses the existing glyph registry.
+### CRF-7: active searching
+
+The default-off feature-restoration.classic-search rule declares the classicSearch policy under registry:command. The search and toggle-search commands use turn: true with hostOperation: classic-search and toggle-classic-search, bound to s and S or # when those keys are free. The host owns hidden traps, doors, chests, RNG, search mode, and energy; the mod reads no hidden state and receives no discovery result. classic-search.test.ts compares independent per-grid rolls, both chance penalties, discoveries, and zero-chance energy against Angband 4.0.5 search, do_cmd_search, and do_cmd_toggle_search in cmd-cave.c. General dungeon trap density uses the host's generation policy, and vault trap density uses the existing glyph registry.
 
 ### CRF-9: cursed light suppression
 

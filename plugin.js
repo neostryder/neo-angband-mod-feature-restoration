@@ -515,10 +515,27 @@ async function bindSpikeKey(mod, engine, core) {
     bound.ok ? `feature-restoration: spike default key ${SPIKE_TRIGGER} bound` : `feature-restoration: spike default key ${SPIKE_TRIGGER} not bound; it is already claimed or unavailable`
   );
 }
+async function bindSearchKeys(mod) {
+  for (const [id, verb, hostOperation, triggers] of [
+    ["feature-restoration:search", "search", "classic-search", ["s"]],
+    ["feature-restoration:toggle-search", "toggle search", "toggle-classic-search", ["S", "#"]]
+  ]) {
+    const registered = await mod.ui.commands.register(id, verb, () => void 0, { turn: true, hostOperation });
+    if (!registered.ok) {
+      mod.meta.log(`feature-restoration: ${verb} keys are not bound; the command could not be registered`);
+      continue;
+    }
+    for (const trigger of triggers) {
+      const bound = await mod.ui.keys.bind(trigger, id);
+      mod.meta.log(bound.ok ? `feature-restoration: ${verb} default key ${trigger} is bound` : `feature-restoration: ${verb} default key ${trigger} is not bound; it is already claimed or unavailable`);
+    }
+  }
+}
 var plugin_default = {
   api: ">=2.3.0 <3.0.0",
   policies({ flags }) {
     return {
+      ...flags["feature-restoration.classic-search"] === true ? { classicSearch: true } : {},
       ...flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {},
       // Angband 4.0.5 classic_gen (gen-cave.c) uses randint1(k) and SET_BOTH through alloc_objects.
       ...flags["feature-restoration.general-trap-density"] === true ? {
@@ -539,6 +556,7 @@ var plugin_default = {
    * exists.
    */
   async start(mod) {
+    if (mod.meta.flags["feature-restoration.classic-search"] === true) await bindSearchKeys(mod);
     const { meta, engine } = createAdapter(mod);
     const { core: engineCore, registry } = engine;
     if (!registry) {

@@ -251,11 +251,32 @@ async function bindSpikeKey(mod: ModApi2, engine: AdapterEngine, core: EngineCor
   );
 }
 
+async function bindSearchKeys(mod: ModApi2): Promise<void> {
+  // Angband 4.0.5 ui-game.c offers s for search, S or # for do_cmd_toggle_search.
+  for (const [id, verb, hostOperation, triggers] of [
+    ["feature-restoration:search", "search", "classic-search", ["s"]],
+    ["feature-restoration:toggle-search", "toggle search", "toggle-classic-search", ["S", "#"]],
+  ] as const) {
+    const registered = await mod.ui.commands.register(id, verb, () => undefined, { turn: true, hostOperation });
+    if (!registered.ok) {
+      mod.meta.log(`feature-restoration: ${verb} keys are not bound; the command could not be registered`);
+      continue;
+    }
+    for (const trigger of triggers) {
+      const bound = await mod.ui.keys.bind(trigger, id);
+      mod.meta.log(bound.ok
+        ? `feature-restoration: ${verb} default key ${trigger} is bound`
+        : `feature-restoration: ${verb} default key ${trigger} is not bound; it is already claimed or unavailable`);
+    }
+  }
+}
+
 export default {
   api: ">=2.3.0 <3.0.0",
 
   policies({ flags }): Api2Policies {
     return {
+      ...(flags["feature-restoration.classic-search"] === true ? { classicSearch: true } : {}),
       ...(flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {}),
       // Angband 4.0.5 classic_gen (gen-cave.c) uses randint1(k) and SET_BOTH through alloc_objects.
       ...(flags["feature-restoration.general-trap-density"] === true ? {
@@ -278,6 +299,7 @@ export default {
    * exists.
    */
   async start(mod): Promise<void> {
+    if (mod.meta.flags["feature-restoration.classic-search"] === true) await bindSearchKeys(mod);
     const { meta, engine } = createAdapter(mod);
     const { core: engineCore, registry } = engine;
 

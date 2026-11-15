@@ -45,6 +45,13 @@
     ],
     "rules": [
       {
+        "flag": "feature-restoration.classic-search",
+        "title": "Restore active searching",
+        "description": "This setting restores Angband 4.0.5 active searching and search mode. The s key searches nearby grids; S or # toggles search mode. Existing key bindings stay in place.",
+        "default": false,
+        "requiresReload": true
+      },
+      {
         "flag": "feature-restoration.general-trap-density",
         "title": "Restore general trap density",
         "description": "Newly generated classic dungeon levels get Angband 4.0.5's general trap count, with traps in rooms as well as corridors. Trap types, powers, and other trap placement follow the current game.",

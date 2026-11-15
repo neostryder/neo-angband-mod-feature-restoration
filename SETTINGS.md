@@ -9,6 +9,7 @@ Sections always require a reload because the content is recomposed. The store di
 | `classic-class-chassis` | off | Restores historical caster experience penalties, skills and hit dice. | Yes, locked at birth. |
 | `feature-restoration.trap-density` | off | Puts a trap on every vault trap marker, with current trap types and powers. | Yes, register side; new vaults only. |
 | `feature-restoration.general-trap-density` | off | Uses the Angband 4.0.5 general trap count on classic dungeon levels, with traps in both rooms and corridors. | Yes, policy; new levels only. |
+| `feature-restoration.classic-search` | off | This setting adds active searching on s and search mode on S or # using Angband 4.0.5 chances; existing key bindings stay in place. | Yes, policy and commands. |
 | `feature-restoration.discounts` | off | Restores historical random discounts on newly stocked store items. | Yes, register side. |
 | `teleport-other` | off | Adds Teleport Other to Priest, Paladin, and Ranger spell lists. | Yes, section. |
 | `feature-restoration.spike-doors` | off | Adds Iron Spikes and the door spiking command. | Yes, section. |

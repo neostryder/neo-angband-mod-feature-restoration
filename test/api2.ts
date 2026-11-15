@@ -5,7 +5,7 @@
  * `register(host, ctx)` tests, so each of those reads the same way.
  */
 import { vi } from "vitest";
-import type { Api2Engine, Api2Policies, ModApi2 } from "@rpgm-tools/neo-angband-mod-sdk";
+import type { Api2CommandOptions, Api2Engine, Api2Policies, ModApi2 } from "@rpgm-tools/neo-angband-mod-sdk";
 // @ts-expect-error The test imports the handwritten source module.
 import plugin from "../plugin.ts";
 
@@ -33,7 +33,7 @@ export interface RegisteredCommand {
   readonly id: string;
   readonly verb: string;
   readonly run: (args: { readonly dir?: number }) => void | { readonly energy?: number } | Promise<void | { readonly energy?: number }>;
-  readonly options?: { readonly direction?: boolean; readonly turn?: boolean };
+  readonly options?: Api2CommandOptions;
 }
 
 function engineOf(game: FakeGame): Api2Engine | undefined {
