@@ -3,13 +3,14 @@
  * the flag gating for both. The spike fixture uses a real Core state so the
  * command follows Core's gear and object types.
  */
-import { describe, expect, it, vi } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import * as core from "@rpgm-tools/neo-angband-core";
+import { api2PolicyEffects, checkApi2Policies } from "@rpgm-tools/neo-angband-mod-sdk";
 // @ts-expect-error The test imports the handwritten source module.
 import { DISCOUNT_ROLL, IRON_SPIKE_NAME, MAX_SPIKE_POWER, SPIKE_COMMAND, SPIKE_KEY_COMMAND, SPIKE_TRIGGER, spikeDoor } from "./plugin.ts";
 import { LOSE_MEMORIES } from "./src/lose-memories.js";
 import type { EffectTextHandler } from "@rpgm-tools/neo-angband-core";
-import { bind, gamePack } from "./test/game.js";
+import { bind, gamePack, modManifest } from "./test/game.js";
 import { engineHooksFor, policiesFor, startWith, type RegisteredCommand } from "./test/api2.js";
 
 const { Rng } = core;
@@ -76,6 +77,97 @@ describe("policies - discount flag gating", () => {
   it("declares the discount table when the toggle is on", () => {
     expect(policiesFor({ "feature-restoration.discounts": true })).toEqual({ storeDiscountRoll: DISCOUNT_ROLL });
   });
+});
+
+describe("policies - classic general trap allocation", () => {
+  const flag = "feature-restoration.general-trap-density";
+  let deps: core.GenDeps;
+
+  beforeAll(() => {
+    deps = core.genDeps(bind([]).game, false, "no-player");
+  });
+
+  function context(depth: number, seed: number, enabled?: boolean): core.CaveBuildContext {
+    const profile = deps.profiles.find("classic")!;
+    const simple = profile.roomProfiles.find((room) => room.builder === "simple")!;
+    const tables = policiesFor(enabled === undefined ? {} : { [flag]: enabled }) ?? {};
+    const allocation = api2PolicyEffects(tables).registrations.trapAllocation;
+    return {
+      ...deps,
+      rng: new Rng(seed),
+      dun: new core.Dun(deps.constants),
+      profile: { ...profile, tun: { ...profile.tun, jct: 0 }, roomProfiles: [{ ...simple, cutoff: 100, rarity: 0 }] },
+      depth,
+      minHeight: 1,
+      minWidth: 1,
+      // Simple rooms and no junction traps isolate classic_gen's general allocation.
+      trapKinds: null,
+      hooks: { trapAllocation: (incoming) => allocation ?? incoming },
+    };
+  }
+
+  it("declares the 4.0.5 roll and both placement sets behind its own default-off rule", () => {
+    const manifest = modManifest() as { capabilities?: string[]; rules?: Array<{ flag: string; default: boolean; requiresReload?: boolean }> };
+    expect(manifest.capabilities).toContain("registry:room");
+    expect(manifest.rules?.find((rule) => rule.flag === flag)).toMatchObject({ default: false, requiresReload: true });
+    expect(policiesFor({})?.trapAllocation).toBeUndefined();
+    expect(policiesFor({ [flag]: false })?.trapAllocation).toBeUndefined();
+    expect(policiesFor({ "feature-restoration.trap-density": true })?.trapAllocation).toBeUndefined();
+    const policies = policiesFor({ [flag]: true })!;
+    expect(checkApi2Policies(policies)).toBeNull();
+    expect(policies.trapAllocation).toEqual({ kind: "trap-allocation", count: { depthDivisor: 3, min: 2, max: 10, divisor: 1 }, placement: "both" });
+    expect(policiesFor({ [flag]: true, "feature-restoration.discounts": true })?.storeDiscountRoll).toEqual(DISCOUNT_ROLL);
+    expect(api2PolicyEffects(policies, () => false).registrations.trapAllocation).toBeUndefined();
+    expect(api2PolicyEffects(policies, (cap) => cap === "registry:room").registrations.trapAllocation).toEqual(policies.trapAllocation);
+  });
+
+  it("keeps the default level and RNG identical when the rule is explicitly off", () => {
+    const absent = context(30, 4242);
+    const disabled = context(30, 4242, false);
+    const first = core.classicGen(absent).gen!;
+    const second = core.classicGen(disabled).gen!;
+    expect(first).not.toBeNull();
+    expect(second).not.toBeNull();
+    expect(second.c.snapshotSquares(true)).toEqual(first.c.snapshotSquares(true));
+    expect(second.trapGrids).toEqual(first.trapGrids);
+    expect(disabled.rng.getState()).toEqual(absent.rng.getState());
+  });
+
+  it.each([1, 8, 9, 29, 30, 60])("matches classic_gen's count distribution and alloc_objects placement at depth %s", (depth) => {
+    const sides = Math.max(2, Math.min(Math.trunc(depth / 3), 10));
+    const counts = Array<number>(sides).fill(0);
+    let rooms = 0;
+    let corridors = 0;
+    const trials = 128;
+    for (let seed = 1; seed <= trials; seed++) {
+      const ctx = context(depth, seed * 7919, true);
+      const allocation = ctx.hooks!.trapAllocation!;
+      let expected = 0;
+      ctx.hooks = { trapAllocation: (incoming) => {
+        const twin = new Rng(1);
+        twin.setState(ctx.rng.getState());
+        expected = twin.randint1(sides);
+        return allocation(incoming);
+      } };
+      const built = core.classicGen(ctx);
+      expect(built.error).toBeNull();
+      const g = built.gen!;
+      expect(g.trapGrids.size).toBe(expected);
+      counts[expected - 1]!++;
+      for (const index of g.trapGrids) {
+        const grid = core.loc(index % g.c.width, Math.trunc(index / g.c.width));
+        if (g.c.sqinfoHas(grid, core.SQUARE.ROOM)) rooms++;
+        else corridors++;
+      }
+    }
+    for (const count of counts) {
+      expect(count).toBeGreaterThan(0);
+      expect(Math.abs(count / trials - 1 / sides)).toBeLessThan(0.13);
+    }
+    expect(rooms).toBeGreaterThan(0);
+    expect(corridors).toBeGreaterThan(0);
+    console.log(`depth ${depth}: counts 1-${sides} = ${counts.join(",")}; rooms ${rooms}, corridors ${corridors}`);
+  }, 30_000);
 });
 
 describe("start - Lose Memories effect", () => {

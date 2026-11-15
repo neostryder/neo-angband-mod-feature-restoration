@@ -30,6 +30,7 @@
       "registry:projection",
       "registry:command",
       "registry:glyph",
+      "registry:room",
       "keymap:write",
       "engine:access"
     ],
@@ -43,6 +44,13 @@
       "plugin"
     ],
     "rules": [
+      {
+        "flag": "feature-restoration.general-trap-density",
+        "title": "Restore general trap density",
+        "description": "Classic dungeon levels allocate 1d(max(2, min(depth / 3, 10))) general traps in rooms and corridors, as Angband 4.0.5 did. Trap types, powers, and other trap placement follow the current game.",
+        "default": false,
+        "requiresReload": true
+      },
       {
         "flag": "feature-restoration.trap-density",
         "title": "Restore vault trap density",

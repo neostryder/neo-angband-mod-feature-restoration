@@ -254,9 +254,14 @@ async function bindSpikeKey(mod: ModApi2, engine: AdapterEngine, core: EngineCor
 export default {
   api: ">=2.2.0 <3.0.0",
 
-  /** The store discount is a table the game rolls itself, present only while its flag is on. */
   policies({ flags }): Api2Policies {
-    return flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {};
+    return {
+      ...(flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {}),
+      // Angband 4.0.5 classic_gen (gen-cave.c) uses randint1(k) and SET_BOTH through alloc_objects.
+      ...(flags["feature-restoration.general-trap-density"] === true ? {
+        trapAllocation: { kind: "trap-allocation", count: { depthDivisor: 3, min: 2, max: 10, divisor: 1 }, placement: "both" },
+      } : {}),
+    };
   },
 
   /** Junk ignore marks its kinds ignored on a new character, through the game's own `newCharacter` hook. */

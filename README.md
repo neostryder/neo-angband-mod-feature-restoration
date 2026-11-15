@@ -39,6 +39,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
 | **Restore vault trap density** (`feature-restoration.trap-density`) | off | Puts a trap on every vault trap marker instead of one in four. |
+| **Restore general trap density** (`feature-restoration.general-trap-density`) | off | Restores the 4.0.5 general trap count across rooms and corridors on classic dungeon levels. |
 | **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
 | **Make every curse sticky** (`sticky-curses-all`) | off | Every curse keeps worn equipment on until it is removed, including curses 4.0 never had. Harsher than any release of Angband. |
 | **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
@@ -459,7 +460,11 @@ Confusion breath follows 3.2.0's rules, with one change. A monster is confused f
 
 This switch puts a trap on every vault trap marker. Angband 4.0.5's build_vault in gen-room.c always called place_trap for a '^' marker, while 4.2.6 places a trap there only one time in four. Trap types, trap powers, and the grids that can hold a trap still follow the current game. The switch is off by default and needs a reload. It changes only vaults generated after that, and it works without any other restoration setting.
 
-Active searching and general dungeon trap placement keep the current game's rules until the engine has new hooks for finding hidden things and for level generation. In Angband 4.0.5, search in cmd-cave.c rolled the searching skill separately on each of the nine nearby grids, and do_cmd_search spent a turn only when the adjusted chance was above zero. Its classic_gen in gen-cave.c placed 1d(max(2, min(depth / 3, 10))) traps across rooms and corridors through alloc_objects and alloc_object in gen-util.c.
+Active searching keeps the current game's rules. In Angband 4.0.5, search in cmd-cave.c rolled the searching skill separately on each of the nine nearby grids, and do_cmd_search spent a turn only when the adjusted chance was above zero.
+
+### Restore general trap density
+
+This switch restores Angband 4.0.5's classic_gen in gen-cave.c: it rolls one die with max(2, min(depth / 3, 10)) sides, rounding depth / 3 down, and allocates that many general traps across rooms and corridors through alloc_objects and alloc_object in gen-util.c. The current game divides that roll by five and limits general traps to corridors. The switch is off by default, requires a reload, and affects newly generated classic dungeon levels. Trap types, powers, room traps, vault traps, junction traps, and other dungeon profiles keep their current rules. The vault trap density switch works independently.
 
 ### Restore sticky curses
 

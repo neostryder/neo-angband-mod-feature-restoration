@@ -24,6 +24,10 @@ were not retagged.
 
 ## [Unreleased]
 
+### Added
+
+- [Visible] [Balance] Restore general trap density allocates the 4.0.5 general trap count across rooms and corridors on newly generated classic dungeon levels. The setting defaults to off and requires a reload.
+
 ### Changed
 
 - [Visible] [Compatibility] Cutting Room Floor requires mod API 2.2.0 or later.

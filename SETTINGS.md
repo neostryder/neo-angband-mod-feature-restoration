@@ -8,6 +8,7 @@ Sections always require a reload because the content is recomposed. The store di
 | `classic-prayer-books` | off | Restores nine prayer books for Priest and Paladin. | Yes, locked at birth. |
 | `classic-class-chassis` | off | Restores historical caster experience penalties, skills and hit dice. | Yes, locked at birth. |
 | `feature-restoration.trap-density` | off | Puts a trap on every vault trap marker, with current trap types and powers. | Yes, register side; new vaults only. |
+| `feature-restoration.general-trap-density` | off | Restores the 4.0.5 general trap count across rooms and corridors on classic dungeon levels. | Yes, policy; new levels only. |
 | `feature-restoration.discounts` | off | Restores historical random discounts on newly stocked store items. | Yes, register side. |
 | `teleport-other` | off | Adds Teleport Other to Priest, Paladin, and Ranger spell lists. | Yes, section. |
 | `feature-restoration.spike-doors` | off | Adds Iron Spikes and the door spiking command. | Yes, section. |

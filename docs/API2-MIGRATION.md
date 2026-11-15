@@ -1,6 +1,6 @@
 # Cutting Room Floor and mod API 2
 
-Cutting Room Floor, the first-party mod that restores content cut from the base game, runs on mod API 2. Its manifest asks for API `>=2.2.0 <3.0.0` and engine `>=1.23.0-beta.1` and holds eight capabilities: `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, `registry:glyph`, `keymap:write`, and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks`, and `start`. Only `src/core-adapter.ts` reads the engine domain. The rest of the code gets its flags, its log, and the engine names from `src/core-adapter-api2.ts`.
+Cutting Room Floor, the first-party mod that restores content cut from the base game, runs on mod API 2. Its manifest asks for API `>=2.2.0 <3.0.0` and engine `>=1.23.0-beta.1` and holds nine capabilities: `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, `registry:glyph`, `registry:room`, `keymap:write`, and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks`, and `start`. Only `src/core-adapter.ts` reads the engine domain. The rest of the code gets its flags, its log, and the engine names from `src/core-adapter-api2.ts`.
 
 ## What each restoration uses
 
@@ -11,13 +11,14 @@ Cutting Room Floor, the first-party mod that restores content cut from the base 
 | Lose Memories effect | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effect is `FEATURE_RESTORATION_LOSE_EXP`, because the game reads an effect line as `name:type:radius:other`, so a name with a colon never resolves. |
 | Bronze dragons' confusion | `start`, through `engine.registry` (`registry:projection`) | Works. The game resolves the breath's projection name against the mod's own projection table. |
 | Vault trap density | `start`, through `engine.registry` (`registry:glyph`) | The vault ^ handler calls host trap placement without a density roll. |
+| General trap density | `policies`: `trapAllocation` under `registry:room`, present while `feature-restoration.general-trap-density` is on | Classic levels use 4.0.5's bounded one-die count and both room and corridor placement. |
 | Classic uncursing | `start`, through `engine.registry` (`registry:effect`) | Works. |
 | Sticky-curse scrolls | `start`, through `engine.registry` (`registry:effect`, `registry:effect-info`) | Works. The effects are `FEATURE_RESTORATION_CURSE_WEAPON` and `FEATURE_RESTORATION_CURSE_ARMOR`. |
 | Spike command | `start`, through `engine.registry` (`registry:command`), plus `ui.commands` and `ui.keys` (`keymap:write`) | Works. `j` asks for a direction, then spikes that way and spends the turn the command returns. |
 
 ## What is still open
 
-Active searching needs a host operation that applies the old per-grid search rolls without exposing hidden traps, doors, or chests. General dungeon trap density needs a generation policy that sets trap count and placement eligibility, because the finished-level hook forbids RNG. Vault trap density uses the existing glyph registry.
+Active searching remains pending a design decision. General dungeon trap density uses the host's generation policy, and vault trap density uses the existing glyph registry.
 
 The game resolves a mod's projection name for a breath, a monster casts a spell a mod added, a key bound to a direction command runs inside the turn when the command is registered with `turn: true`, and the load-time check leaves out findings the base game's own records already raise.
 

@@ -30,6 +30,7 @@ switch has no flag of its own, the game knows it by its section id instead.
 | Add the Amulet of Amandil (never released) | `amandil` | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | Restore the bronze dragons | `feature-restoration.bronze-dragons` | off | Bronze dragons breathed confusion. |
 | Restore vault trap density | `feature-restoration.trap-density` | off | Puts a trap on every vault trap marker instead of one in four. |
+| Restore general trap density | `feature-restoration.general-trap-density` | off | Restores the 4.0.5 general trap count across rooms and corridors on classic dungeon levels. |
 | Restore sticky curses | `feature-restoration.sticky-curses` | off | Angband 4.0 made a cursed item impossible to take off, and nothing else could be wielded into its slot, until the curse itself was lifted. |
 | Make every curse sticky | `feature-restoration.sticky-curses-all` | off | Angband 4.0 kept a cursed item on until its curse was lifted, but 4.0 had only a handful of curses. This pins every 4.2 curse that way, siren, stone, steelskin and the summoning curses included. Remove Curse can lift a curse of power 40 or less and *Remove Curse* one of up to 99, while a power of 100 never comes off. It works on its own or alongside Restore sticky curses. |
 | Restore classic uncursing | `feature-restoration.classic-uncurse` | off | Angband 4.0's Remove Curse cleared every worn item whose curses were all light, at once, and never damaged the item; its stronger form, *Remove Curse*, also lifted heavy curses, and a permanent curse never came off. |
@@ -41,7 +42,7 @@ switch has no flag of its own, the game knows it by its section id instead.
 - **Engine:** `>=1.23.0-beta.1`
 - **Shape:** `content`
 - **Facets:** `content`, `plugin`
-- **Capabilities:** `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, `engine:access`
+- **Capabilities:** `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, `registry:glyph`, `registry:room`, `keymap:write`, and `engine:access`
 
 What a capability string permits, and what a mod that asks for one cannot do
 without it, is in [the mod lifecycle
