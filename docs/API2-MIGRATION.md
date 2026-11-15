@@ -1,6 +1,6 @@
 # Cutting Room Floor and mod API 2
 
-Cutting Room Floor, the first-party mod that restores content cut from the base game, runs on mod API 2. Its manifest asks for API `>=2.2.0 <3.0.0` and engine `>=1.23.0-beta.1` and holds nine capabilities: `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, `registry:glyph`, `registry:room`, `keymap:write`, and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks`, and `start`. Only `src/core-adapter.ts` reads the engine domain. The rest of the code gets its flags, its log, and the engine names from `src/core-adapter-api2.ts`.
+Cutting Room Floor is the first-party mod that restores content cut from the base game, and it runs on mod API 2. Its manifest asks for API `>=2.2.0 <3.0.0` and engine `>=1.23.0-beta.1` and holds nine capabilities: `registry:store`, `registry:effect`, `registry:effect-info`, `registry:projection`, `registry:command`, `registry:glyph`, `registry:room`, `keymap:write`, and `engine:access`. `plugin.ts` exports one definition with `policies`, `engineHooks`, and `start`. Only `src/core-adapter.ts` reads the engine domain, and the rest of the code gets its flags, its log, and the engine names from `src/core-adapter-api2.ts`.
 
 ## What each restoration uses
 
@@ -18,11 +18,11 @@ Cutting Room Floor, the first-party mod that restores content cut from the base 
 
 ## What is still open
 
-Active searching remains pending a design decision. General dungeon trap density uses the host's generation policy, and vault trap density uses the existing glyph registry.
+Active searching stays unrestored until its design is decided. General dungeon trap density uses the host's generation policy, and vault trap density uses the existing glyph registry.
 
 ### CRF-9: cursed light suppression
 
-Angband 4.0.5's calc_torch in src/player-calcs.c tests of_has(obj->flags, OF_LIGHT_CURSE) before adding each worn object's light contribution. It does not test whether any curse exists or whether an item is sticky. Core d27ed50f9's cursedLightGivesNone in packages/core/src/player/calcs.ts accepts OF.STICKY or any curse with power above zero. The boolean cursedLightRadius policy cannot select the historical flag or distinguish a restored curse from a later curse. Neither sticky-curses setting enables this policy.
+Angband 4.0.5's calc_torch in src/player-calcs.c tests of_has(obj->flags, OF_LIGHT_CURSE) before adding each worn object's light, and it does not test for other curses or for stickiness. Core d27ed50f9's cursedLightGivesNone in packages/core/src/player/calcs.ts accepts OF.STICKY or any curse with power above zero. The cursedLightRadius policy is a boolean, so it cannot select the historical flag or tell a restored curse from a later one. Neither sticky-curses setting turns this policy on.
 
 | ID | What fails | Smallest addition | Priority | Status |
 | --- | --- | --- | --- | --- |

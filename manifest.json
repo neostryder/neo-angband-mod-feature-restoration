@@ -47,7 +47,7 @@
       {
         "flag": "feature-restoration.general-trap-density",
         "title": "Restore general trap density",
-        "description": "Classic dungeon levels allocate 1d(max(2, min(depth / 3, 10))) general traps in rooms and corridors, as Angband 4.0.5 did. Trap types, powers, and other trap placement follow the current game.",
+        "description": "Newly generated classic dungeon levels get Angband 4.0.5's general trap count, with traps in rooms as well as corridors. Trap types, powers, and other trap placement follow the current game.",
         "default": false,
         "requiresReload": true
       },

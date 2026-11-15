@@ -26,11 +26,11 @@ were not retagged.
 
 ### Added
 
-- [Visible] [Balance] Restore general trap density allocates the 4.0.5 general trap count across rooms and corridors on newly generated classic dungeon levels. The setting defaults to off and requires a reload.
+- [Visible] [Balance] Added the Restore general trap density setting, off by default. It gives newly generated classic dungeon levels Angband 4.0.5's general trap count, in rooms as well as corridors, and changing it requires a reload.
 
 ### Changed
 
-- [Visible] [Compatibility] Cutting Room Floor requires mod API 2.2.0 or later.
+- [Visible] [Compatibility] Cutting Room Floor now requires mod API 2.2.0 or later.
 
 ## 1.4.0-beta.2 - 2026-10-30
 

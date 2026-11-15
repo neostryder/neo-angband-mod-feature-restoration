@@ -39,7 +39,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
 | **Restore vault trap density** (`feature-restoration.trap-density`) | off | Puts a trap on every vault trap marker instead of one in four. |
-| **Restore general trap density** (`feature-restoration.general-trap-density`) | off | Restores the 4.0.5 general trap count across rooms and corridors on classic dungeon levels. |
+| **Restore general trap density** (`feature-restoration.general-trap-density`) | off | Uses the Angband 4.0.5 general trap count on classic dungeon levels, with traps in both rooms and corridors. |
 | **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
 | **Make every curse sticky** (`sticky-curses-all`) | off | Every curse keeps worn equipment on until it is removed, including curses 4.0 never had. Harsher than any release of Angband. |
 | **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
@@ -460,7 +460,7 @@ Confusion breath follows 3.2.0's rules, with one change. A monster is confused f
 
 This switch puts a trap on every vault trap marker. Angband 4.0.5's build_vault in gen-room.c always called place_trap for a '^' marker, while 4.2.6 places a trap there only one time in four. Trap types, trap powers, and the grids that can hold a trap still follow the current game. The switch is off by default and needs a reload. It changes only vaults generated after that, and it works without any other restoration setting.
 
-Active searching keeps the current game's rules. In Angband 4.0.5, search in cmd-cave.c rolled the searching skill separately on each of the nine nearby grids, and do_cmd_search spent a turn only when the adjusted chance was above zero.
+Active searching follows the current game's rules. In Angband 4.0.5, a search rolled your searching skill separately for each of the nine nearby grids, and it used up a turn only when your adjusted chance was above zero (search and do_cmd_search in 4.0.5 cmd-cave.c).
 
 ### Restore general trap density
 
@@ -486,7 +486,9 @@ In 3.0.9 a cursed item did its harm through its own negative bonuses, and the cu
 | (Shattered) | To-hit and to-dam -d5, cursed | Air swing curse (to-hit -20) at 40, made sticky | 3.0.9 marked the weapon cursed and did no other harm. Air swing is the 4.2 weapon curse that costs to-hit and nothing else. |
 | (Blasted) | Armour -d10, cursed | Vulnerability curse (armour -50, aggravates) at 40 | 3.0.9 marked the armour cursed and did no other harm. Vulnerability is the sticky 4.2 curse for body armour that costs armour. It also aggravates, which the old ego did not. |
 
-The sticky flag comes from the curse record, so removing an item's last sticky curse frees the item. A STICKY flag on the item itself stays after uncursing. Sticky curses and classic uncursing are separate switches, and the old equipment and removal rules need both of them on. A cursed light source does not get back 4.0's light suppression: mod API 2.2.0 can suppress any cursed or sticky item's light, but cannot select the LIGHT_CURSE flag that 4.0.5's calc_torch tested. The [API 2 gap](docs/API2-MIGRATION.md#crf-9-cursed-light-suppression) records the missing selector.
+An item is sticky because of its curses, so removing its last sticky curse frees the item. An item that is sticky in its own right, without a curse, stays sticky after you uncurse it. Sticky curses and classic uncursing are separate switches, and you need both on to get the old rules for wearing and removing cursed equipment.
+
+Cursed light sources still give light. In 4.0.5, a worn item with the light curse gave no light at all (calc_torch and the LIGHT_CURSE flag in 4.0.5). Mod API 2.2.0 can only take light away from every cursed or sticky item, and that would also darken items with unrelated modern curses. The [API 2 gap](docs/API2-MIGRATION.md#crf-9-cursed-light-suppression) records the missing way to pick out only light-cursed items.
 
 ### Restore classic uncursing
 
