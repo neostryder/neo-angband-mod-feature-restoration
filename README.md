@@ -486,7 +486,7 @@ In 3.0.9 a cursed item did its harm through its own negative bonuses, and the cu
 | (Shattered) | To-hit and to-dam -d5, cursed | Air swing curse (to-hit -20) at 40, made sticky | 3.0.9 marked the weapon cursed and did no other harm. Air swing is the 4.2 weapon curse that costs to-hit and nothing else. |
 | (Blasted) | Armour -d10, cursed | Vulnerability curse (armour -50, aggravates) at 40 | 3.0.9 marked the armour cursed and did no other harm. Vulnerability is the sticky 4.2 curse for body armour that costs armour. It also aggravates, which the old ego did not. |
 
-The sticky flag comes from the curse record, so removing an item's last sticky curse frees the item. A STICKY flag on the item itself stays after uncursing. Sticky curses and classic uncursing are separate switches, and the old equipment and removal rules need both of them on. A cursed light source does not get back 4.0's light suppression.
+The sticky flag comes from the curse record, so removing an item's last sticky curse frees the item. A STICKY flag on the item itself stays after uncursing. Sticky curses and classic uncursing are separate switches, and the old equipment and removal rules need both of them on. A cursed light source does not get back 4.0's light suppression: mod API 2.2.0 can suppress any cursed or sticky item's light, but cannot select the LIGHT_CURSE flag that 4.0.5's calc_torch tested. The [API 2 gap](docs/API2-MIGRATION.md#crf-9-cursed-light-suppression) records the missing selector.
 
 ### Restore classic uncursing
 

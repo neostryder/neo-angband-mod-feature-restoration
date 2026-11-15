@@ -20,6 +20,14 @@ Cutting Room Floor, the first-party mod that restores content cut from the base 
 
 Active searching remains pending a design decision. General dungeon trap density uses the host's generation policy, and vault trap density uses the existing glyph registry.
 
+### CRF-9: cursed light suppression
+
+Angband 4.0.5's calc_torch in src/player-calcs.c tests of_has(obj->flags, OF_LIGHT_CURSE) before adding each worn object's light contribution. It does not test whether any curse exists or whether an item is sticky. Core d27ed50f9's cursedLightGivesNone in packages/core/src/player/calcs.ts accepts OF.STICKY or any curse with power above zero. The boolean cursedLightRadius policy cannot select the historical flag or distinguish a restored curse from a later curse. Neither sticky-curses setting enables this policy.
+
+| ID | What fails | Smallest addition | Priority | Status |
+| --- | --- | --- | --- | --- |
+| CRF-9 | Restoring 4.0.5 light suppression through cursedLightRadius also suppresses light for unrelated active 4.2 curses and sticky-only items. Evidence: 4.0.5 calc_torch tests the object's OF_LIGHT_CURSE; d27ed50f9 cursedLightGivesNone tests OF.STICKY or any positive curse power. | Add a LIGHT_CURSE-equivalent marker to object and curse records, plus a cursedLightRadius selector that tests that marker while Core retains the item truth. | degrade | Open against d27ed50f9; the boolean policy remains unused. |
+
 The game resolves a mod's projection name for a breath, a monster casts a spell a mod added, a key bound to a direction command runs inside the turn when the command is registered with `turn: true`, and the load-time check leaves out findings the base game's own records already raise.
 
 ## How the tests drive the entry
