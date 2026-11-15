@@ -46,7 +46,7 @@
       {
         "flag": "feature-restoration.trap-density",
         "title": "Restore vault trap density",
-        "description": "Places a trap at every vault trap marker, as Angband 4.0.5 did, instead of rolling a one-in-four chance. Trap types and powers follow the current game. Other trap placement stays unchanged.",
+        "description": "Puts a trap on every vault trap marker, as Angband 4.0.5 did, instead of on one marker in four. Trap types, trap powers, and all other trap placement follow the current game.",
         "default": false,
         "requiresReload": true
       },

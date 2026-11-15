@@ -38,7 +38,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the novices, swordsmen and angels** (`monsters-3x`) | off | Brings back sixteen monsters from Angband 3.x, alongside the monsters that replaced them. |
 | **Add the Amulet of Amandil (never released)** (`amandil`) | off | Upstream wrote this artifact in 2011 and left it commented out, and it has stayed that way in every release since, 4.2.6 included. |
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
-| **Restore vault trap density** (`feature-restoration.trap-density`) | off | Places traps at every vault trap marker instead of one in four. |
+| **Restore vault trap density** (`feature-restoration.trap-density`) | off | Puts a trap on every vault trap marker instead of one in four. |
 | **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
 | **Make every curse sticky** (`sticky-curses-all`) | off | Every curse keeps worn equipment on until it is removed, including curses 4.0 never had. Harsher than any release of Angband. |
 | **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
@@ -457,9 +457,9 @@ Confusion breath follows 3.2.0's rules, with one change. A monster is confused f
 
 ### Restore vault trap density
 
-This switch places a trap at every vault trap marker. Angband 4.0.5's build_vault in gen-room.c always called place_trap for '^'; 4.2.6 does so only one time in four. Trap types, powers, and placement eligibility follow the current game. This switch defaults to off, requires a reload, and affects newly generated vaults. It does not require another restoration setting.
+This switch puts a trap on every vault trap marker. Angband 4.0.5's build_vault in gen-room.c always called place_trap for a '^' marker, while 4.2.6 places a trap there only one time in four. Trap types, trap powers, and the grids that can hold a trap still follow the current game. The switch is off by default and needs a reload. It changes only vaults generated after that, and it works without any other restoration setting.
 
-Active searching and general dungeon trap placement retain the current game's rules. Angband 4.0.5's search in cmd-cave.c rolled searching skill independently on each of nine nearby grids, and do_cmd_search spent a turn only when the adjusted chance exceeded zero. Its classic_gen in gen-cave.c allocated 1d(max(2, min(depth / 3, 10))) traps across rooms and corridors through alloc_objects and alloc_object in gen-util.c. These rules require host seams for hidden discovery and generation placement.
+Active searching and general dungeon trap placement keep the current game's rules until the engine has new hooks for finding hidden things and for level generation. In Angband 4.0.5, search in cmd-cave.c rolled the searching skill separately on each of the nine nearby grids, and do_cmd_search spent a turn only when the adjusted chance was above zero. Its classic_gen in gen-cave.c placed 1d(max(2, min(depth / 3, 10))) traps across rooms and corridors through alloc_objects and alloc_object in gen-util.c.
 
 ### Restore sticky curses
 
@@ -481,7 +481,7 @@ In 3.0.9 a cursed item did its harm through its own negative bonuses, and the cu
 | (Shattered) | To-hit and to-dam -d5, cursed | Air swing curse (to-hit -20) at 40, made sticky | 3.0.9 marked the weapon cursed and did no other harm. Air swing is the 4.2 weapon curse that costs to-hit and nothing else. |
 | (Blasted) | Armour -d10, cursed | Vulnerability curse (armour -50, aggravates) at 40 | 3.0.9 marked the armour cursed and did no other harm. Vulnerability is the sticky 4.2 curse for body armour that costs armour. It also aggravates, which the old ego did not. |
 
-The sticky flag comes from the curse record, so removing the last sticky curse frees the item. An item's own STICKY flag remains after uncursing. Sticky curses and classic uncursing are separate switches; enable both for the old equipment and removal rules. Cursed light sources do not regain 4.0's light suppression.
+The sticky flag comes from the curse record, so removing an item's last sticky curse frees the item. A STICKY flag on the item itself stays after uncursing. Sticky curses and classic uncursing are separate switches, and the old equipment and removal rules need both of them on. A cursed light source does not get back 4.0's light suppression.
 
 ### Restore classic uncursing
 

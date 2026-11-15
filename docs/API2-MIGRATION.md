@@ -17,7 +17,7 @@ Cutting Room Floor, the first-party mod that restores content cut from the base 
 
 ## What is still open
 
-Active searching needs a host operation that applies the old per-grid search rolls without exposing hidden traps, doors, or chests. General dungeon density needs a generation policy for trap count and placement eligibility; the finished-level hook forbids RNG. Vault trap density uses the existing glyph registry.
+Active searching needs a host operation that applies the old per-grid search rolls without exposing hidden traps, doors, or chests. General dungeon trap density needs a generation policy that sets trap count and placement eligibility, because the finished-level hook forbids RNG. Vault trap density uses the existing glyph registry.
 
 The game resolves a mod's projection name for a breath, a monster casts a spell a mod added, a key bound to a direction command runs inside the turn when the command is registered with `turn: true`, and the load-time check leaves out findings the base game's own records already raise.
 
