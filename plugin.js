@@ -532,7 +532,7 @@ async function bindSearchKeys(mod) {
   }
 }
 var plugin_default = {
-  api: ">=2.3.0 <3.0.0",
+  api: ">=2.6.0 <3.0.0",
   policies({ flags }) {
     return {
       ...flags["feature-restoration.classic-search"] === true ? { classicSearch: true } : {},

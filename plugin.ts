@@ -272,7 +272,7 @@ async function bindSearchKeys(mod: ModApi2): Promise<void> {
 }
 
 export default {
-  api: ">=2.3.0 <3.0.0",
+  api: ">=2.6.0 <3.0.0",
 
   policies({ flags }): Api2Policies {
     return {
