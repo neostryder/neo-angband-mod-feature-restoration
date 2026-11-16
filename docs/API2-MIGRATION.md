@@ -25,9 +25,9 @@ Cutting Room Floor is the first-party mod that restores content cut from the bas
 
 ### CRF-9: cursed light suppression
 
-Angband 4.0.5's calc_torch in src/player-calcs.c tests of_has(obj->flags, OF_LIGHT_CURSE) before adding each worn object's light, and it does not test for other curses or for stickiness. Core 3eafc1360's cursedLightRadius accepts { marker: "LIGHT_CURSE" }, which selects only an object kind with light-curse: true or an active curse whose record has that marker. The selector ignores sticky-only items and unrelated active curses. Core's cursedLightGivesNone reads obj.kind.lightCurse and active curse records, but neither artifact nor ego records can supply the marker. Neither sticky-curses setting turns this policy on.
+In Angband 4.0.5, `calc_torch` in `src/player-calcs.c` tests `of_has(obj->flags, OF_LIGHT_CURSE)` before adding each worn object's light. It does not test for other curses or for stickiness. In Core 3eafc1360, `cursedLightRadius` accepts `{ marker: "LIGHT_CURSE" }`. That selector matches only an object kind with `light-curse: true` or an active curse whose record has the marker, and it skips sticky-only items and unrelated active curses. `cursedLightGivesNone` reads `obj.kind.lightCurse` and active curse records, but neither artifact nor ego records can supply the marker. Neither sticky-curses setting turns this policy on.
 
-The 4.0.5 tag's lib/gamedata/object.txt has no LIGHT_CURSE records. Its artifact.txt has ten, and ego_item.txt has fourteen. The complete mapping to Core content follows; the curse counterparts are the ones sticky-curses already overrides. No marker is applied while artifact and ego support remains missing. Air swing, used by the restored (Shattered) ego, has no 4.0.5 LIGHT_CURSE counterpart.
+In the 4.0.5 tag, `lib/gamedata/object.txt` has no `LIGHT_CURSE` records, `artifact.txt` has ten, and `ego_item.txt` has fourteen. The following table maps each of them to Core content. The curse counterparts are the curses sticky-curses already overrides. No marker is applied while artifact and ego support is missing. Air swing, used by the restored (Shattered) ego, has no 4.0.5 `LIGHT_CURSE` counterpart.
 
 | 4.0.5 file and record ID | Core record | Selector support |
 | --- | --- | --- |
