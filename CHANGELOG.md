@@ -26,7 +26,7 @@ were not retagged.
 
 ### Added
 
-- [Visible] [Content] The Restore active searching setting adds Angband 4.0.5 active searches on s and search mode on S or #. It defaults to off and keeps existing key bindings in place.
+- [Visible] [Content] Added the Restore active searching setting, which brings back Angband 4.0.5 active searches on s and search mode on S or #. It is off by default, and keys already in use keep their bindings.
 - [Visible] [Balance] Added the Restore general trap density setting, off by default. It gives newly generated classic dungeon levels Angband 4.0.5's general trap count, in rooms as well as corridors, and changing it requires a reload.
 
 ### Changed

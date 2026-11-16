@@ -47,7 +47,7 @@
       {
         "flag": "feature-restoration.classic-search",
         "title": "Restore active searching",
-        "description": "This setting restores Angband 4.0.5 active searching and search mode. The s key searches nearby grids; S or # toggles search mode. Existing key bindings stay in place.",
+        "description": "The s key searches the grids around you with Angband 4.0.5 chances, and S or # turns search mode on or off. Keys already bound to something else keep their bindings.",
         "default": false,
         "requiresReload": true
       },

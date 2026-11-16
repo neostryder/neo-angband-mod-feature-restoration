@@ -462,7 +462,7 @@ This switch puts a trap on every vault trap marker. Angband 4.0.5's build_vault 
 
 ### Restore active searching
 
-This switch adds Angband 4.0.5's active search: s rolls your searching skill separately for each of the nine nearby grids to find hidden traps, secret doors, and chest traps. Blindness or darkness divides the chance by ten, and confusion or hallucination divides it by ten again, rounding down. A search spends a turn only when the adjusted chance is above zero, even when nothing is found (search and do_cmd_search in 4.0.5 cmd-cave.c). S or # toggles search mode without spending a turn; the mode searches on movement and hold, reduces speed by ten, and doubles regeneration under the current regeneration rules. Existing key bindings stay in place. The switch defaults to off and requires a reload. With it off, searching follows the current game's rules.
+With this setting on, the s key performs Angband 4.0.5's active search, rolling your searching skill separately for your own grid and each of the eight around it to find hidden traps, secret doors, and chest traps. Blindness or darkness divides the chance by ten, and confusion or hallucination divides it by ten again, rounding down. A search spends a turn whenever the adjusted chance is above zero, even if it finds nothing, as in search and do_cmd_search in 4.0.5's cmd-cave.c. S or # toggles search mode without spending a turn, and in that mode you search each time you move or hold still, at 10 less speed and with double regeneration under the current regeneration rules. Keys already bound to something else keep their bindings. The setting is off by default and needs a reload, and with it off, searching follows the current game's rules.
 
 ### Restore general trap density
 
