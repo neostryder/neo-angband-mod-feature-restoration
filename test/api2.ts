@@ -44,12 +44,12 @@ function engineOf(game: FakeGame): Api2Engine | undefined {
 /** What `engineHooks` returns for these flags and this engine domain. */
 export function engineHooksFor(game: FakeGame): Record<string, ((...args: never[]) => unknown) | undefined> {
   const engine = engineOf(game) ?? ({ api: "1.0.0", core: undefined, state: undefined, registries: undefined } as unknown as Api2Engine);
-  return (plugin.engineHooks({ id: "feature-restoration", flags: game.flags, engine }) ?? {}) as Record<string, ((...args: never[]) => unknown) | undefined>;
+  return (plugin.engineHooks({ id: "feature-restoration", flags: game.flags, settings: {}, engine }) ?? {}) as Record<string, ((...args: never[]) => unknown) | undefined>;
 }
 
 /** The policy tables the mod declares for these flags. */
 export function policiesFor(flags: Readonly<Record<string, boolean>>): Api2Policies | undefined {
-  return plugin.policies({ id: "feature-restoration", flags });
+  return plugin.policies({ id: "feature-restoration", flags, settings: {} });
 }
 
 /** Run the mod's `start` against a game built from the pieces given, and wait for it. */
