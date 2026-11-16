@@ -490,7 +490,7 @@ In 3.0.9 a cursed item did its harm through its own negative bonuses, and the cu
 
 An item is sticky because of its curses, so removing its last sticky curse frees the item. An item that is sticky in its own right, without a curse, stays sticky after you uncurse it. Sticky curses and classic uncursing are separate switches, and you need both on to get the old rules for wearing and removing cursed equipment.
 
-Cursed light sources still give light. In 4.0.5, a worn item with the light curse gave no light at all (calc_torch and the LIGHT_CURSE flag in 4.0.5). Mod API 2.2.0 can only take light away from every cursed or sticky item, and that would also darken items with unrelated modern curses. The [API 2 gap](docs/API2-MIGRATION.md#crf-9-cursed-light-suppression) records the missing way to pick out only light-cursed items.
+Cursed light sources still give light. In 4.0.5, a worn item with the LIGHT_CURSE flag gave no light at all (calc_torch). Mod API 2.4.0 can select marked object kinds and active curses, but it cannot select the historical artifact and ego records. The [API 2 gap](docs/API2-MIGRATION.md#crf-9-cursed-light-suppression) lists every 4.0.5 record and the missing artifact and ego support.
 
 ### Restore classic uncursing
 

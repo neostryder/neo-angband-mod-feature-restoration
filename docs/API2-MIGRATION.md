@@ -25,11 +25,38 @@ The default-off feature-restoration.classic-search rule declares the classicSear
 
 ### CRF-9: cursed light suppression
 
-Angband 4.0.5's calc_torch in src/player-calcs.c tests of_has(obj->flags, OF_LIGHT_CURSE) before adding each worn object's light, and it does not test for other curses or for stickiness. Core d27ed50f9's cursedLightGivesNone in packages/core/src/player/calcs.ts accepts OF.STICKY or any curse with power above zero. The cursedLightRadius policy is a boolean, so it cannot select the historical flag or tell a restored curse from a later one. Neither sticky-curses setting turns this policy on.
+Angband 4.0.5's calc_torch in src/player-calcs.c tests of_has(obj->flags, OF_LIGHT_CURSE) before adding each worn object's light, and it does not test for other curses or for stickiness. Core 3eafc1360's cursedLightRadius accepts { marker: "LIGHT_CURSE" }, which selects only an object kind with light-curse: true or an active curse whose record has that marker. The selector ignores sticky-only items and unrelated active curses. Core's cursedLightGivesNone reads obj.kind.lightCurse and active curse records, but neither artifact nor ego records can supply the marker. Neither sticky-curses setting turns this policy on.
+
+The 4.0.5 tag's lib/gamedata/object.txt has no LIGHT_CURSE records. Its artifact.txt has ten, and ego_item.txt has fourteen. The complete mapping to Core content follows; the curse counterparts are the ones sticky-curses already overrides. No marker is applied while artifact and ego support remains missing. Air swing, used by the restored (Shattered) ego, has no 4.0.5 LIGHT_CURSE counterpart.
+
+| 4.0.5 file and record ID | Core record | Selector support |
+| --- | --- | --- |
+| artifact.txt 13 | artifact core:the-one-ring | Missing artifact marker |
+| artifact.txt 34 | artifact core:of-morgoth | Missing artifact marker; LIGHT[1] |
+| artifact.txt 35 | artifact core:of-ber-thiel | Missing artifact marker |
+| artifact.txt 41 | artifact core:of-gorlim | Missing artifact marker |
+| artifact.txt 58 | artifact core:camlost | Missing artifact marker |
+| artifact.txt 63 | artifact core:of-wormtongue | Missing artifact marker |
+| artifact.txt 71 | artifact core:calris | Missing artifact marker; marking air swing would also select unrelated weapons |
+| artifact.txt 78 | artifact core:mormegil | Missing artifact marker |
+| artifact.txt 92 | artifact core:of-melkor | Missing artifact marker |
+| artifact.txt 123 | artifact core:of-gothmog | Missing artifact marker; LIGHT[1] |
+| ego_item.txt 10, 23, 45 | curse core:vulnerability | Supported curse marker |
+| ego_item.txt 35 | curse core:teleportation | Supported curse marker |
+| ego_item.txt 38 | curse core:dullness | Supported curse marker |
+| ego_item.txt 39 | curse core:sickliness | Supported curse marker |
+| ego_item.txt 44 | curse core:enveloping | Supported curse marker |
+| ego_item.txt 46 | curse core:irritation | Supported curse marker |
+| ego_item.txt 54 | curse core:weakness | Supported curse marker |
+| ego_item.txt 55 | curse core:clumsiness | Supported curse marker |
+| ego_item.txt 62 | curse core:slowness | Supported curse marker |
+| ego_item.txt 63 | curse core:annoyance | Supported curse marker |
+| ego_item.txt 102 | ego_item core:of-morgul | Missing ego marker |
+| ego_item.txt 111 | ego_item core:of-the-nazg-l | Missing ego marker |
 
 | ID | What fails | Smallest addition | Priority | Status |
 | --- | --- | --- | --- | --- |
-| CRF-9 | Restoring 4.0.5 light suppression through cursedLightRadius also suppresses light for unrelated active 4.2 curses and sticky-only items. Evidence: 4.0.5 calc_torch tests the object's OF_LIGHT_CURSE; d27ed50f9 cursedLightGivesNone tests OF.STICKY or any positive curse power. | Add a LIGHT_CURSE-equivalent marker to object and curse records, plus a cursedLightRadius selector that tests that marker while Core retains the item truth. | degrade | Open against d27ed50f9; the boolean policy remains unused. |
+| CRF-9 | The LIGHT_CURSE selector cannot represent all historical records. Evidence: 4.0.5 artifact.txt 34 and 123 give Morgoth's crown and Gothmog's whip LIGHT_CURSE and LIGHT[1]; Core 3eafc1360 bindArtifacts and bindEgos do not bind light-curse, and cursedLightGivesNone checks only the kind and active curses. Marking a shared base kind would also suppress unrelated items. | Extend light-curse binding and selector evaluation to artifact and ego records while Core retains item truth, including the marker's lifetime when a curse is removed. | degrade | Open against 3eafc1360; object and curse selection is available, but CRF-9 remains unwired pending artifact and ego support. |
 
 The game resolves a mod's projection name for a breath, a monster casts a spell a mod added, a key bound to a direction command runs inside the turn when the command is registered with `turn: true`, and the load-time check leaves out findings the base game's own records already raise.
 
