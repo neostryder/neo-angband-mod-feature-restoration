@@ -79,7 +79,7 @@
         "id": "cursed-light",
         "flag": "feature-restoration.cursed-light",
         "title": "Restore cursed light suppression",
-        "description": "Worn items with Angband 4.0.5 LIGHT_CURSE counterparts give no light. Artifact and ego markers remain after curse removal. Other curses and sticky items keep their normal light.",
+        "description": "Worn items with the Angband 4.0.5 light curse give no light, and artifacts and egos stay dark after curse removal. Other curses and sticky items still give light.",
         "default": false,
         "requiresReload": true
       },

@@ -32,7 +32,7 @@ switch has no flag of its own, the game knows it by its section id instead.
 | Restore the bronze dragons | `feature-restoration.bronze-dragons` | off | Bronze dragons breathed confusion. |
 | Restore vault trap density | `feature-restoration.trap-density` | off | Puts a trap on every vault trap marker instead of one in four. |
 | Restore general trap density | `feature-restoration.general-trap-density` | off | Uses the Angband 4.0.5 general trap count on classic dungeon levels, with traps in both rooms and corridors. |
-| Restore cursed light suppression | `feature-restoration.cursed-light` | off | Worn items with historical LIGHT_CURSE counterparts give no light. |
+| Restore cursed light suppression | `feature-restoration.cursed-light` | off | Worn items with the Angband 4.0.5 light curse give no light. |
 | Restore sticky curses | `feature-restoration.sticky-curses` | off | Angband 4.0 made a cursed item impossible to take off, and nothing else could be wielded into its slot, until the curse itself was lifted. |
 | Make every curse sticky | `feature-restoration.sticky-curses-all` | off | Angband 4.0 kept a cursed item on until its curse was lifted, but 4.0 had only a handful of curses. This pins every 4.2 curse that way, siren, stone, steelskin and the summoning curses included. Remove Curse can lift a curse of power 40 or less and *Remove Curse* one of up to 99, while a power of 100 never comes off. It works on its own or alongside Restore sticky curses. |
 | Restore classic uncursing | `feature-restoration.classic-uncurse` | off | Angband 4.0's Remove Curse cleared every worn item whose curses were all light, at once, and never damaged the item; its stronger form, *Remove Curse*, also lifted heavy curses, and a permanent curse never came off. |

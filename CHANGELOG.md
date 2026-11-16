@@ -26,13 +26,13 @@ were not retagged.
 
 ### Added
 
-- [Visible] [Content] Added Restore cursed light suppression, off by default. Historical LIGHT_CURSE counterparts give no light while worn; artifact and ego markers remain after curse removal.
+- [Visible] [Content] **A new optional restoration, off by default, makes cursed lights from Angband 4.0.5 go dark again.** With "Restore cursed light suppression" on, worn items that carried the light curse in 4.0.5 give no light: the ten 4.0.5 artifacts with that curse, the egos of Morgul and of the Nazgul, and twelve curse counterparts. An item keeps the marking after you remove its curse, and other cursed lights and sticky curses still give their normal light.
 - [Visible] [Content] Added the Restore active searching setting, which brings back Angband 4.0.5 active searches on s and search mode on S or #. It is off by default, and keys already in use keep their bindings.
 - [Visible] [Balance] Added the Restore general trap density setting, off by default. It gives newly generated classic dungeon levels Angband 4.0.5's general trap count, in rooms as well as corridors, and changing it requires a reload.
 
 ### Changed
 
-- [Visible] [Compatibility] Cutting Room Floor now requires mod API 2.6.0 or later.
+- [Visible] [Compatibility] **Cutting Room Floor now needs a newer Neo Angband build.** Update Neo Angband to the build that provides mod API 2.6.0 before you run this version of the mod.
 
 ## 1.4.0-beta.2 - 2026-10-30
 
