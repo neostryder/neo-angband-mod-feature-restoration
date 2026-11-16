@@ -31,6 +31,7 @@
       "registry:command",
       "registry:glyph",
       "registry:room",
+      "registry:ui-entry",
       "keymap:write",
       "engine:access"
     ],
@@ -74,6 +75,14 @@
       }
     ],
     "sections": [
+      {
+        "id": "cursed-light",
+        "flag": "feature-restoration.cursed-light",
+        "title": "Restore cursed light suppression",
+        "description": "Worn items with Angband 4.0.5 LIGHT_CURSE counterparts give no light. Artifact and ego markers remain after curse removal. Other curses and sticky items keep their normal light.",
+        "default": false,
+        "requiresReload": true
+      },
       {
         "id": "classic-arcane-books",
         "title": "Classic arcane books",

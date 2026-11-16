@@ -26,12 +26,13 @@ were not retagged.
 
 ### Added
 
+- [Visible] [Content] Added Restore cursed light suppression, off by default. Historical LIGHT_CURSE counterparts give no light while worn; artifact and ego markers remain after curse removal.
 - [Visible] [Content] Added the Restore active searching setting, which brings back Angband 4.0.5 active searches on s and search mode on S or #. It is off by default, and keys already in use keep their bindings.
 - [Visible] [Balance] Added the Restore general trap density setting, off by default. It gives newly generated classic dungeon levels Angband 4.0.5's general trap count, in rooms as well as corridors, and changing it requires a reload.
 
 ### Changed
 
-- [Visible] [Compatibility] Cutting Room Floor now requires mod API 2.3.0 or later.
+- [Visible] [Compatibility] Cutting Room Floor now requires mod API 2.6.0 or later.
 
 ## 1.4.0-beta.2 - 2026-10-30
 

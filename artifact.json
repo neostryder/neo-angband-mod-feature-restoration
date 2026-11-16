@@ -1,5 +1,39 @@
 {
   "sections": {
+    "cursed-light": {
+      "fieldPatches": {
+        "core:the-one-ring": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:of-morgoth": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:of-ber-thiel": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:of-gorlim": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:camlost": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:of-wormtongue": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:calris": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:mormegil": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:of-melkor": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:of-gothmog": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ]
+      }
+    },
     "amandil": {
       "records": [
         {

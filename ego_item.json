@@ -1,5 +1,15 @@
 {
   "sections": {
+    "cursed-light": {
+      "fieldPatches": {
+        "core:of-morgul": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:of-the-nazg-l": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ]
+      }
+    },
     "fury": {
       "fieldPatches": {
         "core:of-fury": [

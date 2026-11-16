@@ -276,6 +276,8 @@ export default {
 
   policies({ flags }): Api2Policies {
     return {
+      // Angband 4.0.5 calc_torch (player-calcs.c) tests LIGHT_CURSE alone.
+      ...(flags["feature-restoration.cursed-light"] === true ? { cursedLightRadius: { marker: "LIGHT_CURSE" } as const } : {}),
       ...(flags["feature-restoration.classic-search"] === true ? { classicSearch: true } : {}),
       ...(flags["feature-restoration.discounts"] === true ? { storeDiscountRoll: DISCOUNT_ROLL } : {}),
       // Angband 4.0.5 classic_gen (gen-cave.c) uses randint1(k) and SET_BOTH through alloc_objects.

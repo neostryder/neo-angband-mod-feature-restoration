@@ -40,6 +40,7 @@ See the [settings reference](SETTINGS.md) for every flag, its default, and when 
 | **Restore the bronze dragons** (`bronze-dragons`) | off | Bronze dragons breathed confusion. |
 | **Restore vault trap density** (`feature-restoration.trap-density`) | off | Puts a trap on every vault trap marker instead of one in four. |
 | **Restore general trap density** (`feature-restoration.general-trap-density`) | off | Uses the Angband 4.0.5 general trap count on classic dungeon levels, with traps in both rooms and corridors. |
+| **Restore cursed light suppression** (`cursed-light`) | off | Worn items with historical LIGHT_CURSE counterparts give no light. |
 | **Restore sticky curses** (`sticky-curses`) | off | Matching curses keep worn equipment on until they are removed. Also brings back six cursed items, the Curse Weapon and Curse Armour scrolls and the egos they make. |
 | **Make every curse sticky** (`sticky-curses-all`) | off | Every curse keeps worn equipment on until it is removed, including curses 4.0 never had. Harsher than any release of Angband. |
 | **Restore classic uncursing** (`classic-uncurse`) | off | Remove Curse clears eligible worn curses together, and enchanting can break a curse. |
@@ -490,7 +491,7 @@ In 3.0.9 a cursed item did its harm through its own negative bonuses, and the cu
 
 An item is sticky because of its curses, so removing its last sticky curse frees the item. An item that is sticky in its own right, without a curse, stays sticky after you uncurse it. Sticky curses and classic uncursing are separate switches, and you need both on to get the old rules for wearing and removing cursed equipment.
 
-Cursed light sources still give light. In Angband 4.0.5, a worn item with the light curse gave no light at all, while other curses and sticky items left the light as it was. Ten artifacts carried that curse, among them Morgoth's crown and Gothmog's whip, along with fourteen egos, but mod API 2.4.0 can add it only to object kinds and curses, never to artifacts or egos, so the mod restores none of it yet. The [API 2 gap](docs/API2-MIGRATION.md#crf-9-cursed-light-suppression) lists every 4.0.5 record, including the two egos that have no matching curse.
+Restore cursed light suppression is off by default and separate from both sticky-curse switches. It suppresses light from the ten artifacts and fourteen ego counterparts marked LIGHT_CURSE in Angband 4.0.5, as calc_torch in src/player-calcs.c did. Artifact and ego markers remain after curse removal; a curse counterpart selects an item only while that curse is active. Other curses and sticky-only items keep their normal light. The [24-record mapping](docs/API2-MIGRATION.md#crf-9-cursed-light-suppression) lists every counterpart.
 
 ### Restore classic uncursing
 

@@ -1,5 +1,39 @@
 {
   "sections": {
+    "cursed-light": {
+      "fieldPatches": {
+        "core:vulnerability": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:teleportation": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:dullness": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:sickliness": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:enveloping": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:irritation": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:weakness": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:clumsiness": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:slowness": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ],
+        "core:annoyance": [
+          { "op": "set", "path": "light-curse", "value": true }
+        ]
+      }
+    },
     "sticky-curses": {
       "fieldPatches": {
         "core:vulnerability": [
